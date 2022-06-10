@@ -2,9 +2,9 @@ import sys
 sys.path.append("..")
 
 import unittest
-from src.utillib import UtilLib
+from src.main import Main
 
-class SqlLibTest(unittest.TestCase):
+class MainTest(unittest.TestCase):
 
     #run before tests
     def setUp(self):

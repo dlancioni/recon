@@ -2,9 +2,9 @@ import sys
 sys.path.append("..")
 
 import unittest
-from src.main import MainLib
+from src.utillib import UtilLib
 
-class MainTest(unittest.TestCase):
+class UtilLibTest(unittest.TestCase):
 
     #run before tests
     def setUp(self):
