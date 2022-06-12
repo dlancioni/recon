@@ -1,3 +1,4 @@
 class UtilLib:
-    def merge_list():
+    
+    def __init__(self):
         pass
