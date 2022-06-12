@@ -13,7 +13,7 @@ class SqlLib:
         return key
     
     # field list to generate select, group by, order by
-    def get_field_list(self, fields=[], types=None, funcs=None, values=None):
+    def get_field_list(self, fields=[], types=None, funcs=None):
         i = 0
         sql = ""
         if fields == []: return ""
@@ -26,3 +26,21 @@ class SqlLib:
             i += 1
         sql = sql.strip()[:-1]
         return sql
+    
+    # value list to generate insert
+    def get_value_list(self, fields, types, values):
+        i = 0
+        sql = ""        
+        if fields==None or types==None or values==None:
+            return ""
+        size = len(fields) -1
+        quoted = ["text", "datetime"]
+        while i <= size:
+            name = fields[i]
+            type = types[i] if types != None else ""
+            value = str(values[i]).strip()
+            quote = "'" if type in quoted else ""
+            sql += f"{quote}{value}{quote}, "
+            i += 1
+        sql = sql.strip()[:-1]
+        return sql    
