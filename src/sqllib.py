@@ -3,7 +3,7 @@ class SqlLib:
     # field type used to create table
     def get_field_type(self, key=""):
         types = {
-            "integer": "Integer",
+            "integer": "integer",
             "decimal": "real",
             "text": "text",
             "datetime": "text",
@@ -44,4 +44,21 @@ class SqlLib:
             sql += f"{quote}{value}{quote}, "
             i += 1
         sql = sql.strip()[:-1]
-        return sql    
+        return sql
+    
+    # generate script to create table
+    def get_create_table_definition(self, tablename, fields, types):
+        i = 0
+        sql = ""
+        fieldlist = "";
+        if fields == None or types== None: return ""       
+        size = len(fields) -1
+        while i <= size:
+            name = str(fields[i]).strip()
+            type = str(types[i]).strip()
+            type = self.get_field_type(type)
+            fieldlist += f"{name} {type}, "
+            i += 1            
+        fieldlist = fieldlist[:-2]
+        sql = f"create table {tablename} ({fieldlist})"
+        return sql

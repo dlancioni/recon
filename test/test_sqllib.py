@@ -17,32 +17,44 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual("text", lib.get_field_type("datetime"))
 
     # field list to generate select, group by, order by
-    def test_get_field_type(self):
+    def get_field_list(self):
+        # no data
         self.assertEqual("", lib.get_field_list(""))
-        self.assertEqual("text, decimal", lib.get_field_list(["text","decimal"]))
-        self.assertEqual("text, sum(decimal) decimal", lib.get_field_list(["text","decimal"], ["text", "decimal"], ["", "sum"]))
+        # all
+        fields = ["integer", "decimal", "text", "datetime"]
+        self.assertEqual("integer, decimal, text, datetime", lib.get_field_list(fields))
+        # aggregate
+        fields = ["integer", "decimal", "text", "datetime"]
+        types  = ["integer", "decimal", "text", "datetime"]
+        aggregs  = ["", "sum", "", "max"]
+        self.assertEqual("integer, sum(decimal) decimal, text, max(datetime) datetime", lib.get_field_list(fields, types, aggregs))        
         
     # value list to generate insert
-    def test_get_value_list(self):
-        
+    def test_get_value_list(self):       
         # no data
-        self.assertEqual("", lib.get_value_list([], [], [], []))
-        
+        self.assertEqual("", lib.get_value_list([], [], [], []))        
         # regular
         fields = [ "integer", "decimal", "text", "datetime" ]
         types  = [ "integer", "decimal", "text", "datetime" ]
         masks  = [ "", "", "", "" ]        
         values = [ 1, "1.99", "text 1", "20221231" ]
         message = "1, 1.99, 'text 1', '20221231'"
-        self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
-        
+        self.assertEqual(message, lib.get_value_list(fields, types, values, masks))        
         # mask decimal (,)
         fields = [ "integer", "decimal", "text", "datetime" ]
-        types  = [ "integer", "decimal", "text", "datetime" ]        
+        types  = [ "integer", "decimal", "text", "datetime" ]
         values = [ 1, "1,99", "text 1", "20221231" ]
         masks  = [ "", ",", "", "" ]
         message = "1, 1.99, 'text 1', '20221231'"
         self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
+
+    # generate script to create table
+    def test_get_create_table_definition(self):        
+        fields = [ "integer", "decimal", "text", "datetime" ]
+        types  = [ "integer", "decimal", "text", "datetime" ]        
+        message = "create table tb_1 (integer integer, decimal real, text text, datetime text)"
+        self.assertEqual(message, lib.get_create_table_definition("tb_1", fields, types))
+
 
     def tearDown(self):
         pass

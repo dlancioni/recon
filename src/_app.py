@@ -9,6 +9,6 @@ types  = [ "integer", "decimal", "text", "datetime" ]
 values = [ 1, "1.99", "text 1", "20221231" ]
 masks  = [ "", "", "", "" ]
 
-x = lib.get_value_list(fields, types, values, masks)
+x = lib.get_create_table_definition("tb1", fields, types)
 print(x)
 

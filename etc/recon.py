@@ -16,6 +16,7 @@ data =  {
                 "Key": ["account"],
                 "Field": ["account", "balance"],
                 "Type": ["text", "decimal"],
+                "Mask": ["", ""],
                 "Aggregation": ["", "sum"],
             }
         ]
@@ -31,6 +32,7 @@ data =  {
                 "Key": ["account"],
                 "Field": ["date", "account", "balance"],
                 "Type": ["datetime", "text", "decimal"],
+                "Mask": ["", ""],                
                 "Aggregation": ["", "", "sum"],
             }
         ]
