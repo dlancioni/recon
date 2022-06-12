@@ -25,17 +25,24 @@ class CoreLibTest(unittest.TestCase):
     # value list to generate insert
     def test_get_value_list(self):
         
-        message = ""
-        fields = []
-        types =  []
-        values = []
-        self.assertEqual(message, lib.get_value_list(fields, types, values))
+        # no data
+        self.assertEqual("", lib.get_value_list([], [], [], []))
         
+        # regular
+        fields = [ "integer", "decimal", "text", "datetime" ]
+        types  = [ "integer", "decimal", "text", "datetime" ]
+        masks  = [ "", "", "", "" ]        
+        values = [ 1, "1.99", "text 1", "20221231" ]
         message = "1, 1.99, 'text 1', '20221231'"
-        fields = ["integer", "decimal", "text", "datetime"]
-        types =  ["integer", "decimal", "text", "datetime"]
-        values = [1, 1.99, "text 1", "20221231"]
-        self.assertEqual(message, lib.get_value_list(fields, types, values))
+        self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
+        
+        # mask decimal (,)
+        fields = [ "integer", "decimal", "text", "datetime" ]
+        types  = [ "integer", "decimal", "text", "datetime" ]        
+        values = [ 1, "1,99", "text 1", "20221231" ]
+        masks  = [ "", ",", "", "" ]
+        message = "1, 1.99, 'text 1', '20221231'"
+        self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
 
     def tearDown(self):
         pass

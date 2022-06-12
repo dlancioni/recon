@@ -28,18 +28,19 @@ class SqlLib:
         return sql
     
     # value list to generate insert
-    def get_value_list(self, fields, types, values):
+    def get_value_list(self, fields, types, values, masks):
         i = 0
         sql = ""        
-        if fields==None or types==None or values==None:
-            return ""
+        if fields == None or types== None or values == None: return ""
         size = len(fields) -1
-        quoted = ["text", "datetime"]
         while i <= size:
             name = fields[i]
             type = types[i] if types != None else ""
+            quote = "'" if type in ["text", "datetime"] else ""
             value = str(values[i]).strip()
-            quote = "'" if type in quoted else ""
+            mask = str(masks[i]).strip()
+            if mask == ",": 
+                value = value.replace(".", "").replace(",", ".")
             sql += f"{quote}{value}{quote}, "
             i += 1
         sql = sql.strip()[:-1]
