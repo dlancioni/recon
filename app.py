@@ -1,14 +1,22 @@
 import sys
 import os
 from src.sqllib import SqlLib
-lib = SqlLib()
+from src.corelib import CoreLib
+lib = CoreLib()
 os.system("cls")
 
-fields = [ "integer", "decimal", "text", "datetime" ]
-types  = [ "integer", "decimal", "text", "datetime" ]
-values = [ 1, "1.99", "text 1", "20221231" ]
-masks  = [ "", "", "", "" ]
+f1  = ["name", "age"]
+t1   = ["text", "integer"]
+f2  = ["name", "age", "salary"]
+t2   = ["text", "integer", "decimal"]
 
-x = lib.get_create_index_definition("tb", fields)
-print(x)
+
+f1  = ["name", "age"]
+t1   = ["text", "integer"]
+f2  = []
+t2   = []
+f,t = lib.get_table_structure(f1, t1, f2, t2)
+
+print(f)
+print(t)
 

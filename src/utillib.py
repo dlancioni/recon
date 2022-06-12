@@ -1,3 +1,3 @@
 class UtilLib:
-    def abc():
+    def merge_list():
         pass
