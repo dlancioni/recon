@@ -49,12 +49,23 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
 
     # generate script to create table
-    def test_get_create_table_definition(self):        
+    def test_get_create_table_definition(self):
+        # empty
+        self.assertEqual("", lib.get_create_table_definition("", "", ""))
+        # complete
         fields = [ "integer", "decimal", "text", "datetime" ]
-        types  = [ "integer", "decimal", "text", "datetime" ]        
-        message = "create table tb_1 (integer integer, decimal real, text text, datetime text)"
-        self.assertEqual(message, lib.get_create_table_definition("tb_1", fields, types))
+        types  = [ "integer", "decimal", "text", "datetime" ]
+        message = "create table tb (integer integer, decimal real, text text, datetime text)"
+        self.assertEqual(message, lib.get_create_table_definition("tb", fields, types))
 
+    # generate script to create index
+    def test_get_create_index_definition(self):
+        # empty
+        self.assertEqual("", lib.get_create_index_definition("", ""))
+        # complete
+        fields = [ "integer", "decimal", "text", "datetime" ]
+        message = "create index idx_tb on tb (integer, decimal, text, datetime)"
+        self.assertEqual(message, lib.get_create_index_definition("tb", fields))
 
     def tearDown(self):
         pass

@@ -51,14 +51,29 @@ class SqlLib:
         i = 0
         sql = ""
         fieldlist = "";
-        if fields == None or types== None: return ""       
+        if tablename == "" or fields == "" or types == "": return ""
         size = len(fields) -1
         while i <= size:
             name = str(fields[i]).strip()
             type = str(types[i]).strip()
             type = self.get_field_type(type)
             fieldlist += f"{name} {type}, "
-            i += 1            
+            i += 1
         fieldlist = fieldlist[:-2]
         sql = f"create table {tablename} ({fieldlist})"
         return sql
+    
+    # generate script to create index
+    def get_create_index_definition(self, tablename, fields):
+        i = 0
+        sql = ""
+        fieldlist = "";
+        if tablename == "" or fields == "": return ""
+        size = len(fields) -1
+        while i <= size:
+            name = str(fields[i]).strip()
+            fieldlist += f"{name}, "
+            i += 1
+        fieldlist = fieldlist[:-2]
+        sql = f"create index idx_{tablename} on {tablename} ({fieldlist})"
+        return sql    
