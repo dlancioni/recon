@@ -11,20 +11,20 @@ class CoreLibTest(unittest.TestCase):
     
     # merge table structure
     def test_get_table_structure(self):
+        # invalid fields
+        f,t = lib.get_table_structure(["name"], ["text", "integer"], ["name", "age", "salary"], ["text", "integer", "decimal"])
+        self.assertEqual([], f)
+        self.assertEqual([], t)
+        # invalid typeps
+        f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary"], [])
+        self.assertEqual([], f)
+        self.assertEqual([], t)
         # one side only
-        f1  = []
-        t1   = []
-        f2  = ["name", "age", "salary"]
-        t2   = ["text", "integer", "decimal"]
-        f,t = lib.get_table_structure(f1, t1, f2, t2)
+        f,t = lib.get_table_structure([], [], ["name", "age", "salary"], ["text", "integer", "decimal"])
         self.assertEqual(3, len(f))
         self.assertEqual(3, len(t))
         # merge and remove duplicates
-        f1  = ["name", "age"]
-        t1   = ["text", "integer"]
-        f2  = ["name", "age", "salary"]
-        t2   = ["text", "integer", "decimal"]
-        f,t = lib.get_table_structure(f1, t1, f2, t2)
+        f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary"], ["text", "integer", "decimal"])
         self.assertEqual(3, len(f))
         self.assertEqual(3, len(t))
 
