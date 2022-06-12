@@ -10,4 +10,3 @@ class CoreLib:
         data = json.loads(data)
         print(data)
         
-print(CoreLib().main())
