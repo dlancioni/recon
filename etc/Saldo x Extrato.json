@@ -7,12 +7,12 @@
         "Datasource":
         [
             {
-                "Name": "c:\\temp\\data.txt",
+                "Name": "c:\\temp\\Saldo.txt",
                 "Separator": ";",
                 "Table": "tb_balance",
-                "Key": ["account"],
-                "Field": ["account", "balance"],
-                "Type": ["text", "decimal"],
+                "Key": ["Agencia", "Conta"],
+                "Field": ["Agencia", "Conta", "Saldo"],
+                "Type": ["integer", "text", "decimal"],
                 "Mask": ["", ""],
                 "Aggregation": ["", "sum"]
             }
@@ -24,11 +24,11 @@
         "Datasource":
         [
             {
-                "Name": "Sybase 1",
-                "Table": "tb_statement",
-                "Key": ["account"],
-                "Field": ["date", "account", "balance"],
-                "Type": ["datetime", "text", "decimal"],
+                "Name": "c:\\temp\\Extrato.txt",
+                "Table": "tb_extrato",
+                "Key": ["Agencia", "Conta"],
+                "Field": ["Nome", "Data", "Agencia", "Conta", "Saldo"],
+                "Type": ["text", "datetime", "integer", "text", "decimal"],
                 "Mask": ["", ""],                
                 "Aggregation": ["", "", "sum"]
             }

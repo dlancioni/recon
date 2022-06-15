@@ -15,11 +15,11 @@ sqllib = SqlLib()
 etllib = EtlLib()
 corelib = CoreLib()
 utillib = UtilLib()
-os.system("cls")
 
-path = fslib.get_dir_etc("setup.json")
+path = fslib.get_dir_etc("Saldo x Extrato.json")
 setup = fslib.get_json(path)
-
 ds = setup["Side 1"]["Datasource"][0]
 cn = dblib.get_connection()
+
+os.system("cls")
 etllib.import_file(cn, ds)
