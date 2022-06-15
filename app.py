@@ -1,13 +1,25 @@
-import sys
 import os
+import sys
+import json
+import pathlib
+from src.dblib import Db
+from src.fslib import FsLib
+from src.etllib import EtlLib
 from src.sqllib import SqlLib
+from src.utillib import UtilLib
 from src.corelib import CoreLib
-lib = CoreLib()
-lib = SqlLib()
+
+dblib = Db()
+fslib = FsLib()
+sqllib = SqlLib()
+etllib = EtlLib()
+corelib = CoreLib()
+utillib = UtilLib()
 os.system("cls")
 
-fields = [ "f1", "f2", "f3", "f4" ]
-types  = [ "integer", "decimal", "text", "datetime" ]
-message = "create table tb (id integer, id_parent integer, recon text, rule text, f1 integer, f2 real, f3 text, f4 text)"
-x = lib.get_create_table_definition("tb", fields, types)
-print(x == message)
+path = fslib.get_dir_etc("setup.json")
+setup = fslib.get_json(path)
+
+ds = setup["Side 1"]["Datasource"][0]
+cn = dblib.get_connection()
+etllib.import_file(cn, ds)
