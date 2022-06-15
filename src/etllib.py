@@ -1,10 +1,9 @@
+import logging
+
 class EtlLib:
 
-    def __init__(self):
-        pass
+    def __init__(self):       
+        self.logger = logging.getLogger(__name__)
     
     def import_file(self):
-        with open("c:\\temp\\dictionary.txt") as f:
-            data = f.read()
-        data = json.loads(data)
-        print(data)
+        self.logger.error("Hello from EtlLib")
