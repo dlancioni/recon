@@ -51,6 +51,14 @@ class CoreLibTest(unittest.TestCase):
         fields = [ "name", "date" ]
         message = "create index idx_tb on tb (name, date)"
         self.assertEqual(message, lib.get_create_index_definition("tb", fields))
+        
+    def test_get_sql_insert(self):
+        self.assertEqual("", lib.get_sql_insert("", ""))
+        tablename = "tb"
+        fields = "id, name"
+        values = "1, 'nome 1'"
+        message = "insert into tb (id, name) values (1, 'nome 1')"
+        self.assertEqual(message, lib.get_sql_insert(tablename, fields, values))
 
     def tearDown(self):
         pass

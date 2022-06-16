@@ -1,5 +1,5 @@
 import logging
-from sqllib import SqlLib
+from src.sqllib import SqlLib
 
 class EtlLib:
 
@@ -9,20 +9,28 @@ class EtlLib:
 
     def import_file(self, cn, ds):
         self.logger.info(f"{self.method}: Start reading information")
-        
         sqlib = SqlLib()
+        fields = []
+        types = [] 
+        values = []
+        tablename = ds["Table"]
         path = ds["Name"]
         separator = ds["Separator"]
-        fields = ds["Field"]
-        types = ds["Type"]
+        field_list = ds["Field"]
+        type_list = ds["Type"]
+        masks = ds["Mask"]
         first = True
         with open(path, "r") as file:
             for line in file.readlines():
                 if not first:
-                    values = line.split(separator)
-                    if len(fields) == len(values):
-                        for k, v in enumerate(fields):
-                            print(fields[k])
-                            print(types[k])
-                            print(values[k])
+                    value_list = line.split(separator)
+                    if len(field_list) == len(value_list):
+                        for k, v in enumerate(field_list):
+                            fields.append(field_list[k])
+                            types.append(type_list[k])
+                            values.append(value_list[k])
+                        fl = sqlib.get_field_list(fields)
+                        vl = sqlib.get_value_list(fields, types, values, masks)
+                        sql = sqlib.get_sql_insert(tablename, fl, vl)
+                        print(sql)
                 first = False

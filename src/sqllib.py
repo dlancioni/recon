@@ -26,6 +26,7 @@ class SqlLib:
             sql += f"{func}({name}) {name}, " if func else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
+        sql = sql.lower()
         return sql
     
     def get_value_list(self, fields, types, values, masks):
@@ -65,7 +66,7 @@ class SqlLib:
     def get_create_index_definition(self, tablename, fields):
         i = 0
         sql = ""
-        fieldlist = "";
+        fieldlist = ""
         if tablename == "" or fields == "": return ""
         size = len(fields) -1
         while i <= size:
@@ -74,4 +75,10 @@ class SqlLib:
             i += 1
         fieldlist = fieldlist[:-2]
         sql = f"create index idx_{tablename} on {tablename} ({fieldlist})"
+        return sql
+    
+    def get_sql_insert(self, tablename, fields, values):
+        sql = ""
+        if tablename == "" or fields == "" or values == "": return ""
+        sql = f"insert into {tablename} ({fields}) values ({values})"
         return sql
