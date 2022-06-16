@@ -53,7 +53,7 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(message, lib.get_create_index_definition("tb", fields))
         
     def test_get_sql_insert(self):
-        self.assertEqual("", lib.get_sql_insert("", ""))
+        self.assertEqual("", lib.get_sql_insert("", "", ""))
         tablename = "tb"
         fields = "id, name"
         values = "1, 'nome 1'"

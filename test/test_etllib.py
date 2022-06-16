@@ -14,12 +14,7 @@ class EtlLibTest(unittest.TestCase):
     def setUp(self):
         pass
 
-    def test_import_file(self, cn, ds):
-        db = Db()
-        cn = db.get_connection()
-        util = UtilLib()
-        path = os.path.abspath(util.get_dir_parent(".") + "\\tmp\\setup.json")
-        
+    def test_import_file(self):       
         self.assertEqual(1, 1)
 
     def tearDown(self):
