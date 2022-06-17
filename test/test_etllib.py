@@ -1,13 +1,13 @@
+import os
 import sys
-sys.path.append("..")
-
+import pathlib
 import unittest
+sys.path.append("..")
+sys.path.insert(1, pathlib.Path().resolve()._str + "\\recon\\")
+
 from src.etllib import EtlLib
 from src.utillib import UtilLib
 from src.dblib import Db
-
-import os
-import json
 
 class EtlLibTest(unittest.TestCase):
 
