@@ -1,3 +1,4 @@
+import os
 import sys
 import logging
 from src.etllib import EtlLib
@@ -11,8 +12,13 @@ logging.basicConfig(filename = "c:\\temp\\log.txt",
 logger = logging.getLogger()
 logger.info("Hello from main")
 
+database_path = os.path.join('..', 'path', 'to', 'db')
 
-
+print(os.path.join('.'))
+print(os.path.join('..', 'path', 'to', 'db'))
+print(os.path.join( 'to', 'db'))
+print(os.path.join('db'))
+os.path.abspath(".")
 
 
 etl = EtlLib()

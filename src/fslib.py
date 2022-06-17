@@ -8,9 +8,9 @@ class FsLib:
         return os.path.dirname(path)
 
     def get_dir_etc(self, file=""):
-        path = pathlib.Path().resolve()._str + "\\recon\\etc\\"
-        if (file):
-            path += file
+        path = os.path.abspath(".")        
+        path = (path + "\\etc\\") if path.find("\\recon") >= 0 else (path + "\\recon\\etc\\")
+        if (file): path += file
         return path
 
     def get_json(self, path):

@@ -1,9 +1,7 @@
 import os
 import sys
-import pathlib
 import unittest
-sys.path.append("..")
-sys.path.insert(1, pathlib.Path().resolve()._str + "\\recon\\")
+sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 
 from src.dblib import Db
 from src.fslib import FsLib
@@ -29,8 +27,12 @@ class EtlLibTest(unittest.TestCase):
         setup = fslib.get_json(path)
         ds = setup["Side 1"]["Datasource"][0]
         cn = dblib.get_connection()
-        #etllib.import_file(cn, ds)
-        self.assertEqual("", "")
+        cursor = cn.cursor()
+        cursor.execute("create table if not exists tb_saldo (agencia integer, conta text, saldo real )")
+        etllib.import_file(cn, ds)
+        cursor.execute("select * from tb_saldo")
+        rows = cursor.fetchall()        
+        self.assertEqual(3, len(rows))
 
     def tearDown(self):
         pass

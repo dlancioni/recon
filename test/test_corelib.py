@@ -1,9 +1,7 @@
 import os
 import sys
-import pathlib
 import unittest
-sys.path.append("..")
-sys.path.insert(1, pathlib.Path().resolve()._str + "\\recon\\")
+sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 
 from src.corelib import CoreLib
 lib = CoreLib()

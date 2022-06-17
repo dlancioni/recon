@@ -9,7 +9,7 @@
             {
                 "Name": "c:\\temp\\Saldo.txt",
                 "Separator": ";",
-                "Table": "tb_balance",
+                "Table": "tb_saldo",
                 "Key": ["Agencia", "Conta"],
                 "Field": ["Agencia", "Conta", "Saldo"],
                 "Type": ["integer", "text", "decimal"],
