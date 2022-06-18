@@ -1,9 +1,9 @@
 import os
 import sys
 import logging
-from src.etllib import EtlLib
+from src.corelib import CoreLib
 
-Log_Format = "%(levelname)s %(asctime)s - %(message)s"
+Log_Format = " %(asctime)s - %(levelname)s %(message)s"
 logging.basicConfig(filename = "c:\\temp\\log.txt",
                     filemode = "w",
                     format = Log_Format,
@@ -12,17 +12,9 @@ logging.basicConfig(filename = "c:\\temp\\log.txt",
 logger = logging.getLogger()
 logger.info("Hello from main")
 
-database_path = os.path.join('..', 'path', 'to', 'db')
-
-print(os.path.join('.'))
-print(os.path.join('..', 'path', 'to', 'db'))
-print(os.path.join( 'to', 'db'))
-print(os.path.join('db'))
-os.path.abspath(".")
-
-
-etl = EtlLib()
-etl.import_file()
-
+print("Start processing the recons")
+corelib = CoreLib()
+corelib.process()
+print("End processing the recons")
 
 

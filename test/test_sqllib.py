@@ -60,6 +60,20 @@ class CoreLibTest(unittest.TestCase):
         values = "1, 'nome 1'"
         message = "insert into tb (id, name) values (1, 'nome 1')"
         self.assertEqual(message, lib.get_sql_insert(tablename, fields, values))
+        
+    def test_get_table_structure(self):
+        f,t = lib.get_table_structure(["name"], ["text", "integer"], ["name", "age", "salary"], ["text", "integer", "decimal"])
+        self.assertEqual([], f)
+        self.assertEqual([], t)
+        f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary"], [])
+        self.assertEqual([], f)
+        self.assertEqual([], t)
+        f,t = lib.get_table_structure([], [], ["name", "age", "salary"], ["text", "integer", "decimal"])
+        self.assertEqual(3, len(f))
+        self.assertEqual(3, len(t))
+        f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary"], ["text", "integer", "decimal"])
+        self.assertEqual(3, len(f))
+        self.assertEqual(3, len(t))        
 
     def tearDown(self):
         pass

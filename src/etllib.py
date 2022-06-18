@@ -4,10 +4,10 @@ from src.sqllib import SqlLib
 class EtlLib:
 
     def __init__(self):
-        self.method = "EtlLib.import_file()"
         self.logger = logging.getLogger(__name__)
 
     def import_file(self, cn, ds):
+        self.method = "EtlLib.import_file()"        
         self.logger.info(f"{self.method}: Start method")
         sqlib = SqlLib()
         tablename = ds["Table"]
@@ -24,8 +24,8 @@ class EtlLib:
                 for line in file.readlines():
                     if not first:
                         value_list = line.split(separator)                        
-                        if len(field_list) == len(value_list):
-                            fields, types, values = [], [], []                            
+                        if len(field_list) == len(value_list) and len(field_list) == len(masks):
+                            fields, types, values = [], [], []
                             for k, v in enumerate(field_list):
                                 fields.append(field_list[k])
                                 types.append(type_list[k])
@@ -34,6 +34,9 @@ class EtlLib:
                             vl = sqlib.get_value_list(fields, types, values, masks)
                             sql = sqlib.get_sql_insert(tablename, fl, vl)
                             cursor.execute(sql)
+                        else:
+                            self.logger.error(f"{self.method}:Fields, Types and Masks are not the same size {path}")
+                            return False
                     first = False
         except:
             cursor.execute("rollback")
