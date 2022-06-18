@@ -7,7 +7,7 @@
         "Datasource":
         [
             {
-                "Name": "c:\\temp\\Saldo.txt",
+                "Name": "c:\\temp\\recon\\saldo.txt",
                 "Separator": ";",
                 "Table": "tb_saldo",
                 "Key": ["Agencia", "Conta"],
@@ -24,7 +24,7 @@
         "Datasource":
         [
             {
-                "Name": "c:\\temp\\Extrato.txt",
+                "Name": "c:\\temp\\recon\\extrato.txt",
                 "Table": "tb_extrato",
                 "Key": ["Agencia", "Conta"],
                 "Field": ["Nome", "Data", "Agencia", "Conta", "Saldo"],

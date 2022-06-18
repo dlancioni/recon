@@ -17,4 +17,3 @@ class FsLib:
         with open(path) as f:
             data = json.load(f)
             return data
-        

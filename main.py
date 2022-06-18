@@ -2,9 +2,14 @@ import os
 import sys
 import logging
 from src.corelib import CoreLib
+from src.fslib import FsLib
+
+fslib = FsLib()
+
+setup = fslib.get_json(os.path.dirname(os.path.realpath(__file__)) + "\\setup.json")
 
 Log_Format = " %(asctime)s - %(levelname)s %(message)s"
-logging.basicConfig(filename = "c:\\temp\\log.txt",
+logging.basicConfig(filename = setup["log"],
                     filemode = "w",
                     format = Log_Format,
                     level=logging.DEBUG)
