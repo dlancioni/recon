@@ -6,7 +6,7 @@ class EtlLib:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
 
-    def import_file(self, cn, ds):
+    def import_file(self, cursor, ds):
         self.method = "EtlLib.import_file()"        
         self.logger.info(f"{self.method}: Start method")
         sqlib = SqlLib()
@@ -19,17 +19,15 @@ class EtlLib:
         first = True
         try:
             with open(path, "r") as file:
-                cursor = cn.cursor()                
-                cursor.execute("begin")                
                 for line in file.readlines():
                     if not first:
-                        value_list = line.split(separator)                        
+                        value_list = line.split(separator)
                         if len(field_list) == len(value_list) and len(field_list) == len(masks):
                             fields, types, values = [], [], []
                             for k, v in enumerate(field_list):
                                 fields.append(field_list[k])
                                 types.append(type_list[k])
-                                values.append(value_list[k])                                
+                                values.append(value_list[k])
                             fl = sqlib.get_field_list(fields)
                             vl = sqlib.get_value_list(fields, types, values, masks)
                             sql = sqlib.get_sql_insert(tablename, fl, vl)
@@ -39,11 +37,6 @@ class EtlLib:
                             return False
                     first = False
         except:
-            cursor.execute("rollback")
             self.logger.error(f"{self.method}:Last SQL command {sql}")
             self.logger.error(f"{self.method}:Error importing the file {path}")
-        cursor.execute("commit")
         self.logger.info(f"{self.method}:End method")
-        
-
-

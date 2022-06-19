@@ -3,34 +3,17 @@
     "Name": "Saldo x Extrato",
     "Side 1":
     {
-        "Name": "Balance",
+        "Name": "Saldo",
         "Datasource":
         [
             {
                 "Name": "c:\\temp\\recon\\saldo.txt",
                 "Separator": ";",
                 "Table": "tb_saldo",
-                "Key": ["Agencia", "Conta"],
                 "Field": ["Agencia", "Conta", "Saldo"],
                 "Type": ["integer", "text", "decimal"],
                 "Mask": ["", "", ","],
                 "Aggregation": ["", "", ""]
-            }
-        ]
-    },
-    "Side 2":
-    {
-        "Name": "Statement",
-        "Datasource":
-        [
-            {
-                "Name": "c:\\temp\\recon\\extrato.txt",
-                "Table": "tb_extrato",
-                "Key": ["Agencia", "Conta"],
-                "Field": ["Nome", "Data", "Agencia", "Conta", "Saldo"],
-                "Type": ["text", "datetime", "integer", "text", "decimal"],
-                "Mask": ["", ""],                
-                "Aggregation": ["", "", "sum"]
             }
         ]
     }

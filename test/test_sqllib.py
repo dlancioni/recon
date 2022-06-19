@@ -44,7 +44,7 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual("", lib.get_create_table_definition("", "", ""))
         fields = [ "age", "salary", "name", "birthdate" ]
         types  = [ "integer", "decimal", "text", "datetime" ]
-        message = "create table tb (id integer, id_parent integer, recon text, rule text, age integer, salary real, name text, birthdate text)"
+        message = "create table tb (id integer primary key, id_parent integer default 0, recon text default '', rule text default '', age integer, salary real, name text, birthdate text)"
         self.assertEqual(message, lib.get_create_table_definition("tb", fields, types))
         
     def test_get_create_index_definition(self):

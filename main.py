@@ -5,21 +5,19 @@ from src.corelib import CoreLib
 from src.fslib import FsLib
 
 fslib = FsLib()
-
 setup = fslib.get_json(os.path.dirname(os.path.realpath(__file__)) + "\\setup.json")
-
-Log_Format = " %(asctime)s - %(levelname)s %(message)s"
-logging.basicConfig(filename = setup["log"],
+log_path = setup["log"] + "\\log.txt"
+log_format = " %(asctime)s - %(levelname)s %(message)s"
+logging.basicConfig(filename = log_path,
                     filemode = "w",
-                    format = Log_Format,
+                    format = log_format,
                     level=logging.DEBUG)
 
 logger = logging.getLogger()
-logger.info("Hello from main")
+logger.info("Start processing the recons")
 
-print("Start processing the recons")
 corelib = CoreLib()
 corelib.process()
-print("End processing the recons")
 
+logger.info("Finish processing the recons")
 

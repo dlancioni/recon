@@ -31,7 +31,7 @@ class EtlLibTest(unittest.TestCase):
         cursor.execute("create table if not exists tb_saldo (agencia integer, conta text, saldo real )")
         etllib.import_file(cn, ds)
         cursor.execute("select * from tb_saldo")
-        rows = cursor.fetchall()        
+        rows = cursor.fetchall()  
         self.assertEqual(3, len(rows))
 
     def tearDown(self):

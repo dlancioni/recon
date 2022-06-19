@@ -50,7 +50,11 @@ class SqlLib:
     def get_create_table_definition(self, tablename, fields, types):
         i = 0
         sql = ""
-        fieldlist = "id integer, id_parent integer, recon text, rule text, "
+        fieldlist = ""
+        fieldlist += "id integer primary key"
+        fieldlist += ", id_parent integer default 0"
+        fieldlist += ", recon text default ''"
+        fieldlist += ", rule text default '', "
         if tablename == "" or fields == "" or types == "": return ""
         size = len(fields) -1
         while i <= size:
