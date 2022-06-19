@@ -8,7 +8,6 @@ class EtlLib:
 
     def import_file(self, cursor, ds):
         self.method = "EtlLib.import_file()"        
-        self.logger.info(f"{self.method}: Start method")
         sqlib = SqlLib()
         tablename = ds["Table"]
         path = ds["Name"]
@@ -39,4 +38,3 @@ class EtlLib:
         except:
             self.logger.error(f"{self.method}:Last SQL command {sql}")
             self.logger.error(f"{self.method}:Error importing the file {path}")
-        self.logger.info(f"{self.method}:End method")
