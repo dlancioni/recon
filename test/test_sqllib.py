@@ -73,7 +73,10 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(3, len(t))
         f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary"], ["text", "integer", "decimal"])
         self.assertEqual(3, len(f))
-        self.assertEqual(3, len(t))        
+        self.assertEqual(3, len(t))
+        f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary", "bonus"], ["text", "integer", "decimal", "decimal"])
+        self.assertEqual(4, len(f))
+        self.assertEqual(4, len(t))        
 
     def tearDown(self):
         pass

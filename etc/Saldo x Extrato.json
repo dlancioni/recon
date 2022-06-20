@@ -1,20 +1,34 @@
 {
     "Id": 1,
     "Name": "Saldo x Extrato",
-    "Side 1":
-    {
-        "Name": "Saldo",
-        "Datasource":
-        [
-            {
-                "Name": "c:\\temp\\recon\\saldo.txt",
-                "Separator": ";",
-                "Table": "tb_saldo",
-                "Field": ["Agencia", "Conta", "Saldo"],
-                "Type": ["integer", "text", "decimal"],
-                "Mask": ["", "", ","],
-                "Aggregation": ["", "", ""]
-            }
-        ]
-    }
+    "Datasources":
+    [
+        {
+            "Side": 1,
+            "Name": "Saldo",
+            "Source": "c:\\temp\\recon\\saldo.txt",
+            "Separator": ";",
+            "Field": ["Agencia", "Conta", "Saldo"],
+            "Type": ["integer", "text", "decimal"],
+            "Mask": ["", "", ","]
+        },
+        {
+            "Side": 1,
+            "Name": "Saldo",
+            "Source": "c:\\temp\\recon\\saldo.txt",
+            "Separator": ";",
+            "Field": ["Agencia", "Conta", "IR"],
+            "Type": ["integer", "text", "decimal"],
+            "Mask": ["", "", ","]
+        },
+        {
+            "Side": 2,
+            "Name": "Saldo",
+            "Source": "c:\\temp\\recon\\saldo.txt",
+            "Separator": ";",
+            "Field": ["Agencia", "Conta", "Saldo"],
+            "Type": ["integer", "text", "decimal"],
+            "Mask": ["", "", ","]
+        }
+    ]
 }

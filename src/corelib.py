@@ -12,7 +12,6 @@ from src.utillib import UtilLib
 dblib = Db()
 fslib = FsLib()
 sqllib = SqlLib()
-etllib = EtlLib()
 utillib = UtilLib()
 
 class CoreLib:
@@ -21,16 +20,25 @@ class CoreLib:
         self.logger = logging.getLogger(__name__)
 
     def create_recon_area(self, cursor, setup):
-        self.method = "CoreLib.create_recon_area()"
-        tablename = setup["Side 1"]["Datasource"][0]["Table"]
-        f1 = setup["Side 1"]["Datasource"][0]["Field"]
-        t1 = setup["Side 1"]["Datasource"][0]["Type"]
-        f2 = setup["Side 1"]["Datasource"][0]["Field"]
-        t2 = setup["Side 1"]["Datasource"][0]["Type"]                
+        self.method = "CoreLib.create_recon_area()"        
+        f1, t1 = [], []
+        f2, t2 = [], []        
+        for datasource in setup["Datasources"]:
+            if datasource["Side"] == 1:
+                f1 += datasource["Field"]
+                t1 += datasource["Type"]
+            if datasource["Side"] == 2:
+                f2 += datasource["Field"]
+                t2 += datasource["Type"]
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
-        sql = sqllib.get_create_table_definition(tablename, fields, types)        
+        id = setup["Id"]
+        tb1 = f"tb_{id}_1"
+        tb2 = f"tb_{id}_2"
+        sql = sqllib.get_create_table_definition(tb1, fields, types)
         cursor.execute(sql)
-        self.logger.info(f"{self.method}:Recon area sucessfuly created")        
+        sql = sqllib.get_create_table_definition(tb1, fields, types)
+        cursor.execute(sql)
+        self.logger.info(f"{self.method}:Recon area sucessfuly created")
 
     def import_data(self, cursor, setup):
         self.method = "CoreLib.import_data()"
@@ -55,13 +63,16 @@ class CoreLib:
     def process(self):
         self.method = "CoreLib.process()"
         self.logger.info(f"{self.method}: Start method")
-        try:            
+        try:
             cn = dblib.get_connection()
             cursor = cn.cursor()
             cursor.execute("begin")
-            setup = self.get_recon_info()            
+            setup = self.get_recon_info()
+            id = setup["Id"]
+            name = setup["Name"]
             self.logger.info(f"{self.method}:Transaction started")
             self.create_recon_area(cursor, setup)
+            etllib = EtlLib(id, name)
             self.import_data(cursor, setup)
             self.print(cursor)
         except:

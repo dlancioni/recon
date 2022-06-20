@@ -3,7 +3,9 @@ from src.sqllib import SqlLib
 
 class EtlLib:
 
-    def __init__(self):
+    def __init__(self, id, name):
+        self.id = id
+        self.name = name
         self.logger = logging.getLogger(__name__)
 
     def import_file(self, cursor, ds):

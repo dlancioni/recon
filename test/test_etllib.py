@@ -25,7 +25,9 @@ class EtlLibTest(unittest.TestCase):
     def test_import_file(self):
         path = fslib.get_dir_etc("Saldo x Extrato.json")
         setup = fslib.get_json(path)
-        ds = setup["Side 1"]["Datasource"][0]
+        id = setup["Id"]
+        name = setup["Name"]
+        ds = setup["Datasources"][0]
         cn = dblib.get_connection()
         cursor = cn.cursor()
         cursor.execute("create table if not exists tb_saldo (agencia integer, conta text, saldo real )")
