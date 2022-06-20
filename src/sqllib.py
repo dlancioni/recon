@@ -89,6 +89,14 @@ class SqlLib:
     
     def get_table_structure(self, f1, t1, f2, t2):
         if len(f1) != len(t1) or len(f2) != len(t2): return [],[]
-        f = list(dict.fromkeys(f1 + f2))
-        t = list(dict.fromkeys(t1 + t2))
-        return f, t    
+        fields = f1 + f2
+        types = []
+        fields = list(dict.fromkeys(fields))        
+        for field in fields:
+            if field in f1:
+                index = f1.index(field)
+                types.append(t1[index])
+            elif field in f2:
+                index = f2.index(field)
+                types.append(t2[index])
+        return fields, types
