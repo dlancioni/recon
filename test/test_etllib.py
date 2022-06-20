@@ -27,12 +27,12 @@ class EtlLibTest(unittest.TestCase):
         ds = setup["Datasources"][0]
         cn = dblib.get_connection()
         cursor = cn.cursor()
-        cursor.execute("create table if not exists tb_1_1 (agencia integer, conta text, saldo real )")
+        cursor.execute("create table if not exists tb11 (agencia integer, conta text, saldo real )")
         id = setup["Id"]
         name = setup["Name"]
         etllib = EtlLib(id, name)
         etllib.import_file(cn, ds)
-        cursor.execute("select * from tb_1_1")
+        cursor.execute("select * from tb11")
         rows = cursor.fetchall()
         self.assertEqual(3, len(rows))
 

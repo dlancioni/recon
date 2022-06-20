@@ -13,7 +13,7 @@ class EtlLib:
         sql = ""
         sqlib = SqlLib()
         side = ds["Side"]
-        tablename = f"tb_{self.id}_{side}"
+        tablename = f"tb{self.id}{side}"
         path = ds["Source"]
         separator = ds["Separator"]
         field_list = ds["Field"]

@@ -1,13 +1,12 @@
-
 import os
 import sys
 import json
 import logging
-from src.dblib import Db
 from src.fslib import FsLib
 from src.etllib import EtlLib
 from src.sqllib import SqlLib
 from src.utillib import UtilLib
+from src.dblib import Db
 
 dblib = Db()
 fslib = FsLib()
@@ -16,13 +15,22 @@ utillib = UtilLib()
 
 class CoreLib:
 
-    def __init__(self):
+    def __init__(self, id=0, name=""):
+        self.id = id
+        self.name = name
         self.logger = logging.getLogger(__name__)
+        
+    def get_transaction(self):
+        cn = dblib.get_connection()
+        cursor = cn.cursor()
+        cursor.execute("begin")
+        self.logger.info(f"{self.method}:Start new database transaction")        
+        return cursor
 
     def create_recon_area(self, cursor, setup):
-        self.method = "CoreLib.create_recon_area()"        
+        self.method = "CoreLib.create_recon_area()"
         f1, t1 = [], []
-        f2, t2 = [], []        
+        f2, t2 = [], []
         for datasource in setup["Datasources"]:
             if datasource["Side"] == 1:
                 f1 += datasource["Field"]
@@ -32,19 +40,20 @@ class CoreLib:
                 t2 += datasource["Type"]
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
         id = setup["Id"]
-        tb1 = f"tb_{id}_1"
-        tb2 = f"tb_{id}_2"
-        sql = sqllib.get_create_table_definition(tb1, fields, types)
+        tb = f"tb{id}1"
+        sql = sqllib.get_create_table_definition(tb, fields, types)
         cursor.execute(sql)
-        sql = sqllib.get_create_table_definition(tb1, fields, types)
+        tb = f"tb{id}2"
+        sql = sqllib.get_create_table_definition(tb, fields, types)
         cursor.execute(sql)
         self.logger.info(f"{self.method}:Recon area sucessfuly created")
 
     def import_data(self, cursor, setup):
         self.method = "CoreLib.import_data()"
-        ds = setup["Side 1"]["Datasource"][0]
+        ds = setup["Datasources"][0]
+        etllib = EtlLib(self.id, self.name)
         etllib.import_file(cursor, ds)
-        self.logger.info(f"{self.method}:Files imported sucessfuly")        
+        self.logger.info(f"{self.method}:Files imported sucessfuly")
         
     def get_recon_info(self):
         self.method = "CoreLib.get_recon_info()"
@@ -55,7 +64,7 @@ class CoreLib:
         
     def print(self, cursor):
         os.system("cls")
-        cursor.execute("select * from tb_saldo")
+        cursor.execute("select * from tb11")
         rows = cursor.fetchall()
         for row in rows:
             print(row)
@@ -64,15 +73,11 @@ class CoreLib:
         self.method = "CoreLib.process()"
         self.logger.info(f"{self.method}: Start method")
         try:
-            cn = dblib.get_connection()
-            cursor = cn.cursor()
-            cursor.execute("begin")
             setup = self.get_recon_info()
-            id = setup["Id"]
-            name = setup["Name"]
-            self.logger.info(f"{self.method}:Transaction started")
+            self.id = setup["Id"]
+            self.name = setup["Name"]
+            cursor = self.get_transaction()
             self.create_recon_area(cursor, setup)
-            etllib = EtlLib(id, name)
             self.import_data(cursor, setup)
             self.print(cursor)
         except:
