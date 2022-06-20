@@ -20,11 +20,56 @@ class CoreLib:
         self.name = name
         self.logger = logging.getLogger(__name__)
         
+    def validate_setup(self, setup):
+        self.method = "CoreLib.validate_setup()"
+        message = ""
+        side1 = False
+        side2 = False
+        self.logger.info(f"{self.method}: Validating recon {self.name}")
+        if str(setup["Id"]).strip() == "":
+            message = f"Id is missing"
+        if str(setup["Name"]).strip() == "": 
+            message = f"Name is missing"
+        for ds in setup["Datasources"]:
+            if str(ds["Side"]) != "1" and str(ds["Side"]) != "2":
+                message = f"Side is invalid or missing, must be 1 or 2"
+            if str(ds["Side"]) == "1":
+                side1 = True
+            if str(ds["Side"]) == "2":
+                side2 = True
+            if str(ds["Name"]).strip() == "":
+                message = f"Side name is missing"
+            if str(ds["Source"]).strip() == "":
+                message = f"Source is missing"
+            if str(ds["Separator"]).strip() == "":
+                message = f"Separator is missing"
+            if len(ds["Field"]) == 0:
+                message = f"Field definition not found"
+            if len(ds["Type"]) == 0:
+                message = f"Type definition not found"
+            if len(ds["Mask"]) == 0:
+                message = f"Mask definition not found"
+            if len(ds["Field"]) != len(ds["Type"]):
+                message = f"Field and Type definition are different"
+            if len(ds["Field"]) > 0 and len(ds["Field"]) != len(ds["Mask"]):
+                message = f"Field and Mask definition are different"
+        if side1 == False:
+            message = f"Configuration for side 1 not found"
+        if side2 == False:
+            message = f"Configuration for side 2 not found"
+        if message != "":
+            self.logger.info(f"{self.method}: {message}")
+            os.system("cls")
+            print(message)
+            return False
+        self.logger.info(f"{self.method}: Recon {self.name} sucessfuly validated")
+        return True
+
     def get_transaction(self):
         cn = dblib.get_connection()
         cursor = cn.cursor()
         cursor.execute("begin")
-        self.logger.info(f"{self.method}:Start new database transaction")        
+        self.logger.info(f"{self.method}: Start new database transaction")        
         return cursor
 
     def create_recon_area(self, cursor, setup):
@@ -59,7 +104,7 @@ class CoreLib:
         self.method = "CoreLib.get_recon_info()"
         path = fslib.get_dir_etc("Saldo x Extrato.json")
         setup = fslib.get_json(path)
-        self.logger.info(f"{self.method}:Setup loaded sucessfuly")
+        self.logger.info(f"{self.method}: Setup loaded sucessfuly")
         return setup
         
     def print(self, cursor):
@@ -79,10 +124,13 @@ class CoreLib:
         self.method = "CoreLib.process()"
         self.logger.info(f"{self.method}: Start method")
         try:
+            cursor = self.get_transaction()            
             setup = self.get_recon_info()
+            if not self.validate_setup(setup):
+                self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
+                return False
             self.id = setup["Id"]
             self.name = setup["Name"]
-            cursor = self.get_transaction()
             self.create_recon_area(cursor, setup)
             self.import_text_file(cursor, setup)
             self.print(cursor)
