@@ -18,4 +18,3 @@ logger.info("Start processing the recons")
 corelib = CoreLib()
 corelib.process()
 logger.info("Finish processing the recons")
-

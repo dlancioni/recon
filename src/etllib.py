@@ -9,10 +9,12 @@ class EtlLib:
         self.logger = logging.getLogger(__name__)
 
     def import_file(self, cursor, ds):
-        self.method = "EtlLib.import_file()"        
+        self.method = "EtlLib.import_file()"
+        sql = ""
         sqlib = SqlLib()
-        tablename = ds["Table"]
-        path = ds["Name"]
+        side = ds["Side"]
+        tablename = f"tb_{self.id}_{side}"
+        path = ds["Source"]
         separator = ds["Separator"]
         field_list = ds["Field"]
         type_list = ds["Type"]

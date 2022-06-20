@@ -13,7 +13,6 @@ from src.corelib import CoreLib
 dblib = Db()
 fslib = FsLib()
 sqllib = SqlLib()
-etllib = EtlLib()
 corelib = CoreLib()
 utillib = UtilLib()
 
@@ -25,15 +24,16 @@ class EtlLibTest(unittest.TestCase):
     def test_import_file(self):
         path = fslib.get_dir_etc("Saldo x Extrato.json")
         setup = fslib.get_json(path)
-        id = setup["Id"]
-        name = setup["Name"]
         ds = setup["Datasources"][0]
         cn = dblib.get_connection()
         cursor = cn.cursor()
-        cursor.execute("create table if not exists tb_saldo (agencia integer, conta text, saldo real )")
+        cursor.execute("create table if not exists tb_1_1 (agencia integer, conta text, saldo real )")
+        id = setup["Id"]
+        name = setup["Name"]
+        etllib = EtlLib(id, name)
         etllib.import_file(cn, ds)
-        cursor.execute("select * from tb_saldo")
-        rows = cursor.fetchall()  
+        cursor.execute("select * from tb_1_1")
+        rows = cursor.fetchall()
         self.assertEqual(3, len(rows))
 
     def tearDown(self):
