@@ -13,15 +13,6 @@
             "Mask": ["", "", ","]
         },
         {
-            "Side": 1,
-            "Name": "Saldo",
-            "Source": "c:\\temp\\recon\\saldo.txt",
-            "Separator": ";",
-            "Field": ["Agencia", "Conta", "IR"],
-            "Type": ["integer", "text", "decimal"],
-            "Mask": ["", "", ","]
-        },
-        {
             "Side": 2,
             "Name": "Saldo",
             "Source": "c:\\temp\\recon\\saldo.txt",

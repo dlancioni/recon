@@ -48,12 +48,12 @@ class CoreLib:
         cursor.execute(sql)
         self.logger.info(f"{self.method}:Recon area sucessfuly created")
 
-    def import_data(self, cursor, setup):
-        self.method = "CoreLib.import_data()"
-        ds = setup["Datasources"][0]
-        etllib = EtlLib(self.id, self.name)
-        etllib.import_file(cursor, ds)
-        self.logger.info(f"{self.method}:Files imported sucessfuly")
+    def import_text_file(self, cursor, setup):
+        self.method = "CoreLib.import_text_file()"
+        etllib = EtlLib(self.id, self.name)        
+        for datasource in setup["Datasources"]:
+            etllib.import_file(cursor, datasource)
+            self.logger.info(f"{self.method}:Files imported sucessfuly")
         
     def get_recon_info(self):
         self.method = "CoreLib.get_recon_info()"
@@ -64,10 +64,16 @@ class CoreLib:
         
     def print(self, cursor):
         os.system("cls")
+        print("Side 1:")
         cursor.execute("select * from tb11")
         rows = cursor.fetchall()
         for row in rows:
             print(row)
+        print("Side 2:")            
+        cursor.execute("select * from tb12")
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)            
         
     def process(self):
         self.method = "CoreLib.process()"
@@ -78,7 +84,7 @@ class CoreLib:
             self.name = setup["Name"]
             cursor = self.get_transaction()
             self.create_recon_area(cursor, setup)
-            self.import_data(cursor, setup)
+            self.import_text_file(cursor, setup)
             self.print(cursor)
         except:
             cursor.execute("rollback")
