@@ -20,12 +20,12 @@ class CoreLib:
         self.name = name
         self.logger = logging.getLogger(__name__)
         
-    def validate_setup(self, setup):
-        self.method = "CoreLib.validate_setup()"
+    def validate(self, setup):
+        self.method = "CoreLib.validate()"
         message = ""
         side1 = False
         side2 = False
-        self.logger.info(f"{self.method}: Validating recon {self.name}")
+        self.logger.info(f"{self.method}: Validating {self.name}")
         if str(setup["Id"]).strip() == "":
             message = f"Id is missing"
         if str(setup["Name"]).strip() == "": 
@@ -62,10 +62,11 @@ class CoreLib:
             os.system("cls")
             print(message)
             return False
-        self.logger.info(f"{self.method}: Recon {self.name} sucessfuly validated")
+        self.logger.info(f"{self.method}: {self.name.strip()} sucessfuly validated")
         return True
 
-    def get_transaction(self):
+    def get_cn(self):
+        self.method = "CoreLib.get_cn()"
         cn = dblib.get_connection()
         cursor = cn.cursor()
         cursor.execute("begin")
@@ -88,17 +89,20 @@ class CoreLib:
         tb = f"tb{id}1"
         sql = sqllib.get_create_table_definition(tb, fields, types)
         cursor.execute(sql)
+        self.logger.info(f"{self.method}: {sql}")        
         tb = f"tb{id}2"
         sql = sqllib.get_create_table_definition(tb, fields, types)
         cursor.execute(sql)
-        self.logger.info(f"{self.method}:Recon area sucessfuly created")
+        self.logger.info(f"{self.method}: {sql}")
+        self.logger.info(f"{self.method}: Recon area sucessfuly created")
 
     def import_text_file(self, cursor, setup):
         self.method = "CoreLib.import_text_file()"
         etllib = EtlLib(self.id, self.name)        
         for datasource in setup["Datasources"]:
+            filename = datasource["Source"]
             etllib.import_file(cursor, datasource)
-            self.logger.info(f"{self.method}:Files imported sucessfuly")
+            self.logger.info(f"{self.method}:File sucessfuly imported: {filename}")
         
     def get_recon_info(self):
         self.method = "CoreLib.get_recon_info()"
@@ -124,13 +128,13 @@ class CoreLib:
         self.method = "CoreLib.process()"
         self.logger.info(f"{self.method}: Start method")
         try:
-            cursor = self.get_transaction()            
+            cursor = self.get_cn()            
             setup = self.get_recon_info()
-            if not self.validate_setup(setup):
+            self.id = setup["Id"]
+            self.name = setup["Name"]            
+            if not self.validate(setup):
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
-            self.id = setup["Id"]
-            self.name = setup["Name"]
             self.create_recon_area(cursor, setup)
             self.import_text_file(cursor, setup)
             self.print(cursor)

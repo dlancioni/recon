@@ -7,9 +7,10 @@ from src.fslib import FsLib
 fslib = FsLib()
 setup = fslib.get_json(os.path.dirname(os.path.realpath(__file__)) + "\\setup.json")
 log_path = setup["log"] + "\\log.txt"
-log_format = " %(asctime)s - %(levelname)s %(message)s"
+log_format = "%(asctime)s %(levelname)s %(message)s"
 logging.basicConfig(filename = log_path,
                     filemode = "w",
+                    datefmt='%Y-%m-%d %H:%M:%S',
                     format = log_format,
                     level=logging.DEBUG)
 
