@@ -38,7 +38,6 @@ class ReconLib:
         sql = ""
         sqlib = SqlLib()
         try:
-            pass                
+            pass
         except:
             self.logger.error(f"{self.method}:Last SQL command {sql}")
-            self.logger.error(f"{self.method}:Error importing the file {path}")

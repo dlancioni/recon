@@ -58,7 +58,7 @@ class SetupLib:
 
     def get_recon_info(self):
         fslib = FsLib()
-        self.method = "corelib.get_recon_info()"
+        self.method = "setuplib.get_recon_info()"
         path = fslib.get_dir_etc("Saldo x Extrato.json")
         setup = fslib.get_json(path)
         self.logger.info(f"{self.method}: Setup loaded sucessfuly")

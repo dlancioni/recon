@@ -23,7 +23,6 @@ class CoreLib:
         self.logger = logging.getLogger(__name__)
 
     def import_text_file(self, cursor, setup):
-        self.method = "corelib.import_text_file()"
         etllib = EtlLib(self.id, self.name)        
         for datasource in setup["Datasources"]:
             filename = datasource["Source"]
@@ -31,24 +30,15 @@ class CoreLib:
             self.logger.info(f"{self.method}:File sucessfuly imported: {filename}")
             
     def reconcile(self, cursor, setup):
-        self.method = "corelib.reconcile()"
         reconlib = ReconLib(self.id, self.name)
         reconlib.process(cursor, setup)
         self.logger.info(f"{self.method}:Recon sucessfuly executed: {self.name}")
-               
-    def print(self, cursor):
-        os.system("cls")        
-        for side in range(1,3):
-            print(f"Side{side}:")
-            cursor.execute(f"select * from tb1{side}")
-            rows = cursor.fetchall()
-            for row in rows:
-                print(row)
 
     def process(self):
         self.method = "corelib.process()"
         self.logger.info(f"{self.method}: Start method")
         dblib = DbLib()
+        utillib = UtilLib()
         try:
             setuplib = SetupLib()
             setup = setuplib.get_recon_info()
@@ -63,8 +53,7 @@ class CoreLib:
             arealib.create_recon_area(cn, setup)
             self.import_text_file(cn, setup)
             self.reconcile(cn, setup)
-            self.print(cn)
-            
+            utillib.print(cn)
         except BaseException as err:
             dblib.rollback_tran(cn)
             self.logger.error(f"{self.method}:Fail to reconcile: {str(err)} ")
