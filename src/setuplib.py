@@ -2,10 +2,11 @@ import os
 import sys
 import json
 import logging
+from src.fslib import FsLib
 
 class SetupLib:
 
-    def __init__(self, id, name):
+    def __init__(self, id=0, name=""):
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
@@ -54,3 +55,11 @@ class SetupLib:
             return False
         self.logger.info(f"{self.method}: {self.name.strip()} sucessfuly validated")
         return True
+
+    def get_recon_info(self):
+        fslib = FsLib()
+        self.method = "corelib.get_recon_info()"
+        path = fslib.get_dir_etc("Saldo x Extrato.json")
+        setup = fslib.get_json(path)
+        self.logger.info(f"{self.method}: Setup loaded sucessfuly")
+        return setup
