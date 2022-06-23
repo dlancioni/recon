@@ -25,12 +25,6 @@ class CoreLibTest(unittest.TestCase):
         aggregs  = ["", "sum", "", "max"]
         self.assertEqual("integer, sum(decimal) decimal, text, max(datetime) datetime", lib.get_field_list(fields, types, aggregs))
         
-    def get_grouping_list(self):
-        self.assertEqual("", lib.get_grouping_list("", ""))
-        fields = ["integer", "decimal", "text", "datetime"]
-        funcs  = ["", "sum", "", "max"]
-        self.assertEqual("integer, text, datetime", lib.get_grouping_list(fields, funcs))
-        
     def test_get_value_list(self):       
         self.assertEqual("", lib.get_value_list([], [], [], []))        
         fields = [ "age", "salary", "name", "birthdate" ]
@@ -83,6 +77,17 @@ class CoreLibTest(unittest.TestCase):
         f,t = lib.get_table_structure(["name", "age"], ["text", "integer"], ["name", "age", "salary"], ["text", "integer", "decimal"])
         self.assertEqual(3, len(f))
         self.assertEqual(3, len(t))
+        
+    def test_get_grouping_list(self):
+        self.assertEqual("", lib.get_grouping_list("", ""))
+        fields = ["integer", "decimal", "text", "datetime"]
+        funcs  = ["", "sum", "", "max"]
+        self.assertEqual("integer, text", lib.get_grouping_list(fields, funcs))        
+        
+    def test_get_sql_key(self):
+        fields = [ "name", "date" ]
+        message = "and tb1.name = tb2.name and tb1.date = tb2.date"
+        self.assertEqual(message, lib.get_sql_key("tb1", "tb2", fields))
 
     def tearDown(self):
         pass

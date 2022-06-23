@@ -37,3 +37,4 @@ class AreaLib:
             sql = sqllib.get_create_table_definition(tb, fields, types)
             cursor.execute(sql)
         self.logger.info(f"{self.method}: Recon area sucessfuly created")
+        return fields, types

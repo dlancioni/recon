@@ -29,20 +29,6 @@ class SqlLib:
         sql = sql.lower()
         return sql
     
-    def get_grouping_list(self, fields=[], funcs=[]):
-        i = 0
-        sql = ""
-        if fields == [] or funcs == []: return ""
-        size = len(fields) -1
-        while i <= size:
-            name = fields[i]
-            func = funcs[i]
-            sql += f"{name}, " if not func else ""
-            i += 1
-        sql = sql.strip()[:-1]
-        sql = sql.lower()
-        return sql
-    
     def get_value_list(self, fields, types, values, masks):
         i = 0
         sql = ""        
@@ -114,3 +100,24 @@ class SqlLib:
                 index = f2.index(field)
                 types.append(t2[index])
         return fields, types
+
+    def get_grouping_list(self, fields=[], funcs=[]):
+        i = 0
+        sql = ""
+        if fields == "" or funcs == "": return ""
+        size = len(fields) -1
+        while i <= size:
+            name = fields[i]
+            func = funcs[i]
+            sql += f"{name}, " if not func else ""
+            i += 1
+        sql = sql.strip()[:-1]
+        sql = sql.lower()
+        return sql    
+
+    def get_sql_key(self, tb1, tb2, fields):
+        sql = ""
+        for field in fields:
+            sql += f"and {tb1}.{field} = {tb2}.{field} "
+        sql = sql.strip()    
+        return sql

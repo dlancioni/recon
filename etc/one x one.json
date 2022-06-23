@@ -1,6 +1,6 @@
 {
     "Id": 1,
-    "Name": "Saldo x Extrato",
+    "Name": "One x One",
     "Datasources":
     [
         {
@@ -20,6 +20,14 @@
             "Field": ["Integer", "Decimal", "Text", "Datetime"],
             "Type":  ["integer", "decimal", "text", "Datetime"],
             "Mask":  ["", "", "", ""]
+        }
+    ],
+    "Recons":
+    [
+        {
+            "Rule": "Rule 1",
+            "Key": ["Integer"],
+            "Function": ["", "", "", ""]
         }
     ]
 }

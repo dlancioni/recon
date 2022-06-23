@@ -27,10 +27,6 @@ class CoreLib:
         for datasource in setup["Datasources"]:
             filename = datasource["Source"]
             etllib.import_file(cursor, datasource)
-            
-    def reconcile(self, cursor, setup):
-        reconlib = ReconLib(self.id, self.name)
-        reconlib.process(cursor, setup)
 
     def process(self):
         self.method = "corelib.process()"
@@ -48,9 +44,13 @@ class CoreLib:
 
             cn = dblib.begin_tran()
             arealib = AreaLib(self.id, self.name)
-            arealib.create_recon_area(cn, setup)
+            fields, types = arealib.create_recon_area(cn, setup)
             self.import_text_file(cn, setup)
-            self.reconcile(cn, setup)
+
+            reconlib = ReconLib(self.id, self.name, fields, types)
+            reconlib.process(cn, setup)
+
+
             utillib.print(cn)
             
         except BaseException as err:
