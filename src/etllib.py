@@ -9,7 +9,7 @@ class EtlLib:
         self.logger = logging.getLogger(__name__)
 
     def import_file(self, cursor, ds):
-        self.method = "EtlLib.import_file()"
+        self.method = "etllib.import_file()"
         sql = ""
         sqlib = SqlLib()
         side = ds["Side"]

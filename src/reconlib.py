@@ -33,7 +33,7 @@ class ReconLib:
         sqlib = SqlLib()        
 
     """ reconcile the positions """
-    def reconcile(self, cursor, ds):
+    def process(self, cursor, setup):
         self.method = "reconlib.reconcile()"
         sql = ""
         sqlib = SqlLib()
