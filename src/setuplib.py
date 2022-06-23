@@ -49,9 +49,7 @@ class SetupLib:
         if side2 == False:
             message = f"Configuration for side 2 not found"
         if message != "":
-            self.logger.info(f"{self.method}: {message}")
-            os.system("cls")
-            print(message)
+            self.logger.info(f"{self.method}: invalid json {message}")
             return False
         self.logger.info(f"{self.method}: {self.name.strip()} sucessfuly validated")
         return True
@@ -59,7 +57,7 @@ class SetupLib:
     def get_recon_info(self):
         fslib = FsLib()
         self.method = "setuplib.get_recon_info()"
-        path = fslib.get_dir_etc("Saldo x Extrato.json")
+        path = fslib.get_dir_etc("one x one.json")
         setup = fslib.get_json(path)
         self.logger.info(f"{self.method}: Setup loaded sucessfuly")
         return setup

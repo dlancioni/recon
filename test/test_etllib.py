@@ -3,14 +3,14 @@ import sys
 import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 
-from src.dblib import Db
+from src.dblib import DbLib
 from src.fslib import FsLib
 from src.etllib import EtlLib
 from src.sqllib import SqlLib
 from src.utillib import UtilLib
 from src.corelib import CoreLib
 
-dblib = Db()
+dblib = DbLib()
 fslib = FsLib()
 sqllib = SqlLib()
 corelib = CoreLib()
@@ -22,12 +22,12 @@ class EtlLibTest(unittest.TestCase):
         pass
 
     def test_import_file(self):
-        path = fslib.get_dir_etc("Saldo x Extrato.json")
+        path = fslib.get_dir_etc("one x one.json")
         setup = fslib.get_json(path)
         ds = setup["Datasources"][0]
         cn = dblib.get_connection()
         cursor = cn.cursor()
-        cursor.execute("create table if not exists tb11 (agencia integer, conta text, saldo real )")
+        cursor.execute("create table if not exists tb11 (Integer integer, Decimal decimal, Text text, Datetime datetime)")
         id = setup["Id"]
         name = setup["Name"]
         etllib = EtlLib(id, name)

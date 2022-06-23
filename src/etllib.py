@@ -25,7 +25,7 @@ class EtlLib:
                 for line in file.readlines():
                     if not first:
                         value_list = line.split(separator)
-                        if len(field_list) == len(value_list) and len(field_list) == len(masks):
+                        if len(field_list) == len(masks):
                             fields, types, values = [], [], []
                             for k, v in enumerate(field_list):
                                 fields.append(field_list[k])
@@ -40,6 +40,5 @@ class EtlLib:
                             return False
                     first = False
         except BaseException as err:
-            self.logger.error(f"{self.method}:Last SQL command {sql}")
             self.logger.error(f"{self.method}:Error importing the file {path}: {str(err)}")
 

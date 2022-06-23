@@ -1,3 +1,5 @@
+# python -m unittest discover -stest -v
+
 import os
 import sys
 import logging

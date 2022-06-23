@@ -27,12 +27,10 @@ class CoreLib:
         for datasource in setup["Datasources"]:
             filename = datasource["Source"]
             etllib.import_file(cursor, datasource)
-            self.logger.info(f"{self.method}:File sucessfuly imported: {filename}")
             
     def reconcile(self, cursor, setup):
         reconlib = ReconLib(self.id, self.name)
         reconlib.process(cursor, setup)
-        self.logger.info(f"{self.method}:Recon sucessfuly executed: {self.name}")
 
     def process(self):
         self.method = "corelib.process()"
@@ -54,6 +52,7 @@ class CoreLib:
             self.import_text_file(cn, setup)
             self.reconcile(cn, setup)
             utillib.print(cn)
+            
         except BaseException as err:
             dblib.rollback_tran(cn)
             self.logger.error(f"{self.method}:Fail to reconcile: {str(err)} ")
