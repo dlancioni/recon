@@ -33,12 +33,16 @@ class ReconLib:
         sql += f"group by {grouping_key}" if grouping_key != "" else ""
         cn.execute(sql)
         
-    def match(self, cn):
+    def match_key(self, cn, recon):
         """ set the id to parent id on the other side  """
         self.method = "reconlib.match()"
-        sql = f"update {self.tmp1} set id_parent = (select id from {self.tmp2} where {key}"
-        cn.execute(sql)        
-        sql = f"update {self.tmp2} set id_parent = (select id from {self.tmp1} where {key}"
+        sqllib = SqlLib()
+        rule = recon["Rule"]
+        fields_key = recon["Key"]
+        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
+        sql = f"update {self.tmp1} set recon='{self.name}', rule = '{rule}', id_parent = (select id from {self.tmp2} where 1 = 1 {matching_key})"
+        cn.execute(sql)
+        sql = f"update {self.tmp2} set recon='{self.name}', rule = '{rule}', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
         cn.execute(sql)
         
     def compare(self):
@@ -60,6 +64,7 @@ class ReconLib:
             recons = setup["Recons"]
             for recon in recons:
                 self.aggregate(cn, recon)
+                self.match_key(cn, recon)
 
         except BaseException as err:
             self.logger.error(f"{self.method}:Last SQL command {str(err)}")

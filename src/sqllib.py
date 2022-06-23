@@ -119,5 +119,5 @@ class SqlLib:
         sql = ""
         for field in fields:
             sql += f"and {tb1}.{field} = {tb2}.{field} "
-        sql = sql.strip()    
+        sql = sql.strip().lower()   
         return sql
