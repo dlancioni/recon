@@ -36,8 +36,8 @@ class ReconLib:
     def process(self, cursor, setup):
         self.method = "reconlib.reconcile()"
         sql = ""
-        sqlib = SqlLib()
+        sqllib = SqlLib()
         try:
-            pass
-        except:
-            self.logger.error(f"{self.method}:Last SQL command {sql}")
+            x = sqllib.get_grouping_list(["first_name", "last_name", "salary"], ["", "", "sum"])
+        except BaseException as err:
+            self.logger.error(f"{self.method}:Last SQL command {str(err)}")
