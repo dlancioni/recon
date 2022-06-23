@@ -1,0 +1,25 @@
+{
+    "Id": 1,
+    "Name": "Saldo x Extrato",
+    "Datasources":
+    [
+        {
+            "Side": 1,
+            "Name": "Saldo",
+            "Source": "c:\\temp\\recon\\saldo.txt",
+            "Separator": ";",
+            "Field": ["Agencia", "Conta", "Saldo"],
+            "Type": ["integer", "text", "decimal"],
+            "Mask": ["", "", ","]
+        },
+        {
+            "Side": 2,
+            "Name": "Saldo",
+            "Source": "c:\\temp\\recon\\extrato.txt",
+            "Separator": ";",
+            "Field": ["Nome", "Data", "Agencia", "Conta", "Saldo"],
+            "Type": ["text", "datetime", "integer", "text", "decimal"],
+            "Mask": ["", "", "", "", ""]
+        }
+    ]
+}
