@@ -39,6 +39,7 @@ class EtlLib:
                             self.logger.error(f"{self.method}:Fields, Types and Masks are not the same size {path}")
                             return False
                     first = False
-        except:
+        except BaseException as err:
             self.logger.error(f"{self.method}:Last SQL command {sql}")
-            self.logger.error(f"{self.method}:Error importing the file {path}")
+            self.logger.error(f"{self.method}:Error importing the file {path}: {str(err)}")
+

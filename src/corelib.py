@@ -75,8 +75,9 @@ class CoreLib:
 
     def create_recon_area(self, cursor, setup):
         self.method = "CoreLib.create_recon_area()"
+        id = setup["Id"]        
         f1, t1 = [], []
-        f2, t2 = [], []
+        f2, t2 = [], []       
         for datasource in setup["Datasources"]:
             if datasource["Side"] == 1:
                 f1 += datasource["Field"]
@@ -85,15 +86,17 @@ class CoreLib:
                 f2 += datasource["Field"]
                 t2 += datasource["Type"]
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
-        id = setup["Id"]
-        tb = f"tb{id}1"
-        sql = sqllib.get_create_table_definition(tb, fields, types)
-        cursor.execute(sql)
-        self.logger.info(f"{self.method}: {sql}")        
-        tb = f"tb{id}2"
-        sql = sqllib.get_create_table_definition(tb, fields, types)
-        cursor.execute(sql)
-        self.logger.info(f"{self.method}: {sql}")
+        for side in range(1, 3):
+            tb = f"tb{id}{side}"
+            sql = f"drop table if exists {tb}"
+            cursor.execute(sql)
+            sql = sqllib.get_create_table_definition(tb, fields, types)
+            cursor.execute(sql)
+            tb = f"tmp{id}{side}"
+            sql = f"drop table if exists {tb}"
+            cursor.execute(sql)
+            sql = sqllib.get_create_table_definition(tb, fields, types)
+            cursor.execute(sql)
         self.logger.info(f"{self.method}: Recon area sucessfuly created")
 
     def import_text_file(self, cursor, setup):
