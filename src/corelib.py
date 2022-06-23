@@ -2,7 +2,7 @@ import os
 import sys
 import json
 import logging
-from src.dblib import Db
+from src.dblib import DbLib
 from src.fslib import FsLib
 from src.sqllib import SqlLib
 from src.etllib import EtlLib
@@ -11,7 +11,6 @@ from src.utillib import UtilLib
 from src.setuplib import SetupLib
 from src.reconlib import ReconLib
 
-dblib = Db()
 fslib = FsLib()
 sqllib = SqlLib()
 utillib = UtilLib()
@@ -22,14 +21,6 @@ class CoreLib:
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
-
-    def get_cn(self):
-        self.method = "corelib.get_cn()"
-        cn = dblib.get_connection()
-        cursor = cn.cursor()
-        cursor.execute("begin")
-        self.logger.info(f"{self.method}: Start new database transaction")        
-        return cursor
 
     def import_text_file(self, cursor, setup):
         self.method = "corelib.import_text_file()"
@@ -57,6 +48,7 @@ class CoreLib:
     def process(self):
         self.method = "corelib.process()"
         self.logger.info(f"{self.method}: Start method")
+        dblib = DbLib()
         try:
             setuplib = SetupLib()
             setup = setuplib.get_recon_info()
@@ -66,15 +58,15 @@ class CoreLib:
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
 
-            cursor = self.get_cn()
+            cn = dblib.begin_tran()
             arealib = AreaLib(self.id, self.name)
-            arealib.create_recon_area(cursor, setup)
-            self.import_text_file(cursor, setup)
-            self.reconcile(cursor, setup)
-            self.print(cursor)
+            arealib.create_recon_area(cn, setup)
+            self.import_text_file(cn, setup)
+            self.reconcile(cn, setup)
+            self.print(cn)
             
         except BaseException as err:
-            cursor.execute("rollback")
+            dblib.rollback_tran(cn)
             self.logger.error(f"{self.method}:Fail to reconcile: {str(err)} ")
-        cursor.execute("commit")
+        dblib.commit_tran(cn)
         self.logger.info(f"{self.method}:End method")
