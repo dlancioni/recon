@@ -67,7 +67,7 @@ class SqlLib:
         sql = f"create table {tablename} ({fieldlist})"
         return sql
     
-    def get_create_index_definition(self, tablename, fields):
+    def get_create_index_definition(self, tablename="", fields=""):
         i = 0
         sql = ""
         fieldlist = ""
@@ -81,13 +81,13 @@ class SqlLib:
         sql = f"create index idx_{tablename} on {tablename} ({fieldlist})"
         return sql
     
-    def get_sql_insert(self, tablename, fields, values):
+    def get_sql_insert(self, tablename="", fields="", values=""):
         sql = ""
         if tablename == "" or fields == "" or values == "": return ""
         sql = f"insert into {tablename} ({fields}) values ({values})"
         return sql
     
-    def get_table_structure(self, f1, t1, f2, t2):
+    def get_table_structure(self, f1=[], t1=[], f2=[], t2=[]):
         if len(f1) != len(t1) or len(f2) != len(t2): return [],[]
         fields = f1 + f2
         types = []
@@ -115,7 +115,7 @@ class SqlLib:
         sql = sql.lower()
         return sql    
 
-    def get_sql_key(self, tb1, tb2, fields):
+    def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
         for field in fields:
             sql += f"and {tb1}.{field} = {tb2}.{field} "

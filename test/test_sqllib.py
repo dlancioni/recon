@@ -85,6 +85,7 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual("integer, text", lib.get_grouping_list(fields, funcs))        
         
     def test_get_sql_key(self):
+        self.assertEqual("", lib.get_sql_key("", "", ""))        
         fields = [ "name", "date" ]
         message = "and tb1.name = tb2.name and tb1.date = tb2.date"
         self.assertEqual(message, lib.get_sql_key("tb1", "tb2", fields))
