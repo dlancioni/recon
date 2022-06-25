@@ -1,6 +1,7 @@
 import logging
 from sqlite3 import Error
 from src.sqllib import SqlLib
+from src.fslib import FsLib
 
 class EtlLib:
 
@@ -8,6 +9,13 @@ class EtlLib:
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
+        
+    def get_file(self, path=""):
+        fslib = FsLib()
+        if path.find("etc:") > -1:
+            tmp = path.split(":")
+            path = fslib.get_dir_etc(tmp[1])
+        return path
 
     def import_file(self, cursor, ds):
         self.method = "etllib.import_file()"
@@ -15,7 +23,7 @@ class EtlLib:
         sqlib = SqlLib()
         side = ds["Side"]
         tablename = f"tb{self.id}{side}"
-        path = ds["Source"]
+        path = self.get_file(ds["File"])
         separator = ds["Separator"]
         field_list = ds["Field"]
         type_list = ds["Type"]

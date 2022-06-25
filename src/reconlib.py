@@ -19,8 +19,10 @@ class ReconLib:
         self.method = "reconlib.aggregate()"        
         sql = ""
         grouping_key = ""
+        funcs = []
         sqllib = SqlLib()
-        funcs = recon["Function"]
+        if "Function" in recon:
+            funcs = recon["Function"]
         field_list = sqllib.get_field_list(self.fields, self.types, funcs)
         sql = ""
         sql += f"insert into {self.tmp1} ({field_list}) "

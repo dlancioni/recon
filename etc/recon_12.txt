@@ -1,0 +1,4 @@
+Integer; Decimal; Text; Date
+1;100.00;text 1;20220101;Matched
+2;200.00;text 2;20220202;Divergent
+3;300.00;text 3;20220303;Orphan side1

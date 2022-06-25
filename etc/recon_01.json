@@ -1,12 +1,13 @@
 {
     "Id": 1,
-    "Name": "One x One",
+    "Name": "Recon 1",
+    "Description": "1:1 where both sides have the same file",
     "Datasources":
     [
         {
             "Side": 1,
             "Name": "One",
-            "Source": "c:\\temp\\recon\\one.txt",
+            "File": "etc:recon_11.txt",
             "Separator": ";",
             "Field": ["Integer", "Decimal", "Text", "Datetime"],
             "Type":  ["integer", "decimal", "text", "Datetime"],
@@ -15,7 +16,7 @@
         {
             "Side": 2,
             "Name": "One",
-            "Source": "c:\\temp\\recon\\one.txt",
+            "File": "etc:recon_12.txt",
             "Separator": ";",
             "Field": ["Integer", "Decimal", "Text", "Datetime"],
             "Type":  ["integer", "decimal", "text", "Datetime"],
@@ -26,8 +27,7 @@
     [
         {
             "Rule": "Rule 1",
-            "Key": ["Integer"],
-            "Function": ["", "", "", ""]
+            "Key": ["Integer"]
         }
     ]
 }

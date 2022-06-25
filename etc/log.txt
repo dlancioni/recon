@@ -1,0 +1,10 @@
+2022-06-25 12:08:39 INFO Start processing the recons
+2022-06-25 12:08:39 INFO corelib.process(): Start method
+2022-06-25 12:08:39 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
+2022-06-25 12:08:39 INFO setuplib.validate(): Validating 
+2022-06-25 12:08:39 INFO setuplib.validate():  sucessfuly validated
+2022-06-25 12:08:39 INFO dblib.begin_tran(): Start new database transaction
+2022-06-25 12:08:39 INFO arealib.create_recon_area(): Recon area sucessfuly created
+2022-06-25 12:08:39 INFO dblib.commit_tran(): Transaction commited
+2022-06-25 12:08:39 INFO corelib.process():End method
+2022-06-25 12:08:39 INFO Finish processing the recons

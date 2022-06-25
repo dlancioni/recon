@@ -30,8 +30,8 @@ class SetupLib:
                 side2 = True
             if str(ds["Name"]).strip() == "":
                 message = f"Side name is missing"
-            if str(ds["Source"]).strip() == "":
-                message = f"Source is missing"
+            if str(ds["File"]).strip() == "":
+                message = f"File is missing"
             if str(ds["Separator"]).strip() == "":
                 message = f"Separator is missing"
             if len(ds["Field"]) == 0:
@@ -57,7 +57,7 @@ class SetupLib:
     def get_recon_info(self):
         fslib = FsLib()
         self.method = "setuplib.get_recon_info()"
-        path = fslib.get_dir_etc("one x one.json")
+        path = fslib.get_dir_etc("recon_01.json")
         setup = fslib.get_json(path)
         self.logger.info(f"{self.method}: Setup loaded sucessfuly")
         return setup
