@@ -1,4 +1,5 @@
 import logging
+from sqlite3 import Error
 from src.sqllib import SqlLib
 
 class ReconLib:
@@ -46,7 +47,7 @@ class ReconLib:
         cn.execute(sql)
         sql = f"update {self.tmp2} set recon='{self.name}', rule = '{rule}', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
         cn.execute(sql)
-        
+
     def compare(self):
         """ compare the records and relegate the status """
         self.method = "reconlib.match()"
@@ -57,16 +58,19 @@ class ReconLib:
         """ update the final status from grouped tmp table to flat table """
         self.method = "reconlib.stamp()"
         sql = ""
-        sqllib = SqlLib()        
+        sqllib = SqlLib()
 
     def process(self, cn, setup):
-        """ reconcile the positions """        
+        """ reconcile the positions """
         self.method = "reconlib.process()"
-        try:            
+        try:
             recons = setup["Recons"]
             for recon in recons:
                 self.aggregate(cn, recon)
                 self.match_key(cn, recon)
-
+        except Error as err:
+            self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
         except BaseException as err:
-            self.logger.error(f"{self.method}:Last SQL command {str(err)}")
+            self.logger.error(f"{self.method}: General error: {str(err)}")
+        finally:
+            self.logger.info(f"{self.method}: Done")

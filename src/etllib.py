@@ -29,6 +29,7 @@ class EtlLib:
         type_list = ds["Type"]
         masks = ds["Mask"]
         first = True
+        error_count = 0
         try:
             with open(path, "r") as file:
                 for line in file.readlines():
@@ -43,14 +44,19 @@ class EtlLib:
                             fl = sqlib.get_field_list(fields)
                             vl = sqlib.get_value_list(fields, types, values, masks)
                             sql = sqlib.get_sql_insert(tablename, fl, vl)
-                            cursor.execute(sql)
+                            try:
+                                cursor.execute(sql)
+                            except Error as err:
+                                error_count += 1
+                                self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
                         else:
-                            self.logger.error(f"{self.method}:Fields, Types and Masks are not the same size {path}")
+                            self.logger.error(f"{self.method}: Fields, Types and Masks are not the same size {path}")
                             return False
                     first = False
         except IOError as err:
-            self.logger.error(f"{self.method}:Error to manipulate file {path}: {str(err)}")       
-        except Error as err:
-            self.logger.error(f"{self.method}:Error to manipulate data {path}: {str(err)}")
+            self.logger.error(f"{self.method}: Error to manipulate file {path}: {str(err)}")
         except BaseException as err:
-            self.logger.error(f"{self.method}:General error {path}: {str(err)}")
+            self.logger.error(f"{self.method}: General error {path}: {str(err)}")
+        finally:
+            self.logger.info(f"{self.method}: Done")
+                

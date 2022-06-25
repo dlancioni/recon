@@ -51,7 +51,7 @@ class SetupLib:
         if message != "":
             self.logger.info(f"{self.method}: invalid json {message}")
             return False
-        self.logger.info(f"{self.method}: {self.name.strip()} sucessfuly validated")
+        self.logger.info(f"{self.method}: {self.name.strip()}sucessfuly validated")
         return True
 
     def get_recon_info(self):
