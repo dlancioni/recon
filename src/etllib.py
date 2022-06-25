@@ -1,9 +1,10 @@
 import logging
 from sqlite3 import Error
+from src.baselib import BaseLib
 from src.sqllib import SqlLib
 from src.fslib import FsLib
 
-class EtlLib:
+class EtlLib(BaseLib):
 
     def __init__(self, id, name):
         self.id = id

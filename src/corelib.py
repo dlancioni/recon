@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import logging
+from src.baselib import BaseLib
 from src.dblib import DbLib
 from src.fslib import FsLib
 from src.sqllib import SqlLib
@@ -15,7 +16,7 @@ fslib = FsLib()
 sqllib = SqlLib()
 utillib = UtilLib()
 
-class CoreLib:
+class CoreLib(BaseLib):
 
     def __init__(self, id=0, name=""):
         self.id = id

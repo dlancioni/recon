@@ -1,8 +1,9 @@
 import logging
 from sqlite3 import Error
 from src.sqllib import SqlLib
+from src.baselib import BaseLib
 
-class ReconLib:
+class ReconLib(BaseLib):
 
     def __init__(self, id, name, fields, types):
         self.logger = logging.getLogger(__name__)
