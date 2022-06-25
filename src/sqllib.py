@@ -14,33 +14,33 @@ class SqlLib:
         key = "" if key is None else key
         return key
     
-    def get_field_list(self, fields=[], types=None, funcs=None):
+    def get_field_list(self, fields=[], types=[], funcs=[]):
         i = 0
         sql = ""
         if fields == []: return ""
         size = len(fields) -1
         while i <= size:
             name = fields[i]
-            type = types[i] if types != None else ""
-            func = funcs[i] if funcs != None else ""
+            type = types[i] if types != [] else ""
+            func = funcs[i] if funcs != [] else ""
             sql += f"{func}({name}) {name}, " if func else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
         sql = sql.lower()
         return sql
     
-    def get_value_list(self, fields, types, values, masks):
+    def get_value_list(self, fields=[], types=[], values=[], masks=[]):
         i = 0
         sql = ""        
-        if fields == None or types== None or values == None: return ""
+        if fields == [] or types== [] or values == []: return ""
         size = len(fields) -1
         while i <= size:
             name = fields[i]
-            type = types[i] if types != None else ""
+            type = types[i] if types != [] else ""
             quote = "'" if type in ["text", "datetime"] else ""
             value = str(values[i]).strip()
             mask = str(masks[i]).strip()
-            if mask == ",": 
+            if mask == ",":
                 value = value.replace(".", "").replace(",", ".")
             sql += f"{quote}{value}{quote}, "
             i += 1

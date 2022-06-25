@@ -1,4 +1,5 @@
 import logging
+from sqlite3 import Error
 from src.sqllib import SqlLib
 
 class EtlLib:
@@ -39,6 +40,9 @@ class EtlLib:
                             self.logger.error(f"{self.method}:Fields, Types and Masks are not the same size {path}")
                             return False
                     first = False
+        except IOError as err:
+            self.logger.error(f"{self.method}:Error to manipulate file {path}: {str(err)}")       
+        except Error as err:
+            self.logger.error(f"{self.method}:Error to manipulate data {path}: {str(err)}")
         except BaseException as err:
-            self.logger.error(f"{self.method}:Error importing the file {path}: {str(err)}")
-
+            self.logger.error(f"{self.method}:General error {path}: {str(err)}")
