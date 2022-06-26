@@ -54,10 +54,10 @@ class SetupLib:
         self.logger.info(f"{self.method}: {self.name.strip()}sucessfuly validated")
         return True
 
-    def get_recon_info(self):
+    def get_recon_info(self, recon):
         fslib = FsLib()
         self.method = "setuplib.get_recon_info()"
-        path = fslib.get_dir_etc("recon_01.json")
+        path = fslib.get_dir_etc(recon)
         setup = fslib.get_json(path)
         self.logger.info(f"{self.method}: Setup loaded sucessfuly")
         return setup

@@ -5,6 +5,9 @@ import sys
 import logging
 from src.corelib import CoreLib
 from src.fslib import FsLib
+from src.utillib import UtilLib
+
+utillib = UtilLib()
 # general configuration file
 fslib = FsLib()
 app_path = fslib.get_dir_parent(fslib.get_dir())
@@ -23,6 +26,13 @@ logging.basicConfig(filename = log_path,
 # core program
 logger = logging.getLogger()
 logger.info("Start processing the recons")
+recons = [
+    "recon_01.json"
+]
+os.system("cls")
+utillib.log(f"Start processing...")
 corelib = CoreLib()
-corelib.process()
-logger.info("Finish processing the recons")
+for recon in recons:
+    utillib.log(f"Running recon {recon}")
+    corelib.process(recon)
+utillib.log(f"Finish processing the recons")

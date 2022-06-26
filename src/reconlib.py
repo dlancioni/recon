@@ -44,9 +44,9 @@ class ReconLib(BaseLib):
         rule = recon["Rule"]
         fields_key = recon["Key"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
-        sql = f"update {self.tmp1} set recon='{self.name}', rule = '{rule}', id_parent = (select id from {self.tmp2} where 1 = 1 {matching_key})"
+        sql = f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='Matched', id_parent = (select id from {self.tmp2} where 1 = 1 {matching_key})"
         cn.execute(sql)
-        sql = f"update {self.tmp2} set recon='{self.name}', rule = '{rule}', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
+        sql = f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='Matched', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
         cn.execute(sql)
 
     def compare(self):
