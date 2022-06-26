@@ -60,4 +60,15 @@ class EtlLib(BaseLib):
             self.logger.error(f"{self.method}: General error {path}: {str(err)}")
         finally:
             self.logger.info(f"{self.method}: Done")
-                
+
+    def process(self, cn, setup):
+        """ import positions """
+        self.method = "etllib.process()"
+        try:
+            datasources = setup["Datasources"]
+            for datasource in datasources:
+                self.import_file(cn, datasource)
+        except BaseException as err:
+            self.logger.error(f"{self.method}: General error: {str(err)}")
+        finally:
+            self.logger.info(f"{self.method}: Done")

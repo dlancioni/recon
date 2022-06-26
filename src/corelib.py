@@ -23,12 +23,6 @@ class CoreLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
 
-    def import_text_file(self, cursor, setup):
-        etllib = EtlLib(self.id, self.name)        
-        for datasource in setup["Datasources"]:
-            filename = datasource["File"]
-            etllib.import_file(cursor, datasource)
-
     def process(self):
         self.method = "corelib.process()"
         self.logger.info(f"{self.method}: Start method")
@@ -44,13 +38,15 @@ class CoreLib(BaseLib):
                 return False
 
             cn = dblib.begin_tran()
+            
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.create_recon_area(cn, setup)
-            self.import_text_file(cn, setup)
+
+            etllib = EtlLib(self.id, self.name)
+            etllib.process(cn, setup)
 
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, setup)
-
 
             utillib.print(cn)
             
