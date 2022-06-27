@@ -30,6 +30,7 @@ class DbLib:
     def get_connection(db=""):
         conn = None
         conn = sqlite3.connect(":memory:")
+        #conn = sqlite3.connect("c:\\temp\\db.db")
         conn.isolation_level = None
         return conn
 

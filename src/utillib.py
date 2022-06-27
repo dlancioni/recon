@@ -8,7 +8,7 @@ class UtilLib:
     def print(self, cursor):
         for side in range(1,3):
             print(f"Side{side}:")
-            cursor.execute(f"select * from tmp1{side}")
+            cursor.execute(f"select * from tb1{side}")
             rows = cursor.fetchall()
             for row in rows:
                 print(row)
@@ -25,4 +25,4 @@ class UtilLib:
         cursor.execute(sql)
         rows = cursor.fetchall()
         for row in rows:
-            print(row)        
+            print(row)

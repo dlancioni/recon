@@ -46,9 +46,9 @@ class ReconLib(BaseLib):
         rule = recon["Rule"]
         fields_key = recon["Key"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
-        sql = f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp2} where 1 = 1 {matching_key})"
+        sql = f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp2} where 1=1 {matching_key})"
         cn.execute(sql)
-        sql = f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
+        sql = f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp1} where 1=1 {matching_key})"
         cn.execute(sql)
 
     def compare(self, cn, recon):
@@ -63,10 +63,12 @@ class ReconLib(BaseLib):
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
         fields_key = [(f"{self.tmp1}.{field}") for field in fields_key]
         fields_key = sqllib.get_field_list(fields_key)
-        tablename = self.tmp3       
+        """ keep difference and status in tmp3 """
+        tablename = self.tmp3
         for field in fields_compare:
             cn.execute(f"drop table if exists {tablename}")
-            sql = ""            
+            field = field.lower()
+            sql = ""
             tmp1 = f"{self.tmp1}.{field}"
             tmp2 = f"{self.tmp2}.{field}"
             sql += f" create table {tablename} as"
@@ -77,18 +79,29 @@ class ReconLib(BaseLib):
             sql += f" from {self.tmp1}, {self.tmp2}"
             sql += f" where {self.tmp1}.status = 'matched'"
             sql += f" {matching_key}"
-            cn.execute(sql.lower())
+            cn.execute(sql)
+            """ stamp the differences in tmp1/tmp2 tables """
             for side in range(1,3):
-                tablename = self.tmp1 if side == 1 else self.tmp2
-                matching_key = sqllib.get_sql_key(tablename, self.tmp3, recon["Key"])
-                sql = f"alter table {tablename} add {field}_diff text default ''"
-                cn.execute(sql.lower())
-                sql = f"update {tablename} set {field}_diff = (select difference from {self.tmp3} where equality = 0 {matching_key})"
-                cn.execute(sql.lower())
+                temps = self.tmp1 if side == 1 else self.tmp2
+                matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Key"])
+                cn.execute(f"alter table {temps} add {field}_diff text default ''")
+                cn.execute(f"update {temps} set {field}_diff = (select difference from {self.tmp3} where equality = 0 {matching_key})")
+                cn.execute(f"update {temps} set {field}_diff = '' where {field}_diff is null")
+                cn.execute(f"update {temps} set status = 'divergent' where {field}_diff <> ''")
 
-    def stamp(self):
+    def stamp(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
         self.method = "reconlib.stamp()"
+        utillib = UtilLib()
+        sqllib = SqlLib()
+        rule = recon["Rule"]
+        fields_key = recon["Key"]
+        match_info = ["id_parent", "recon", "rule", "status"]
+        matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, fields_key)
+        matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, fields_key)
+        for field in match_info:
+            cn.execute(f"update {self.tb1} set {field} = (select {field} from {self.tmp1} where 1=1 {matching_key1})")
+            cn.execute(f"update {self.tb2} set {field} = (select {field} from {self.tmp2} where 1=1 {matching_key2})")
 
     def process(self, cn, setup):
         """ reconcile the positions """
@@ -100,6 +113,7 @@ class ReconLib(BaseLib):
                 self.aggregate(cn, recon)
                 self.match_key(cn, recon)
                 self.compare(cn, recon)
+                self.stamp(cn, recon)
         except Error as err:
             message = f"{self.method}: SQL Error -> {str(err)}"
             utillib.log(message)

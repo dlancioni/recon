@@ -68,7 +68,7 @@ class SqlLib:
             i += 1
         fieldlist = fieldlist[:-2]
         sql = f"create table {tablename} ({fieldlist})"
-        return sql
+        return sql.lower()
     
     def get_create_index_definition(self, tablename="", fields=""):
         i = 0
