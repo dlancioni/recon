@@ -9,18 +9,12 @@
             "Name": "One",
             "File": "etc:recon_11.txt",
             "Separator": ";",
-            "Field": ["Integer", "Decimal", "Text", "Datetime"],
-            "Type":  ["integer", "decimal", "text", "Datetime"],
-            "Mask":  ["", "", "", ""]
-        },
-        {
-            "Side": 2,
-            "Name": "One",
-            "File": "etc:recon_12.txt",
-            "Separator": ";",
-            "Field": ["Integer", "Decimal", "Text", "Datetime"],
-            "Type":  ["integer", "decimal", "text", "Datetime"],
-            "Mask":  ["", "", "", ""]
+            "Fields": 
+            [
+                {"name":"agencia", "type":"text", "mask":""},
+                {"name":"conta", "type":"text", "mask":""},
+                {"name":"saldo", "type":"decimal", "mask":""}
+            ]
         }
     ],
     "Recons":
@@ -28,7 +22,13 @@
         {
             "Rule": "Rule 1",
             "Key": ["Integer", "Datetime"],
-            "Compare": ["Decimal"]
+            "Compare": ["Decimal"],
+            "Fields":
+            [
+                {"type":"key", "name":"agencia"},
+                {"type":"key", "name":"conta"},
+                {"type":"compare", "name":"saldo", "tolerance":0.01}
+            ]
         }
     ]
 }

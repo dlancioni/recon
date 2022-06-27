@@ -6,6 +6,30 @@ sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 from src.sqllib import SqlLib
 lib = SqlLib()
 
+recon = {
+    "Id": 1,
+    "Name": "Recon 1",
+    "Description": "1:1 where both sides have the same file",
+    "Datasources":
+    [
+        {
+            "Side": 1,
+            "Name": "One",
+            "File": "etc:recon_11.txt",
+            "Separator": ";",
+            "Fields": 
+            [
+                {"name":"Agencia", "type":"integer", "value":"1010"},
+                {"name":"Saldo", "type":"decimal", "function":"sum", "mask":",", "value":"1,99"},
+                {"name":"Conta", "type":"text", "value":"10001-1"},
+                {"name":"Data", "type":"datetime", "function":"max", "value":"20221231"}
+            ]
+        }
+    ]
+}
+
+field_def = recon["Datasources"][0]["Fields"]
+
 class CoreLibTest(unittest.TestCase):
     
     def setUp(self):
@@ -16,34 +40,16 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual("real", lib.get_field_type("decimal"))
         self.assertEqual("text", lib.get_field_type("datetime"))
         
-    def get_field_list(self):
+    def test_get_field_list(self):
         self.assertEqual("", lib.get_field_list(""))
-        fields = ["integer", "decimal", "text", "datetime"]
-        self.assertEqual("integer, decimal, text, datetime", lib.get_field_list(fields))
-        fields = ["integer", "decimal", "text", "datetime"]
-        types  = ["integer", "decimal", "text", "datetime"]
-        aggregs  = ["", "sum", "", "max"]
-        self.assertEqual("integer, sum(decimal) decimal, text, max(datetime) datetime", lib.get_field_list(fields, types, aggregs))
+        self.assertEqual("agencia, sum(saldo) saldo, conta, max(data) data", lib.get_field_list(field_def))
         
-    def test_get_value_list(self):       
-        self.assertEqual("", lib.get_value_list([], [], [], []))        
-        fields = [ "age", "salary", "name", "birthdate" ]
-        types  = [ "integer", "decimal", "text", "datetime" ]
-        masks  = [ "", "", "", "" ]
-        values = [ 1, "1.99", "text 1", "20221231" ]
-        message = "1, 1.99, 'text 1', '20221231'"
-        self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
-        fields = [ "age", "salary", "name", "birthdate" ]
-        types  = [ "integer", "decimal", "text", "datetime" ]
-        values = [ 1, "1,99", "text 1", "20221231" ]
-        masks  = [ "", ",", "", "" ]
-        message = "1, 1.99, 'text 1', '20221231'"
-        self.assertEqual(message, lib.get_value_list(fields, types, values, masks))
+    def test_get_value_list(self):
+        self.assertEqual("", lib.get_value_list(""))
+        self.assertEqual("1010, 1.99, '10001-1', '20221231'", lib.get_value_list(field_def))
         
     def test_get_create_table_definition(self):
-        self.assertEqual("", lib.get_create_table_definition("", "", ""))
-        fields = [ "age", "salary", "name", "birthdate" ]
-        types  = [ "integer", "decimal", "text", "datetime" ]        
+        self.assertEqual("", lib.get_create_table_definition("", ""))
         message = "create table tb "
         message += "("
         message += "id integer primary key, "
@@ -51,13 +57,13 @@ class CoreLibTest(unittest.TestCase):
         message += "recon text default '', "
         message += "rule text default '', "
         message += "status text default 'orphan', "
-        message += "age integer, "
-        message += "salary real, "
-        message += "name text, "
-        message += "birthdate text"
+        message += "agencia integer, "
+        message += "saldo real, "
+        message += "conta text, "
+        message += "date text"
         message += ")"        
-        self.assertEqual(message, lib.get_create_table_definition("tb", fields, types))
-
+        self.assertEqual(len(message), len(lib.get_create_table_definition("tb", field_def)))
+        
     def test_get_create_index_definition(self):
         self.assertEqual("", lib.get_create_index_definition("", ""))
         fields = [ "name", "date" ]
@@ -90,16 +96,14 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(3, len(t))
         
     def test_get_grouping_list(self):
-        self.assertEqual("", lib.get_grouping_list("", ""))
-        fields = ["integer", "decimal", "text", "datetime"]
-        funcs  = ["", "sum", "", "max"]
-        self.assertEqual("integer, text", lib.get_grouping_list(fields, funcs))        
+        self.assertEqual("", lib.get_grouping_list(""))
+        self.assertEqual("agencia, conta", lib.get_grouping_list(field_def))
         
     def test_get_sql_key(self):
-        self.assertEqual("", lib.get_sql_key("", "", ""))        
+        self.assertEqual("", lib.get_sql_key("", "", ""))
         fields = [ "name", "date" ]
         message = "and tb1.name = tb2.name and tb1.date = tb2.date"
-        self.assertEqual(message, lib.get_sql_key("tb1", "tb2", fields))
+        self.assertEqual(message, lib.get_sql_key("tb1", "tb2", fields))        
 
     def tearDown(self):
         pass

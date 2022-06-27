@@ -14,32 +14,32 @@ class SqlLib:
         key = "" if key is None else key
         return key
     
-    def get_field_list(self, fields=[], types=[], funcs=[]):
+    def get_field_list(self, field_def=""):
         i = 0
         sql = ""
-        if fields == []: return ""
-        size = len(fields) -1
+        if field_def == "": return ""
+        size = len(field_def) -1
         while i <= size:
-            name = fields[i]
-            type = types[i] if types != [] else ""
-            func = funcs[i] if funcs != [] else ""
-            sql += f"{func}({name}) {name}, " if func else f"{name}, "
+            name = field_def[i]["name"]
+            type = field_def[i]["type"]
+            function = field_def[i]["function"] if "function" in field_def[i] else ""
+            sql += f"{function}({name}) {name}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
         sql = sql.lower()
         return sql
     
-    def get_value_list(self, fields=[], types=[], values=[], masks=[]):
+    def get_value_list(self, field_def=""):
         i = 0
         sql = ""        
-        if fields == [] or types== [] or values == []: return ""
-        size = len(fields) -1
+        if field_def == "": return ""
+        size = len(field_def) -1
         while i <= size:
-            name = fields[i]
-            type = types[i] if types != [] else ""
+            name = field_def[i]["name"]
+            type = field_def[i]["type"] if "type" in field_def[i] else ""
+            value = str(field_def[i]["value"]).strip() if "value" in field_def[i] else ""
+            mask = str(field_def[i]["mask"]).strip() if "mask" in field_def[i] else ""
             quote = "'" if type in ["text", "datetime"] else ""
-            value = str(values[i]).strip()
-            mask = str(masks[i]).strip()
             if mask == ",":
                 value = value.replace(".", "").replace(",", ".")
             sql += f"{quote}{value}{quote}, "
@@ -47,7 +47,7 @@ class SqlLib:
         sql = sql.strip()[:-1]
         return sql
     
-    def get_create_table_definition(self, tablename, fields, types):
+    def get_create_table_definition(self, tb, field_def):
         i = 0
         sql = ""
         fieldlist = ""
@@ -57,16 +57,16 @@ class SqlLib:
         fieldlist += ", rule text default ''"
         fieldlist += ", status text default 'orphan'"
         fieldlist += ", "
-        if tablename == "" or fields == "" or types == "": return ""
-        size = len(fields) -1
+        if tb == "" or field_def == "": return ""
+        size = len(field_def) -1
         while i <= size:
-            name = str(fields[i]).strip()
-            type = str(types[i]).strip()
+            name = str(field_def[i]["name"]).strip()
+            type = str(field_def[i]["type"]).strip()
             type = self.get_field_type(type)
             fieldlist += f"{name} {type}, "
             i += 1
         fieldlist = fieldlist[:-2]
-        sql = f"create table {tablename} ({fieldlist})"
+        sql = f"create table {tb} ({fieldlist})"
         return sql.lower()
     
     def get_create_index_definition(self, tablename="", fields=""):
@@ -103,19 +103,19 @@ class SqlLib:
                 types.append(t2[index])
         return fields, types
 
-    def get_grouping_list(self, fields=[], funcs=[]):
+    def get_grouping_list(self, field_def=""):
         i = 0
         sql = ""
-        if fields == "" or funcs == "": return ""
-        size = len(fields) -1
+        if field_def == "": return ""
+        size = len(field_def) -1
         while i <= size:
-            name = fields[i]
-            func = funcs[i]
-            sql += f"{name}, " if not func else ""
+            name = field_def[i]["name"]
+            function = field_def[i]["function"] if "function" in field_def[i] else ""
+            sql += f"{name}, " if not function else ""
             i += 1
         sql = sql.strip()[:-1]
         sql = sql.lower()
-        return sql    
+        return sql
 
     def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
