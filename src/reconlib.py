@@ -2,6 +2,7 @@ import logging
 from sqlite3 import Error
 from src.sqllib import SqlLib
 from src.baselib import BaseLib
+from src.utillib import UtilLib
 
 class ReconLib(BaseLib):
 
@@ -54,26 +55,30 @@ class ReconLib(BaseLib):
         """ compare the records and relegate the status """
         self.method = "reconlib.match()"
         sql = ""
+        utillib = UtilLib()
         sqllib = SqlLib()
         rule = recon["Rule"]
         fields_key = recon["Key"]
         fields_compare = recon["Compare"]
-        field_list = sqllib.get_field_list(fields_key)
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
+        fields_key = [(f"{self.tmp1}.{field}") for field in fields_key]
+        fields_key = sqllib.get_field_list(fields_key)
         tablename = self.tmp3       
         for field in fields_compare:
             cn.execute(f"drop table if exists {tablename}")
-            sql = ""
+            sql = ""            
             tmp1 = f"{self.tmp1}.{field}"
             tmp2 = f"{self.tmp2}.{field}"
-            sql += f" create table {tablename} as select"
-            sql += f" {field_list}"
-            sql += f", ({tmp1} + '/' + {tmp2}) difference"
+            sql += f" create table {tablename} as"
+            sql += f" select"
+            sql += f" {fields_key}"
+            sql += f", ({tmp1} || '/' || {tmp2}) difference"
             sql += f", ({tmp1} = {tmp2}) equals"
             sql += f" from {self.tmp1}, {self.tmp2}"
             sql += f" where 1 = 1 {matching_key}"
             sql = sql.lower()
             cn.execute(sql)
+            utillib.query(cn, f"select * from {tablename}")
         
     def stamp(self):
         """ update the final status from grouped tmp table to flat table """
@@ -84,6 +89,7 @@ class ReconLib(BaseLib):
     def process(self, cn, setup):
         """ reconcile the positions """
         self.method = "reconlib.process()"
+        utillib = UtilLib()
         try:
             recons = setup["Recons"]
             for recon in recons:
@@ -91,7 +97,9 @@ class ReconLib(BaseLib):
                 self.match_key(cn, recon)
                 self.compare(cn, recon)
         except Error as err:
-            self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
+            message = f"{self.method}: SQL Error -> {str(err)}"
+            utillib.log(message)
+            self.logger.error(message)
         except BaseException as err:
             self.logger.error(f"{self.method}: General error: {str(err)}")
         finally:

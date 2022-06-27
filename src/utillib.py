@@ -21,4 +21,8 @@ class UtilLib:
         output = f"{dt}: {message}"
         print(output)
         
-        
+    def query(self, cursor, sql):
+        cursor.execute(sql)
+        rows = cursor.fetchall()
+        for row in rows:
+            print(row)        
