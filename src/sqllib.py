@@ -55,9 +55,9 @@ class SqlLib:
         fieldlist += ", id_parent integer default 0"
         fieldlist += ", recon text default ''"
         fieldlist += ", rule text default ''"
-        fieldlist += ", status text default 'Orphan'"
+        fieldlist += ", status text default 'orphan'"
         fieldlist += ", diff text default ''"
-        fieldlist += ", "        
+        fieldlist += ", "
         if tablename == "" or fields == "" or types == "": return ""
         size = len(fields) -1
         while i <= size:

@@ -46,9 +46,9 @@ class ReconLib(BaseLib):
         rule = recon["Rule"]
         fields_key = recon["Key"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
-        sql = f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='Matched', id_parent = (select id from {self.tmp2} where 1 = 1 {matching_key})"
+        sql = f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp2} where 1 = 1 {matching_key})"
         cn.execute(sql)
-        sql = f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='Matched', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
+        sql = f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp1} where 1 = 1 {matching_key})"
         cn.execute(sql)
 
     def compare(self, cn, recon):
@@ -73,18 +73,22 @@ class ReconLib(BaseLib):
             sql += f" select"
             sql += f" {fields_key}"
             sql += f", ({tmp1} || '/' || {tmp2}) difference"
-            sql += f", ({tmp1} = {tmp2}) equals"
+            sql += f", ({tmp1} = {tmp2}) equality"
             sql += f" from {self.tmp1}, {self.tmp2}"
-            sql += f" where 1 = 1 {matching_key}"
-            sql = sql.lower()
-            cn.execute(sql)
-            utillib.query(cn, f"select * from {tablename}")
-        
+            sql += f" where {self.tmp1}.status = 'matched'"
+            sql += f" {matching_key}"
+            cn.execute(sql.lower())
+            for side in range(1,3):
+                tablename = self.tmp1 if side == 1 else self.tmp2
+                matching_key = sqllib.get_sql_key(tablename, self.tmp3, recon["Key"])
+                sql = f"alter table {tablename} add {field}_diff text default ''"
+                cn.execute(sql.lower())
+                sql = f"update {tablename} set {field}_diff = (select difference from {self.tmp3} where equality = 0 {matching_key})"
+                cn.execute(sql.lower())
+
     def stamp(self):
         """ update the final status from grouped tmp table to flat table """
         self.method = "reconlib.stamp()"
-        sql = ""
-        sqllib = SqlLib()
 
     def process(self, cn, setup):
         """ reconcile the positions """
