@@ -27,7 +27,8 @@
     [
         {
             "Rule": "Rule 1",
-            "Key": ["Integer", "Datetime"]
+            "Key": ["Integer", "Datetime"],
+            "Compare": ["Text", "Decimal"]
         }
     ]
 }
