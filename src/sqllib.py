@@ -56,7 +56,6 @@ class SqlLib:
         fieldlist += ", recon text default ''"
         fieldlist += ", rule text default ''"
         fieldlist += ", status text default 'orphan'"
-        fieldlist += ", diff text default ''"
         fieldlist += ", "
         if tablename == "" or fields == "" or types == "": return ""
         size = len(fields) -1

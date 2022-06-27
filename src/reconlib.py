@@ -46,11 +46,13 @@ class ReconLib(BaseLib):
         rule = recon["Rule"]
         fields_key = recon["Key"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, fields_key)
-        sql = f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp2} where 1=1 {matching_key})"
-        cn.execute(sql)
-        sql = f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='matched', id_parent = (select id from {self.tmp1} where 1=1 {matching_key})"
-        cn.execute(sql)
-
+        cn.execute(f"update {self.tmp1} set id_parent = (select id from {self.tmp2} where 1=1 {matching_key})")
+        cn.execute(f"update {self.tmp2} set id_parent = (select id from {self.tmp1} where 1=1 {matching_key})")
+        cn.execute(f"update {self.tmp1} set id_parent = 0 where id_parent is null")
+        cn.execute(f"update {self.tmp2} set id_parent = 0 where id_parent is null")
+        cn.execute(f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='matched' where id_parent <> 0")
+        cn.execute(f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='matched' where id_parent <> 0")
+        print(1)
     def compare(self, cn, recon):
         """ compare the records and relegate the status """
         self.method = "reconlib.match()"

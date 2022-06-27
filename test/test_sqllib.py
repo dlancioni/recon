@@ -43,12 +43,19 @@ class CoreLibTest(unittest.TestCase):
     def test_get_create_table_definition(self):
         self.assertEqual("", lib.get_create_table_definition("", "", ""))
         fields = [ "age", "salary", "name", "birthdate" ]
-        types  = [ "integer", "decimal", "text", "datetime" ]
-        
-        message = "create table tb (id integer primary key, id_parent integer default 0, recon text default '', "
-        message += "rule text default '', status text default 'orphan', diff text default ''"
-        message += ", age integer, salary real, name text, birthdate text)"
-        
+        types  = [ "integer", "decimal", "text", "datetime" ]        
+        message = "create table tb "
+        message += "("
+        message += "id integer primary key, "
+        message += "id_parent integer default 0, "
+        message += "recon text default '', "
+        message += "rule text default '', "
+        message += "status text default 'orphan', "
+        message += "age integer, "
+        message += "salary real, "
+        message += "name text, "
+        message += "birthdate text"
+        message += ")"        
         self.assertEqual(message, lib.get_create_table_definition("tb", fields, types))
 
     def test_get_create_index_definition(self):
