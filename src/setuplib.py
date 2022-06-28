@@ -3,6 +3,7 @@ import sys
 import json
 import logging
 from src.fslib import FsLib
+from src.utillib import UtilLib
 
 class SetupLib:
 
@@ -10,12 +11,24 @@ class SetupLib:
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
+        
+    def validate_fields(self, fields):
+        message = ""
+        if len(fields) == 0:
+            message = f"Field definition not found"
+        for field in fields:
+            if len(field["name"]) == 0:
+                message = f"Name is mandatory"
+            if len(field["type"]) == 0:
+                message = f"Type is mandatory"
+        return message
 
     def validate(self, setup):
         self.method = "setuplib.validate()"
         message = ""
         side1 = False
         side2 = False
+        utillib = UtilLib()
         self.logger.info(f"{self.method}: Validating {self.name}")
         if str(setup["Id"]).strip() == "":
             message = f"Id is missing"
@@ -33,23 +46,16 @@ class SetupLib:
             if str(ds["File"]).strip() == "":
                 message = f"File is missing"
             if str(ds["Separator"]).strip() == "":
-                message = f"Separator is missing"
-            if len(ds["Field"]) == 0:
-                message = f"Field definition not found"
-            if len(ds["Type"]) == 0:
-                message = f"Type definition not found"
-            if len(ds["Mask"]) == 0:
-                message = f"Mask definition not found"
-            if len(ds["Field"]) != len(ds["Type"]):
-                message = f"Field and Type definition are different"
-            if len(ds["Field"]) > 0 and len(ds["Field"]) != len(ds["Mask"]):
-                message = f"Field and Mask definition are different"
+                message = f"Separator is missing"                
+            message = self.validate_fields(ds["Fields"])
         if side1 == False:
             message = f"Configuration for side 1 not found"
         if side2 == False:
             message = f"Configuration for side 2 not found"
         if message != "":
-            self.logger.info(f"{self.method}: invalid json {message}")
+            message = f"{self.method}: Invalid Recon -> {str(message)}"
+            utillib.log(message)
+            self.logger.error(message)                        
             return False
         self.logger.info(f"{self.method}: {self.name.strip()}sucessfuly validated")
         return True

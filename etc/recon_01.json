@@ -15,7 +15,19 @@
                 {"name":"conta", "type":"text", "mask":""},
                 {"name":"saldo", "type":"decimal", "mask":""}
             ]
-        }
+        },
+        {
+            "Side": 1,
+            "Name": "One",
+            "File": "etc:recon_11.txt",
+            "Separator": ";",
+            "Fields": 
+            [
+                {"name":"agencia", "type":"text", "mask":""},
+                {"name":"conta", "type":"text", "mask":""},
+                {"name":"saldo", "type":"decimal", "mask":""}
+            ]
+        }        
     ],
     "Recons":
     [
