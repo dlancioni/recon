@@ -11,19 +11,27 @@ class AreaLib:
         self.name = name
         self.logger = logging.getLogger(__name__)
 
+    def merge_datasources(self, setup):
+        f1, t1 = [], []
+        f2, t2 = [], []
+        for datasource in setup["Datasources"]:
+            side = datasource["Side"]
+            fields = datasource["Fields"]
+            for field in fields:
+                if side == 1:
+                    f1.append(field["Name"])
+                    t1.append(field["Type"])
+                else:
+                    f2.append(field["Name"])
+                    t2.append(field["Type"])
+        return f1, t1, f2, t2                    
+
+
     def create_recon_area(self, cursor, setup):
         self.method = "arealib.create_recon_area()"
+        sqllib = SqlLib()
         id = setup["Id"]        
-        f1, t1 = [], []
-        f2, t2 = [], []       
-        for datasource in setup["Datasources"]:
-            if datasource["Side"] == 1:
-                f1 += datasource["Field"]
-                t1 += datasource["Type"]
-            if datasource["Side"] == 2:
-                f2 += datasource["Field"]
-                t2 += datasource["Type"]
-        sqllib = SqlLib()        
+        f1, t1, f2, t2 = self.merge_datasources(setup)
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
         for side in range(1, 3):
             tb = f"tb{id}{side}"

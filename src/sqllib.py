@@ -47,7 +47,7 @@ class SqlLib:
         sql = sql.strip()[:-1]
         return sql
     
-    def get_create_table_definition(self, tb, field_def):
+    def get_create_table_definition(self, tablename, fields, types):
         i = 0
         sql = ""
         fieldlist = ""
@@ -57,16 +57,16 @@ class SqlLib:
         fieldlist += ", rule text default ''"
         fieldlist += ", status text default 'orphan'"
         fieldlist += ", "
-        if tb == "" or field_def == "": return ""
-        size = len(field_def) -1
+        if tablename == "" or fields == [] or types == []: return ""
+        size = len(fields) -1
         while i <= size:
-            name = str(field_def[i]["name"]).strip()
-            type = str(field_def[i]["type"]).strip()
+            name = str(fields[i]).strip()
+            type = str(types[i]).strip()
             type = self.get_field_type(type)
             fieldlist += f"{name} {type}, "
             i += 1
         fieldlist = fieldlist[:-2]
-        sql = f"create table {tb} ({fieldlist})"
+        sql = f"create table {tablename} ({fieldlist})"
         return sql.lower()
     
     def get_create_index_definition(self, tablename="", fields=""):
@@ -93,7 +93,7 @@ class SqlLib:
         if len(f1) != len(t1) or len(f2) != len(t2): return [],[]
         fields = f1 + f2
         types = []
-        fields = list(dict.fromkeys(fields))        
+        fields = list(dict.fromkeys(fields))
         for field in fields:
             if field in f1:
                 index = f1.index(field)
