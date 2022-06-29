@@ -9,25 +9,26 @@
             "Name": "One",
             "File": "etc:recon_11.txt",
             "Separator": ";",
-            "Fields": 
+            "Fields":
             [
-                {"name":"agencia", "type":"text", "mask":""},
-                {"name":"conta", "type":"text", "mask":""},
-                {"name":"saldo", "type":"decimal", "mask":""}
+                {"Id":1, "Name":"", "Type":"text", "Mask":""},
+                {"Id":2, "Name":"conta", "Type":"text", "Mask":""},
+                {"Id":3, "Name":"saldo", "Type":"decimal", "Mask":""}
             ]
-        },
+        }
+        ,
         {
-            "Side": 1,
+            "Side": 2,
             "Name": "One",
             "File": "etc:recon_11.txt",
             "Separator": ";",
             "Fields": 
             [
-                {"name":"agencia", "type":"text", "mask":""},
-                {"name":"conta", "type":"text", "mask":""},
-                {"name":"saldo", "type":"decimal", "mask":""}
+                {"Id":1, "Name":"", "Type":"text", "Mask":""},
+                {"Id":2, "Name":"conta", "Type":"text", "Mask":""},
+                {"Id":3, "Name":"saldo", "Type":"decimal", "Mask":""}
             ]
-        }        
+        }                
     ],
     "Recons":
     [

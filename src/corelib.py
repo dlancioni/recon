@@ -36,9 +36,8 @@ class CoreLib(BaseLib):
             if not setuplib.validate(setup):
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
-            cn = dblib.begin_tran()
             
-            super().__init__("abcde")
+            cn = dblib.begin_tran()
 
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.create_recon_area(cn, setup)
