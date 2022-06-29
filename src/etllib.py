@@ -26,9 +26,7 @@ class EtlLib(BaseLib):
         tablename = f"tb{self.id}{side}"
         path = self.get_file(ds["File"])
         separator = ds["Separator"]
-        field_list = ds["Field"]
-        type_list = ds["Type"]
-        masks = ds["Mask"]
+        field_list = ds["Fields"]
         first = True
         error_count = 0
         try:
@@ -36,23 +34,19 @@ class EtlLib(BaseLib):
                 for line in file.readlines():
                     if not first:
                         value_list = line.split(separator)
-                        if len(field_list) == len(masks):
-                            fields, types, values = [], [], []
-                            for k, v in enumerate(field_list):
-                                fields.append(field_list[k])
-                                types.append(type_list[k])
-                                values.append(value_list[k])
-                            fl = sqlib.get_field_list(fields)
-                            vl = sqlib.get_value_list(fields, types, values, masks)
-                            sql = sqlib.get_sql_insert(tablename, fl, vl)
-                            try:
-                                cursor.execute(sql)
-                            except Error as err:
-                                error_count += 1
-                                self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
-                        else:
-                            self.logger.error(f"{self.method}: Fields, Types and Masks are not the same size {path}")
-                            return False
+                        fields, types, values = [], [], []
+                        for k, v in enumerate(field_list):
+                            fields.append(field_list[k])
+                            types.append(type_list[k])
+                            values.append(value_list[k])
+                        fl = sqlib.get_field_list(fields)
+                        vl = sqlib.get_value_list(fields, types, values, masks)
+                        sql = sqlib.get_sql_insert(tablename, fl, vl)
+                        try:
+                            cursor.execute(sql)
+                        except Error as err:
+                            error_count += 1
+                            self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
                     first = False
         except IOError as err:
             self.logger.error(f"{self.method}: Error to manipulate file {path}: {str(err)}")
