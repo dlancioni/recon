@@ -23,25 +23,22 @@ class EtlLib(BaseLib):
         sql = ""
         sqlib = SqlLib()
         side = ds["Side"]
-        tablename = f"tb{self.id}{side}"
+        tb = f"tb{self.id}{side}"
         path = self.get_file(ds["File"])
         separator = ds["Separator"]
-        field_list = ds["Fields"]
+        fields = ds["Fields"]
         first = True
         error_count = 0
         try:
+            fl = sqlib.get_field_list(fields)
             with open(path, "r") as file:
                 for line in file.readlines():
                     if not first:
-                        value_list = line.split(separator)
-                        fields, types, values = [], [], []
-                        for k, v in enumerate(field_list):
-                            fields.append(field_list[k])
-                            types.append(type_list[k])
-                            values.append(value_list[k])
-                        fl = sqlib.get_field_list(fields)
-                        vl = sqlib.get_value_list(fields, types, values, masks)
-                        sql = sqlib.get_sql_insert(tablename, fl, vl)
+                        values = line.split(separator)
+                        for field in fields:
+                            field["Value"] = values[field["Id"]]
+                        vl = sqlib.get_value_list(fields)
+                        sql = sqlib.get_sql_insert(tb, fl, vl)
                         try:
                             cursor.execute(sql)
                         except Error as err:

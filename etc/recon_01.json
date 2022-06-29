@@ -11,9 +11,9 @@
             "Separator": ";",
             "Fields":
             [
-                {"Id":1, "Name":"agencia", "Type":"text", "Mask":""},
-                {"Id":2, "Name":"conta", "Type":"text", "Mask":""},
-                {"Id":3, "Name":"saldo", "Type":"decimal", "Mask":""}
+                {"Id":1, "Name":"agencia", "Type":"text", "Value":"", "Mask":""},
+                {"Id":2, "Name":"conta", "Type":"text", "Value":"", "Mask":""},
+                {"Id":3, "Name":"saldo", "Type":"decimal", "Value":"", "Mask":""}
             ]
         }
         ,
@@ -24,9 +24,9 @@
             "Separator": ";",
             "Fields": 
             [
-                {"Id":1, "Name":"agencia", "Type":"text", "Mask":""},
-                {"Id":2, "Name":"conta", "Type":"text", "Mask":""},
-                {"Id":3, "Name":"saldo", "Type":"decimal", "Mask":""}
+                {"Id":1, "Name":"agencia", "Type":"text", "Value":"", "Mask":""},
+                {"Id":2, "Name":"conta", "Type":"text", "Value":"", "Mask":""},
+                {"Id":3, "Name":"saldo", "Type":"decimal", "Value":"", "Mask":""}
             ]
         }                
     ],

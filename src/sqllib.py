@@ -20,9 +20,9 @@ class SqlLib:
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            name = field_def[i]["name"]
-            type = field_def[i]["type"]
-            function = field_def[i]["function"] if "function" in field_def[i] else ""
+            name = field_def[i]["Name"]
+            type = field_def[i]["Type"]            
+            function = field_def[i]["Function"] if "function" in field_def[i] else ""
             sql += f"{function}({name}) {name}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
@@ -35,11 +35,11 @@ class SqlLib:
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            name = field_def[i]["name"]
-            type = field_def[i]["type"] if "type" in field_def[i] else ""
-            value = str(field_def[i]["value"]).strip() if "value" in field_def[i] else ""
-            mask = str(field_def[i]["mask"]).strip() if "mask" in field_def[i] else ""
-            quote = "'" if type in ["text", "datetime"] else ""
+            name = field_def[i]["Name"]
+            type = field_def[i]["Type"] if "Type" in field_def[i] else ""
+            value = str(field_def[i]["Value"]).strip() if "Value" in field_def[i] else ""
+            mask = str(field_def[i]["Mask"]).strip() if "Mask" in field_def[i] else ""
+            quote = "'" if type.lower() in ["text", "datetime"] else ""
             if mask == ",":
                 value = value.replace(".", "").replace(",", ".")
             sql += f"{quote}{value}{quote}, "
