@@ -13,7 +13,15 @@ class SqlLib:
         key = types.get(key.lower())
         key = "" if key is None else key
         return key
-    
+
+    def get_fields(self, fields=[], types=[]):
+        sql = ""
+        for field in fields:
+            sql += f"{field}, "
+        sql = sql.strip()[:-1]
+        sql = sql.lower()
+        return sql
+
     def get_field_list(self, field_def=""):
         i = 0
         sql = ""
@@ -120,6 +128,11 @@ class SqlLib:
     def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
         for field in fields:
-            sql += f"and {tb1}.{field} = {tb2}.{field} "
-        sql = sql.strip().lower()   
+            if str(field["Type"]).strip().lower() == "key":
+                field_name = field["Name"]
+                sql += f"and {tb1}.{field_name} = {tb2}.{field_name} "
+        sql = sql.strip().lower()
         return sql
+    
+    
+    

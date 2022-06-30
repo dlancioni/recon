@@ -36,13 +36,11 @@
     [
         {
             "Rule": "Rule 1",
-            "Key": ["Integer", "Datetime"],
-            "Compare": ["Decimal"],
             "Fields":
             [
-                {"type":"key", "name":"agencia"},
-                {"type":"key", "name":"conta"},
-                {"type":"compare", "name":"saldo", "tolerance":0.01}
+                {"Type":"Key", "Name":"Agencia"},
+                {"Type":"Key", "Name":"Conta"},
+                {"Type":"Compare", "Name":"Saldo", "Tolerance":0.01}
             ]
         }
     ]

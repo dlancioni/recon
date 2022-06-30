@@ -1,10 +1,13 @@
-2022-06-29 11:15:22 INFO Start processing the recons
-2022-06-29 11:15:22 INFO corelib.process(): Start method
-2022-06-29 11:15:22 INFO dblib.begin_tran(): Start new database transaction
-2022-06-29 11:15:22 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
-2022-06-29 11:15:22 INFO setuplib.validate(): Validating 
-2022-06-29 11:15:22 ERROR setuplib.validate(): Recon 1 Recon 1 sucessfuly validated
-2022-06-29 11:15:22 INFO arealib.process(): Done
-2022-06-29 11:16:33 INFO etllib.import_file(): Done
-2022-06-29 11:16:36 INFO etllib.import_file(): Done
-2022-06-29 11:16:37 INFO etllib.import_file(): Done
+2022-06-30 09:28:50 INFO Start processing the recons
+2022-06-30 09:28:50 INFO corelib.process(): Start method
+2022-06-30 09:28:50 INFO dblib.begin_tran(): Start new database transaction
+2022-06-30 09:28:50 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
+2022-06-30 09:28:50 INFO setuplib.validate(): Validating 
+2022-06-30 09:28:50 ERROR setuplib.validate(): Recon 1 Recon 1 sucessfuly validated
+2022-06-30 09:28:50 INFO arealib.process(): Done
+2022-06-30 09:28:50 INFO etllib.import_file(): Done
+2022-06-30 09:28:50 INFO etllib.import_file(): Done
+2022-06-30 09:28:50 INFO etllib.import_file(): Done
+2022-06-30 09:28:50 INFO reconlib.stamp(): Done
+2022-06-30 09:28:50 INFO dblib.commit_tran(): Transaction commited
+2022-06-30 09:28:50 INFO corelib.process():End method

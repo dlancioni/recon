@@ -26,7 +26,7 @@ class AreaLib:
                 else:
                     f2.append(field["Name"])
                     t2.append(field["Type"])
-        return f1, t1, f2, t2                    
+        return f1, t1, f2, t2
 
     def create_recon_area(self, cn, setup):
         sqllib = SqlLib()
