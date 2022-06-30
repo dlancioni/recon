@@ -1,7 +1,0 @@
-Integer; Decimal; Text; Date
-1;25.00;text 1;20220101;Matched
-1;25.00;text 1;20220101;Matched
-1;50.00;text 1;20220101;Matched
-2;100.00;text 2;20220202;Divergent
-2;100.05;text 2;20220202;Divergent
-4;400.00;text 4;20220404;Orphan side2

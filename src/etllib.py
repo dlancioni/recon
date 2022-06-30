@@ -36,7 +36,8 @@ class EtlLib(BaseLib):
                     if not first:
                         values = line.split(separator)
                         for field in fields:
-                            field["Value"] = values[field["Id"]]
+                            position = int(field["Id"]) -1
+                            field["Value"] = values[position]
                         vl = sqlib.get_value_list(fields)
                         sql = sqlib.get_sql_insert(tb, fl, vl)
                         try:
@@ -46,9 +47,13 @@ class EtlLib(BaseLib):
                             self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
                     first = False
         except IOError as err:
-            self.logger.error(f"{self.method}: Error to manipulate file {path}: {str(err)}")
+            message = f"{self.method}: File manipulation error {path} -> {str(err)}"
+            utillib.log(message)
+            self.logger.error(message)            
         except BaseException as err:
-            self.logger.error(f"{self.method}: General error {path}: {str(err)}")
+            message = f"{self.method}: General error -> {str(err)}"
+            utillib.log(message)
+            self.logger.error(message)
         finally:
             self.logger.info(f"{self.method}: Done")
 
