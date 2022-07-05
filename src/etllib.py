@@ -3,6 +3,7 @@ from sqlite3 import Error
 from src.baselib import BaseLib
 from src.sqllib import SqlLib
 from src.fslib import FsLib
+from src.dblib import DbLib
 
 class EtlLib(BaseLib):
 
@@ -18,10 +19,11 @@ class EtlLib(BaseLib):
             path = fslib.get_dir_etc(tmp[1])
         return path
 
-    def import_file(self, cursor, ds):
+    def import_file(self, cn, ds):
         self.method = "etllib.import_file()"
         sql = ""
         sqlib = SqlLib()
+        dblib = DbLib()        
         side = ds["Side"]
         tb = f"tb{self.id}{side}"
         path = self.get_file(ds["File"])
@@ -41,7 +43,7 @@ class EtlLib(BaseLib):
                         vl = sqlib.get_value_list(fields)
                         sql = sqlib.get_sql_insert(tb, fl, vl)
                         try:
-                            cursor.execute(sql)
+                            dblib.execute(cn, sql)
                         except Error as err:
                             error_count += 1
                             self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")

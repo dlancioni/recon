@@ -1,13 +1,39 @@
-2022-07-05 11:52:28 INFO Start processing the recons
-2022-07-05 11:52:28 INFO corelib.process(): Start method
-2022-07-05 11:52:28 INFO dblib.begin_tran(): Start new database transaction
-2022-07-05 11:52:28 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
-2022-07-05 11:52:28 INFO setuplib.validate(): Validating 
-2022-07-05 11:52:28 ERROR setuplib.validate(): Saldo x Extrato Saldo x Extrato sucessfuly validated
-2022-07-05 11:52:28 INFO arealib.process(): Done
-2022-07-05 11:52:28 INFO etllib.import_file(): Done
-2022-07-05 11:52:28 INFO etllib.import_file(): Done
-2022-07-05 11:52:28 INFO etllib.import_file(): Done
-2022-07-05 11:52:29 INFO reconlib.stamp(): Done
-2022-07-05 11:52:29 INFO dblib.commit_tran(): Transaction commited
-2022-07-05 11:52:29 INFO corelib.process():End method
+2022-07-05 13:37:09 INFO Start processing the recons
+2022-07-05 13:37:09 INFO corelib.process(): Start method
+2022-07-05 13:37:09 INFO dblib.begin_tran(): Start new database transaction
+2022-07-05 13:37:09 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
+2022-07-05 13:37:09 INFO setuplib.validate(): Validating 
+2022-07-05 13:37:09 ERROR setuplib.validate(): Saldo x Extrato Saldo x Extrato sucessfuly validated
+2022-07-05 13:37:09 INFO arealib.process(): Done
+2022-07-05 13:37:09 INFO SQL Query: insert into tb11 (data, agencia, conta, saldo) values ('20220101', 1001, '10001-1', 1000)
+2022-07-05 13:37:09 INFO SQL Query: insert into tb11 (data, agencia, conta, saldo) values ('20220202', 2002, '20002-2', 2000.20)
+2022-07-05 13:37:09 INFO SQL Query: insert into tb11 (data, agencia, conta, saldo) values ('20220303', 3003, '30003-3', 3000)
+2022-07-05 13:37:09 INFO SQL Query: insert into tb11 (data, agencia, conta, saldo) values ('20220404', 4004, '40004-4', 4000)
+2022-07-05 13:37:09 INFO etllib.import_file(): Done
+2022-07-05 13:37:09 INFO SQL Query: insert into tb12 (data, agencia, conta, saldo) values ('20220101', 1001, '10001-1', 1000)
+2022-07-05 13:37:09 INFO SQL Query: insert into tb12 (data, agencia, conta, saldo) values ('20220202', 2002, '20002-2', 2000)
+2022-07-05 13:37:09 INFO SQL Query: insert into tb12 (data, agencia, conta, saldo) values ('20220303', 3003, '30003-3', 3000.30)
+2022-07-05 13:37:09 INFO SQL Query: insert into tb12 (data, agencia, conta, saldo) values ('20220505', 5005, '50005-5', 5000)
+2022-07-05 13:37:09 INFO etllib.import_file(): Done
+2022-07-05 13:37:09 INFO etllib.import_file(): Done
+2022-07-05 13:37:09 INFO SQL Query: insert into tmp11 (data, agencia, conta, saldo) select data, agencia, conta, saldo from tb11
+2022-07-05 13:37:09 INFO SQL Query: insert into tmp12 (data, agencia, conta, saldo) select data, agencia, conta, saldo from tb12
+2022-07-05 13:37:09 INFO SQL Query: update tmp11 set recon='Saldo x Extrato', rule='Agencia/Conta', status='matched', id_parent = tmp12.id from tmp12 where 1=1 and tmp11.agencia = tmp12.agencia and tmp11.conta = tmp12.conta
+2022-07-05 13:37:09 INFO SQL Query: update tmp12 set recon='Saldo x Extrato', rule='Agencia/Conta', status='matched', id_parent = tmp11.id from tmp11 where 1=1 and tmp11.agencia = tmp12.agencia and tmp11.conta = tmp12.conta
+2022-07-05 13:37:09 INFO SQL Query: drop table if exists tmp13
+2022-07-05 13:37:09 INFO SQL Query:  create table tmp13 as select tmp11.agencia, tmp11.conta, (tmp11.saldo || '/' || tmp12.saldo) difference, (tmp11.saldo = tmp12.saldo) equality from tmp11, tmp12 where tmp11.status = 'matched' and tmp11.agencia = tmp12.agencia and tmp11.conta = tmp12.conta
+2022-07-05 13:37:09 INFO SQL Query: alter table tmp11 add saldo_diff text default ''
+2022-07-05 13:37:09 INFO SQL Query: update tmp11 set status = 'divergent', saldo_diff = tmp13.difference from tmp13 where tmp13.equality = 0 and tmp11.agencia = tmp13.agencia and tmp11.conta = tmp13.conta
+2022-07-05 13:37:09 INFO SQL Query: alter table tmp12 add saldo_diff text default ''
+2022-07-05 13:37:09 INFO SQL Query: update tmp12 set status = 'divergent', saldo_diff = tmp13.difference from tmp13 where tmp13.equality = 0 and tmp12.agencia = tmp13.agencia and tmp12.conta = tmp13.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb11 set id_parent = tmp11.id_parent from tmp11 where 1=1 and tb11.agencia = tmp11.agencia and tb11.conta = tmp11.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb12 set id_parent = tmp12.id_parent from tmp12 where 1=1 and tb12.agencia = tmp12.agencia and tb12.conta = tmp12.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb11 set recon = tmp11.recon from tmp11 where 1=1 and tb11.agencia = tmp11.agencia and tb11.conta = tmp11.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb12 set recon = tmp12.recon from tmp12 where 1=1 and tb12.agencia = tmp12.agencia and tb12.conta = tmp12.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb11 set rule = tmp11.rule from tmp11 where 1=1 and tb11.agencia = tmp11.agencia and tb11.conta = tmp11.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb12 set rule = tmp12.rule from tmp12 where 1=1 and tb12.agencia = tmp12.agencia and tb12.conta = tmp12.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb11 set status = tmp11.status from tmp11 where 1=1 and tb11.agencia = tmp11.agencia and tb11.conta = tmp11.conta
+2022-07-05 13:37:09 INFO SQL Query: update tb12 set status = tmp12.status from tmp12 where 1=1 and tb12.agencia = tmp12.agencia and tb12.conta = tmp12.conta
+2022-07-05 13:37:09 INFO reconlib.stamp(): Done
+2022-07-05 13:37:09 INFO dblib.commit_tran(): Transaction commited
+2022-07-05 13:37:09 INFO corelib.process():End method

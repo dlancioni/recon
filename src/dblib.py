@@ -17,6 +17,15 @@ class DbLib:
         self.logger.info(f"{self.method}: Start new database transaction")
         return cursor
     
+    def execute(self, cn, sql):
+        self.method = "dblib.execute()"
+        try:
+            cn.execute(sql)
+        except Error as err:
+            self.logger.error(f"{self.method}: SQL Error -> {str(err)}")
+        finally:
+            self.logger.info(f"SQL Query: {sql}")                
+    
     def commit_tran(self, cn):
         self.method = "dblib.commit_tran()"
         #cn.execute("commit")

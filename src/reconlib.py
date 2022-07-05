@@ -3,6 +3,7 @@ from sqlite3 import Error
 from src.sqllib import SqlLib
 from src.baselib import BaseLib
 from src.utillib import UtilLib
+from src.dblib import DbLib
 
 class ReconLib(BaseLib):
 
@@ -26,6 +27,7 @@ class ReconLib(BaseLib):
         grouping_key = ""
         funcs = []
         sqllib = SqlLib()
+        dblib = DbLib()        
         field_list = sqllib.get_fields(self.fields, self.types)
         for side in range(1, 3):
             tb = self.tb1 if side == 1 else self.tb2
@@ -35,12 +37,13 @@ class ReconLib(BaseLib):
             sql += f"select {field_list} from {tb}"
             sql += f"group by {grouping_key}" if grouping_key != "" else ""
             sql += f"order by {grouping_key}" if grouping_key != "" else ""
-            cn.execute(sql)
+            dblib.execute(cn, sql)
         
     def match_key(self, cn, recon):
         """ set id as id_parent plus recon details in both sides  """
         self.method = "reconlib.match()"
         sqllib = SqlLib()
+        dblib = DbLib()
         rule = recon["Rule"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
         for side in range(1, 3):
@@ -55,7 +58,7 @@ class ReconLib(BaseLib):
             sql += f"from {tmp2} "
             sql += f"where 1=1 "
             sql += f"{matching_key}"
-            cn.execute(sql)       
+            dblib.execute(cn, sql)
         self.matching_key = matching_key
 
     def compare(self, cn, recon):
@@ -65,6 +68,7 @@ class ReconLib(BaseLib):
         fields_key = ""
         utillib = UtilLib()
         sqllib = SqlLib()
+        dblib = DbLib()
         rule = recon["Rule"]
         matching_key = self.matching_key
         """ create temp table  to compare fields """
@@ -77,7 +81,8 @@ class ReconLib(BaseLib):
         tablename = self.tmp3
         for field in recon["Fields"]:
             if str(field["Type"]).strip().lower() == "compare":
-                cn.execute(f"drop table if exists {tablename}")
+                sql = f"drop table if exists {tablename}"
+                dblib.execute(cn, sql)
                 field = field["Name"].lower()
                 sql = ""
                 tmp1 = f"{self.tmp1}.{field}"
@@ -90,12 +95,13 @@ class ReconLib(BaseLib):
                 sql += f" from {self.tmp1}, {self.tmp2}"
                 sql += f" where {self.tmp1}.status = 'matched'"
                 sql += f" {matching_key}"
-                cn.execute(sql)
+                dblib.execute(cn, sql)
                 """ stamp the differences in tmp1/tmp2 tables """
                 for side in range(1,3):
                     temps = self.tmp1 if side == 1 else self.tmp2
                     matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Fields"])
-                    cn.execute(f"alter table {temps} add {field}_diff text default ''")
+                    sql = f"alter table {temps} add {field}_diff text default ''"
+                    dblib.execute(cn, sql)
                     sql = ""                    
                     sql += f"update {temps} set "
                     sql += f"status = 'divergent', "
@@ -103,20 +109,23 @@ class ReconLib(BaseLib):
                     sql += f"from {self.tmp3} "
                     sql += f"where {self.tmp3}.equality = 0 "
                     sql += f"{matching_key}"
-                    cn.execute(sql)
+                    dblib.execute(cn, sql)
 
     def stamp(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
         self.method = "reconlib.stamp()"
         utillib = UtilLib()
         sqllib = SqlLib()
+        dblib = DbLib()
         rule = recon["Rule"]
         match_info = ["id_parent", "recon", "rule", "status"]
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon["Fields"])
         for field in match_info:
-            cn.execute(f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}")
-            cn.execute(f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}")
+            sql = f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}"
+            dblib.execute(cn, sql)
+            sql = f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}"
+            dblib.execute(cn, sql)            
 
     def process(self, cn, setup):
         """ reconcile the positions """
