@@ -1,13 +1,13 @@
-2022-07-05 11:41:29 INFO Start processing the recons
-2022-07-05 11:41:29 INFO corelib.process(): Start method
-2022-07-05 11:41:29 INFO dblib.begin_tran(): Start new database transaction
-2022-07-05 11:41:29 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
-2022-07-05 11:41:29 INFO setuplib.validate(): Validating 
-2022-07-05 11:41:29 ERROR setuplib.validate(): Recon 1 Recon 1 sucessfuly validated
-2022-07-05 11:41:29 INFO arealib.process(): Done
-2022-07-05 11:41:29 INFO etllib.import_file(): Done
-2022-07-05 11:41:29 INFO etllib.import_file(): Done
-2022-07-05 11:41:29 INFO etllib.import_file(): Done
-2022-07-05 11:41:30 INFO reconlib.stamp(): Done
-2022-07-05 11:41:30 INFO dblib.commit_tran(): Transaction commited
-2022-07-05 11:41:30 INFO corelib.process():End method
+2022-07-05 11:52:28 INFO Start processing the recons
+2022-07-05 11:52:28 INFO corelib.process(): Start method
+2022-07-05 11:52:28 INFO dblib.begin_tran(): Start new database transaction
+2022-07-05 11:52:28 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
+2022-07-05 11:52:28 INFO setuplib.validate(): Validating 
+2022-07-05 11:52:28 ERROR setuplib.validate(): Saldo x Extrato Saldo x Extrato sucessfuly validated
+2022-07-05 11:52:28 INFO arealib.process(): Done
+2022-07-05 11:52:28 INFO etllib.import_file(): Done
+2022-07-05 11:52:28 INFO etllib.import_file(): Done
+2022-07-05 11:52:28 INFO etllib.import_file(): Done
+2022-07-05 11:52:29 INFO reconlib.stamp(): Done
+2022-07-05 11:52:29 INFO dblib.commit_tran(): Transaction commited
+2022-07-05 11:52:29 INFO corelib.process():End method

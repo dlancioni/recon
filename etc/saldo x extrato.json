@@ -1,7 +1,7 @@
 {
     "Id": 1,
-    "Name": "Recon 1",
-    "Description": "1:1 where both sides have the same file",
+    "Name": "Saldo x Extrato",
+    "Description": "1:M reconciliation",
     "Datasources":
     [
         {
@@ -30,17 +30,17 @@
                 {"Id":3, "Name":"Conta", "Type":"Text", "Value":"", "Mask":""},
                 {"Id":4, "Name":"Saldo", "Type":"Decimal", "Value":"", "Mask":""}
             ]
-        }                
+        }
     ],
     "Recons":
     [
         {
-            "Rule": "Rule 1",
+            "Rule": "Agencia/Conta",
             "Fields":
             [
                 {"Type":"Key", "Name":"Agencia"},
                 {"Type":"Key", "Name":"Conta"},
-                {"Type":"Compare", "Name":"Saldo", "Tolerance":0.01}
+                {"Type":"Compare", "Name":"Saldo", "Tolerance":0.01}                
             ]
         }
     ]
