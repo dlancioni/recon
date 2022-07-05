@@ -104,20 +104,6 @@ class ReconLib(BaseLib):
             sql += f" where {self.tmp1}.status = 'matched'"
             sql += f" {matching_key}"
             dblib.execute(cn, sql)
-            """ stamp the differences in tmp1/tmp2 tables """
-            for side in range(1,3):
-                temps = self.tmp1 if side == 1 else self.tmp2
-                matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Fields"])
-                sql = f"alter table {temps} add {field}_diff text default ''"
-                dblib.execute(cn, sql)
-                sql = ""                    
-                sql += f"update {temps} set "
-                sql += f"status = 'divergent', "
-                sql += f"{field}_diff = {self.tmp3}.difference "
-                sql += f"from {self.tmp3} "
-                sql += f"where {self.tmp3}.equality = 0 "
-                sql += f"{matching_key}"
-                dblib.execute(cn, sql)
 
     def stamp(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
@@ -125,6 +111,22 @@ class ReconLib(BaseLib):
         utillib = UtilLib()
         sqllib = SqlLib()
         dblib = DbLib()
+        """ stamp the differences from tmp3 in tmp1/tmp2 tables """
+        for field in self.field_compare:
+            for side in range(1,3):
+                temps = self.tmp1 if side == 1 else self.tmp2
+                matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Fields"])
+                sql = f"alter table {temps} add {field}_diff text default ''"
+                dblib.execute(cn, sql)
+                sql = ""
+                sql += f"update {temps} set "
+                sql += f"status = 'divergent', "
+                sql += f"{field}_diff = {self.tmp3}.difference "
+                sql += f"from {self.tmp3} "
+                sql += f"where {self.tmp3}.equality = 0 "
+                sql += f"{matching_key}"
+                dblib.execute(cn, sql)
+        """ stamp the differences from tmps in tbs """
         rule = recon["Rule"]
         match_info = ["id_parent", "recon", "rule", "status"]
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
