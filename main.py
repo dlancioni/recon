@@ -29,7 +29,7 @@ logger.info("Start processing the recons")
 recons = [
     "recon_01.json"
 ]
-os.system("cls")
+os.system("cls||clear")
 utillib.log(f"Start processing...")
 corelib = CoreLib()
 for recon in recons:

@@ -90,9 +90,14 @@ class ReconLib(BaseLib):
                     temps = self.tmp1 if side == 1 else self.tmp2
                     matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Fields"])
                     cn.execute(f"alter table {temps} add {field}_diff text default ''")
-                    cn.execute(f"update {temps} set {field}_diff = (select difference from {self.tmp3} where equality = 0 {matching_key})")
-                    cn.execute(f"update {temps} set {field}_diff = '' where {field}_diff is null")
-                    cn.execute(f"update {temps} set status = 'divergent' where {field}_diff <> ''")
+                    sql = ""                    
+                    sql += f"update {temps} set "
+                    sql += f"status = 'divergent', "
+                    sql += f"{field}_diff = {self.tmp3}.difference "
+                    sql += f"from {self.tmp3} "
+                    sql += f"where {self.tmp3}.equality = 0 "
+                    sql += f"{matching_key}"
+                    cn.execute(sql)
 
     def stamp(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
@@ -104,8 +109,9 @@ class ReconLib(BaseLib):
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon["Fields"])
         for field in match_info:
-            cn.execute(f"update {self.tb1} set {field} = (select {field} from {self.tmp1} where 1=1 {matching_key1})")
-            cn.execute(f"update {self.tb2} set {field} = (select {field} from {self.tmp2} where 1=1 {matching_key2})")
+            cn.execute(f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}")
+            cn.execute(f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}")
+
 
     def process(self, cn, setup):
         """ reconcile the positions """
