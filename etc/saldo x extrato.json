@@ -6,8 +6,8 @@
     [
         {
             "Side": 1,
-            "Name": "One",
-            "File": "etc:recon_11.txt",
+            "Name": "Saldo",
+            "File": "etc:saldo.txt",
             "Separator": ";",
             "Fields":
             [
@@ -20,8 +20,8 @@
         ,
         {
             "Side": 2,
-            "Name": "One",
-            "File": "etc:recon_12.txt",
+            "Name": "Extrato",
+            "File": "etc:extrato.txt",
             "Separator": ";",
             "Fields": 
             [

@@ -27,7 +27,7 @@ logging.basicConfig(filename = log_path,
 logger = logging.getLogger()
 logger.info("Start processing the recons")
 recons = [
-    "recon_01.json"
+    "saldo x extrato.json"
 ]
 os.system("cls||clear")
 utillib.log(f"Start processing...")
