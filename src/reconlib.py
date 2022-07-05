@@ -20,23 +20,22 @@ class ReconLib(BaseLib):
         self.matching_key = ""
 
     def aggregate(self, cn, recon):
-        """ aggregate and group imported data into temporary table """
+        """ aggregate, group and order imported data into temporary table """
         self.method = "reconlib.aggregate()"        
         sql = ""
         grouping_key = ""
         funcs = []
         sqllib = SqlLib()
         field_list = sqllib.get_fields(self.fields, self.types)
-        sql = ""
-        sql += f"insert into {self.tmp1} ({field_list}) "
-        sql += f"select {field_list} from {self.tb1}"
-        sql += f"group by {grouping_key}" if grouping_key != "" else ""
-        cn.execute(sql)
-        sql = ""
-        sql += f"insert into {self.tmp2} ({field_list}) "
-        sql += f"select {field_list} from {self.tb2}"
-        sql += f"group by {grouping_key}" if grouping_key != "" else ""
-        cn.execute(sql)
+        for side in range(1, 3):
+            tb = self.tb1 if side == 1 else self.tb2
+            tmp = self.tmp1 if side == 1 else self.tmp2
+            sql = ""
+            sql += f"insert into {tmp} ({field_list}) "
+            sql += f"select {field_list} from {tb}"
+            sql += f"group by {grouping_key}" if grouping_key != "" else ""
+            sql += f"order by {grouping_key}" if grouping_key != "" else ""
+            cn.execute(sql)
         
     def match_key(self, cn, recon):
         """ set id as id_parent plus recon details in both sides  """
@@ -118,7 +117,6 @@ class ReconLib(BaseLib):
         for field in match_info:
             cn.execute(f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}")
             cn.execute(f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}")
-
 
     def process(self, cn, setup):
         """ reconcile the positions """
