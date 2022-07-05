@@ -54,7 +54,7 @@ class ReconLib(BaseLib):
         
     def match_key(self, cn, recon):
         """ set id as id_parent plus recon details in both sides  """
-        self.method = "reconlib.match()"
+        self.method = "reconlib.match_key()"
         sqllib = SqlLib()
         dblib = DbLib()
         rule = recon["Rule"]
@@ -104,14 +104,13 @@ class ReconLib(BaseLib):
             sql += f" where {self.tmp1}.status = 'matched'"
             sql += f" {matching_key}"
             dblib.execute(cn, sql)
-
-    def stamp(self, cn, recon):
-        """ update the final status from grouped tmp table to flat table """
-        self.method = "reconlib.stamp()"
+            
+    def stamp_tmp(self, cn, recon):
+        """ stamp the differences from tmp3 in tmp1/tmp2 tables """        
+        self.method = "reconlib.stamp_tmp()"
         utillib = UtilLib()
         sqllib = SqlLib()
         dblib = DbLib()
-        """ stamp the differences from tmp3 in tmp1/tmp2 tables """
         for field in self.field_compare:
             for side in range(1,3):
                 temps = self.tmp1 if side == 1 else self.tmp2
@@ -126,6 +125,13 @@ class ReconLib(BaseLib):
                 sql += f"where {self.tmp3}.equality = 0 "
                 sql += f"{matching_key}"
                 dblib.execute(cn, sql)
+
+    def stamp_tb(self, cn, recon):
+        """ update the final status from grouped tmp table to flat table """
+        self.method = "reconlib.stamp_tb()"
+        utillib = UtilLib()
+        sqllib = SqlLib()
+        dblib = DbLib()
         """ stamp the differences from tmps in tbs """
         rule = recon["Rule"]
         match_info = ["id_parent", "recon", "rule", "status"]
@@ -135,7 +141,7 @@ class ReconLib(BaseLib):
             sql = f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}"
             dblib.execute(cn, sql)
             sql = f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}"
-            dblib.execute(cn, sql)            
+            dblib.execute(cn, sql)
 
     def process(self, cn, setup):
         """ reconcile the positions """
@@ -148,7 +154,8 @@ class ReconLib(BaseLib):
                 self.aggregate(cn, recon)
                 self.match_key(cn, recon)
                 self.compare(cn, recon)
-                self.stamp(cn, recon)
+                self.stamp_tmp(cn, recon)
+                self.stamp_tb(cn, recon)
         except Error as err:
             message = f"{self.method}: SQL Error -> {str(err)}"
             utillib.log(message)
