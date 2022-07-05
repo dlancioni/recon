@@ -40,7 +40,8 @@
             [
                 {"Type":"Key", "Name":"Agencia"},
                 {"Type":"Key", "Name":"Conta"},
-                {"Type":"Compare", "Name":"Saldo", "Function":"Sum"}
+                {"Type":"Compare", "Name":"Saldo", "Function":"Sum"},
+                {"Type":"Compare", "Name":"Data"}
             ]
         }
     ]
