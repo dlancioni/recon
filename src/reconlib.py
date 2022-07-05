@@ -20,6 +20,7 @@ class ReconLib(BaseLib):
         self.tmp3 = f"tmp{self.id}3"
         self.field_key = []
         self.field_compare = []
+        self.field_with_diff = []
         
     def prepare(self, cn, recon):
         """ keep common information in class level """
@@ -85,7 +86,7 @@ class ReconLib(BaseLib):
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
         """ create temp table  to compare fields """
         for field in self.field_key:
-                fields_key += f"{self.tmp1}.{field}, "
+            fields_key += f"{self.tmp1}.{field}, "
         fields_key = fields_key.strip()[:-1].lower()
         """ keep difference and status in tmp3 """
         tablename = self.tmp3
@@ -115,6 +116,7 @@ class ReconLib(BaseLib):
             for side in range(1,3):
                 temps = self.tmp1 if side == 1 else self.tmp2
                 matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Fields"])
+                self.field_with_diff.append(f"{field}_diff")
                 sql = f"alter table {temps} add {field}_diff text default ''"
                 dblib.execute(cn, sql)
                 sql = ""
@@ -125,6 +127,7 @@ class ReconLib(BaseLib):
                 sql += f"where {self.tmp3}.equality = 0 "
                 sql += f"{matching_key}"
                 dblib.execute(cn, sql)
+        self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
 
     def stamp_tb(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
@@ -134,14 +137,26 @@ class ReconLib(BaseLib):
         dblib = DbLib()
         """ stamp the differences from tmps in tbs """
         rule = recon["Rule"]
-        match_info = ["id_parent", "recon", "rule", "status"]
+        match_result = ["id_parent", "recon", "rule", "status"]
+        compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon["Fields"])
-        for field in match_info:
+        """ stamp key information in final table """
+        for field in match_result:
             sql = f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}"
             dblib.execute(cn, sql)
             sql = f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}"
             dblib.execute(cn, sql)
+        """ stamp compare information in final table """
+        for field in compare_result:
+            for side in range(1, 3):
+                tb = self.tb1 if side == 1 else self.tb2
+                tmp = self.tmp1 if side == 1 else self.tmp2
+                matching_key = matching_key1 if side == 1 else matching_key2
+                sql = f"alter table {tb} add {field} text default ''"
+                dblib.execute(cn, sql)
+                sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
+                dblib.execute(cn, sql)
 
     def process(self, cn, setup):
         """ reconcile the positions """
