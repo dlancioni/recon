@@ -95,7 +95,7 @@ class SetupLib:
         if msg != "":
             msg = f"{self.name.strip()} is invalid -> {msg}"
         else:
-            msg = f"{self.name.strip()} {self.name.strip()} sucessfuly validated"
+            msg = f"{self.name.strip()} sucessfuly validated"
         utillib = UtilLib()
         utillib.log(msg)
         self.logger.error(f"{self.method}: {msg}")        
