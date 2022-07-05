@@ -79,6 +79,7 @@ class ReconLib(BaseLib):
         self.method = "reconlib.compare()"
         sql = ""
         fields_key = ""
+        count = 0
         utillib = UtilLib()
         sqllib = SqlLib()
         dblib = DbLib()
@@ -89,8 +90,10 @@ class ReconLib(BaseLib):
             fields_key += f"{self.tmp1}.{field}, "
         fields_key = fields_key.strip()[:-1].lower()
         """ keep difference and status in tmp3 """
-        tablename = self.tmp3
         for field in self.field_compare:
+            count += 1
+            tablename = self.tmp3            
+            tablename += str(count)
             sql = f"drop table if exists {tablename}"
             dblib.execute(cn, sql)
             sql = ""
@@ -109,22 +112,25 @@ class ReconLib(BaseLib):
     def stamp_tmp(self, cn, recon):
         """ stamp the differences from tmp3 in tmp1/tmp2 tables """        
         self.method = "reconlib.stamp_tmp()"
+        count = 0
         utillib = UtilLib()
         sqllib = SqlLib()
         dblib = DbLib()
         for field in self.field_compare:
+            count += 1
+            tmp3 = f"{self.tmp3}{str(count)}"
             for side in range(1,3):
                 temps = self.tmp1 if side == 1 else self.tmp2
-                matching_key = sqllib.get_sql_key(temps, self.tmp3, recon["Fields"])
+                matching_key = sqllib.get_sql_key(temps, tmp3, recon["Fields"])
                 self.field_with_diff.append(f"{field}_diff")
                 sql = f"alter table {temps} add {field}_diff text default ''"
                 dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
                 sql += f"status = 'divergent', "
-                sql += f"{field}_diff = {self.tmp3}.difference "
-                sql += f"from {self.tmp3} "
-                sql += f"where {self.tmp3}.equality = 0 "
+                sql += f"{field}_diff = {tmp3}.difference "
+                sql += f"from {tmp3} "
+                sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
                 dblib.execute(cn, sql)
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
