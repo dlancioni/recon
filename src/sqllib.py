@@ -14,23 +14,17 @@ class SqlLib:
         key = "" if key is None else key
         return key
 
-    def get_fields(self, fields=[], types=[]):
-        sql = ""
-        for field in fields:
-            sql += f"{field}, "
-        sql = sql.strip()[:-1]
-        sql = sql.lower()
-        return sql
-
-    def get_field_list(self, field_def=""):
+    def get_field_list(self, field_def="", aggregation=False):
         i = 0
         sql = ""
+        function = ""
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            name = field_def[i]["Name"]
-            type = field_def[i]["Type"]            
-            function = field_def[i]["Function"] if "function" in field_def[i] else ""
+            name = str(field_def[i]["Name"]).strip().lower() if "Name" in field_def[i] else ""
+            type = str(field_def[i]["Type"]).strip().lower() if "Type" in field_def[i] else ""
+            if aggregation:
+                function = str(field_def[i]["Function"]).strip().lower() if "Function" in field_def[i] else ""
             sql += f"{function}({name}) {name}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
@@ -111,28 +105,22 @@ class SqlLib:
                 types.append(t2[index])
         return fields, types
 
-    def get_grouping_list(self, field_def=""):
-        i = 0
+    def get_field_key(self, fields="", tb1="", tb2=""):
         sql = ""
-        if field_def == "": return ""
-        size = len(field_def) -1
-        while i <= size:
-            name = field_def[i]["name"]
-            function = field_def[i]["function"] if "function" in field_def[i] else ""
-            sql += f"{name}, " if not function else ""
-            i += 1
-        sql = sql.strip()[:-1]
-        sql = sql.lower()
+        for field in fields:
+            if str(field["Type"]).strip().lower() == "key":
+                field_name = str(field["Name"]).strip().lower()
+                sql += f"{field_name}, "
+        sql = sql.strip().lower()
+        sql = sql[:-1]
         return sql
 
     def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
         for field in fields:
             if str(field["Type"]).strip().lower() == "key":
-                field_name = field["Name"]
+                field_name = str(field["Name"]).strip().lower()
                 sql += f"and {tb1}.{field_name} = {tb2}.{field_name} "
         sql = sql.strip().lower()
         return sql
-    
-    
-    
+

@@ -18,25 +18,27 @@ class ReconLib(BaseLib):
         self.tmp1 = f"tmp{self.id}1"
         self.tmp2 = f"tmp{self.id}2"
         self.tmp3 = f"tmp{self.id}3"
+        self.field_key = ""
         self.matching_key = ""
 
     def aggregate(self, cn, recon):
         """ aggregate, group and order imported data into temporary table """
         self.method = "reconlib.aggregate()"        
         sql = ""
-        grouping_key = ""
         funcs = []
         sqllib = SqlLib()
-        dblib = DbLib()        
-        field_list = sqllib.get_fields(self.fields, self.types)
+        dblib = DbLib()
+        grouping_key = sqllib.get_field_key(recon["Fields"])
+        field_list = sqllib.get_field_list(recon["Fields"], False)
+        value_list = sqllib.get_field_list(recon["Fields"], True)
         for side in range(1, 3):
             tb = self.tb1 if side == 1 else self.tb2
             tmp = self.tmp1 if side == 1 else self.tmp2
             sql = ""
             sql += f"insert into {tmp} ({field_list}) "
-            sql += f"select {field_list} from {tb}"
-            sql += f"group by {grouping_key}" if grouping_key != "" else ""
-            sql += f"order by {grouping_key}" if grouping_key != "" else ""
+            sql += f"select {value_list} from {tb} "
+            sql += f"group by {grouping_key} " if grouping_key != "" else ""
+            sql += f"order by {grouping_key} " if grouping_key != "" else ""
             dblib.execute(cn, sql)
         
     def match_key(self, cn, recon):
