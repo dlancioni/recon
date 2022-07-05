@@ -39,21 +39,28 @@ class ReconLib(BaseLib):
         cn.execute(sql)
         
     def match_key(self, cn, recon):
-        """ set the id to parent id on the other side  """
+        """ set id as id_parent plus recon details in both sides  """
         self.method = "reconlib.match()"
         sqllib = SqlLib()
         rule = recon["Rule"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
-        cn.execute(f"update {self.tmp1} set id_parent = (select id from {self.tmp2} where 1=1 {matching_key})")
-        cn.execute(f"update {self.tmp2} set id_parent = (select id from {self.tmp1} where 1=1 {matching_key})")
-        cn.execute(f"update {self.tmp1} set id_parent = 0 where id_parent is null")
-        cn.execute(f"update {self.tmp2} set id_parent = 0 where id_parent is null")
-        cn.execute(f"update {self.tmp1} set recon='{self.name}', rule='{rule}', status='matched' where id_parent <> 0")
-        cn.execute(f"update {self.tmp2} set recon='{self.name}', rule='{rule}', status='matched' where id_parent <> 0")
+        for side in range(1, 3):
+            tmp1 = self.tmp1 if side == 1 else self.tmp2
+            tmp2 = self.tmp2 if side == 1 else self.tmp1
+            sql = ""
+            sql += f"update {tmp1} set "
+            sql += f"recon='{self.name}', "
+            sql += f"rule='{rule}', "
+            sql += f"status='matched', "
+            sql += f"id_parent = {tmp2}.id "
+            sql += f"from {tmp2} "
+            sql += f"where 1=1 "
+            sql += f"{matching_key}"
+            cn.execute(sql)       
         self.matching_key = matching_key
 
     def compare(self, cn, recon):
-        """ compare the records and relegate the status """
+        """ compare the records and relegate the status from matched to divergent """
         self.method = "reconlib.match()"
         sql = ""
         fields_key = ""
