@@ -1,6 +1,6 @@
 {
     "Id": 1,
-    "Name": "Saldo x Extrato (Nome simples)",
+    "Name": "Saldo x Extrato",
     "Description": "1:M reconciliation",
     "Datasources":
     [
@@ -11,10 +11,10 @@
             "Separator": ";",
             "Fields":
             [
-                {"Id":1, "Name":"Data", "Type":"Datetime", "Value":"", "Mask":""},
-                {"Id":2, "Name":"Agencia", "Type":"Integer", "Value":"", "Mask":""},
-                {"Id":3, "Name":"Conta", "Type":"Text", "Value":"", "Mask":""},
-                {"Id":4, "Name":"Saldo", "Type":"Decimal", "Value":"", "Mask":""}
+                {"Id":1, "Name":"Data do Movimento", "Type":"Datetime", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Codigo da Agencia", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":3, "Name":"Numero da Conta", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":4, "Name":"Saldo na Data", "Type":"Decimal", "Value":"", "Mask":""}
             ]
         }
         ,
@@ -25,10 +25,10 @@
             "Separator": ";",
             "Fields": 
             [
-                {"Id":1, "Name":"Data", "Type":"Datetime", "Value":"", "Mask":""},
-                {"Id":2, "Name":"Agencia", "Type":"Integer", "Value":"", "Mask":""},
-                {"Id":3, "Name":"Conta", "Type":"Text", "Value":"", "Mask":""},
-                {"Id":4, "Name":"Saldo", "Type":"Decimal", "Value":"", "Mask":""}
+                {"Id":1, "Name":"Data do Movimento", "Type":"Datetime", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Codigo da Agencia", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":3, "Name":"Numero da Conta", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":4, "Name":"Saldo na Data", "Type":"Decimal", "Value":"", "Mask":""}
             ]
         }
     ],
@@ -38,10 +38,10 @@
             "Rule": "Agencia/Conta",
             "Fields":
             [
-                {"Type":"Key", "Name":"Agencia"},
-                {"Type":"Key", "Name":"Conta"},
-                {"Type":"Compare", "Name":"Saldo", "Function":"Sum"},
-                {"Type":"Compare", "Name":"Data"}
+                {"Type":"Key", "Name":"Codigo da Agencia"},
+                {"Type":"Key", "Name":"Numero da Conta"},
+                {"Type":"Compare", "Name":"Saldo na Data", "Function":"Sum"},
+                {"Type":"Compare", "Name":"Data do Movimento"}
             ]
         }
     ]
