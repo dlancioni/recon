@@ -11,7 +11,7 @@
             "Separator": ";",
             "Fields":
             [
-                {"Id":1, "Name":"Data", "Type":"Datetime", "Value":"", "Mask":""},
+                {"Id":1, "Name":"Data Mov", "Type":"Datetime", "Value":"", "Mask":""},
                 {"Id":2, "Name":"Agencia", "Type":"Integer", "Value":"", "Mask":""},
                 {"Id":3, "Name":"Conta", "Type":"Text", "Value":"", "Mask":""},
                 {"Id":4, "Name":"Saldo", "Type":"Decimal", "Value":"", "Mask":""}
@@ -25,7 +25,7 @@
             "Separator": ";",
             "Fields": 
             [
-                {"Id":1, "Name":"Data", "Type":"Datetime", "Value":"", "Mask":""},
+                {"Id":1, "Name":"Data Mov", "Type":"Datetime", "Value":"", "Mask":""},
                 {"Id":2, "Name":"Agencia", "Type":"Integer", "Value":"", "Mask":""},
                 {"Id":3, "Name":"Conta", "Type":"Text", "Value":"", "Mask":""},
                 {"Id":4, "Name":"Saldo", "Type":"Decimal", "Value":"", "Mask":""}
@@ -41,7 +41,7 @@
                 {"Type":"Key", "Name":"Agencia"},
                 {"Type":"Key", "Name":"Conta"},
                 {"Type":"Compare", "Name":"Saldo", "Function":"Sum"},
-                {"Type":"Compare", "Name":"Data"}
+                {"Type":"Compare", "Name":"Data Mov"}
             ]
         }
     ]

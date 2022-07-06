@@ -27,19 +27,28 @@ class ReconLib(BaseLib):
         self.method = "reconlib.prepare()"
         dblib = DbLib()
         sqllib = SqlLib()
+        utillib = UtilLib()
         for field in recon["Fields"]:
             if str(field["Type"]).strip().lower() == "key":
                 self.field_key.append(str(field["Name"]).strip())
             if str(field["Type"]).strip().lower() == "compare":
-                self.field_compare.append(str(field["Name"]).strip())
+                self.field_compare.append(str(field["Name"]).strip())               
+        message = f"Key Fields -> {str(self.field_key)}"
+        utillib.log(message)
+        self.logger.info(f"{self.method}: {message}")
+        message = f"Compare Fields -> {str(self.field_compare)}"
+        utillib.log(message)
+        self.logger.info(f"{self.method}: {message}")
 
     def aggregate(self, cn, recon):
         """ aggregate, group and order imported data into temporary table """
         self.method = "reconlib.aggregate()"        
         sql = ""
+        rows_affected = 0
         funcs = []
         sqllib = SqlLib()
         dblib = DbLib()
+        utillib = UtilLib()
         grouping_key = sqllib.get_field_key(recon["Fields"])
         field_list = sqllib.get_field_list(recon["Fields"], False)
         value_list = sqllib.get_field_list(recon["Fields"], True)
@@ -51,13 +60,17 @@ class ReconLib(BaseLib):
             sql += f"select {value_list} from {tb} "
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
-            dblib.execute(cn, sql)
+            rows_affected = dblib.execute(cn, sql)
+            message = f"Aggregation -> Side {side}: {rows_affected} rows imported"
+            utillib.log(message)
+            self.logger.info(f"{self.method}: {message}")            
         
     def match_key(self, cn, recon):
         """ set id as id_parent plus recon details in both sides  """
         self.method = "reconlib.match_key()"
         sqllib = SqlLib()
         dblib = DbLib()
+        utillib = UtilLib()
         rule = recon["Rule"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
         for side in range(1, 3):

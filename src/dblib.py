@@ -3,6 +3,7 @@ import os
 import logging
 import sqlite3
 from sqlite3 import Error
+from src.utillib import UtilLib
 
 class DbLib:
     
@@ -18,13 +19,19 @@ class DbLib:
         return cursor
     
     def execute(self, cn, sql):
+        rows_affected = 0
         self.method = "dblib.execute()"
+        utillib = UtilLib()
         try:
-            cn.execute(sql.strip())
+            cn.execute(sql)
+            rows_affected = cn.rowcount
         except Error as err:
-            self.logger.error(f"{self.method}: SQL Error -> {str(err)}")
+            message = f"{self.method}: SQL Error -> {str(err)}"
+            utillib.log(message)
+            self.logger.error(message)
         finally:
-            self.logger.info(f"SQL Query: {sql}")                
+            self.logger.info(f"SQL Query: {sql}")
+            return rows_affected
     
     def commit_tran(self, cn):
         self.method = "dblib.commit_tran()"

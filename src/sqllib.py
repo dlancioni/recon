@@ -18,14 +18,17 @@ class SqlLib:
         i = 0
         sql = ""
         function = ""
+        alias = ""
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
             name = str(field_def[i]["Name"]).strip() if "Name" in field_def[i] else ""
+            alias = name
+            name = f"[{name}]"
             type = str(field_def[i]["Type"]).strip() if "Type" in field_def[i] else ""
             if aggregation:
                 function = str(field_def[i]["Function"]).strip() if "Function" in field_def[i] else ""
-            sql += f"{function}({name}) {name}, " if function else f"{name}, "
+            sql += f"{function}({name}) {alias}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
         return sql
@@ -36,7 +39,8 @@ class SqlLib:
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            name = field_def[i]["Name"]
+            name = str(field_def[i]["Name"]).strip()
+            name = f"[{name}]"
             type = field_def[i]["Type"] if "Type" in field_def[i] else ""
             value = str(field_def[i]["Value"]).strip() if "Value" in field_def[i] else ""
             mask = str(field_def[i]["Mask"]).strip() if "Mask" in field_def[i] else ""
@@ -64,7 +68,7 @@ class SqlLib:
             name = str(fields[i]).strip()
             type = str(types[i]).strip()
             type = self.get_field_type(type)
-            fieldlist += f"{name} {type}, "
+            fieldlist += f"[{name}] {type}, "
             i += 1
         fieldlist = fieldlist[:-2]
         sql = f"create table {tablename} ({fieldlist})"
@@ -108,7 +112,7 @@ class SqlLib:
         sql = ""
         for field in fields:
             if str(field["Type"]).strip().lower() == "key":
-                field_name = str(field["Name"]).strip()
+                field_name = "[" + str(field["Name"]).strip() + "]"
                 sql += f"{field_name}, "
         sql = sql.strip()
         sql = sql[:-1]

@@ -31,6 +31,7 @@ class EtlLib(BaseLib):
         fields = ds["Fields"]
         first = True
         error_count = 0
+        rows_affected = 0
         try:
             fl = sqlib.get_field_list(fields)
             with open(path, "r") as file:
@@ -43,7 +44,7 @@ class EtlLib(BaseLib):
                         vl = sqlib.get_value_list(fields)
                         sql = sqlib.get_sql_insert(tb, fl, vl)
                         try:
-                            dblib.execute(cn, sql)
+                            rows_affected = dblib.execute(cn, sql)
                         except Error as err:
                             error_count += 1
                             self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
