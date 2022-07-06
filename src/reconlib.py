@@ -164,12 +164,13 @@ class ReconLib(BaseLib):
         dblib = DbLib()
         """ stamp the differences from tmps in tbs """
         rule = recon["Rule"]
-        match_result = ["id_parent", "recon", "rule", "status"]
+        match_result = ["Id_Parent", "Recon", "Rule", "Status"]
         compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon["Fields"])
         """ stamp key information in final table """
         for side in range(1, 3):
+            field_list = ""
             for field in match_result:
                 tb = self.tb1 if side == 1 else self.tb2
                 tmp = self.tmp1 if side == 1 else self.tmp2
