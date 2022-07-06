@@ -157,6 +157,7 @@ class ReconLib(BaseLib):
     def stamp_tb(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
         self.method = "reconlib.stamp_tb()"
+        field_list = ""
         rows_affected = 0
         utillib = UtilLib()
         sqllib = SqlLib()
@@ -173,9 +174,11 @@ class ReconLib(BaseLib):
                 tb = self.tb1 if side == 1 else self.tb2
                 tmp = self.tmp1 if side == 1 else self.tmp2
                 matching_key = matching_key1 if side == 1 else matching_key2
-                sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
-                rows_affected = dblib.execute(cn, sql)
-                self.log(f"Update key status in final tables -> Side {side} ({rows_affected} rows affected)")
+                field_list += f"{field} = {tmp}.{field}, "
+            field_list = field_list.strip()[:-1]
+            sql = f"update {tb} set {field_list} from {tmp} where 1=1 {matching_key}"
+            rows_affected = dblib.execute(cn, sql)
+            self.log(f"Update key status in final tables -> Side {side} ({rows_affected} rows affected)")
 
         """ stamp compare information in final table """
         for side in range(1, 3):
