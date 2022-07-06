@@ -151,7 +151,7 @@ class ReconLib(BaseLib):
                 sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
                 rows_affected = dblib.execute(cn, sql)
-                self.log(f"Stamp temporary table -> Side {side}, Field {field_name} ({rows_affected} rows affected)")
+                self.log(f"Stamp temporary table -> Side {side}, Field {field_name}")
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
 
     def stamp_tb(self, cn, recon):

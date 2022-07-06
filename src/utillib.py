@@ -8,7 +8,7 @@ class UtilLib:
     def print(self, cursor):
         for side in range(1,3):
             print(f"Side{side}:")
-            cursor.execute(f"select * from tb1{side}")
+            cursor.execute(f"select Status, count(Status) from tb1{side} group by Status")
             rows = cursor.fetchall()
             for row in rows:
                 print(row)

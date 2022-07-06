@@ -1,0 +1,42 @@
+{
+    "Id": 1,
+    "Name": "Teste de Volume",
+    "Description": "Batimento de quantidade de registros",
+    "Datasources":
+    [
+        {
+            "Side": 1,
+            "Name": "Saldo",
+            "File": "etc:100k1.txt",
+            "Separator": ";",
+            "Fields":
+            [
+                {"Id":1, "Name":"Codigo", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Descricao", "Type":"Text", "Value":"", "Mask":""}
+            ]
+        }
+        ,
+        {
+            "Side": 2,
+            "Name": "Extrato",
+            "File": "etc:100k2.txt",
+            "Separator": ";",
+            "Fields": 
+            [
+                {"Id":1, "Name":"Codigo", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Descricao", "Type":"Text", "Value":"", "Mask":""}
+            ]
+        }
+    ],
+    "Recons":
+    [
+        {
+            "Rule": "Agencia/Conta",
+            "Fields":
+            [
+                {"Type":"Key", "Name":"Codigo"},
+                {"Type":"Compare", "Name":"Descricao"}
+            ]
+        }
+    ]
+}

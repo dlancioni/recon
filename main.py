@@ -6,7 +6,10 @@ import logging
 from src.corelib import CoreLib
 from src.fslib import FsLib
 from src.utillib import UtilLib
+from timeit import default_timer as timer
+from datetime import timedelta
 
+start = timer()
 utillib = UtilLib()
 # general configuration file
 fslib = FsLib()
@@ -26,9 +29,8 @@ logging.basicConfig(filename = log_path,
 # core program
 logger = logging.getLogger()
 logger.info("Start processing the recons")
-recons = [
-    "saldo x extrato.json"
-]
+recons = ["saldo x extrato.json"]
+recons = ["volume.json"]
 os.system("cls||clear")
 utillib.log(f"Start processing...")
 corelib = CoreLib()
@@ -36,3 +38,5 @@ for recon in recons:
     utillib.log(f"Running recon {recon}")
     corelib.process(recon)
 utillib.log(f"Finish processing the recons")
+end = timer()
+print(f"Elapsed time: {timedelta(seconds=end-start)}")
