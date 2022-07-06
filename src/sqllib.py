@@ -23,8 +23,8 @@ class SqlLib:
         size = len(field_def) -1
         while i <= size:
             name = str(field_def[i]["Name"]).strip() if "Name" in field_def[i] else ""
-            alias = name
             name = f"[{name}]"
+            alias = name            
             type = str(field_def[i]["Type"]).strip() if "Type" in field_def[i] else ""
             if aggregation:
                 function = str(field_def[i]["Function"]).strip() if "Function" in field_def[i] else ""
@@ -123,7 +123,16 @@ class SqlLib:
         for field in fields:
             if str(field["Type"]).strip().lower() == "key":
                 field_name = str(field["Name"]).strip()
+                field_name = f"[{field_name}]"
                 sql += f"and {tb1}.{field_name} = {tb2}.{field_name} "
         sql = sql.strip()
         return sql
 
+    def field_diff(self, field_name):
+        field_name = str(field_name).replace("[", "")
+        field_name = str(field_name).replace("]", "")
+        field_name = field_name.strip()
+        field_name = field_name + " (Difference)"
+        field_name = "[" + field_name + "]"
+        return field_name
+        

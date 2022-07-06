@@ -25,14 +25,17 @@ class ReconLib(BaseLib):
     def prepare(self, cn, recon):
         """ keep common information in class level """
         self.method = "reconlib.prepare()"
+        field_name = ""
         dblib = DbLib()
         sqllib = SqlLib()
         utillib = UtilLib()
         for field in recon["Fields"]:
+            field_name = str(field["Name"]).strip()
+            field_name = f"[{field_name}]"
             if str(field["Type"]).strip().lower() == "key":
-                self.field_key.append(str(field["Name"]).strip())
+                self.field_key.append(field_name)
             if str(field["Type"]).strip().lower() == "compare":
-                self.field_compare.append(str(field["Name"]).strip())               
+                self.field_compare.append(field_name)
         message = f"Key Fields -> {str(self.field_key)}"
         utillib.log(message)
         self.logger.info(f"{self.method}: {message}")
@@ -61,7 +64,7 @@ class ReconLib(BaseLib):
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
-            message = f"Aggregation -> Side {side}: {rows_affected} rows imported"
+            message = f"Aggregating info -> Side {side}: {rows_affected} rows imported"
             utillib.log(message)
             self.logger.info(f"{self.method}: {message}")            
         
@@ -126,6 +129,7 @@ class ReconLib(BaseLib):
         """ stamp the differences from tmp3 in tmp1/tmp2 tables """        
         self.method = "reconlib.stamp_tmp()"
         count = 0
+        field_name = ""
         utillib = UtilLib()
         sqllib = SqlLib()
         dblib = DbLib()
@@ -135,13 +139,14 @@ class ReconLib(BaseLib):
             for side in range(1,3):
                 temps = self.tmp1 if side == 1 else self.tmp2
                 matching_key = sqllib.get_sql_key(temps, tmp3, recon["Fields"])
-                self.field_with_diff.append(f"{field}_diff")
-                sql = f"alter table {temps} add {field}_diff text default ''"
+                field_name = sqllib.field_diff(field)
+                self.field_with_diff.append(field_name)
+                sql = f"alter table {temps} add {field_name} text default ''"
                 dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
                 sql += f"status = 'Divergent', "
-                sql += f"{field}_diff = {tmp3}.difference "
+                sql += f"{field_name} = {tmp3}.difference "
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
