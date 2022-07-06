@@ -179,7 +179,6 @@ class ReconLib(BaseLib):
             sql = f"update {tb} set {field_list} from {tmp} where 1=1 {matching_key}"
             rows_affected = dblib.execute(cn, sql)
             self.log(f"Update key status in final tables -> Side {side} ({rows_affected} rows affected)")
-
         """ stamp compare information in final table """
         for side in range(1, 3):
             for field in compare_result:
