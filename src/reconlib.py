@@ -29,9 +29,9 @@ class ReconLib(BaseLib):
         sqllib = SqlLib()
         for field in recon["Fields"]:
             if str(field["Type"]).strip().lower() == "key":
-                self.field_key.append(str(field["Name"]).strip().lower())
+                self.field_key.append(str(field["Name"]).strip())
             if str(field["Type"]).strip().lower() == "compare":
-                self.field_compare.append(str(field["Name"]).strip().lower())                
+                self.field_compare.append(str(field["Name"]).strip())
 
     def aggregate(self, cn, recon):
         """ aggregate, group and order imported data into temporary table """
@@ -67,7 +67,7 @@ class ReconLib(BaseLib):
             sql += f"update {tmp1} set "
             sql += f"recon='{self.name}', "
             sql += f"rule='{rule}', "
-            sql += f"status='matched', "
+            sql += f"status = 'Matched', "
             sql += f"id_parent = {tmp2}.id "
             sql += f"from {tmp2} "
             sql += f"where 1=1 "
@@ -88,7 +88,7 @@ class ReconLib(BaseLib):
         """ create temp table  to compare fields """
         for field in self.field_key:
             fields_key += f"{self.tmp1}.{field}, "
-        fields_key = fields_key.strip()[:-1].lower()
+        fields_key = fields_key.strip()[:-1]
         """ keep difference and status in tmp3 """
         for field in self.field_compare:
             count += 1
@@ -105,7 +105,7 @@ class ReconLib(BaseLib):
             sql += f", ({tmp1} || '/' || {tmp2}) difference"
             sql += f", ({tmp1} = {tmp2}) equality"
             sql += f" from {self.tmp1}, {self.tmp2}"
-            sql += f" where {self.tmp1}.status = 'matched'"
+            sql += f" where {self.tmp1}.status = 'Matched'"
             sql += f" {matching_key}"
             dblib.execute(cn, sql)
             
@@ -127,7 +127,7 @@ class ReconLib(BaseLib):
                 dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
-                sql += f"status = 'divergent', "
+                sql += f"status = 'Divergent', "
                 sql += f"{field}_diff = {tmp3}.difference "
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "

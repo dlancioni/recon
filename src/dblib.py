@@ -20,7 +20,7 @@ class DbLib:
     def execute(self, cn, sql):
         self.method = "dblib.execute()"
         try:
-            cn.execute(sql.strip().lower())
+            cn.execute(sql.strip())
         except Error as err:
             self.logger.error(f"{self.method}: SQL Error -> {str(err)}")
         finally:

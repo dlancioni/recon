@@ -5,10 +5,10 @@ class SqlLib:
 
     def get_field_type(self, key=""):
         types = {
-            "integer": "integer",
-            "decimal": "real",
-            "text": "text",
-            "datetime": "text",
+            "integer": "Integer",
+            "decimal": "Real",
+            "text": "Text",
+            "datetime": "Text",
         }
         key = types.get(key.lower())
         key = "" if key is None else key
@@ -21,14 +21,13 @@ class SqlLib:
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            name = str(field_def[i]["Name"]).strip().lower() if "Name" in field_def[i] else ""
-            type = str(field_def[i]["Type"]).strip().lower() if "Type" in field_def[i] else ""
+            name = str(field_def[i]["Name"]).strip() if "Name" in field_def[i] else ""
+            type = str(field_def[i]["Type"]).strip() if "Type" in field_def[i] else ""
             if aggregation:
-                function = str(field_def[i]["Function"]).strip().lower() if "Function" in field_def[i] else ""
+                function = str(field_def[i]["Function"]).strip() if "Function" in field_def[i] else ""
             sql += f"{function}({name}) {name}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
-        sql = sql.lower()
         return sql
     
     def get_value_list(self, field_def=""):
@@ -53,11 +52,11 @@ class SqlLib:
         i = 0
         sql = ""
         fieldlist = ""
-        fieldlist += "id integer primary key"
-        fieldlist += ", id_parent integer default 0"
-        fieldlist += ", recon text default ''"
-        fieldlist += ", rule text default ''"
-        fieldlist += ", status text default 'orphan'"
+        fieldlist += "Id integer primary key"
+        fieldlist += ", Id_Parent integer default 0"
+        fieldlist += ", Recon text default ''"
+        fieldlist += ", Rule text default ''"
+        fieldlist += ", Status text default 'Orphan'"
         fieldlist += ", "
         if tablename == "" or fields == [] or types == []: return ""
         size = len(fields) -1
@@ -69,7 +68,7 @@ class SqlLib:
             i += 1
         fieldlist = fieldlist[:-2]
         sql = f"create table {tablename} ({fieldlist})"
-        return sql.lower()
+        return sql
     
     def get_create_index_definition(self, tablename="", fields=""):
         i = 0
@@ -109,9 +108,9 @@ class SqlLib:
         sql = ""
         for field in fields:
             if str(field["Type"]).strip().lower() == "key":
-                field_name = str(field["Name"]).strip().lower()
+                field_name = str(field["Name"]).strip()
                 sql += f"{field_name}, "
-        sql = sql.strip().lower()
+        sql = sql.strip()
         sql = sql[:-1]
         return sql
 
@@ -119,8 +118,8 @@ class SqlLib:
         sql = ""
         for field in fields:
             if str(field["Type"]).strip().lower() == "key":
-                field_name = str(field["Name"]).strip().lower()
+                field_name = str(field["Name"]).strip()
                 sql += f"and {tb1}.{field_name} = {tb2}.{field_name} "
-        sql = sql.strip().lower()
+        sql = sql.strip()
         return sql
 
