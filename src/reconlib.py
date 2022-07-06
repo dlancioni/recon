@@ -168,16 +168,18 @@ class ReconLib(BaseLib):
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon["Fields"])
         """ stamp key information in final table """
-        for field in match_result:
-            sql = f"update {self.tb1} set {field} = {self.tmp1}.{field} from {self.tmp1} where 1=1 {matching_key1}"
-            rows_affected = dblib.execute(cn, sql)
-            self.log(f"Update key status in final tables -> Side 1 ({rows_affected} rows affected)")
-            sql = f"update {self.tb2} set {field} = {self.tmp2}.{field} from {self.tmp2} where 1=1 {matching_key2}"
-            rows_affected = dblib.execute(cn, sql)
-            self.log(f"Update key status in final tables -> Side 2 ({rows_affected} rows affected)")
+        for side in range(1, 3):
+            for field in match_result:
+                tb = self.tb1 if side == 1 else self.tb2
+                tmp = self.tmp1 if side == 1 else self.tmp2
+                matching_key = matching_key1 if side == 1 else matching_key2
+                sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
+                rows_affected = dblib.execute(cn, sql)
+                self.log(f"Update key status in final tables -> Side {side} ({rows_affected} rows affected)")
+
         """ stamp compare information in final table """
-        for field in compare_result:
-            for side in range(1, 3):
+        for side in range(1, 3):
+            for field in compare_result:
                 tb = self.tb1 if side == 1 else self.tb2
                 tmp = self.tmp1 if side == 1 else self.tmp2
                 matching_key = matching_key1 if side == 1 else matching_key2
