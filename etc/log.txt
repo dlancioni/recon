@@ -1,59 +1,80 @@
-2022-07-06 10:46:54 INFO Start processing the recons
-2022-07-06 10:46:54 INFO corelib.process(): Start method
-2022-07-06 10:46:54 INFO dblib.begin_tran(): Start new database transaction
-2022-07-06 10:46:54 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
-2022-07-06 10:46:54 INFO setuplib.validate(): Validating 
-2022-07-06 10:46:54 ERROR setuplib.validate(): Saldo x Extrato sucessfuly validated
-2022-07-06 10:46:54 INFO arealib.process(): Done
-2022-07-06 10:46:54 INFO SQL Query: insert into tb11 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220101', 1001, '10001-1', 1000)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb11 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('19990202', 2002, '20002-2', 2000.20)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb11 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220303', 3003, '30003-3', 3000)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb11 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220404', 4004, '40004-4', 4000)
-2022-07-06 10:46:54 INFO etllib.import_file(): Done
-2022-07-06 10:46:54 INFO SQL Query: insert into tb12 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220101', 1001, '10001-1', 333.33)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb12 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220101', 1001, '10001-1', 333.33)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb12 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220101', 1001, '10001-1', 333.34)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb12 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220202', 2002, '20002-2', 2000)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb12 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220303', 3003, '30003-3', 3000.30)
-2022-07-06 10:46:54 INFO SQL Query: insert into tb12 ([Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]) values ('20220505', 5005, '50005-5', 5000)
-2022-07-06 10:46:54 INFO etllib.import_file(): Done
-2022-07-06 10:46:54 INFO etllib.import_file(): Done
-2022-07-06 10:46:54 INFO reconlib.prepare(): Key Fields -> ['[Codigo da Agencia]', '[Numero da Conta]']
-2022-07-06 10:46:54 INFO reconlib.prepare(): Compare Fields -> ['[Saldo na Data]', '[Data do Movimento]']
-2022-07-06 10:46:54 INFO SQL Query: insert into tmp11 ([Codigo da Agencia], [Numero da Conta], [Saldo na Data], [Data do Movimento]) select [Codigo da Agencia], [Numero da Conta], Sum([Saldo na Data]) [Saldo na Data], [Data do Movimento] from tb11 group by [Codigo da Agencia], [Numero da Conta] order by [Codigo da Agencia], [Numero da Conta] 
-2022-07-06 10:46:54 INFO reconlib.aggregate(): Aggregating info -> Side 1: 4 rows imported
-2022-07-06 10:46:54 INFO SQL Query: insert into tmp12 ([Codigo da Agencia], [Numero da Conta], [Saldo na Data], [Data do Movimento]) select [Codigo da Agencia], [Numero da Conta], Sum([Saldo na Data]) [Saldo na Data], [Data do Movimento] from tb12 group by [Codigo da Agencia], [Numero da Conta] order by [Codigo da Agencia], [Numero da Conta] 
-2022-07-06 10:46:54 INFO reconlib.aggregate(): Aggregating info -> Side 2: 4 rows imported
-2022-07-06 10:46:54 INFO SQL Query: update tmp11 set recon='Saldo x Extrato', rule='Agencia/Conta', status = 'Matched', id_parent = tmp12.id from tmp12 where 1=1 and tmp11.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tmp11.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tmp12 set recon='Saldo x Extrato', rule='Agencia/Conta', status = 'Matched', id_parent = tmp11.id from tmp11 where 1=1 and tmp11.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tmp11.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: drop table if exists tmp131
-2022-07-06 10:46:54 INFO SQL Query:  create table tmp131 as select tmp11.[Codigo da Agencia], tmp11.[Numero da Conta], (tmp11.[Saldo na Data] || '/' || tmp12.[Saldo na Data]) difference, (tmp11.[Saldo na Data] = tmp12.[Saldo na Data]) equality from tmp11, tmp12 where tmp11.status = 'Matched' and tmp11.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tmp11.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: drop table if exists tmp132
-2022-07-06 10:46:54 INFO SQL Query:  create table tmp132 as select tmp11.[Codigo da Agencia], tmp11.[Numero da Conta], (tmp11.[Data do Movimento] || '/' || tmp12.[Data do Movimento]) difference, (tmp11.[Data do Movimento] = tmp12.[Data do Movimento]) equality from tmp11, tmp12 where tmp11.status = 'Matched' and tmp11.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tmp11.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tmp11 add [Saldo na Data (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tmp11 set status = 'Divergent', [Saldo na Data (Difference)] = tmp131.difference from tmp131 where tmp131.equality = 0 and tmp11.[Codigo da Agencia] = tmp131.[Codigo da Agencia] and tmp11.[Numero da Conta] = tmp131.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tmp12 add [Saldo na Data (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tmp12 set status = 'Divergent', [Saldo na Data (Difference)] = tmp131.difference from tmp131 where tmp131.equality = 0 and tmp12.[Codigo da Agencia] = tmp131.[Codigo da Agencia] and tmp12.[Numero da Conta] = tmp131.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tmp11 add [Data do Movimento (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tmp11 set status = 'Divergent', [Data do Movimento (Difference)] = tmp132.difference from tmp132 where tmp132.equality = 0 and tmp11.[Codigo da Agencia] = tmp132.[Codigo da Agencia] and tmp11.[Numero da Conta] = tmp132.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tmp12 add [Data do Movimento (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tmp12 set status = 'Divergent', [Data do Movimento (Difference)] = tmp132.difference from tmp132 where tmp132.equality = 0 and tmp12.[Codigo da Agencia] = tmp132.[Codigo da Agencia] and tmp12.[Numero da Conta] = tmp132.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb11 set id_parent = tmp11.id_parent from tmp11 where 1=1 and tb11.[Codigo da Agencia] = tmp11.[Codigo da Agencia] and tb11.[Numero da Conta] = tmp11.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb12 set id_parent = tmp12.id_parent from tmp12 where 1=1 and tb12.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tb12.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb11 set recon = tmp11.recon from tmp11 where 1=1 and tb11.[Codigo da Agencia] = tmp11.[Codigo da Agencia] and tb11.[Numero da Conta] = tmp11.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb12 set recon = tmp12.recon from tmp12 where 1=1 and tb12.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tb12.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb11 set rule = tmp11.rule from tmp11 where 1=1 and tb11.[Codigo da Agencia] = tmp11.[Codigo da Agencia] and tb11.[Numero da Conta] = tmp11.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb12 set rule = tmp12.rule from tmp12 where 1=1 and tb12.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tb12.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb11 set status = tmp11.status from tmp11 where 1=1 and tb11.[Codigo da Agencia] = tmp11.[Codigo da Agencia] and tb11.[Numero da Conta] = tmp11.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: update tb12 set status = tmp12.status from tmp12 where 1=1 and tb12.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tb12.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tb11 add [Saldo na Data (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tb11 set [Saldo na Data (Difference)] = tmp11.[Saldo na Data (Difference)] from tmp11 where 1=1 and tb11.[Codigo da Agencia] = tmp11.[Codigo da Agencia] and tb11.[Numero da Conta] = tmp11.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tb12 add [Saldo na Data (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tb12 set [Saldo na Data (Difference)] = tmp12.[Saldo na Data (Difference)] from tmp12 where 1=1 and tb12.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tb12.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tb11 add [Data do Movimento (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tb11 set [Data do Movimento (Difference)] = tmp11.[Data do Movimento (Difference)] from tmp11 where 1=1 and tb11.[Codigo da Agencia] = tmp11.[Codigo da Agencia] and tb11.[Numero da Conta] = tmp11.[Numero da Conta]
-2022-07-06 10:46:54 INFO SQL Query: alter table tb12 add [Data do Movimento (Difference)] text default ''
-2022-07-06 10:46:54 INFO SQL Query: update tb12 set [Data do Movimento (Difference)] = tmp12.[Data do Movimento (Difference)] from tmp12 where 1=1 and tb12.[Codigo da Agencia] = tmp12.[Codigo da Agencia] and tb12.[Numero da Conta] = tmp12.[Numero da Conta]
-2022-07-06 10:46:54 INFO reconlib.stamp_tb(): Done
-2022-07-06 10:46:54 INFO dblib.commit_tran(): Transaction commited
-2022-07-06 10:46:54 INFO corelib.process():End method
+2022-07-06 11:46:26 INFO Start processing the recons
+2022-07-06 11:46:26 INFO corelib.process(): Start method
+2022-07-06 11:46:26 INFO dblib.begin_tran(): Start new database transaction
+2022-07-06 11:46:26 INFO setuplib.get_recon_info(): Setup loaded sucessfuly
+2022-07-06 11:46:26 INFO setuplib.validate(): Validating 
+2022-07-06 11:46:26 ERROR setuplib.validate(): Saldo x Extrato (Nome simples) sucessfuly validated
+2022-07-06 11:46:26 INFO arealib.process(): Done
+2022-07-06 11:46:26 INFO SQL Query: insert into tb11 ([Data], [Agencia], [Conta], [Saldo]) values ('20220101', 1001, '10001-1', 1000)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb11 ([Data], [Agencia], [Conta], [Saldo]) values ('19990202', 2002, '20002-2', 2000.20)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb11 ([Data], [Agencia], [Conta], [Saldo]) values ('20220303', 3003, '30003-3', 3000)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb11 ([Data], [Agencia], [Conta], [Saldo]) values ('20220404', 4004, '40004-4', 4000)
+2022-07-06 11:46:26 INFO etllib.import_file(): Done
+2022-07-06 11:46:26 INFO SQL Query: insert into tb12 ([Data], [Agencia], [Conta], [Saldo]) values ('20220101', 1001, '10001-1', 333.33)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb12 ([Data], [Agencia], [Conta], [Saldo]) values ('20220101', 1001, '10001-1', 333.33)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb12 ([Data], [Agencia], [Conta], [Saldo]) values ('20220101', 1001, '10001-1', 333.34)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb12 ([Data], [Agencia], [Conta], [Saldo]) values ('20220202', 2002, '20002-2', 2000)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb12 ([Data], [Agencia], [Conta], [Saldo]) values ('20220303', 3003, '30003-3', 3000.30)
+2022-07-06 11:46:26 INFO SQL Query: insert into tb12 ([Data], [Agencia], [Conta], [Saldo]) values ('20220505', 5005, '50005-5', 5000)
+2022-07-06 11:46:26 INFO etllib.import_file(): Done
+2022-07-06 11:46:26 INFO etllib.import_file(): Done
+2022-07-06 11:46:26 INFO reconlib.prepare(): Identifying fields -> keys and compares:
+2022-07-06 11:46:26 INFO reconlib.prepare(): Key Fields -> ['[Agencia]', '[Conta]']
+2022-07-06 11:46:26 INFO reconlib.prepare(): Compare Fields -> ['[Saldo]', '[Data]']
+2022-07-06 11:46:26 INFO SQL Query: insert into tmp11 ([Agencia], [Conta], [Saldo], [Data]) select [Agencia], [Conta], Sum([Saldo]) [Saldo], [Data] from tb11 group by [Agencia], [Conta] order by [Agencia], [Conta] 
+2022-07-06 11:46:26 INFO reconlib.aggregate(): Aggregating info -> Side 1 (4 rows imported)
+2022-07-06 11:46:26 INFO SQL Query: insert into tmp12 ([Agencia], [Conta], [Saldo], [Data]) select [Agencia], [Conta], Sum([Saldo]) [Saldo], [Data] from tb12 group by [Agencia], [Conta] order by [Agencia], [Conta] 
+2022-07-06 11:46:26 INFO reconlib.aggregate(): Aggregating info -> Side 2 (4 rows imported)
+2022-07-06 11:46:26 INFO SQL Query: update tmp11 set recon='Saldo x Extrato (Nome simples)', rule='Agencia/Conta', status = 'Matched', id_parent = tmp12.id from tmp12 where 1=1 and tmp11.[Agencia] = tmp12.[Agencia] and tmp11.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.match_key(): Matching key -> Side 1 (3 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tmp12 set recon='Saldo x Extrato (Nome simples)', rule='Agencia/Conta', status = 'Matched', id_parent = tmp11.id from tmp11 where 1=1 and tmp11.[Agencia] = tmp12.[Agencia] and tmp11.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.match_key(): Matching key -> Side 2 (3 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: drop table if exists tmp131
+2022-07-06 11:46:26 INFO SQL Query:  create table tmp131 as select tmp11.[Agencia], tmp11.[Conta], (tmp11.[Saldo] || '/' || tmp12.[Saldo]) difference, (tmp11.[Saldo] = tmp12.[Saldo]) equality from tmp11, tmp12 where tmp11.status = 'Matched' and tmp11.[Agencia] = tmp12.[Agencia] and tmp11.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.compare(): Comparing field -> [tmp131.[Saldo]] (-1 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: drop table if exists tmp132
+2022-07-06 11:46:26 INFO SQL Query:  create table tmp132 as select tmp11.[Agencia], tmp11.[Conta], (tmp11.[Data] || '/' || tmp12.[Data]) difference, (tmp11.[Data] = tmp12.[Data]) equality from tmp11, tmp12 where tmp11.status = 'Matched' and tmp11.[Agencia] = tmp12.[Agencia] and tmp11.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.compare(): Comparing field -> [tmp132.[Data]] (-1 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: alter table tmp11 add [Saldo (Difference)] text default ''
+2022-07-06 11:46:26 INFO SQL Query: update tmp11 set status = 'Divergent', [Saldo (Difference)] = tmp131.difference from tmp131 where tmp131.equality = 0 and tmp11.[Agencia] = tmp131.[Agencia] and tmp11.[Conta] = tmp131.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tmp(): Stamp temporary table -> Side 1, Field [Saldo (Difference)] (2 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: alter table tmp12 add [Saldo (Difference)] text default ''
+2022-07-06 11:46:26 INFO SQL Query: update tmp12 set status = 'Divergent', [Saldo (Difference)] = tmp131.difference from tmp131 where tmp131.equality = 0 and tmp12.[Agencia] = tmp131.[Agencia] and tmp12.[Conta] = tmp131.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tmp(): Stamp temporary table -> Side 2, Field [Saldo (Difference)] (2 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: alter table tmp11 add [Data (Difference)] text default ''
+2022-07-06 11:46:26 INFO SQL Query: update tmp11 set status = 'Divergent', [Data (Difference)] = tmp132.difference from tmp132 where tmp132.equality = 0 and tmp11.[Agencia] = tmp132.[Agencia] and tmp11.[Conta] = tmp132.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tmp(): Stamp temporary table -> Side 1, Field [Data (Difference)] (1 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: alter table tmp12 add [Data (Difference)] text default ''
+2022-07-06 11:46:26 INFO SQL Query: update tmp12 set status = 'Divergent', [Data (Difference)] = tmp132.difference from tmp132 where tmp132.equality = 0 and tmp12.[Agencia] = tmp132.[Agencia] and tmp12.[Conta] = tmp132.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tmp(): Stamp temporary table -> Side 2, Field [Data (Difference)] (1 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb11 set id_parent = tmp11.id_parent from tmp11 where 1=1 and tb11.[Agencia] = tmp11.[Agencia] and tb11.[Conta] = tmp11.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 1 (4 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb12 set id_parent = tmp12.id_parent from tmp12 where 1=1 and tb12.[Agencia] = tmp12.[Agencia] and tb12.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 2 (6 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb11 set recon = tmp11.recon from tmp11 where 1=1 and tb11.[Agencia] = tmp11.[Agencia] and tb11.[Conta] = tmp11.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 1 (4 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb12 set recon = tmp12.recon from tmp12 where 1=1 and tb12.[Agencia] = tmp12.[Agencia] and tb12.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 2 (6 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb11 set rule = tmp11.rule from tmp11 where 1=1 and tb11.[Agencia] = tmp11.[Agencia] and tb11.[Conta] = tmp11.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 1 (4 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb12 set rule = tmp12.rule from tmp12 where 1=1 and tb12.[Agencia] = tmp12.[Agencia] and tb12.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 2 (6 rows affected)
+2022-07-06 11:46:26 INFO SQL Query: update tb11 set status = tmp11.status from tmp11 where 1=1 and tb11.[Agencia] = tmp11.[Agencia] and tb11.[Conta] = tmp11.[Conta]
+2022-07-06 11:46:26 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 1 (4 rows affected)
+2022-07-06 11:46:27 INFO SQL Query: update tb12 set status = tmp12.status from tmp12 where 1=1 and tb12.[Agencia] = tmp12.[Agencia] and tb12.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:27 INFO reconlib.stamp_tb(): Update key status in final tables -> Side 2 (6 rows affected)
+2022-07-06 11:46:27 INFO SQL Query: alter table tb11 add [Saldo (Difference)] text default ''
+2022-07-06 11:46:27 INFO SQL Query: update tb11 set [Saldo (Difference)] = tmp11.[Saldo (Difference)] from tmp11 where 1=1 and tb11.[Agencia] = tmp11.[Agencia] and tb11.[Conta] = tmp11.[Conta]
+2022-07-06 11:46:27 INFO reconlib.stamp_tb(): Update compare status in final tables -> Side 1 Field [Saldo (Difference)] (4 rows affected)
+2022-07-06 11:46:27 INFO SQL Query: alter table tb12 add [Saldo (Difference)] text default ''
+2022-07-06 11:46:27 INFO SQL Query: update tb12 set [Saldo (Difference)] = tmp12.[Saldo (Difference)] from tmp12 where 1=1 and tb12.[Agencia] = tmp12.[Agencia] and tb12.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:27 INFO reconlib.stamp_tb(): Update compare status in final tables -> Side 2 Field [Saldo (Difference)] (6 rows affected)
+2022-07-06 11:46:27 INFO SQL Query: alter table tb11 add [Data (Difference)] text default ''
+2022-07-06 11:46:27 INFO SQL Query: update tb11 set [Data (Difference)] = tmp11.[Data (Difference)] from tmp11 where 1=1 and tb11.[Agencia] = tmp11.[Agencia] and tb11.[Conta] = tmp11.[Conta]
+2022-07-06 11:46:27 INFO reconlib.stamp_tb(): Update compare status in final tables -> Side 1 Field [Data (Difference)] (4 rows affected)
+2022-07-06 11:46:27 INFO SQL Query: alter table tb12 add [Data (Difference)] text default ''
+2022-07-06 11:46:27 INFO SQL Query: update tb12 set [Data (Difference)] = tmp12.[Data (Difference)] from tmp12 where 1=1 and tb12.[Agencia] = tmp12.[Agencia] and tb12.[Conta] = tmp12.[Conta]
+2022-07-06 11:46:27 INFO reconlib.stamp_tb(): Update compare status in final tables -> Side 2 Field [Data (Difference)] (6 rows affected)
+2022-07-06 11:46:27 INFO reconlib.stamp_tb(): Done
+2022-07-06 11:46:27 INFO dblib.commit_tran(): Transaction commited
+2022-07-06 11:46:27 INFO corelib.process():End method

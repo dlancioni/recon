@@ -1,4 +1,5 @@
 import os
+from src.utillib import UtilLib
 
 class BaseLib:
     def __init__(self, tb1=""):
@@ -8,3 +9,8 @@ class BaseLib:
         tmp2 = ""
         last_error = ""
         cn = ""
+        
+    def log(self, message):
+        UtilLib().log(message)
+        self.logger.info(f"{self.method}: {message}")        
+    
