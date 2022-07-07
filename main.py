@@ -8,6 +8,18 @@ from src.fslib import FsLib
 from src.utillib import UtilLib
 from timeit import default_timer as timer
 from datetime import timedelta
+import argparse
+
+
+parser = argparse.ArgumentParser()
+parser.add_argument("--g", help="json file that groups the recons")
+parser.add_argument("--r", help="json file with single recon")
+args = parser.parse_args()
+if args.g:
+    print("Importing a group of recons...", args.g)
+
+if args.r:
+    print("Importing a single recon...", args.r)
 
 start = timer()
 utillib = UtilLib()
