@@ -30,7 +30,8 @@ class DbLib:
             utillib.log(message)
             self.logger.error(message)
         finally:
-            self.logger.info(f"SQL Query: {sql}")
+            if sql.find("insert into") < 0:
+                self.logger.info(f"SQL Query: {sql}")
             return rows_affected
     
     def commit_tran(self, cn):

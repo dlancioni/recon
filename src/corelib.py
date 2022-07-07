@@ -28,40 +28,39 @@ class CoreLib(BaseLib):
         self.logger.info(f"{self.method}: Start method")
         dblib = DbLib()
         utillib = UtilLib()
-        setuplib = SetupLib()        
+        setuplib = SetupLib()
+        fslib = FsLib()
         try:
-            
-            # general configuration file
-            fslib = FsLib()
+            recon = setuplib.get_recon_info(recon)
+            self.id = recon["Id"]
+            self.name = recon["Name"]
             app_path = fslib.get_dir_parent(fslib.get_dir())
             setup = fslib.get_json(app_path + "\\setup.json")
-            
-            # log file
+
             log_path = setup["log"] 
             if log_path.find("etc:") > -1:
                 log_path = fslib.get_dir_etc()
-            log_path += "\\log.txt"
+            log_name = self.name.strip().lower()
+            log_name = f"[log][{log_name}].txt"
+            log_path += f"\\{log_name}"
             log_format = "%(asctime)s %(levelname)s %(message)s"
             logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
             logger = logging.getLogger()
             utillib.log(f"Running recon {recon}")
-            
+
             cn = dblib.begin_tran()
-            setup = setuplib.get_recon_info(recon)
-            self.id = setup["Id"]
-            self.name = setup["Name"]
-            if not setuplib.validate(setup):
+            if not setuplib.validate(recon):
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
 
             arealib = AreaLib(self.id, self.name)
-            fields, types = arealib.process(cn, setup)
+            fields, types = arealib.process(cn, recon)
 
             etllib = EtlLib(self.id, self.name)
-            etllib.process(cn, setup)
+            etllib.process(cn, recon)
 
             reconlib = ReconLib(self.id, self.name, fields, types)
-            reconlib.process(cn, setup)
+            reconlib.process(cn, recon)
 
             utillib.print(cn)
             
