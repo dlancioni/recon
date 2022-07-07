@@ -4,6 +4,7 @@ from src.baselib import BaseLib
 from src.sqllib import SqlLib
 from src.fslib import FsLib
 from src.dblib import DbLib
+from src.utillib import UtilLib
 
 class EtlLib(BaseLib):
 
@@ -32,8 +33,12 @@ class EtlLib(BaseLib):
         first = True
         error_count = 0
         rows_affected = 0
+        rows_imported = 0
+        utillib = UtilLib()
         try:
+            self.log(f"Start importing delimited text file -> Side: {side} Path: {path}, Separator: {separator}")
             fl = sqlib.get_field_list(fields)
+            self.log(f"Importing fields -> {str(fl)}")
             with open(path, "r") as file:
                 for line in file.readlines():
                     if not first:
@@ -45,29 +50,46 @@ class EtlLib(BaseLib):
                         sql = sqlib.get_sql_insert(tb, fl, vl)
                         try:
                             rows_affected = dblib.execute(cn, sql)
+                            rows_imported += 1
                         except Error as err:
-                            error_count += 1
-                            self.logger.error(f"{self.method}: Error to manipulate data [{sql}]: {str(err)}")
+                            error_count += 1                           
+                            message = f"Error to manipulate data [{sql}]: {str(err)}"
+                            utillib.log(message)
+                            self.logger.error(message)
+                            
                     first = False
         except IOError as err:
-            message = f"{self.method}: File manipulation error {path} -> {str(err)}"
+            message = f"File manipulation error {path} -> {str(err)}"
             utillib.log(message)
-            self.logger.error(message)            
+            self.logger.error(message)
         except BaseException as err:
-            message = f"{self.method}: General error -> {str(err)}"
+            message = f"General error -> {str(err)}"
             utillib.log(message)
             self.logger.error(message)
         finally:
-            self.logger.info(f"{self.method}: Done")
+            message = f"File sucessfuly imported -> {str(rows_imported)} rows imported"
+            utillib.log(message)
+            self.logger.error(message)
 
     def process(self, cn, setup):
         """ import positions """
         self.method = "etllib.process()"
+        utillib = UtilLib()        
         try:
             datasources = setup["Datasources"]
+            message = f"Start processing datasources -> {str(len(datasources))} datasource(s)"
+            utillib.log(message)
+            self.logger.info(message)
             for datasource in datasources:
+                message = f"Processing datasource -> {datasource['Name']}"
+                utillib.log(message)
+                self.logger.info(message)                
                 self.import_file(cn, datasource)
         except BaseException as err:
-            self.logger.error(f"{self.method}: General error: {str(err)}")
+            message = f"General error -> {str(err)}"
+            utillib.log(message)
+            self.logger.error(message)
         finally:
-            self.logger.info(f"{self.method}: Done")
+            message = f"Datasource(s) sucessfuly processed"
+            utillib.log(message)
+            self.logger.info(message)

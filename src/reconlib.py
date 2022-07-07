@@ -206,12 +206,14 @@ class ReconLib(BaseLib):
                 self.stamp_tmp(cn, recon)
                 self.stamp_tb(cn, recon)
         except Error as err:
-            message = f"{self.method}: SQL Error -> {str(err)}"
+            message = f"SQL Error -> {str(err)}"
             utillib.log(message)
             self.logger.error(message)
         except BaseException as err:
-            message = f"{self.method}: General error -> {str(err)}"
+            message = f"General error -> {str(err)}"
             utillib.log(message)
             self.logger.error(message)
         finally:
-            self.logger.info(f"{self.method}: Done")
+            message = f"Recon sucessfuly executed"
+            utillib.log(message)
+            self.logger.info(message)
