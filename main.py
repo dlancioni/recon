@@ -1,5 +1,4 @@
 # python -m unittest discover -stest -v
-
 import os
 import sys
 import logging
@@ -9,49 +8,31 @@ from src.utillib import UtilLib
 from timeit import default_timer as timer
 from datetime import timedelta
 import argparse
-
-
+""" General declaration """
+recons = []
+utillib = UtilLib()
+""" Control the user input """
 parser = argparse.ArgumentParser()
 parser.add_argument("--g", help="json file that groups the recons")
 parser.add_argument("--r", help="json file with single recon")
 args = parser.parse_args()
 if args.g:
     print("Importing a group of recons...", args.g)
-
 if args.r:
-    print("Importing a single recon...", args.r)
-
-start = timer()
-utillib = UtilLib()
-# general configuration file
-fslib = FsLib()
-app_path = fslib.get_dir_parent(fslib.get_dir())
-setup = fslib.get_json(app_path + "\\setup.json")
-# log file
-log_path = setup["log"] 
-if log_path.find("etc:") > -1:
-    log_path = fslib.get_dir_etc()
-log_path += "\\log.txt"
-log_format = "%(asctime)s %(levelname)s %(message)s"
-logging.basicConfig(filename = log_path,
-                    filemode = "w",
-                    datefmt='%Y-%m-%d %H:%M:%S',
-                    format = log_format,
-                    level=logging.DEBUG)
-# core program
-logger = logging.getLogger()
-logger.info("Start processing the recons")
-recons = []
-recons = [
-    #"Volume 1M.json"
-    #"Volume 100k.json"
-    "saldo x extrato.json"    
-]
+    recons.append(args.r)
+""" Start processing """
+if len(recons) == 0:
+    recons = [
+        #"Volume 1M.json"
+        #"Volume 10k.json" 
+        #"Volume 100k.json" 
+        #"saldo x extrato.json"    
+    ]
 os.system("cls||clear")
+start = timer()
 utillib.log(f"Start processing...")
 corelib = CoreLib()
 for recon in recons:
-    utillib.log(f"Running recon {recon}")
     corelib.process(recon)
 utillib.log(f"Finish processing the recons")
 end = timer()

@@ -1,7 +1,7 @@
 {
     "Id": 1,
     "Name": "Volume 100k",
-    "Description": "Batimento de quantidade de registros",
+    "Description": "Teste de performance com 100 mil registros",
     "Datasources":
     [
         {

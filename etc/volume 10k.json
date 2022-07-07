@@ -1,13 +1,13 @@
 {
     "Id": 1,
-    "Name": "Volume 1M",
-    "Description": "Teste de performance com 1 milhão de registros",
+    "Name": "Volume 10k",
+    "Description": "Teste de performance com 10 mil registros",
     "Datasources":
     [
         {
             "Side": 1,
             "Name": "Funcionarios",
-            "File": "etc:1M.txt",
+            "File": "etc:10k.txt",
             "Separator": ";",
             "Fields":
             [
@@ -23,7 +23,7 @@
         {
             "Side": 2,
             "Name": "Funcionarios",
-            "File": "etc:1M.txt",
+            "File": "etc:10k.txt",
             "Separator": ";",
             "Fields": 
             [
