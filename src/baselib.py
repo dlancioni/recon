@@ -10,7 +10,10 @@ class BaseLib:
         last_error = ""
         cn = ""
         
-    def log(self, message):
+    def log_info(self, message):
         UtilLib().log(message)
-        self.logger.info(f"{self.method}: {message}")        
-    
+        self.logger.info(f"{self.method}: {message}")
+
+    def log_error(self, message):
+        UtilLib().log(message)
+        self.logger.info(f"{self.method}: {message}")    

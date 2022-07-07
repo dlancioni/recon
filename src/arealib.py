@@ -35,15 +35,15 @@ class AreaLib(BaseLib):
         id = setup["Id"]        
         f1, t1, f2, t2 = self.merge_datasources(setup)
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
-        self.log(f"Merge data structures and create recon area:")
-        self.log(f"Fields: {str(fields)}")
-        self.log(f"Fields: {str(types)}")
+        self.log_info(f"Merge data structures and create recon area:")
+        self.log_info(f"Fields: {str(fields)}")
+        self.log_info(f"Fields: {str(types)}")
         for side in range(1, 3):
             tb = f"tb{id}{side}"
             tmp = f"tmp{id}{side}"
             cn.execute(f"drop table if exists {tb}")
             cn.execute(f"drop table if exists {tmp}")
-            self.log(f"Create table definition for side {str(types)}")
+            self.log_info(f"Create table definition for side {str(types)}")
             cn.execute(sqllib.get_create_table_definition(tb, fields, types))
             cn.execute(sqllib.get_create_table_definition(tmp, fields, types))
         return fields, types
@@ -55,15 +55,9 @@ class AreaLib(BaseLib):
         try:
             fields, types = self.create_recon_area(cn, setup)
         except Error as err:
-            message = f"SQL Error -> {str(err)}"
-            utillib.log(message)
-            self.logger.error(message)
+            self.log_error(f"SQL Error -> {str(err)}")
         except BaseException as err:
-            message = f"General error -> {str(err)}"
-            utillib.log(message)
-            self.logger.error(message)
+            self.log_error(f"General error -> {str(err)}")
         finally:
-            message = f"Recon area sucessfuly created"
-            utillib.log(message)
-            self.logger.info(message)
+            self.log_info(f"Recon area sucessfuly created")
         return fields, types
