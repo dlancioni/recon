@@ -30,13 +30,14 @@ class CoreLib(BaseLib):
         setuplib = SetupLib()
         fslib = FsLib()
         try:
-            """ get recon and setup info """
+            self.log_info(f"Get recon and setup info")
+            cn = dblib.begin_tran()            
             recon = setuplib.get_recon_info(recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
             app_path = fslib.get_dir_parent(fslib.get_dir())
             setup = fslib.get_json(app_path + "\\setup.json")
-            """ create log per recon """
+            self.log_info(f"Create log file per recon")
             log_path = setup["log"] 
             if log_path.find("etc:") > -1:
                 log_path = fslib.get_dir_etc()
@@ -47,8 +48,7 @@ class CoreLib(BaseLib):
             logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
             logger = logging.getLogger()
             utillib.log(f"Running recon {self.name}")
-            """ validate json file """
-            cn = dblib.begin_tran()
+            self.log_info(f"Validate json setup")
             if not setuplib.validate(recon):
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
@@ -65,7 +65,9 @@ class CoreLib(BaseLib):
             utillib.print(cn)
         except BaseException as err:
             dblib.rollback_tran(cn)
-            self.logger.error(f"{self.method}:Fail to reconcile: {str(err)} ")
+            self.log_error("Transaction rollbacked")
+            self.log_error(f"{self.method}:Fail to reconcile: {str(err)}")
             return
         dblib.commit_tran(cn)
-        self.logger.info(f"{self.method}:End method")
+        self.log_info(f"Transaction commited")        
+        self.log_info(f"Recon sucessfuly executed")

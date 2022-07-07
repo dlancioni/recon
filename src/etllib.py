@@ -76,8 +76,3 @@ class EtlLib(BaseLib):
             self.log_error(f"General error -> {str(err)}")
         finally:
             self.log_info(f"Datasource(s) sucessfuly processed")
-            
-            
-
-
-            
