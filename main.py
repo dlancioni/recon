@@ -29,8 +29,12 @@ logging.basicConfig(filename = log_path,
 # core program
 logger = logging.getLogger()
 logger.info("Start processing the recons")
-recons = ["saldo x extrato.json"]
-recons = ["volume.json"]
+recons = []
+recons = [
+    #"Volume 1M.json"
+    #"Volume 100k.json"
+    "saldo x extrato.json"    
+]
 os.system("cls||clear")
 utillib.log(f"Start processing...")
 corelib = CoreLib()

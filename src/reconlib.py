@@ -122,7 +122,7 @@ class ReconLib(BaseLib):
             sql += f" where {self.tmp1}.status = 'Matched'"
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
-            self.log(f"Comparing field -> [{tablename}.{field}] ({rows_affected} rows affected)")
+            self.log(f"Comparing field -> [{tablename}.{field}]")
             
     def stamp_tmp(self, cn, recon):
         """ stamp the differences from tmp3 in tmp1/tmp2 tables """        

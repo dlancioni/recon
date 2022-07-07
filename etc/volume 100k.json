@@ -1,0 +1,54 @@
+{
+    "Id": 1,
+    "Name": "Volume 100k",
+    "Description": "Batimento de quantidade de registros",
+    "Datasources":
+    [
+        {
+            "Side": 1,
+            "Name": "Funcionarios",
+            "File": "etc:100k.txt",
+            "Separator": ";",
+            "Fields":
+            [
+                {"Id":1, "Name":"Codigo", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Nome", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":3, "Name":"Email", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":4, "Name":"Data", "Type":"Datetime", "Value":"", "Mask":""},
+                {"Id":5, "Name":"Cargo", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":6, "Name":"Salario", "Type":"Decimal", "Value":"", "Mask":""}
+            ]
+        }
+        ,
+        {
+            "Side": 2,
+            "Name": "Funcionarios",
+            "File": "etc:100k.txt",
+            "Separator": ";",
+            "Fields": 
+            [
+                {"Id":1, "Name":"Codigo", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Nome", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":3, "Name":"Email", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":4, "Name":"Data", "Type":"Datetime", "Value":"", "Mask":""},
+                {"Id":5, "Name":"Cargo", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":6, "Name":"Salario", "Type":"Decimal", "Value":"", "Mask":""}
+            ]
+        }
+    ],
+    "Recons":
+    [
+        {
+            "Rule": "Agencia/Conta",
+            "Fields":
+            [
+                {"Type":"Key", "Name":"Codigo"},
+                {"Type":"Compare", "Name":"Nome"},
+                {"Type":"Compare", "Name":"Email"},
+                {"Type":"Compare", "Name":"Data"},
+                {"Type":"Compare", "Name":"Cargo"},
+                {"Type":"Compare", "Name":"Salario"}
+            ]
+        }
+    ]
+}
