@@ -41,12 +41,12 @@ class CoreLib(BaseLib):
             if log_path.find("etc:") > -1:
                 log_path = fslib.get_dir_etc()
             log_name = self.name.strip().lower()
-            log_name = f"[log][{log_name}].txt"
+            log_name = f"[log] [{log_name}].txt"
             log_path += f"\\{log_name}"
             log_format = "%(asctime)s %(levelname)s %(message)s"
             logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
             logger = logging.getLogger()
-            utillib.log(f"Running recon {recon}")
+            utillib.log(f"Running recon {self.name}")
 
             cn = dblib.begin_tran()
             if not setuplib.validate(recon):

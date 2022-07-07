@@ -9998,3 +9998,4 @@ Codigo; Nome; Email; Data; Cargo; Salario
 9997;Luiz Miguel Farias;pfogaca@example.net;2006-05-25;Analista;5808.23;
 9998;Murilo da Luz;tribeiro@example.net;2022-03-12;Diretor;6305.36;
 9999;Nicole da Cunha;oliveiracecilia@example.com;2000-01-02;Analista;7742.38;
+10000;Nicoles Rocha;oliveiraceciliaabc@example.com;2000-01-02;Analista;7742.40;
