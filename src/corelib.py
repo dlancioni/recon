@@ -66,7 +66,7 @@ class CoreLib(BaseLib):
         except BaseException as err:
             dblib.rollback_tran(cn)
             self.log_error("Transaction rollbacked")
-            self.log_error(f"{self.method}:Fail to reconcile: {str(err)}")
+            self.log_error(f"Fail to reconcile: {str(err)}")
             return
         dblib.commit_tran(cn)
         self.log_info(f"Transaction commited")        

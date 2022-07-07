@@ -23,10 +23,8 @@ if args.r:
 """ Start processing """
 if len(recons) == 0:
     recons = [
-        #"Volume 1M.json"
-        #"Volume 10k.json" 
-        #"Volume 100k.json" 
-        "saldo x extrato.json"    
+        #"Volume 10k.json"
+        "saldo x extrato.json"
     ]
 os.system("cls||clear")
 start = timer()
