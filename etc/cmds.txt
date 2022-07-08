@@ -1,0 +1,3 @@
+pyinstaller.exe --onefile --windowed --icon=app.ico app.py
+pip install -r requirements.txt
+python -m unittest discover -stest -v

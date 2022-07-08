@@ -1,5 +1,6 @@
 
 ###### Requirements without Version Specifiers ######
 pysqlite3
+pyinstaller
 
 ###### Requirements with Version Specifiers ######
