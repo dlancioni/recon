@@ -1,5 +1,5 @@
 # build exe
-pyinstaller.exe --onefile --icon=icon.ico recon.py
+pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
 
 # install dependencies
 pip install -r requirements.txt
