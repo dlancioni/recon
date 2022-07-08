@@ -46,10 +46,12 @@ class CoreLib(BaseLib):
         fslib = FsLib()
         
         try:
-            """ get recon info """            
+            """ create new transaction for each recon """
             cn = dblib.begin_tran()
-            config = fslib.get_json(app_path + "\\config.json")
-            recon = setuplib.get_recon_info(recon)
+            """ get recon info """
+            config = fslib.get_json(app_path + "config.json")
+            """ get recon info """            
+            recon = setuplib.get_recon_info(app_path, config["recons"], recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
             """ create log and validate recon """            
@@ -64,7 +66,7 @@ class CoreLib(BaseLib):
             fields, types = arealib.process(cn, recon)
             """ import files """
             etllib = EtlLib(self.id, self.name)
-            etllib.process(cn, recon)
+            etllib.process(cn, app_path, recon)
             """ reconcile data """
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, recon)

@@ -11,23 +11,19 @@ class EtlLib(BaseLib):
     def __init__(self, id, name):
         self.id = id
         self.name = name
+        self.app_path = ""
         self.logger = logging.getLogger(__name__)
-        
-    def get_file(self, path=""):
-        fslib = FsLib()
-        if path.find("etc:") > -1:
-            tmp = path.split(":")
-            path = fslib.get_dir_etc(tmp[1])
-        return path
 
-    def import_file(self, cn, ds):
+    def import_file(self, cn, app_path, ds):
         self.method = "etllib.import_file()"
         sql = ""
         sqlib = SqlLib()
         dblib = DbLib()        
         side = ds["Side"]
         tb = f"tb{self.id}{side}"
-        path = self.get_file(ds["File"])
+        path = str(ds["Path"])
+        if path.strip() == "": path = app_path + "\\file\\"
+        file = ds["File"]
         separator = ds["Separator"]
         fields = ds["Fields"]
         first = True
@@ -39,7 +35,7 @@ class EtlLib(BaseLib):
         self.log_info(f"Start importing delimited text file -> Side: {side} Path: {path}, Separator: {separator}")
         fl = sqlib.get_field_list(fields)
         self.log_info(f"Importing fields -> {str(fl)}")
-        with open(path, "r") as file:
+        with open(path + file, "r") as file:
             for line in file.readlines():
                 if not first:
                     values = line.split(separator)
@@ -56,12 +52,12 @@ class EtlLib(BaseLib):
                         self.log_error(f"Error to manipulate data [{sql}]: {str(err)}")
                 first = False
 
-    def process(self, cn, setup):
+    def process(self, cn, app_path, recon):
         """ import positions """
         self.method = "etllib.process()"
         utillib = UtilLib()        
         try:
-            datasources = setup["Datasources"]
+            datasources = recon["Datasources"]
             message = f"Start processing datasources -> {str(len(datasources))} datasource(s)"
             utillib.log(message)
             self.logger.info(message)
@@ -69,7 +65,7 @@ class EtlLib(BaseLib):
                 message = f"Processing datasource -> {datasource['Name']}"
                 utillib.log(message)
                 self.logger.info(message)                
-                self.import_file(cn, datasource)
+                self.import_file(cn, app_path, datasource)
         except IOError as err:
             self.log_error(f"File manipulation error {path} -> {str(err)}")                
         except BaseException as err:

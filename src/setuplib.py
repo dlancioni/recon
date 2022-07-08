@@ -13,12 +13,10 @@ class SetupLib:
         self.error = ""
         self.logger = logging.getLogger(__name__)
         
-    def get_recon_info(self, recon):
+    def get_recon_info(self, app_path, recon_path, recon):
         fslib = FsLib()
-        self.method = "setuplib.get_recon_info()"
-        path = fslib.get_dir_etc(recon)
+        path = app_path + recon_path + recon
         setup = fslib.get_json(path)
-        self.logger.info(f"{self.method}: Setup loaded sucessfuly")
         return setup        
 
     def validate_info(self, setup):

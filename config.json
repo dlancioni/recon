@@ -1,4 +1,5 @@
 {
-    "log": "\\log",
-    "recons": "c:\\temp\\recon\\"
+    "log": "log",
+    "path": "file",
+    "recons": "recons\\"
 }

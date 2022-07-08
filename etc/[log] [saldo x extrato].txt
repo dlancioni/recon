@@ -1,4 +1,0 @@
-2022-07-08 12:04:59 INFO corelib.process(): Recon Id: 1
-2022-07-08 12:05:01 INFO corelib.process(): Recon Name: Saldo x Extrato
-2022-07-08 12:05:02 INFO corelib.process(): App path: c:\Users\david\Developer\recon
-2022-07-08 12:05:04 INFO corelib.process(): Log path: C:\Users\david\Developer\recon\etc\\[log] [saldo x extrato].txt

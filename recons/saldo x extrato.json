@@ -7,7 +7,8 @@
         {
             "Side": 1,
             "Name": "Saldo",
-            "File": "etc:saldo.txt",
+            "Path": "",
+            "File": "saldo.txt",
             "Separator": ";",
             "Fields":
             [
@@ -21,7 +22,8 @@
         {
             "Side": 2,
             "Name": "Extrato",
-            "File": "etc:extrato.txt",
+            "Path": "",            
+            "File": "extrato.txt",
             "Separator": ";",
             "Fields": 
             [

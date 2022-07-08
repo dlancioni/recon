@@ -1,3 +1,4 @@
+### Important commands 
 # build exe
 pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
 

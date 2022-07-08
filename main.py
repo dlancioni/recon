@@ -16,6 +16,7 @@ if getattr(sys, 'frozen', False):
     app_path = os.path.dirname(sys.executable)
 elif __file__:
     app_path = os.path.dirname(__file__)
+app_path += "\\"    
 
 """ Control the user input """
 parser = argparse.ArgumentParser()
