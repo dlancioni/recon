@@ -1,11 +1,16 @@
 import os
+import sys
 import json
 import pathlib
 
 class FsLib:
 
     def get_dir(self):
-        return os.path.dirname(os.path.realpath(__file__))
+        if getattr(sys, 'frozen', False):
+            application_path = os.path.dirname(sys.executable)
+        elif __file__:
+            application_path = os.path.dirname(__file__)
+        return application_path
 
     def get_dir_parent(self, path):
         return os.path.dirname(path)

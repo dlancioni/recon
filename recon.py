@@ -10,6 +10,13 @@ import argparse
 """ General declaration """
 recons = []
 utillib = UtilLib()
+
+""" Get application path """
+if getattr(sys, 'frozen', False):
+    app_path = os.path.dirname(sys.executable)
+elif __file__:
+    app_path = os.path.dirname(__file__)
+
 """ Control the user input """
 parser = argparse.ArgumentParser()
 parser.add_argument("--g", help="json file that groups the recons")
@@ -30,7 +37,7 @@ start = timer()
 utillib.log(f"Start processing...")
 corelib = CoreLib()
 for recon in recons:
-    corelib.process(recon)
+    corelib.process(app_path, recon)
 utillib.log(f"Finish processing the recons")
 end = timer()
 print(f"Elapsed time: {timedelta(seconds=end-start)}")

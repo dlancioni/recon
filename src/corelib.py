@@ -22,7 +22,7 @@ class CoreLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
 
-    def process(self, recon):
+    def process(self, app_path, recon):
         self.method = "corelib.process()"
         self.logger.info(f"{self.method}: Start method")
         dblib = DbLib()
@@ -35,7 +35,7 @@ class CoreLib(BaseLib):
             recon = setuplib.get_recon_info(recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
-            app_path = fslib.get_dir_parent(fslib.get_dir())
+            print("......... ", app_path)
             setup = fslib.get_json(app_path + "\\setup.json")
             self.log_info(f"Create log file per recon")
             log_path = setup["log"] 
