@@ -21,6 +21,21 @@ class CoreLib(BaseLib):
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
+        
+    def create_log_file(self, app_path, config):
+        self.log_info(f"Create log file per recon")
+        log_dir = config["log"]
+        log_name = self.name.strip().lower()
+        log_name = f"[log] [{log_name}].txt"
+        log_path = app_path + log_dir + f"\\{log_name}"
+        log_format = "%(asctime)s %(levelname)s %(message)s"
+        logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
+        cfg_path = app_path + "\\config.json"
+        self.log_info(f"App path: {app_path}")
+        self.log_info(f"Log path: {log_path}")        
+        self.log_info(f"Config path: {cfg_path}")
+        logger = logging.getLogger()
+        return logger        
 
     def process(self, app_path, recon):
         self.method = "corelib.process()"
@@ -29,25 +44,17 @@ class CoreLib(BaseLib):
         utillib = UtilLib()
         setuplib = SetupLib()
         fslib = FsLib()
+        
         try:
-            self.log_info(f"Get recon and setup info")
-            cn = dblib.begin_tran()            
+            """ get recon info """            
+            cn = dblib.begin_tran()
+            config = fslib.get_json(app_path + "\\config.json")
             recon = setuplib.get_recon_info(recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
-            print("......... ", app_path)
-            setup = fslib.get_json(app_path + "\\setup.json")
-            self.log_info(f"Create log file per recon")
-            log_path = setup["log"] 
-            if log_path.find("etc:") > -1:
-                log_path = fslib.get_dir_etc()
-            log_name = self.name.strip().lower()
-            log_name = f"[log] [{log_name}].txt"
-            log_path += f"\\{log_name}"
-            log_format = "%(asctime)s %(levelname)s %(message)s"
-            logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
-            logger = logging.getLogger()
-            utillib.log(f"Running recon {self.name}")
+            """ create log and validate recon """            
+            logger = self.create_log_file(app_path, config)
+            utillib.log(f"Running recon {self.id} {self.name}")
             self.log_info(f"Validate json setup")
             if not setuplib.validate(recon):
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
