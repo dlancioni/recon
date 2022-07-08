@@ -1,3 +1,8 @@
-pyinstaller.exe --onefile --windowed --icon=app.ico app.py
+# build exe
+pyinstaller.exe --onefile --icon=icon.ico recon.py
+
+# install dependencies
 pip install -r requirements.txt
+
+# test application
 python -m unittest discover -stest -v
