@@ -44,14 +44,12 @@ class CoreLib(BaseLib):
         try:
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
-
             """ get recon info """
             path = fslib.join(fslib.get_path(), cfglib.get_config("recons"))
             path = fslib.join(path, recon)
             recon = fslib.open_json(path)
             self.id = recon["Id"]
             self.name = recon["Name"]
-
             """ create log and validate recon """            
             logger = self.create_log_file()
             utillib.log(f"Running recon {self.id} {self.name}")
