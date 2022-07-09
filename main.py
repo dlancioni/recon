@@ -23,10 +23,7 @@ if args.r:
     recons.append(args.r)
 """ Start processing """
 if len(recons) == 0:
-    recons = [
-        #"Volume 10k.json"
-        "saldo x extrato.json"
-    ]
+    recons = ["recon.json"]
 os.system("cls||clear")
 start = timer()
 utillib.log(f"Start processing...")

@@ -23,6 +23,12 @@ class FsLib:
             for dir in ["\src", "\\src", "/src"]:
                 path = path.replace(dir, "")
         return path
+    
+    def get_path_recon(self, path="", file=""):
+        path = self.get_path() if path == "" else path
+        path = os.path.join(path, "recon")
+        path = self.join(path, file)
+        return path
 
     def get_path_etc(self, file=""):
         path = self.get_path()

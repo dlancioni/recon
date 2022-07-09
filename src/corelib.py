@@ -45,8 +45,7 @@ class CoreLib(BaseLib):
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
             """ get recon info """
-            path = fslib.join(fslib.get_path(), cfglib.get_config("recons"))
-            path = fslib.join(path, recon)
+            path = fslib.get_path_recon(cfglib.get_config("recon_dir"), recon)
             recon = fslib.open_json(path)
             self.id = recon["Id"]
             self.name = recon["Name"]
