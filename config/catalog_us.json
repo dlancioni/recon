@@ -1,0 +1,14 @@
+{
+    "status":
+    {
+        "1": "Matched",
+        "2": "Divergent",
+        "3": "Orphan"
+    },
+    "message": 
+    {
+        "1": "Start processing...",
+        "2": "Finish processing",
+        "3": "Elapsed time"
+    }
+}

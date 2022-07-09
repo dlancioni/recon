@@ -2,5 +2,6 @@
     "path_comment":"Informe o caminho [ex.: c:\\temp\\log] ou vazio para pastas padrão [c:\\Recon\\xzy]",
     "path_log": "",
     "path_recon": "",
-    "path_file": ""
+    "path_file": "",
+    "catalog": "br"
 }

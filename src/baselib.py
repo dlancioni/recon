@@ -11,9 +11,9 @@ class BaseLib:
         cn = ""
         
     def log_info(self, message):
-        UtilLib().log(message)
+        #UtilLib().log(message)
         self.logger.info(f"{self.method}: {message}")
 
     def log_error(self, message):
-        UtilLib().log(message)
+        #UtilLib().log(message)
         self.logger.info(f"{self.method}: {message}")    

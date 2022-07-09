@@ -1,0 +1,14 @@
+{
+    "status":
+    {
+        "1": "Batido",
+        "2": "Divergente",
+        "3": "Orfão"
+    },
+    "message": 
+    {
+        "1": "Iniciando processamento...",
+        "2": "Finalizando processamento",
+        "3": "Tempo de processamento"
+    }
+}
