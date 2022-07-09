@@ -28,7 +28,6 @@ class CoreLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         
     def create_log_file(self):
-        self.log_info(f"Create log file per recon")
         fslib = FsLib()
         file_name = f"[log] [{self.name.strip().lower()}].txt"
         log_path = fslib.get_path_log(cfglib.get_config("path_log"), file_name)
@@ -39,7 +38,6 @@ class CoreLib(BaseLib):
 
     def process(self, recon):
         self.method = "corelib.process()"
-        self.logger.info(f"{self.method}: Start method")
         dblib = DbLib()
         utillib = UtilLib()
         setuplib = SetupLib()
@@ -55,9 +53,7 @@ class CoreLib(BaseLib):
             msglib.print(msglib.get_value("message", 4, [self.id, self.name]))
             """ create log and validate recon """            
             logger = self.create_log_file()
-            self.log_info(f"Validate json setup")
             if not setuplib.validate(recon):
-                self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
             msglib.print(msglib.get_value("message", 5))
             """ create recon area """
@@ -74,9 +70,5 @@ class CoreLib(BaseLib):
             #utillib.print(cn)
         except BaseException as err:
             dblib.rollback_tran(cn)
-            self.log_error("Transaction rollbacked")
-            self.log_error(f"Fail to reconcile: {str(err)}")
             return
         dblib.commit_tran(cn)
-        self.log_info(f"Transaction commited")        
-        self.log_info(f"Recon sucessfuly executed")

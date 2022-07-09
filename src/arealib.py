@@ -35,15 +35,11 @@ class AreaLib(BaseLib):
         id = setup["Id"]        
         f1, t1, f2, t2 = self.merge_datasources(setup)
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
-        self.log_info(f"Merge data structures and create recon area:")
-        self.log_info(f"Fields: {str(fields)}")
-        self.log_info(f"Fields: {str(types)}")
         for side in range(1, 3):
             tb = f"tb{id}{side}"
             tmp = f"tmp{id}{side}"
             cn.execute(f"drop table if exists {tb}")
             cn.execute(f"drop table if exists {tmp}")
-            self.log_info(f"Create table definition for side {str(types)}")
             cn.execute(sqllib.get_create_table_definition(tb, fields, types))
             cn.execute(sqllib.get_create_table_definition(tmp, fields, types))
         return fields, types
@@ -59,5 +55,5 @@ class AreaLib(BaseLib):
         except BaseException as err:
             self.log_error(f"General error -> {str(err)}")
         finally:
-            self.log_info(f"Recon area sucessfuly created")
+            pass
         return fields, types

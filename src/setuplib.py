@@ -74,7 +74,6 @@ class SetupLib:
     def validate(self, setup):
         self.method = "setuplib.validate()"
         msg = ""
-        self.logger.info(f"{self.method}: Validating {self.name}")       
         if msg == "":
             msg = self.validate_info(setup)
         if msg == "":            
@@ -88,7 +87,4 @@ class SetupLib:
             msg = f"{self.name.strip()} is invalid -> {msg}"
         else:
             msg = f"{self.name.strip()} sucessfuly validated"
-        utillib = UtilLib()
-        utillib.log(msg)
-        self.logger.error(f"{self.method}: {msg}")        
         return True if self.error == "" else False

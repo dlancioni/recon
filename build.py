@@ -2,9 +2,9 @@
 Author: David Lancioni
 Target: Build app to be distributed
 Steps:
-    1) cd recon
-    2) pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
-    3) python build.py
+    cd recon
+    pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
+    python build.py
 """
 import os 
 from os.path import exists

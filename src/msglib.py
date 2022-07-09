@@ -1,10 +1,11 @@
 import os
 from src.fslib import FsLib
 from src.utillib import UtilLib
+from src.baselib import BaseLib
 fslib = FsLib()
 utillib = UtilLib()
 
-class MsgLib:
+class MsgLib():
 
     def __init__(self):
         pass

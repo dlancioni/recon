@@ -38,9 +38,6 @@ class ReconLib(BaseLib):
                 self.field_key.append(field_name)
             if str(field["Type"]).strip().lower() == "compare":
                 self.field_compare.append(field_name)
-        self.log_info(f"Identifying fields -> keys and compares:")
-        self.log_info(f"Key Fields -> {str(self.field_key)}")
-        self.log_info(f"Compare Fields -> {str(self.field_compare)}")
 
     def aggregate(self, cn, recon):
         """ aggregate, group and order imported data into temporary table """
@@ -60,7 +57,6 @@ class ReconLib(BaseLib):
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
-            self.log_info(f"Aggregating info -> Side {side} ({rows_affected} rows imported)")
         
     def match_key(self, cn, recon):
         """ set id as id_parent plus recon details in both sides  """
@@ -81,7 +77,6 @@ class ReconLib(BaseLib):
             sql += f"where 1=1 "
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
-            self.log_info(f"Matching key -> Side {side} ({rows_affected} rows affected)")
 
     def compare(self, cn, recon):
         """ compare the records and relegate the status from matched to divergent """
@@ -115,7 +110,6 @@ class ReconLib(BaseLib):
             sql += f" where {self.tmp1}.status = 'Matched'"
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
-            self.log_info(f"Comparing field -> [{tablename}.{field}]")
             
     def stamp_tmp(self, cn, recon):
         """ stamp the differences from tmp3 in tmp1/tmp2 tables """        
@@ -141,7 +135,6 @@ class ReconLib(BaseLib):
                 sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
                 rows_affected = dblib.execute(cn, sql)
-                self.log_info(f"Stamp temporary table -> Side {side}, Field {field_name}")
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
 
     def stamp_tb(self, cn, recon):
@@ -166,7 +159,6 @@ class ReconLib(BaseLib):
             field_list = field_list.strip()[:-1]
             sql = f"update {tb} set {field_list} from {tmp} where 1=1 {matching_key}"
             rows_affected = dblib.execute(cn, sql)
-            self.log_info(f"Update key status in final tables -> Side {side} ({rows_affected} rows affected)")
         """ stamp compare information in final table """
         for side in range(1, 3):
             for field in compare_result:
@@ -177,7 +169,6 @@ class ReconLib(BaseLib):
                 rows_affected = dblib.execute(cn, sql)
                 sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
                 rows_affected = dblib.execute(cn, sql)
-                self.log_info(f"Update compare status in final tables -> Side {side} Field {field} ({rows_affected} rows affected)")
 
     def process(self, cn, setup):
         """ reconcile the positions """
@@ -197,4 +188,4 @@ class ReconLib(BaseLib):
         except BaseException as err:
             self.log_error(f"General error -> {str(err)}")
         finally:
-            self.log_info(f"Recon sucessfuly executed")
+            pass

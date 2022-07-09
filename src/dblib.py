@@ -15,7 +15,6 @@ class DbLib:
         cn = self.get_connection()
         cursor = cn.cursor()
         cursor.execute("begin")
-        self.logger.info(f"{self.method}: Start new database transaction")
         return cursor
     
     def execute(self, cn, sql):
@@ -28,21 +27,16 @@ class DbLib:
         except Error as err:
             message = f"{self.method}: SQL Error -> {str(err)}"
             utillib.log(message)
-            self.logger.error(message)
         finally:
-            if sql.find("insert into") < 0:
-                self.logger.info(f"SQL Query: {sql}")
             return rows_affected
     
     def commit_tran(self, cn):
         self.method = "dblib.commit_tran()"
         cn.execute("commit")
-        self.logger.info(f"{self.method}: Transaction commited")
         
     def rollback_tran(self, cn):
         self.method = "dblib.rollback_tran()"
         cn.execute("rollback")
-        self.logger.info(f"{self.method}: Transaction rollback")
 
     def get_connection(db=""):
         conn = None
