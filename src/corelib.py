@@ -28,7 +28,7 @@ class CoreLib(BaseLib):
         self.log_info(f"Create log file per recon")
         fslib = FsLib()
         file_name = f"[log] [{self.name.strip().lower()}].txt"
-        log_path = fslib.get_path_log(file_name)
+        log_path = fslib.get_path_log(cfglib.get_config("path_log"), file_name)
         log_format = "%(asctime)s %(levelname)s %(message)s"
         logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
         logger = logging.getLogger()
@@ -45,7 +45,7 @@ class CoreLib(BaseLib):
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
             """ get recon info """
-            path = fslib.get_path_recon(cfglib.get_config("recon_dir"), recon)
+            path = fslib.get_path_recon(cfglib.get_config("path_recon"), recon)
             recon = fslib.open_json(path)
             self.id = recon["Id"]
             self.name = recon["Name"]
