@@ -12,6 +12,98 @@ class SetupLib:
         self.name = name
         self.error = ""
         self.logger = logging.getLogger(__name__)
+        
+    def get_mandatory_tags(self):
+        return [
+            # general
+            "Id",
+            "Name",
+            "Description",
+            # Data
+            "Datasources",
+            "Side",
+            "Name",
+            "Path",
+            "File",
+            "Separator",
+            # fields
+            "Fields",
+            "Name",
+            "Type",
+            "Value",
+            "Mask",
+            # recon
+            "Recons",
+            "Rule",
+            "Fields"
+        ]
+    
+    def get_datatype(self, datatype):
+        datatype = dt.strip().lower()
+        if datatype in ["integer", "inteiro"]:        
+            return "Integer"
+        if datatype in ["decimal"]:
+            return "Decimal"
+        if datatype in ["text", "texto"]:
+            return "Text"
+        if datatype in ["datetime", "datahora"]:
+            return "datetime"
+
+    def get_function(self, func=""):
+        func = func.strip().lower()
+        if func in ["sum", "somatoria"]:
+            return "sum"
+        if func in ["max", "maximo"]:
+            return "max"
+        if func in ["min", "minimo"]:
+            return "min"
+        if func in ["avg", "media"]:
+            return "avg"
+        if func in ["round", "arredondar"]:
+            return "round"
+        return ""
+
+    def get_tag(self, tag=""):
+        tag = tag.strip().lower()
+        # general
+        if tag in ["id"]:
+            return "Id"
+        if tag in ["side", "lado"]:
+            return "Side"
+        if tag in ["name", "nome"]:
+            return "Nome"
+        if tag in ["description", "descricao"]:
+            return "Description"
+        # datasources        
+        if tag in ["datasources", "dados"]:
+            return "Datasources"
+        if tag in ["path", "caminho"]:
+            return "Path"
+        if tag in ["file", "arquivo"]:
+            return "File"
+        if tag in ["separator", "separador"]:
+            return "Separator"
+        # fields
+        if tag in ["fields", "campos"]:
+            return "Fields"
+        # fields
+        if tag in ["type", "tipo"]:
+            return "Type"
+        if tag in ["value", "valor"]:
+            return "Value"
+        if tag in ["mask", "mascara"]:
+            return "Mask"
+        # recon
+        if tag in ["recons", "conciliacoes"]:
+            return "Recons"
+        if tag in ["rule", "regra"]:
+            return "Rule"
+        if tag in ["function", "funcao"]:
+            return "Function"
+        return ""
+
+    def validate_json(self):
+        pass
 
     def validate_info(self, setup):
         if str(setup["Id"]).strip() == "":
