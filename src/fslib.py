@@ -26,34 +26,39 @@ class FsLib:
     
     def get_path_recon(self, path="", file=""):
         path = self.get_path() if path == "" else path
-        path = os.path.join(path, "recon")
+        #path = os.path.join(path, "recon")
+        path = self.join(path, "recon")
         path = self.join(path, file)
         return path
         
     def get_path_log(self, path="", file=""):
         if path == "":
             path = self.get_path()
-            path = os.path.join(path, "log")
+            #path = os.path.join(path, "log")
+            path = self.join(path, "log")
+        path = self.join(path, file)
+        return path
+
+    def get_path_file(self, path="", file=""):
+        path = self.get_path() if path == "" else path
+        #path = os.path.join(path, "file")
+        path = self.join(path, "file")
         path = self.join(path, file)
         return path
 
     def get_path_etc(self, file=""):
         path = self.get_path()
-        path = os.path.join(path, "etc")
+        #path = os.path.join(path, "etc")
+        path = self.join(path, "etc")
         path = self.join(path, file)
         return path
     
     def get_path_config(self, file=""):
         path = self.get_path()
-        path = os.path.join(path, "config")
-        path = self.join(path, file)
-        return path
-    
-    def get_path_file(self, file=""):
-        path = self.get_path()
-        path = os.path.join(path, "file")
+        #path = os.path.join(path, "config")
+        path = self.join(path, "config")
         path = self.join(path, file)
         return path
        
-    def get_dir_parent(self, path):
+    def get_parent(self, path):
         return os.path.dirname(path)

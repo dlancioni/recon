@@ -28,13 +28,11 @@ class EtlLib(BaseLib):
         fields = ds["Fields"]
         separator = ds["Separator"]
         tb = f"tb{self.id}{side}"        
-        if path.strip() == "": 
-            path = fslib.get_path_file(file)
+        path = fslib.get_path_file(path, file)
         first = True
         error_count = 0
         rows_affected = 0
         rows_imported = 0
-
         self.log_info(f"Start importing delimited text file -> Side: {side} Path: {path}, Separator: {separator}")
         fl = sqlib.get_field_list(fields)
         self.log_info(f"Importing fields -> {str(fl)}")
@@ -69,7 +67,7 @@ class EtlLib(BaseLib):
                 self.logger.info(message)                
                 self.import_file(cn, datasource)
         except IOError as err:
-            self.log_error(f"File manipulation error {path} -> {str(err)}")                
+            self.log_error(f"File manipulation error {path} -> {str(err)}")
         except BaseException as err:
             self.log_error(f"General error -> {str(err)}")
         finally:
