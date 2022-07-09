@@ -26,7 +26,6 @@ if args.r:
     arr = arr[0]
     filename = arr +".json"
     recons.append(filename)
-
 """ start processing """
 if len(recons) == 0:
     recons = ["recon.json"]
