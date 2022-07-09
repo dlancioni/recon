@@ -1,25 +1,17 @@
 import os
 import sys
 import logging
-from src.corelib import CoreLib
-from src.fslib import FsLib
-from src.utillib import UtilLib
-from timeit import default_timer as timer
-from datetime import timedelta
-from src.fslib import FsLib
 import argparse
+from src.fslib import FsLib
+from src.fslib import FsLib
+from datetime import timedelta
+from src.utillib import UtilLib
+from src.corelib import CoreLib
+from timeit import default_timer as timer
 """ General declaration """
 recons = []
 utillib = UtilLib()
 fslib = FsLib()
-
-""" Get application path """
-if getattr(sys, 'frozen', False):
-    app_path = os.path.dirname(sys.executable)
-elif __file__:
-    app_path = os.path.dirname(__file__)
-app_path += "\\"    
-
 """ Control the user input """
 parser = argparse.ArgumentParser()
 parser.add_argument("--g", help="json file that groups the recons")
@@ -40,7 +32,7 @@ start = timer()
 utillib.log(f"Start processing...")
 corelib = CoreLib()
 for recon in recons:
-    corelib.process(app_path, recon)
+    corelib.process(recon)
 utillib.log(f"Finish processing the recons")
 end = timer()
 print(f"Elapsed time: {timedelta(seconds=end-start)}")

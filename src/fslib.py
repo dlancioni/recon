@@ -4,6 +4,15 @@ import json
 import pathlib
 
 class FsLib:
+    
+    def open_json(self, path):
+        with open(path) as f:
+            data = json.load(f)
+            return data    
+
+    def join(self, path1, path2):
+        path = os.path.join(path1, path2) if path2.strip() != "" else path1
+        return path
 
     def get_path(self):
         """ root or application path, where the .exe lives """
@@ -18,27 +27,26 @@ class FsLib:
     def get_path_etc(self, file=""):
         path = self.get_path()
         path = os.path.join(path, "etc")
+        path = self.join(path, file)
         return path
     
     def get_path_config(self, file=""):
         path = self.get_path()
         path = os.path.join(path, "config")
+        path = self.join(path, file)
         return path
     
     def get_path_log(self, file=""):
         path = self.get_path()
         path = os.path.join(path, "log")
+        path = self.join(path, file)
         return path
     
     def get_path_file(self, file=""):
         path = self.get_path()
-        path = os.path.join(path, "file")
+        path = os.path.join(path, file)
+        path = self.join(path, file)
         return path
-
-    def get_json(self, path):
-        with open(path) as f:
-            data = json.load(f)
-            return data
-        
+       
     def get_dir_parent(self, path):
-        return os.path.dirname(path)        
+        return os.path.dirname(path)

@@ -7,6 +7,7 @@ from src.dblib import DbLib
 from src.fslib import FsLib
 from src.sqllib import SqlLib
 from src.etllib import EtlLib
+from src.cfglib import ConfigLib
 from src.arealib import AreaLib
 from src.utillib import UtilLib
 from src.setuplib import SetupLib
@@ -14,6 +15,7 @@ from src.reconlib import ReconLib
 fslib = FsLib()
 sqllib = SqlLib()
 utillib = UtilLib()
+cfglib = ConfigLib()
 
 class CoreLib(BaseLib):
 
@@ -22,22 +24,17 @@ class CoreLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
         
-    def create_log_file(self, app_path, config):
+    def create_log_file(self):
         self.log_info(f"Create log file per recon")
-        log_dir = config["log"]
-        log_name = self.name.strip().lower()
-        log_name = f"[log] [{log_name}].txt"
-        log_path = app_path + log_dir + f"\\{log_name}"
+        fslib = FsLib()
+        file_name = f"[log] [{self.name.strip().lower()}].txt"
+        log_path = fslib.get_path_log(file_name)
         log_format = "%(asctime)s %(levelname)s %(message)s"
         logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
-        cfg_path = app_path + "\\config.json"
-        self.log_info(f"App path: {app_path}")
-        self.log_info(f"Log path: {log_path}")        
-        self.log_info(f"Config path: {cfg_path}")
         logger = logging.getLogger()
-        return logger        
+        return logger
 
-    def process(self, app_path, recon):
+    def process(self, recon):
         self.method = "corelib.process()"
         self.logger.info(f"{self.method}: Start method")
         dblib = DbLib()
@@ -47,14 +44,16 @@ class CoreLib(BaseLib):
         try:
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
+
             """ get recon info """
-            config = fslib.get_json(app_path + "config.json")
-            """ get recon info """            
-            recon = setuplib.get_recon_info(app_path, config["recons"], recon)
+            path = fslib.join(fslib.get_path(), cfglib.get_config("recons"))
+            path = fslib.join(path, recon)
+            recon = fslib.open_json(path)
             self.id = recon["Id"]
             self.name = recon["Name"]
+
             """ create log and validate recon """            
-            logger = self.create_log_file(app_path, config)
+            logger = self.create_log_file()
             utillib.log(f"Running recon {self.id} {self.name}")
             self.log_info(f"Validate json setup")
             if not setuplib.validate(recon):

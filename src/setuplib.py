@@ -12,12 +12,6 @@ class SetupLib:
         self.name = name
         self.error = ""
         self.logger = logging.getLogger(__name__)
-        
-    def get_recon_info(self, app_path, recon_path, recon):
-        fslib = FsLib()
-        path = app_path + recon_path + recon
-        setup = fslib.get_json(path)
-        return setup        
 
     def validate_info(self, setup):
         if str(setup["Id"]).strip() == "":
