@@ -1,17 +1,22 @@
 """
 Author: David Lancioni
-Target: Build app to be distributed
-Steps:
-    cd recon
-    pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
-    python build.py
+Target: Build app to be distributed 
+How to use: just hit F5 :)
 """
 import os 
-from os.path import exists
 import shutil 
+import subprocess
+from os.path import exists
 from src.fslib import FsLib
 fslib = FsLib()
 
+# run pyinstaller
+os.system("cls || clear")
+path = fslib.join(fslib.get_path(), "main.py") 
+command = "pyinstaller.exe --onefile --icon=icon.ico --name recon " + path
+process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
+process.wait()
+print(process.returncode) 
 os.system("cls || clear")
 
 # base paths
