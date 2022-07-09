@@ -7,8 +7,12 @@
     },
     "message": 
     {
-        "1": "Iniciando processamento...",
+        "1": "Iniciando processamento",
         "2": "Finalizando processamento",
-        "3": "Tempo de processamento"
+        "3": "Tempo de processamento",
+        "4": "Abrindo {1} - {2}",
+        "5": "Validado com sucesso",
+        "6": "Area criada com sucesso",
+        "7": "Importando o arquivo {1}"
     }
 }

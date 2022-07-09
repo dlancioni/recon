@@ -2,12 +2,9 @@
 Author: David Lancioni
 Target: Build app to be distributed
 Steps:
-    1) run pyinstaller where main py is located (recon folder):
-        cd recon
-        pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
-    2) Run this script
-    3) See final solution in [target] folder
-    4) run ./recon or recon to execute it
+    1) cd recon
+    2) pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
+    3) python build.py
 """
 import os 
 from os.path import exists
@@ -18,7 +15,7 @@ fslib = FsLib()
 os.system("cls || clear")
 
 # base paths
-target = "c:\\temp\\app\\recon"
+target = "c:\\temp\\recon"
 source = fslib.get_path()
 
 # create folder

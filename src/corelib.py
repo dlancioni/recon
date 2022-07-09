@@ -12,10 +12,13 @@ from src.arealib import AreaLib
 from src.utillib import UtilLib
 from src.setuplib import SetupLib
 from src.reconlib import ReconLib
+from src.msglib import MsgLib
+
 fslib = FsLib()
 sqllib = SqlLib()
 utillib = UtilLib()
 cfglib = ConfigLib()
+msglib = MsgLib()
 
 class CoreLib(BaseLib):
 
@@ -49,16 +52,18 @@ class CoreLib(BaseLib):
             recon = fslib.open_json(path)
             self.id = recon["Id"]
             self.name = recon["Name"]
+            msglib.print(msglib.get_value("message", 4, [self.id, self.name]))
             """ create log and validate recon """            
             logger = self.create_log_file()
-            utillib.log(f"Running recon {self.id} {self.name}")
             self.log_info(f"Validate json setup")
             if not setuplib.validate(recon):
                 self.logger.info(f"{self.method}: Setup is invalid, aborting this recon")
                 return False
+            msglib.print(msglib.get_value("message", 5))
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.process(cn, recon)
+            msglib.print(msglib.get_value("message", 6))
             """ import files """
             etllib = EtlLib(self.id, self.name)
             etllib.process(cn, recon)
@@ -66,7 +71,7 @@ class CoreLib(BaseLib):
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, recon)
             """ generate output """
-            utillib.print(cn)
+            #utillib.print(cn)
         except BaseException as err:
             dblib.rollback_tran(cn)
             self.log_error("Transaction rollbacked")

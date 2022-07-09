@@ -5,11 +5,12 @@ from src.sqllib import SqlLib
 from src.fslib import FsLib
 from src.dblib import DbLib
 from src.utillib import UtilLib
-
+from src.msglib import MsgLib
 sqlib = SqlLib()
 dblib = DbLib()
 fslib = FsLib()
 utillib = UtilLib()
+msglib = MsgLib()
 
 class EtlLib(BaseLib):
 
@@ -59,11 +60,10 @@ class EtlLib(BaseLib):
         try:
             datasources = recon["Datasources"]
             message = f"Start processing datasources -> {str(len(datasources))} datasource(s)"
-            utillib.log(message)
             self.logger.info(message)
             for datasource in datasources:
+                msglib.print(msglib.get_value("message", 7, [datasource['File']]))
                 message = f"Processing datasource -> {datasource['Name']}"
-                utillib.log(message)
                 self.logger.info(message)                
                 self.import_file(cn, datasource)
         except IOError as err:
