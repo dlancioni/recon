@@ -4,6 +4,11 @@ from src.sqllib import SqlLib
 from src.baselib import BaseLib
 from src.utillib import UtilLib
 from src.dblib import DbLib
+from src.msglib import MsgLib
+dblib = DbLib()
+sqllib = SqlLib()
+utillib = UtilLib()
+msglib = MsgLib()
 
 class ReconLib(BaseLib):
 
@@ -26,9 +31,6 @@ class ReconLib(BaseLib):
         """ keep common information in class level """
         self.method = "reconlib.prepare()"
         field_name = ""
-        dblib = DbLib()
-        sqllib = SqlLib()
-        utillib = UtilLib()
         for field in recon["Fields"]:
             field_name = str(field["Name"]).strip()
             field_name = f"[{field_name}]"
@@ -46,9 +48,6 @@ class ReconLib(BaseLib):
         sql = ""
         rows_affected = 0
         funcs = []
-        sqllib = SqlLib()
-        dblib = DbLib()
-        utillib = UtilLib()
         grouping_key = sqllib.get_field_key(recon["Fields"])
         field_list = sqllib.get_field_list(recon["Fields"], False)
         value_list = sqllib.get_field_list(recon["Fields"], True)
@@ -67,9 +66,6 @@ class ReconLib(BaseLib):
         """ set id as id_parent plus recon details in both sides  """
         self.method = "reconlib.match_key()"
         rows_affected = 0
-        sqllib = SqlLib()
-        dblib = DbLib()
-        utillib = UtilLib()
         rule = recon["Rule"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
         for side in range(1, 3):
@@ -94,9 +90,6 @@ class ReconLib(BaseLib):
         fields_key = ""
         count = 0
         rows_affected = 0
-        utillib = UtilLib()
-        sqllib = SqlLib()
-        dblib = DbLib()
         rule = recon["Rule"]
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
         """ create temp table  to compare fields """
@@ -130,9 +123,6 @@ class ReconLib(BaseLib):
         count = 0
         rows_affected = 0
         field_name = ""
-        utillib = UtilLib()
-        sqllib = SqlLib()
-        dblib = DbLib()
         for field in self.field_compare:
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
@@ -159,9 +149,6 @@ class ReconLib(BaseLib):
         self.method = "reconlib.stamp_tb()"
         field_list = ""
         rows_affected = 0
-        utillib = UtilLib()
-        sqllib = SqlLib()
-        dblib = DbLib()
         """ stamp the differences from tmps in tbs """
         rule = recon["Rule"]
         match_result = ["Id_Parent", "Recon", "Rule", "Status"]
