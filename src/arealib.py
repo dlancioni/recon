@@ -48,12 +48,12 @@ class AreaLib(BaseLib):
             cn.execute(sqllib.get_create_table_definition(tmp, fields, types))
         return fields, types
     
-    def process(self, cn, setup):
+    def process(self, cn, recon):
         """ consolidate layout definition and create recon area (tables) """
         self.method = "arealib.process()"
         utillib = UtilLib()
         try:
-            fields, types = self.create_recon_area(cn, setup)
+            fields, types = self.create_recon_area(cn, recon)
         except Error as err:
             self.log_error(f"SQL Error -> {str(err)}")
         except BaseException as err:

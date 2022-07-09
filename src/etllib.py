@@ -6,6 +6,11 @@ from src.fslib import FsLib
 from src.dblib import DbLib
 from src.utillib import UtilLib
 
+sqlib = SqlLib()
+dblib = DbLib()
+fslib = FsLib()
+utillib = UtilLib()
+
 class EtlLib(BaseLib):
 
     def __init__(self, id, name):
@@ -14,28 +19,26 @@ class EtlLib(BaseLib):
         self.app_path = ""
         self.logger = logging.getLogger(__name__)
 
-    def import_file(self, cn, app_path, ds):
+    def import_file(self, cn, ds):
         self.method = "etllib.import_file()"
-        sql = ""
-        sqlib = SqlLib()
-        dblib = DbLib()        
+        sql = ""       
         side = ds["Side"]
-        tb = f"tb{self.id}{side}"
-        path = str(ds["Path"])
-        if path.strip() == "": path = app_path + "\\file\\"
+        path = ds["Path"]
         file = ds["File"]
-        separator = ds["Separator"]
         fields = ds["Fields"]
+        separator = ds["Separator"]
+        tb = f"tb{self.id}{side}"        
+        if path.strip() == "": 
+            path = fslib.get_path_file(file)
         first = True
         error_count = 0
         rows_affected = 0
         rows_imported = 0
-        utillib = UtilLib()
 
         self.log_info(f"Start importing delimited text file -> Side: {side} Path: {path}, Separator: {separator}")
         fl = sqlib.get_field_list(fields)
         self.log_info(f"Importing fields -> {str(fl)}")
-        with open(path + file, "r") as file:
+        with open(path, "r") as file:
             for line in file.readlines():
                 if not first:
                     values = line.split(separator)
@@ -52,10 +55,9 @@ class EtlLib(BaseLib):
                         self.log_error(f"Error to manipulate data [{sql}]: {str(err)}")
                 first = False
 
-    def process(self, cn, app_path, recon):
+    def process(self, cn, recon):
         """ import positions """
         self.method = "etllib.process()"
-        utillib = UtilLib()        
         try:
             datasources = recon["Datasources"]
             message = f"Start processing datasources -> {str(len(datasources))} datasource(s)"
@@ -65,7 +67,7 @@ class EtlLib(BaseLib):
                 message = f"Processing datasource -> {datasource['Name']}"
                 utillib.log(message)
                 self.logger.info(message)                
-                self.import_file(cn, app_path, datasource)
+                self.import_file(cn, datasource)
         except IOError as err:
             self.log_error(f"File manipulation error {path} -> {str(err)}")                
         except BaseException as err:

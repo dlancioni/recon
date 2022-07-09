@@ -44,7 +44,7 @@ class FsLib:
     
     def get_path_file(self, file=""):
         path = self.get_path()
-        path = os.path.join(path, file)
+        path = os.path.join(path, "file")
         path = self.join(path, file)
         return path
        

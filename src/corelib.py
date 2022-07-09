@@ -62,7 +62,7 @@ class CoreLib(BaseLib):
             fields, types = arealib.process(cn, recon)
             """ import files """
             etllib = EtlLib(self.id, self.name)
-            etllib.process(cn, app_path, recon)
+            etllib.process(cn, recon)
             """ reconcile data """
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, recon)
