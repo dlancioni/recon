@@ -5,23 +5,40 @@ import pathlib
 
 class FsLib:
 
-    def get_dir(self):
+    def get_path(self):
+        """ root or application path, where the .exe lives """
         if getattr(sys, 'frozen', False):
-            application_path = os.path.dirname(sys.executable)
+            path = os.path.dirname(sys.executable)
         elif __file__:
-            application_path = os.path.dirname(__file__)
-        return application_path
+            path = os.path.dirname(__file__)
+            for dir in ["\src", "\\src", "/src"]:
+                path = path.replace(dir, "")
+        return path
 
-    def get_dir_parent(self, path):
-        return os.path.dirname(path)
-
-    def get_dir_etc(self, file=""):
-        path = os.path.abspath(".")        
-        path = (path + "\\etc\\") if path.find("\\recon") >= 0 else (path + "\\recon\\etc\\")
-        if (file): path += file
+    def get_path_etc(self, file=""):
+        path = self.get_path()
+        path = os.path.join(path, "etc")
+        return path
+    
+    def get_path_config(self, file=""):
+        path = self.get_path()
+        path = os.path.join(path, "config")
+        return path
+    
+    def get_path_log(self, file=""):
+        path = self.get_path()
+        path = os.path.join(path, "log")
+        return path
+    
+    def get_path_file(self, file=""):
+        path = self.get_path()
+        path = os.path.join(path, "file")
         return path
 
     def get_json(self, path):
         with open(path) as f:
             data = json.load(f)
             return data
+        
+    def get_dir_parent(self, path):
+        return os.path.dirname(path)        

@@ -44,7 +44,6 @@ class CoreLib(BaseLib):
         utillib = UtilLib()
         setuplib = SetupLib()
         fslib = FsLib()
-        
         try:
             """ create new transaction for each recon """
             cn = dblib.begin_tran()

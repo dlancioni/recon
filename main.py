@@ -6,10 +6,12 @@ from src.fslib import FsLib
 from src.utillib import UtilLib
 from timeit import default_timer as timer
 from datetime import timedelta
+from src.fslib import FsLib
 import argparse
 """ General declaration """
 recons = []
 utillib = UtilLib()
+fslib = FsLib()
 
 """ Get application path """
 if getattr(sys, 'frozen', False):
