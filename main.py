@@ -22,7 +22,11 @@ recons = []
 if args.g:
     print("Importing a group of recons...", args.g)
 if args.r:
-    recons.append(args.r)
+    arr = str(args.r).split(".")
+    arr = arr[0]
+    filename = arr +".json"
+    recons.append(filename)
+
 """ start processing """
 if len(recons) == 0:
     recons = ["recon.json"]

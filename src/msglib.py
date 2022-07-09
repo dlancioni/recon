@@ -25,7 +25,7 @@ class MsgLib():
             i = i + 1
             old = "{" + str(i) + "}"
             new = f"{item}"
-            value = value.replace(old, new)            
+            value = value.replace(old, new)
         # all good
         return value
     
