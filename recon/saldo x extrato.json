@@ -5,7 +5,7 @@
     "Datasources":
     [
         {
-            "Side": 1,
+            "Side": "1",
             "Name": "Saldo",
             "Path": "",
             "File": "saldo.txt",

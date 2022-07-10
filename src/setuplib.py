@@ -6,11 +6,12 @@ from src.fslib import FsLib
 from src.utillib import UtilLib
 from src.msglib import MsgLib
 from src.cfglib import ConfigLib
+from src.baselib import BaseLib
 
 msglib = MsgLib()
 cfglib = ConfigLib()
 
-class SetupLib:
+class SetupLib(BaseLib):
 
     def __init__(self, id=0, name=""):
         self.id = id
