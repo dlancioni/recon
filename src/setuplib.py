@@ -19,6 +19,7 @@ class SetupLib:
         self.logger = logging.getLogger(__name__)
     
     def validate_tag(self, recon, field, mandatory=False):
+        """ dynamic validator """                
         field = msglib.get_value(msglib.field, field)
         if not field in recon:
             raise Exception(msglib.get_value(msglib.validation, "M1", [field]))
@@ -27,6 +28,7 @@ class SetupLib:
                 raise Exception(msglib.get_value(msglib.validation, "M2", [field]))
 
     def validate_info(self, recon):
+        """ validate key info """
         self.validate_tag(recon, "ID", True)
         self.validate_tag(recon, "NAME", True)
         self.validate_tag(recon, "DESC", True)
@@ -34,7 +36,8 @@ class SetupLib:
         id = str(recon[field]).strip()
         if int(id) <= 0: raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
         
-    def validate_datasource(self, recon):        
+    def validate_datasource(self, recon):
+        """ validate datasources """
         self.validate_tag(recon, "DTSC")
         ds = msglib.get_value(msglib.field, "DTSC")
         datasources = recon[ds]
@@ -44,7 +47,8 @@ class SetupLib:
             self.validate_tag(tag, "NAME", True)
             self.validate_tag(tag, "PATH", False)
             self.validate_tag(tag, "FILE", True)
-            self.validate_tag(tag, "SEPT", True)            
+            self.validate_tag(tag, "SEPT", True)
+            """ validate fields """
             self.validate_tag(recon[ds][i], "FLDS")
             field = msglib.get_value(msglib.field, "FLDS")
             fields = recon[ds][i][field]
@@ -56,6 +60,7 @@ class SetupLib:
                 self.validate_tag(tag, "MASK", False)
 
     def validate(self, recon):
+        """ full validation, structure and data """
         self.method = "setuplib.validate()"
         try:
             self.validate_info(recon)
