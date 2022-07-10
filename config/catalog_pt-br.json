@@ -14,7 +14,9 @@
         "SEPT":"Separador",
         "TYPE":"Tipo",
         "VLUE":"Valor",
-        "MASK":"Mascara"
+        "MASK":"Mascara",
+        "RULE":"Regra",
+        "FUNC":"Funcao"
     },
     "Status":
     {

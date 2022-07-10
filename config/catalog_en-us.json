@@ -1,43 +1,46 @@
 {
     "Field":
     {
-        "_":    "Change fields will impact the code, do not change",
-        "ID":   "Id",
-        "NAME": "Name",
-        "DESC": "Description",
-        "DTSC": "Datasources",
-        "FLDS": "Fields",
-        "RECN": "Recons",       
-        "SIDE": "Side",
-        "PATH": "Path",
-        "FILE": "File",
-        "SEPT": "Separator",
-        "TYPE": "Type",
-        "VLUE": "Value",
-        "MASK": "Mask"
+        "_":"Change fields will impact the code, do not change",
+        "ID":"Id",
+        "NAME":"Name",
+        "DESC":"Description",
+        "DTSC":"Datasources",
+        "FLDS":"Fields",
+        "RECN":"Recons",       
+        "SIDE":"Side",
+        "PATH":"Path",
+        "FILE":"File",
+        "SEPT":"Separator",
+        "TYPE":"Type",
+        "VLUE":"Value",
+        "MASK":"Mask",
+        "RULE":"Rule",
+        "FUNC":"Function"
+
     },
     "Status":
     {
-        "1": "Matched",
-        "2": "Divergent",
-        "3": "Orphan"
+        "1":"Matched",
+        "2":"Divergent",
+        "3":"Orphan"
     },
     "Validation":
     {
-        "_":  "Fell free to change the message, just take care with the variables {}",
-        "M1": "Tag not found in conciliation configuration: {1}",
-        "M2": "Mandatory field: {1}",
-        "M3": "Field {1} must be integer and greater than zero"
+        "_":"Fell free to change the message, just take care with the variables {}",
+        "M1":"Tag not found in conciliation configuration: {1}",
+        "M2":"Mandatory field: {1}",
+        "M3":"Field {1} must be integer and greater than zero"
     },
     "Console":
     {
-        "_":  "Fell free to change the message, just take care with the variables {}",
-        "M1": "Start processing",
-        "M2": "Finish processing",
-        "M3": "Elapsed time",
-        "M4": "openning {1} - {2}",
-        "M5": "Successfuly validated",
-        "M6": "Area successfuly created",
-        "M7": "Importing file {1}"
+        "_":"Fell free to change the message, just take care with the variables {}",
+        "M1":"Start processing",
+        "M2":"Finish processing",
+        "M3":"Elapsed time",
+        "M4":"openning {1} - {2}",
+        "M5":"Successfuly validated",
+        "M6":"Area successfuly created",
+        "M7":"Importing file {1}"
     }
 }

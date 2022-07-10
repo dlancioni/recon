@@ -59,6 +59,23 @@ class SetupLib(BaseLib):
                 self.validate_tag(tag, "TYPE", True)
                 self.validate_tag(tag, "VLUE", False)
                 self.validate_tag(tag, "MASK", False)
+                
+    def validate_recon(self, recon):
+        """ validate conciliations """
+        self.validate_tag(recon, "RECN")
+        rc = msglib.get_value(msglib.field, "RECN")
+        recons = recon[rc]
+        for i in range(0, len(recons)):
+            tag = recon[rc][i]
+            self.validate_tag(tag, "RULE", True)
+            """ validate fields """
+            self.validate_tag(recons[i], "FLDS")
+            field = msglib.get_value(msglib.field, "FLDS")
+            fields = recon[rc][i][field]
+            for j in range(0, len(fields)):
+                tag = recon[rc][i][field][j]
+                self.validate_tag(tag, "TYPE", True)
+                self.validate_tag(tag, "NAME", True)
 
     def validate(self, recon):
         """ full validation, structure and data """
@@ -66,6 +83,7 @@ class SetupLib(BaseLib):
         try:
             self.validate_info(recon)
             self.validate_datasource(recon)
+            self.validate_recon(recon)
         except BaseException as err:
             msg = f"Validation error -> {str(err)}"
             self.log_error(msg)
