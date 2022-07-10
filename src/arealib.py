@@ -51,9 +51,11 @@ class AreaLib(BaseLib):
         try:
             fields, types = self.create_recon_area(cn, recon)
         except Error as err:
-            self.log_error(f"SQL Error -> {str(err)}")
+            msg = f"SQL Error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)
         except BaseException as err:
-            self.log_error(f"General error -> {str(err)}")
-        finally:
-            pass
+            msg = f"General error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)
         return fields, types

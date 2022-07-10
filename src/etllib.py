@@ -51,7 +51,7 @@ class EtlLib(BaseLib):
                         error_count += 1                           
                         self.log_error(f"Error to manipulate data [{sql}]: {str(err)}")
                 first = False
-
+        
     def process(self, cn, recon):
         """ import positions """
         self.method = "etllib.process()"
@@ -60,9 +60,15 @@ class EtlLib(BaseLib):
             for datasource in datasources:
                 msglib.print(msglib.get_value(msglib.console, "M7", [datasource['File']]))
                 self.import_file(cn, datasource)
+        except Error as err:
+            msg = f"SQL Error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)
         except IOError as err:
-            self.log_error(f"File manipulation error {path} -> {str(err)}")
+            msg = f"File manipulation error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)
         except BaseException as err:
-            self.log_error(f"General error -> {str(err)}")
-        finally:
-            pass
+            msg = f"General error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)

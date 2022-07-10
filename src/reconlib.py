@@ -184,8 +184,10 @@ class ReconLib(BaseLib):
                 self.stamp_tmp(cn, recon)
                 self.stamp_tb(cn, recon)
         except Error as err:
-            self.log_error(f"SQL Error -> {str(err)}")
+            msg = f"SQL Error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)
         except BaseException as err:
-            self.log_error(f"General error -> {str(err)}")
-        finally:
-            pass
+            msg = f"General error -> {str(err)}"
+            self.log_error(msg)
+            raise Exception(msg)
