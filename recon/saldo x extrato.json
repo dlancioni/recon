@@ -1,5 +1,5 @@
 {
-    "Ids": "1",
+    "Id": "1",
     "Name": "Saldo x Extrato",
     "Description": "1:M reconciliation",
     "Datasources":

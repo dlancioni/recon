@@ -7,7 +7,14 @@
         "DESC": "Description",
         "DTSC": "Datasources",
         "FLDS": "Fields",
-        "RECN": "Recons"
+        "RECN": "Recons",       
+        "SIDE": "Side",
+        "PATH": "Path",
+        "FILE": "File",
+        "SEPT": "Separator",
+        "TYPE": "Type",
+        "VLUE": "Value",
+        "MASK": "Mask"
     },
     "Status":
     {
