@@ -28,7 +28,7 @@
     "Validation":
     {
         "_":"Fell free to change the message, just take care with the variables {}",
-        "M1":"Tag not found in conciliation configuration: {1}",
+        "M1":"Tag not found in conciliation configuration: {1}/{2}",
         "M2":"Mandatory field: {1}",
         "M3":"Field {1} must be integer and greater than zero"
     },
