@@ -54,8 +54,7 @@ class CoreLib(BaseLib):
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
             """ create log and validate recon """            
             logger = self.create_log_file()
-            if not setuplib.validate(recon):
-                return False
+            setuplib.validate(recon)
             msglib.print(msglib.get_value(msglib.console, "M5"))
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
