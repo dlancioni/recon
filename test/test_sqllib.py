@@ -8,27 +8,57 @@ lib = SqlLib()
 
 recon = {
     "Id": 1,
-    "Name": "Recon 1",
-    "Description": "1:1 where both sides have the same file",
+    "Name": "Saldo x Extrato",
+    "Description": "1:M reconciliation",
     "Datasources":
     [
         {
             "Side": 1,
-            "Name": "One",
-            "File": "etc:recon_11.txt",
+            "Name": "Saldo",
+            "Path": "",
+            "File": "saldo.txt",
+            "Separator": ";",
+            "Fields":
+            [
+                {"Id":1, "Name":"Data do Movimento", "Type":"Datetime", "Value":"20221231", "Mask":""},
+                {"Id":2, "Name":"Codigo da Agencia", "Type":"Integer", "Value":"1010", "Mask":""},
+                {"Id":3, "Name":"Numero da Conta", "Type":"Text", "Value":"10001-1", "Mask":""},
+                {"Id":4, "Name":"Saldo na Data", "Type":"Decimal", "Value":"1.99", "Mask":""}
+            ]
+        }
+        ,
+        {
+            "Side": 2,
+            "Name": "Extrato",
+            "Path": "",            
+            "File": "extrato.txt",
             "Separator": ";",
             "Fields": 
             [
-                {"name":"Agencia", "type":"integer", "value":"1010"},
-                {"name":"Saldo", "type":"decimal", "function":"sum", "mask":",", "value":"1,99"},
-                {"name":"Conta", "type":"text", "value":"10001-1"},
-                {"name":"Data", "type":"datetime", "function":"max", "value":"20221231"}
+                {"Id":1, "Name":"Data do Movimento", "Type":"Datetime", "Value":"20221231", "Mask":""},
+                {"Id":2, "Name":"Codigo da Agencia", "Type":"Integer", "Value":"1010", "Mask":""},
+                {"Id":3, "Name":"Numero da Conta", "Type":"Text", "Value":"10001-1", "Mask":""},
+                {"Id":4, "Name":"Saldo na Data", "Type":"Decimal", "Value":"1.99", "Mask":""}
+            ]
+        }
+    ],
+    "Recons":
+    [
+        {
+            "Rule": "Agencia/Conta",
+            "Fields":
+            [
+                {"Type":"Key", "Name":"Codigo da Agencia"},
+                {"Type":"Key", "Name":"Numero da Conta"},
+                {"Type":"Compare", "Name":"Saldo na Data", "Function":"Sum"},
+                {"Type":"Compare", "Name":"Data do Movimento"}
             ]
         }
     ]
 }
 
 field_def = recon["Datasources"][0]["Fields"]
+recon_def = recon["Recons"][0]["Fields"]
 
 class CoreLibTest(unittest.TestCase):
     
@@ -37,32 +67,25 @@ class CoreLibTest(unittest.TestCase):
     
     def test_get_field_type(self):
         self.assertEqual("", lib.get_field_type(""))
-        self.assertEqual("real", lib.get_field_type("decimal"))
-        self.assertEqual("text", lib.get_field_type("datetime"))
+        self.assertEqual("Real", lib.get_field_type("decimal"))
+        self.assertEqual("Text", lib.get_field_type("datetime"))
+        self.assertEqual("Integer", lib.get_field_type("integer"))
+        self.assertEqual("Text", lib.get_field_type("datetime"))
         
     def test_get_field_list(self):
         self.assertEqual("", lib.get_field_list(""))
-        self.assertEqual("agencia, sum(saldo) saldo, conta, max(data) data", lib.get_field_list(field_def))
+        self.assertEqual("[Data do Movimento], [Codigo da Agencia], [Numero da Conta], [Saldo na Data]", lib.get_field_list(field_def))
         
     def test_get_value_list(self):
         self.assertEqual("", lib.get_value_list(""))
-        self.assertEqual("1010, 1.99, '10001-1', '20221231'", lib.get_value_list(field_def))
+        self.assertEqual("'20221231', 1010, '10001-1', 1.99", lib.get_value_list(field_def))
         
     def test_get_create_table_definition(self):
-        self.assertEqual("", lib.get_create_table_definition("", ""))
-        message = "create table tb "
-        message += "("
-        message += "id integer primary key, "
-        message += "id_parent integer default 0, "
-        message += "recon text default '', "
-        message += "rule text default '', "
-        message += "status text default 'orphan', "
-        message += "agencia integer, "
-        message += "saldo real, "
-        message += "conta text, "
-        message += "date text"
-        message += ")"        
-        self.assertEqual(len(message), len(lib.get_create_table_definition("tb", field_def)))
+        self.assertEqual("", lib.get_create_table_definition("", "", ""))
+        message = "create table tb (Id integer primary key, Id_Parent integer default 0, Recon text default '', Rule text default '', Status text default 'Orphan', [Data do Movimento] Text, [Codigo da Agencia] Integer, [Numero da Conta] Text, [Saldo na Data] Real)"
+        fields = ['Data do Movimento', 'Codigo da Agencia', 'Numero da Conta', 'Saldo na Data']
+        types = ['Datetime', 'Integer', 'Text', 'Decimal']
+        self.assertEqual(message, lib.get_create_table_definition("tb", fields, types))
         
     def test_get_create_index_definition(self):
         self.assertEqual("", lib.get_create_index_definition("", ""))
@@ -95,15 +118,10 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(3, len(f))
         self.assertEqual(3, len(t))
         
-    def test_get_grouping_list(self):
-        self.assertEqual("", lib.get_grouping_list(""))
-        self.assertEqual("agencia, conta", lib.get_grouping_list(field_def))
-        
     def test_get_sql_key(self):
         self.assertEqual("", lib.get_sql_key("", "", ""))
-        fields = [ "name", "date" ]
-        message = "and tb1.name = tb2.name and tb1.date = tb2.date"
-        self.assertEqual(message, lib.get_sql_key("tb1", "tb2", fields))        
+        message = "and tb1.[Codigo da Agencia] = tb2.[Codigo da Agencia] and tb1.[Numero da Conta] = tb2.[Numero da Conta]"
+        self.assertEqual(message, lib.get_sql_key("tb1", "tb2", recon_def))
 
     def tearDown(self):
         pass

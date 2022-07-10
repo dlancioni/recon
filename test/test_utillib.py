@@ -11,7 +11,7 @@ class UtilLibTest(unittest.TestCase):
         pass
 
     def test_xyz(self):
-        self.assertEqual(1, 1)
+        pass
 
     def tearDown(self):
         pass

@@ -25,7 +25,7 @@ class EtlLibTest(unittest.TestCase):
         self.assertEqual(path1, path2)        
 
     def test_import_file(self):
-        path = fslib.get_dir_etc("recon_01.json")
+        path = fslib.get_path_recon("", "recon.json")
         setup = fslib.get_json(path)
         ds = setup["Datasources"][0]
         cn = dblib.get_connection()
