@@ -16,28 +16,21 @@ class EtlLibTest(unittest.TestCase):
     def setUp(self):
         pass
     
-    def test_get_file(self):
-        path1 = "c:\\temp\\abc.txt"
-        path2 = etllib.get_file("c:\\temp\\abc.txt")
-        self.assertEqual(path1, path2)
-        path1 = "C:\\Users\\david\\Developer\\recon\\etc\\recon_01.txt"
-        path2 = etllib.get_file("etc:recon_01.txt")
-        self.assertEqual(path1, path2)        
-
     def test_import_file(self):
-        path = fslib.get_path_recon("", "recon.json")
-        setup = fslib.get_json(path)
-        ds = setup["Datasources"][0]
+        path = fslib.get_path_recon("", "saldo x extrato.json")
+        recon = fslib.open_json(path)
+        ds = recon["Datasources"][0]
         cn = dblib.get_connection()
         cursor = cn.cursor()
-        cursor.execute("create table if not exists tb11 (Integer integer, Decimal decimal, Text text, Datetime datetime)")
-        id = setup["Id"]
-        name = setup["Name"]
+        cursor.execute("drop table if exists tb11")
+        cursor.execute("create table tb11 (Id integer primary key, Id_Parent integer default 0, Recon text default '', Rule text default '', Status text default 'Orphan', [Data do Movimento] Text, [Codigo da Agencia] Integer, [Numero da Conta] Text, [Saldo na Data] Real)")
+        id = recon["Id"]
+        name = recon["Name"]
         etllib = EtlLib(id, name)
         etllib.import_file(cn, ds)
         cursor.execute("select * from tb11")
         rows = cursor.fetchall()
-        self.assertEqual(3, len(rows))
+        self.assertEqual(4, len(rows))
 
     def tearDown(self):
         pass
