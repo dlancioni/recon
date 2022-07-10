@@ -1,18 +1,22 @@
 {
-    "status":
+    "Status":
     {
         "1": "Matched",
         "2": "Divergent",
         "3": "Orphan"
     },
-    "message": 
+    "Validation":
     {
-        "1": "Start processing",
-        "2": "Finish processing",
-        "3": "Elapsed time",
-        "4": "openning {1} - {2}",
-        "5": "Successfuly validated",
-        "6": "Area successfuly created",
-        "7": "Importing file {1}"
+
+    },
+    "Console":
+    {
+        "M1": "Start processing",
+        "M2": "Finish processing",
+        "M3": "Elapsed time",
+        "M4": "openning {1} - {2}",
+        "M5": "Successfuly validated",
+        "M6": "Area successfuly created",
+        "M7": "Importing file {1}"
     }
 }

@@ -1,7 +1,0 @@
-{
-    "Tags": 
-    {
-        "Id": {"pt-br":"Id", "en-us":"Id", "mandatory":1, "msg":"1"},
-        "Name": {"pt-br":"Id", "en-us":"Id", "mandatory":1, "msg":"2"}
-    }
-}

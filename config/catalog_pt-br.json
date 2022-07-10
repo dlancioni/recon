@@ -1,18 +1,22 @@
 {
-    "status":
+    "Status":
     {
         "1": "Batido",
         "2": "Divergente",
         "3": "Orfão"
     },
-    "message": 
+    "Validation":
     {
-        "1": "Iniciando processamento",
-        "2": "Finalizando processamento",
-        "3": "Tempo de processamento",
-        "4": "Abrindo {1} - {2}",
-        "5": "Validado com sucesso",
-        "6": "Area criada com sucesso",
-        "7": "Importando o arquivo {1}"
+
+    },    
+    "Console":
+    {
+        "M1": "Iniciando processamento",
+        "M2": "Finalizando processamento",
+        "M3": "Tempo de processamento",
+        "M4": "Abrindo {1} - {2}",
+        "M5": "Validado com sucesso",
+        "M6": "Area criada com sucesso",
+        "M7": "Importando o arquivo {1}"
     }
 }
