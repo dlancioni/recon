@@ -1,13 +1,20 @@
 {
     "Field":
     {
-        "_":    "Alterar os campos abaixo impacta o codigo, evite mudar",
-        "ID":   "Id",
-        "NAME": "Nome",
-        "DESC": "Descricao",
-        "DTSC": "Dados",
-        "FLDS": "Campos",
-        "RECN": "Conciliacoes"
+        "_":"Alterar os campos abaixo impacta o codigo, evite mudar",
+        "ID":"Id",
+        "NAME":"Nome",
+        "DESC":"Descricao",
+        "DTSC":"Fontes",
+        "FLDS":"Campos",
+        "RECN":"Conciliacoes",       
+        "SIDE":"Lado",
+        "PATH":"Caminho",
+        "FILE":"Arquivo",
+        "SEPT":"Separador",
+        "TYPE":"Tipo",
+        "VLUE":"Valor",
+        "MASK":"Mascara"
     },
     "Status":
     {
@@ -17,20 +24,20 @@
     },
     "Validation":
     {
-        "_":  "Mude como desejar, mas cuidado com as variaveis {x}",
-        "M1": "Tag nao encontrado na configuracao da conciliacao: {1}",
-        "M2": "Campo obrigatorio: {1}",
-        "M3": "Campo {1} deve ser inteiro maior que zero"
+        "_":"Mude como desejar, mas cuidado com as variaveis {x}",
+        "M1":"Tag nao encontrado na configuracao da conciliacao: {1}",
+        "M2":"Campo obrigatorio: {1}",
+        "M3":"Campo {1} deve ser inteiro maior que zero"
     },
     "Console":
     {
-        "_":  "Mude como desejar, mas cuidado com as variaveis {x}",
-        "M1": "Iniciando processamento",
-        "M2": "Finalizando processamento",
-        "M3": "Tempo de processamento",
-        "M4": "Abrindo {1} - {2}",
-        "M5": "Validado com sucesso",
-        "M6": "Area criada com sucesso",
-        "M7": "Importando o arquivo {1}"
+        "_":"Mude como desejar, mas cuidado com as variaveis {x}",
+        "M1":"Iniciando processamento",
+        "M2":"Finalizando processamento",
+        "M3":"Tempo de processamento",
+        "M4":"Abrindo {1} - {2}",
+        "M5":"Validado com sucesso",
+        "M6":"Area criada com sucesso",
+        "M7":"Importando o arquivo {1}"
     }
 }
