@@ -1,9 +1,13 @@
 {
     "Field":
     {
-        "F1": "Id",
-        "F2": "Nome",
-        "F3": "Descricao"
+        "_":    "Alterar os campos abaixo impacta o codigo, evite mudar",
+        "ID":   "Id",
+        "NAME": "Nome",
+        "DESC": "Descricao",
+        "DTSC": "Dados",
+        "FLDS": "Campos",
+        "RECN": "Conciliacoes"
     },
     "Status":
     {
@@ -13,11 +17,14 @@
     },
     "Validation":
     {
-        "M1": "Campo obrigatorio: {1}",
-        "M2": "Campo {1} deve ser inteiro maior que zero"
+        "_":  "Mude como desejar, mas cuidado com as variaveis {x}",
+        "M1": "Tag nao encontrado na configuracao da conciliacao: {1}",
+        "M2": "Campo obrigatorio: {1}",
+        "M3": "Campo {1} deve ser inteiro maior que zero"
     },
     "Console":
     {
+        "_":  "Mude como desejar, mas cuidado com as variaveis {x}",
         "M1": "Iniciando processamento",
         "M2": "Finalizando processamento",
         "M3": "Tempo de processamento",

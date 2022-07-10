@@ -48,7 +48,7 @@ class CoreLib(BaseLib):
             """ get recon info """
             path = fslib.get_path_recon(cfglib.get_config("path_recon"), recon)
             recon = fslib.open_json(path)
-            setuplib.validate_key(recon)
+            setuplib.validate_info(recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))

@@ -1,9 +1,13 @@
 {
     "Field":
     {
-        "F1": "Id",
-        "F2": "Name",
-        "F3": "Description"
+        "_":    "Change fields will impact the code, do not change",
+        "ID":   "Id",
+        "NAME": "Name",
+        "DESC": "Description",
+        "DTSC": "Datasources",
+        "FLDS": "Fields",
+        "RECN": "Recons"
     },
     "Status":
     {
@@ -13,11 +17,14 @@
     },
     "Validation":
     {
-        "M1": "Mandatory field: {1}",        
-        "M2": "Field {1} must be integer and greater than zero"
+        "_":  "Fell free to change the message, just take care with the variables {}",
+        "M1": "Tag not found in conciliation configuration: {1}",
+        "M2": "Mandatory field: {1}",
+        "M3": "Field {1} must be integer and greater than zero"
     },
     "Console":
     {
+        "_":  "Fell free to change the message, just take care with the variables {}",
         "M1": "Start processing",
         "M2": "Finish processing",
         "M3": "Elapsed time",

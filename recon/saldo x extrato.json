@@ -1,5 +1,5 @@
 {
-    "Id": 1,
+    "Ids": "1",
     "Name": "Saldo x Extrato",
     "Description": "1:M reconciliation",
     "Datasources":
@@ -22,10 +22,10 @@
         {
             "Side": 2,
             "Name": "Extrato",
-            "Path": "",            
+            "Path": "",
             "File": "extrato.txt",
             "Separator": ";",
-            "Fields": 
+            "Fields":
             [
                 {"Id":1, "Name":"Data do Movimento", "Type":"Datetime", "Value":"", "Mask":""},
                 {"Id":2, "Name":"Codigo da Agencia", "Type":"Integer", "Value":"", "Mask":""},
