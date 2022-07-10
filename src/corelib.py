@@ -50,16 +50,16 @@ class CoreLib(BaseLib):
             recon = fslib.open_json(path)
             self.id = recon["Id"]
             self.name = recon["Name"]
-            msglib.print(msglib.get_value("Console", "M4", [self.id, self.name]))
+            msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
             """ create log and validate recon """            
             logger = self.create_log_file()
             if not setuplib.validate(recon):
                 return False
-            msglib.print(msglib.get_value("Console", "M5"))
+            msglib.print(msglib.get_value(msglib.console, "M5"))
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.process(cn, recon)
-            msglib.print(msglib.get_value("Console", "M6"))
+            msglib.print(msglib.get_value(msglib.console, "M6"))
             """ import files """
             etllib = EtlLib(self.id, self.name)
             etllib.process(cn, recon)

@@ -8,7 +8,9 @@ utillib = UtilLib()
 class MsgLib():
 
     def __init__(self):
-        pass
+        # message type in catalogs (see config/catalogs)
+        self.console = "Console"
+        self.validation = "Validation"
 
     def get_value(self, session, key, param=[]):
         # figure out current language

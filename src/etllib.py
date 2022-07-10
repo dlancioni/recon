@@ -58,7 +58,7 @@ class EtlLib(BaseLib):
         try:
             datasources = recon["Datasources"]
             for datasource in datasources:
-                msglib.print(msglib.get_value("Console", "M7", [datasource['File']]))
+                msglib.print(msglib.get_value(msglib.console, "M7", [datasource['File']]))
                 self.import_file(cn, datasource)
         except IOError as err:
             self.log_error(f"File manipulation error {path} -> {str(err)}")

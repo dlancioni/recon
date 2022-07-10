@@ -31,12 +31,12 @@ if len(recons) == 0:
     recons = ["recon.json"]
 os.system("cls||clear")
 start = timer()
-msglib.print(msglib.get_value("Console", "M1"))
+msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
 for recon in recons:
     corelib.process(recon)
 end = timer()
 """ finish processing """
-msglib.print(msglib.get_value("Console", "M2"))
-msg = msglib.get_value("Console", "M3")
+msglib.print(msglib.get_value(msglib.console, "M2"))
+msg = msglib.get_value(msglib.console, "M3")
 msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
