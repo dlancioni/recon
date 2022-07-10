@@ -1,7 +1,7 @@
 {
     "Id": "1",
     "Name": "Saldo x Extrato",
-    "Description": "",
+    "Description": "1:M reconciliation",
     "Datasources":
     [
         {
