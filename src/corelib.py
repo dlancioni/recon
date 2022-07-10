@@ -67,9 +67,11 @@ class CoreLib(BaseLib):
             """ reconcile data """
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, recon)
+            """ commit info """
+            dblib.commit_tran(cn)            
             """ generate output """
             #utillib.print(cn)
+            return True, ""
         except BaseException as err:
             dblib.rollback_tran(cn)
-            raise
-        dblib.commit_tran(cn)
+            return False, str(err)
