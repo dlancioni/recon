@@ -1,13 +1,19 @@
 import os
+import time
+import logging
+from datetime import datetime
 from src.fslib import FsLib
 from src.utillib import UtilLib
 from src.baselib import BaseLib
+
 fslib = FsLib()
 utillib = UtilLib()
 
-class MsgLib():
+class MsgLib(BaseLib):
 
     def __init__(self):
+        self.method = ""
+        self.logger = logging.getLogger(__name__)
         # message type in catalogs (see config/catalogs)
         self.console = "Console"
         self.validation = "Validation"
@@ -33,8 +39,6 @@ class MsgLib():
         return value
     
     def print(self, msg):
-        import time
-        from datetime import datetime
         now = datetime.now()
         dt = str(time.strftime("%Y-%m-%d %H:%M:%S", now.timetuple()))
         msg = f"{dt}: {msg}"
