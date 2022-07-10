@@ -1,4 +1,10 @@
 {
+    "Field":
+    {
+        "F1": "Id",
+        "F2": "Name",
+        "F3": "Description"
+    },
     "Status":
     {
         "1": "Matched",
@@ -7,7 +13,8 @@
     },
     "Validation":
     {
-
+        "M1": "Mandatory field: {1}",        
+        "M2": "Field {1} must be integer and greater than zero"
     },
     "Console":
     {

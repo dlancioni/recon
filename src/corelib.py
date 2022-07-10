@@ -48,6 +48,7 @@ class CoreLib(BaseLib):
             """ get recon info """
             path = fslib.get_path_recon(cfglib.get_config("path_recon"), recon)
             recon = fslib.open_json(path)
+            setuplib.validate_key(recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
@@ -70,5 +71,5 @@ class CoreLib(BaseLib):
             #utillib.print(cn)
         except BaseException as err:
             dblib.rollback_tran(cn)
-            return
+            raise
         dblib.commit_tran(cn)

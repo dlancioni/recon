@@ -4,6 +4,11 @@ import json
 import logging
 from src.fslib import FsLib
 from src.utillib import UtilLib
+from src.msglib import MsgLib
+from src.cfglib import ConfigLib
+
+msglib = MsgLib()
+cfglib = ConfigLib()
 
 class SetupLib:
 
@@ -12,32 +17,7 @@ class SetupLib:
         self.name = name
         self.error = ""
         self.logger = logging.getLogger(__name__)
-        
-    def get_mandatory_tags(self):
-        return [
-            # general
-            "Id",
-            "Name",
-            "Description",
-            # Data
-            "Datasources",
-            "Side",
-            "Name",
-            "Path",
-            "File",
-            "Separator",
-            # fields
-            "Fields",
-            "Name",
-            "Type",
-            "Value",
-            "Mask",
-            # recon
-            "Recons",
-            "Rule",
-            "Fields"
-        ]
-    
+
     def get_datatype(self, datatype):
         datatype = dt.strip().lower()
         if datatype in ["integer", "inteiro"]:        
@@ -48,6 +28,7 @@ class SetupLib:
             return "Text"
         if datatype in ["datetime", "datahora"]:
             return "datetime"
+        return datatype
 
     def get_function(self, func=""):
         func = func.strip().lower()
@@ -61,65 +42,31 @@ class SetupLib:
             return "avg"
         if func in ["round", "arredondar"]:
             return "round"
-        return ""
-
-    def get_tag(self, tag=""):
-        tag = tag.strip().lower()
-        # general
-        if tag in ["id"]:
-            return "Id"
-        if tag in ["side", "lado"]:
-            return "Side"
-        if tag in ["name", "nome"]:
-            return "Nome"
-        if tag in ["description", "descricao"]:
-            return "Description"
-        # datasources        
-        if tag in ["datasources", "dados"]:
-            return "Datasources"
-        if tag in ["path", "caminho"]:
-            return "Path"
-        if tag in ["file", "arquivo"]:
-            return "File"
-        if tag in ["separator", "separador"]:
-            return "Separator"
-        # fields
-        if tag in ["fields", "campos"]:
-            return "Fields"
-        # fields
-        if tag in ["type", "tipo"]:
-            return "Type"
-        if tag in ["value", "valor"]:
-            return "Value"
-        if tag in ["mask", "mascara"]:
-            return "Mask"
-        # recon
-        if tag in ["recons", "conciliacoes"]:
-            return "Recons"
-        if tag in ["rule", "regra"]:
-            return "Rule"
-        if tag in ["function", "funcao"]:
-            return "Function"
-        return ""
+        return func
 
     def validate_json(self):
         pass
 
-    def validate_info(self, setup):
-        if str(setup["Id"]).strip() == "":
-            self.id = -1
-            return f"Id is missing"
-        if str(setup["Name"]).strip() == "":
-            self.name = "[No Name]"
-            return f"Name is missing"
-        else:
-            self.id = setup["Id"]
-            self.name = setup["Name"]
-        if str(setup["Description"]).strip() == "": 
-            return f"Description is missing"
-        self.id = setup["Id"]
-        self.name = setup["Name"]
-        return ""
+    def validate_key(self, setup):
+        id = str(setup["Id"]).strip()
+        name = str(setup["Name"]).strip()
+        ds = str(setup["Description"]).strip()
+        if id == "":
+            field = msglib.get_value(msglib.field, "F1")
+            msg = msglib.get_value(msglib.validation, "M1", [field])
+            raise Exception(msg)
+        if int(id) <= 0:
+            field = msglib.get_value(msglib.field, "F1")
+            msg = msglib.get_value(msglib.validation, "M2", [field])
+            raise Exception(msg)
+        if name == "":
+            field = msglib.get_value(msglib.field, "F2")
+            msg = msglib.get_value(msglib.validation, "M1", [field])
+            raise Exception(msg)
+        if ds == "":
+            field = msglib.get_value(msglib.field, "F3")
+            msg = msglib.get_value(msglib.validation, "M1", [field])
+            raise Exception(msg)
 
     def validate_sides(self, setup):
         msg = ""
@@ -166,8 +113,6 @@ class SetupLib:
     def validate(self, setup):
         self.method = "setuplib.validate()"
         msg = ""
-        if msg == "":
-            msg = self.validate_info(setup)
         if msg == "":            
             msg = self.validate_sides(setup)
         if msg == "":            

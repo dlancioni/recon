@@ -34,7 +34,10 @@ start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
 for recon in recons:
-    corelib.process(recon)
+    try:
+        corelib.process(recon)
+    except BaseException as err:
+        msglib.print(f"{str(err)}")
 end = timer()
 """ finish processing """
 msglib.print(msglib.get_value(msglib.console, "M2"))

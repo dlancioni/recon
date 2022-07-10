@@ -1,4 +1,10 @@
 {
+    "Field":
+    {
+        "F1": "Id",
+        "F2": "Nome",
+        "F3": "Descricao"
+    },
     "Status":
     {
         "1": "Batido",
@@ -7,8 +13,9 @@
     },
     "Validation":
     {
-
-    },    
+        "M1": "Campo obrigatorio: {1}",
+        "M2": "Campo {1} deve ser inteiro maior que zero"
+    },
     "Console":
     {
         "M1": "Iniciando processamento",

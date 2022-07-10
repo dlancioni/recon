@@ -11,6 +11,7 @@ class MsgLib():
         # message type in catalogs (see config/catalogs)
         self.console = "Console"
         self.validation = "Validation"
+        self.field = "Field"
 
     def get_value(self, session, key, param=[]):
         # figure out current language
