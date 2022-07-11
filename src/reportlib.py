@@ -29,19 +29,15 @@ class ReportLib(BaseLib):
             f.write(lines)
 
     def create_report_sintetic(self, cn, file):                
-        line = ""
-        line += f"{msglib.get_value(msglib.label, 'L1')};" # recon
-        line += f"{msglib.get_value(msglib.label, 'L2')};" # rule
-        line += f"{msglib.get_value(msglib.label, 'L3')};" # status
-        line += f"{msglib.get_value(msglib.label, 'L4')};" # total
-        line += f"\n"
         sql = f"select Recon, Rule, Status, count(Status) Total from tmp{self.id}1 group by Status"
-        rows = dblib.query(cn, sql)
+        rows = dblib.query(cn, sql)        
+        line = ""
+        for field in ["L1", "L2", "L3", "L4"]:
+            line += f"{msglib.get_value(msglib.label, field)};"
+        line += f"\n"                
         for row in rows:
-            line += str(row[0]) + ";" # Recon
-            line += str(row[1]) + ";" # Rule
-            line += str(row[2]) + ";" # Satus
-            line += str(row[3]) + ";" # Total
+            for i in range(0, 4):
+                line += str(row[i]) + ";"
             line += "\n"
         self.save_file(file, line)
 
