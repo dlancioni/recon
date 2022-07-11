@@ -20,10 +20,13 @@
     },
     "Label":
     {
-        "L1":"Reconciliation",
-        "L2":"Rule",
-        "L3":"Status",
-        "L4":"Total"
+        "L1":"Synthetic",
+        "L2":"Analytic",
+        "L3":"Side",
+        "L4":"Recon",
+        "L5":"Rule",
+        "L6":"Status",
+        "L7":"Total"
     },
     "Validation":
     {

@@ -1,0 +1,5 @@
+Recon;Rule;Status;
+Saldo x Extrato;Agencia/Conta;Matched;
+Saldo x Extrato;Agencia/Conta;Divergent;
+Saldo x Extrato;Agencia/Conta;Divergent;
+;;Orphan;

@@ -79,7 +79,6 @@ class CoreLib(BaseLib):
             """ commit info """
             dblib.commit_tran(cn)            
             """ generate output """
-            #utillib.print(cn)
             return True, ""
         except BaseException as err:
             dblib.rollback_tran(cn)

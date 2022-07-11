@@ -28,36 +28,54 @@ class ReportLib(BaseLib):
         with open(file, "w") as f:
             f.write(lines)
 
-    def create_report_sintetic(self, cn, file):                
-        sql = f"select Recon, Rule, Status, count(Status) Total from tmp{self.id}1 group by Status"
-        rows = dblib.query(cn, sql)        
-        line = ""
-        for field in ["L1", "L2", "L3", "L4"]:
-            line += f"{msglib.get_value(msglib.label, field)};"
-        line += f"\n"                
+    def get_data(self, rows, fields):
+        lines = ""
+        for field in fields:
+            lines += f"{msglib.get_value(msglib.label, field)};"
+        lines += f"\n"
         for row in rows:
-            for i in range(0, 4):
-                line += str(row[i]) + ";"
-            line += "\n"
-        self.save_file(file, line)
+            for i in range(0, len(fields)):
+                lines += str(row[i]) + ";"
+            lines += "\n"
+        return lines
+
+    def create_report_synthetic(self, cn, file):                
+        sql = ""
+        sql += f"select "
+        sql += f"Recon, Rule, Status, count(Status) Total "
+        sql += f"from tmp{self.id}1 "
+        sql += f"group by Status"
+        rows = dblib.query(cn, sql)
+        fields = ["L4", "L5", "L6", "L7"]
+        lines = self.get_data(rows, fields)
+        self.save_file(file, lines)
+        
+    def create_report_analytic(self, cn, file, side):
+        tb = f"tb{self.id}{side}"
+        sql = ""
+        sql += f"select "
+        sql += f"Recon, Rule, Status "
+        sql += f"from {tb} "
+        rows = dblib.query(cn, sql)
+        fields = ["L4", "L5", "L6"]
+        lines = self.get_data(rows, fields)
+        self.save_file(file, lines)
 
     def process(self, cn, recon):
         self.method = "reportlib.process()"
         try:
-            """ create output files """
+            """ path to generate reports """
             path = fslib.get_path_report(cfglib.get_config("path_report"))
-
-            """ create sintetic report (totals) """
-            file = fslib.join(path, f"[Sintetico][{self.name}].csv")
-            self.create_report_sintetic(cn, file)
-
-            """ create analytic report (side 1) """
-            f1 = fslib.join(path, f"[Analitico][Lado 1][{self.name}].csv")
-            
-            """ create analytic report (side 2) """
-            f2 = fslib.join(path, f"[Analitico][Lado 2][{self.name}].csv")
-            
-            
+            """ create synthetic report (totals) """
+            report = msglib.get_value(msglib.label, "L1")
+            file = fslib.join(path, f"[{report}] [{self.name}].csv")
+            self.create_report_synthetic(cn, file)
+            """ create analytic report """
+            report = msglib.get_value(msglib.label, "L2")            
+            label = msglib.get_value(msglib.label, "L3")
+            for side in range(1, 3):
+                file = fslib.join(path, f"[{report}] [{label} {side}] [{self.name}].csv")
+                self.create_report_analytic(cn, file, side)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)
