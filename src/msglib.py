@@ -14,17 +14,14 @@ class MsgLib(BaseLib):
     def __init__(self):
         self.method = ""
         self.logger = logging.getLogger(__name__)
-        # message type in catalogs (see config/catalogs)
         self.console = "Console"
         self.validation = "Validation"
         self.field = "Field"
 
     def get_value(self, session, key, param=[]):
-        # figure out current language
         path = fslib.get_path_config("app.json")
         config = fslib.open_json(path)
         language = str(config["catalog"])
-        # get message
         catalog = f"catalog_{language}.json"
         path = fslib.get_path_config(catalog)
         dictionary = fslib.open_json(path)
@@ -35,7 +32,6 @@ class MsgLib(BaseLib):
             old = "{" + str(i) + "}"
             new = f"{item}"
             value = value.replace(old, new)
-        # all good
         return value
     
     def print(self, msg):

@@ -176,14 +176,19 @@ class ReconLib(BaseLib):
         self.method = "reconlib.process()"
         utillib = UtilLib()
         try:
-            recons = setup["Recons"]
+            recons = setup["Recons"]            
             for recon in recons:
+                msglib.print(msglib.get_value(msglib.console, "M8", [recon["Rule"]]))
                 self.prepare(cn, recon)
                 self.aggregate(cn, recon)
+                msglib.print(msglib.get_value(msglib.console, "M9"))
                 self.match_key(cn, recon)
+                msglib.print(msglib.get_value(msglib.console, "M10"))
                 self.compare(cn, recon)
+                msglib.print(msglib.get_value(msglib.console, "M11"))
                 self.stamp_tmp(cn, recon)
                 self.stamp_tb(cn, recon)
+                msglib.print(msglib.get_value(msglib.console, "M12"))
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)

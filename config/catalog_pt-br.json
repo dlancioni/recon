@@ -37,9 +37,14 @@
         "M1":"Iniciando processamento",
         "M2":"Finalizando processamento",
         "M3":"Tempo de processamento",
-        "M4":"Abrindo {1} - {2}",
+        "M4":"Abrindo conciliacao [{1}] {2}",
         "M5":"Validado com sucesso",
         "M6":"Area criada com sucesso",
-        "M7":"Importando o arquivo {1}"
+        "M7":"Importando o arquivo {1}",
+        "M8":"Executando regra {1}",
+        "M9":"Batendo as chaves",
+        "M10":"Comparando os campos",
+        "M11":"Consolidando os resultados",
+        "M12":"Gerando os relatorios de batimento"
     }
 }
