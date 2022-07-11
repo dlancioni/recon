@@ -20,18 +20,16 @@ class UtilLibTest(unittest.TestCase):
         pass
 
     def test_validate_info(self):
-
-        # mandatory fields    
         i = 0
-        recons = []
-        recons.append({"Id":"", "Name":"Saldo x Extrato", "Description":"1:M reconciliation"})
-        recons.append({"Id":"1", "Name":"", "Description":"1:M reconciliation"})
-        recons.append({"Id":"1", "Name":"Saldo x Extrato", "Description":""})
-        fields = ["ID", "NAME", "DESC"]
-        for field in fields:
+        values = []
+        values.append({"Id":"", "Name":"Saldo x Extrato", "Description":"1:M reconciliation"})
+        values.append({"Id":"1", "Name":"", "Description":"1:M reconciliation"})
+        values.append({"Id":"1", "Name":"Saldo x Extrato", "Description":""})
+        session = ""
+        for field in ["ID", "NAME", "DESC"]:
             fieldname = msglib.get_value(msglib.field, field)
             message = msglib.get_value(msglib.validation, "M2", [fieldname])
-            status, error = corelib.process(recons[i])
+            status, error = corelib.process(values[i])
             self.assertEqual(False, status)
             self.assertEqual(message, error)
             i += 1
