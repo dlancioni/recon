@@ -27,6 +27,15 @@ class CoreLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
         
+    def open_recon(self, recon):        
+
+        if type(recon) == dict:
+            return recon
+        else:
+            path = fslib.get_path_recon(cfglib.get_config("path_recon"), recon)
+            recon = fslib.open_json(path)
+        return recon
+        
     def create_log_file(self):
         fslib = FsLib()
         file_name = f"[log] [{self.name.strip().lower()}].txt"
@@ -45,9 +54,9 @@ class CoreLib(BaseLib):
         try:
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
-            """ get recon info """
-            path = fslib.get_path_recon(cfglib.get_config("path_recon"), recon)
-            recon = fslib.open_json(path)
+            """ open json recon or file """
+            recon = self.open_recon(recon)
+            """ validate key info """            
             setuplib.validate_info(recon)
             self.id = recon["Id"]
             self.name = recon["Name"]
