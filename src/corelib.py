@@ -13,7 +13,10 @@ from src.utillib import UtilLib
 from src.setuplib import SetupLib
 from src.reconlib import ReconLib
 from src.msglib import MsgLib
+from src.reportlib import ReportLib
 
+setuplib = SetupLib()
+dblib = DbLib()
 fslib = FsLib()
 sqllib = SqlLib()
 utillib = UtilLib()
@@ -28,7 +31,6 @@ class CoreLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         
     def open_recon(self, recon):        
-
         if type(recon) == dict:
             return recon
         else:
@@ -47,10 +49,6 @@ class CoreLib(BaseLib):
 
     def process(self, recon):
         self.method = "corelib.process()"
-        dblib = DbLib()
-        utillib = UtilLib()
-        setuplib = SetupLib()
-        fslib = FsLib()
         try:
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
@@ -75,6 +73,9 @@ class CoreLib(BaseLib):
             """ reconcile data """
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, recon)
+            """ generate reports """
+            reportlib = ReportLib(self.id, self.name)
+            reportlib.process(cn, recon)
             """ commit info """
             dblib.commit_tran(cn)            
             """ generate output """
