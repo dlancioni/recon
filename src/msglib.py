@@ -17,6 +17,7 @@ class MsgLib(BaseLib):
         self.console = "Console"
         self.validation = "Validation"
         self.field = "Field"
+        self.label = "Label"
 
     def get_value(self, session, key, param=[]):
         path = fslib.get_path_config("app.json")

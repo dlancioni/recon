@@ -18,6 +18,11 @@ class DbLib:
         cursor.execute("begin")
         return cursor
     
+    def query(self, cn, sql):
+        cn.execute(sql)
+        rs = cn.fetchall()
+        return rs
+    
     def execute(self, cn, sql):
         rows_affected = 0
         self.method = "dblib.execute()"
@@ -40,7 +45,7 @@ class DbLib:
 
     def get_connection(db=""):
         conn = None
-        conn = sqlite3.connect(":memory:")
-        #conn = sqlite3.connect("c:\\temp\\db.db")
+        #conn = sqlite3.connect(":memory:")
+        conn = sqlite3.connect("c:\\temp\\db.db")
         conn.isolation_level = None
         return conn

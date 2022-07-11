@@ -17,13 +17,13 @@
         "MASK":"Mask",
         "RULE":"Rule",
         "FUNC":"Function"
-
     },
-    "Status":
+    "Label":
     {
-        "1":"Matched",
-        "2":"Divergent",
-        "3":"Orphan"
+        "L1":"Reconciliation",
+        "L2":"Rule",
+        "L3":"Status",
+        "L4":"Total"
     },
     "Validation":
     {

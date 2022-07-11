@@ -18,11 +18,12 @@
         "RULE":"Regra",
         "FUNC":"Funcao"
     },
-    "Status":
+    "Label":
     {
-        "1": "Batido",
-        "2": "Divergente",
-        "3": "Orfão"
+        "L1":"Conciliacao",
+        "L2":"Regra",
+        "L3":"Status",
+        "L4":"Total"
     },
     "Validation":
     {
