@@ -37,16 +37,13 @@ class ReportLib(BaseLib):
         sql += f"group by Status"
         rows = dblib.query(cn, sql)        
         fields = ["L4", "L5", "L6", "L7"]
-        # header        
         for field in fields:
             lines += f"{msglib.get_value(msglib.label, field)};"
         lines += f"\n"
-        # contents
         for row in rows:
             for i in range(0, len(fields)):
                 lines += str(row[i]) + ";"
             lines += "\n"
-        # save file
         self.save_file(file, lines)
         
     def create_report_analytic(self, cn, file, side):
