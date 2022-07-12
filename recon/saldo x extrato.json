@@ -37,7 +37,7 @@
     "Recon":
     [
         {
-            "Rule": "Agencia/Conta",
+            "Rule": "Agencia/Conta [Exato]",
             "Fields":
             [
                 {"Type":"Key", "Name":"Codigo da Agencia"},

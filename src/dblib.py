@@ -10,13 +10,13 @@ class DbLib:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-    
-    def begin_tran(self):
-        self.method = "dblib.begin_tran()"
-        cn = self.get_connection()
-        cursor = cn.cursor()
-        cursor.execute("begin")
-        return cursor
+        
+    def get_connection(db=""):
+        conn = None
+        #conn = sqlite3.connect(":memory:")
+        conn = sqlite3.connect("c:\\temp\\db.db")
+        conn.isolation_level = None
+        return conn        
     
     def query(self, cn, sql):
         cn.execute(sql)
@@ -33,19 +33,19 @@ class DbLib:
             message = f"{self.method}: SQL Error -> {str(err)}"
             utillib.log(message)
         finally:
-            return rows_affected
+            return rows_affected    
+    
+    def begin_tran(self):
+        self.method = "dblib.begin_tran()"
+        cn = self.get_connection()
+        cursor = cn.cursor()
+        #cursor.execute("begin")
+        return cursor
     
     def commit_tran(self, cn):
         self.method = "dblib.commit_tran()"
-        cn.execute("commit")
+        #cn.execute("commit")
         
     def rollback_tran(self, cn):
         self.method = "dblib.rollback_tran()"
-        cn.execute("rollback")
-
-    def get_connection(db=""):
-        conn = None
-        #conn = sqlite3.connect(":memory:")
-        conn = sqlite3.connect("c:\\temp\\db.db")
-        conn.isolation_level = None
-        return conn
+        #cn.execute("rollback")

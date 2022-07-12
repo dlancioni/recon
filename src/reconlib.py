@@ -29,11 +29,17 @@ class ReconLib(BaseLib):
         self.field_key = []
         self.field_compare = []
         self.field_with_diff = []
+        self.matched = ""
+        self.divergent = ""
+        self.orphan = ""
         
     def prepare(self, cn, recon):
         """ keep common information in class level """
         self.method = "reconlib.prepare()"
         field_name = ""
+        self.matched = msglib.get_value(msglib.label, "L11")
+        self.divergent = msglib.get_value(msglib.label, "L12")
+        self.orphan = msglib.get_value(msglib.label, "L13")        
         for field in self.tagv(recon, "Fields", "Campos"):
             field_name = self.tagv(field, "Name", "Nome")
             field_name = f"[{field_name}]"
@@ -55,9 +61,12 @@ class ReconLib(BaseLib):
         for side in range(1, 3):
             tb = self.tb1 if side == 1 else self.tb2
             tmp = self.tmp1 if side == 1 else self.tmp2
+            rows_affected = dblib.execute(cn, f"delete from {tmp}")
             sql = ""
             sql += f"insert into {tmp} ({field_list}) "
-            sql += f"select {value_list} from {tb} "
+            sql += f"select {value_list}  "
+            sql += f"from {tb} "
+            sql += f"where status = '{self.orphan}' "
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
@@ -68,7 +77,6 @@ class ReconLib(BaseLib):
         rows_affected = 0
         rule = self.tagv(recon, "Rule", "Regra")
         field = self.tagf(recon, "Fields", "Campos")
-        status = msglib.get_value(msglib.label, "L11")
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
         for side in range(1, 3):
             tmp1 = self.tmp1 if side == 1 else self.tmp2
@@ -77,7 +85,7 @@ class ReconLib(BaseLib):
             sql += f"update {tmp1} set "
             sql += f"recon='{self.name}', "
             sql += f"rule='{rule}', "
-            sql += f"status = '{status}', "
+            sql += f"status = '{self.matched}', "
             sql += f"id_parent = {tmp2}.id "
             sql += f"from {tmp2} "
             sql += f"where 1=1 "
@@ -94,7 +102,6 @@ class ReconLib(BaseLib):
         rule = self.tagv(recon, "Rule", "Regra")
         field = self.tagf(recon, "Fields", "Campos")
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
-        status = msglib.get_value(msglib.label, "L11")
         """ create temp table  to compare fields """
         for field in self.field_key:
             fields_key += f"{self.tmp1}.{field}, "
@@ -115,7 +122,7 @@ class ReconLib(BaseLib):
             sql += f", ({tmp1} || '/' || {tmp2}) difference"
             sql += f", ({tmp1} = {tmp2}) equality"
             sql += f" from {self.tmp1}, {self.tmp2}"
-            sql += f" where {self.tmp1}.status = '{status}'"
+            sql += f" where {self.tmp1}.status = '{self.matched}'"
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
             
@@ -126,7 +133,6 @@ class ReconLib(BaseLib):
         rows_affected = 0
         field_name = ""
         label = msglib.get_value(msglib.label, "L10")
-        status = msglib.get_value(msglib.label, "L12")
         for field in self.field_compare:
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
@@ -140,7 +146,7 @@ class ReconLib(BaseLib):
                 rows_affected = dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
-                sql += f"status = '{status}', "
+                sql += f"status = '{self.divergent}', "
                 sql += f"{field_name} = {tmp3}.difference "
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "
