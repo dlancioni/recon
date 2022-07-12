@@ -28,26 +28,25 @@ class ReportLib(BaseLib):
         with open(file, "w") as f:
             f.write(lines)
 
-    def get_data(self, rows, fields):
-        lines = ""
-        for field in fields:
-            lines += f"{msglib.get_value(msglib.label, field)};"
-        lines += f"\n"
-        for row in rows:
-            for i in range(0, len(fields)):
-                lines += str(row[i]) + ";"
-            lines += "\n"
-        return lines
-
     def create_report_synthetic(self, cn, file):                
+        lines = ""
         sql = ""
         sql += f"select "
         sql += f"Recon, Rule, Status, count(Status) Total "
         sql += f"from tmp{self.id}1 "
         sql += f"group by Status"
-        rows = dblib.query(cn, sql)
+        rows = dblib.query(cn, sql)        
         fields = ["L4", "L5", "L6", "L7"]
-        lines = self.get_data(rows, fields)
+        # header        
+        for field in fields:
+            lines += f"{msglib.get_value(msglib.label, field)};"
+        lines += f"\n"
+        # contents
+        for row in rows:
+            for i in range(0, len(fields)):
+                lines += str(row[i]) + ";"
+            lines += "\n"
+        # save file
         self.save_file(file, lines)
         
     def create_report_analytic(self, cn, file, side):
@@ -64,18 +63,18 @@ class ReportLib(BaseLib):
     def process(self, cn, recon):
         self.method = "reportlib.process()"
         try:
-            """ path to generate reports """
+
             path = fslib.get_path_report(cfglib.get_config("path_report"))
-            """ create synthetic report (totals) """
-            report = msglib.get_value(msglib.label, "L1")            
-            file = fslib.join(path, f"[{self.name}] [{report}].csv")            
+            report = msglib.get_value(msglib.label, "L1")
+            file = fslib.join(path, f"[{self.name}] [{report}].csv")
             self.create_report_synthetic(cn, file)
-            """ create analytic report """
-            report = msglib.get_value(msglib.label, "L2")            
+
+            report = msglib.get_value(msglib.label, "L2")
             label = msglib.get_value(msglib.label, "L3")
-            for side in range(1, 3):                
-                file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")                
+            for side in range(1, 3):
+                file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
                 self.create_report_analytic(cn, file, side)
+
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)
