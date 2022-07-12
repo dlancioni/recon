@@ -1,7 +1,9 @@
 import os
 import sys
 import json
+import shutil
 import logging
+from sqlite3 import Error
 from src.baselib import BaseLib
 from src.dblib import DbLib
 from src.fslib import FsLib
@@ -26,21 +28,23 @@ class ReportLib(BaseLib):
 
     def save_file(self, file, lines):
         saved = False
-        msg = ""
+        error = []
         try:
             with open(file, "w") as f:
                 f.write(lines)
             saved = True
-            msg = ""
+            error = []
         except BaseException as err:
             saved = False
-            msg = str(err)
-            
-        return saved, msg
+            error = [err.errno, err.strerror]
+        return saved, error
 
-    def create_report_synthetic(self, cn, file):                
+    def create_report_synthetic(self, cn):
+        sql = ""        
         lines = ""
-        sql = ""
+        path = fslib.get_path_report(cfglib.get_config("path_report"))
+        report = msglib.get_value(msglib.label, "L1")
+        file = fslib.join(path, f"[{self.name}] [{report}].csv")
         sql += f"select "
         sql += f"Recon, Rule, Status, count(Status) Total "
         sql += f"from tmp{self.id}1 "
@@ -55,9 +59,16 @@ class ReportLib(BaseLib):
                 lines += str(row[i]) + ";"
             lines += "\n"
         status, error = self.save_file(file, lines)
-        return status, error
+        if status == False:
+            if error[0] == 13:
+                msg = msglib.get_value(msglib.console, "M13", [file])
+                raise Exception(msg)
         
-    def create_report_analytic(self, cn, file, side):
+    def create_report_analytic(self, cn, side):
+        report = msglib.get_value(msglib.label, "L2")
+        label = msglib.get_value(msglib.label, "L3")        
+        path = fslib.get_path_report(cfglib.get_config("path_report"))
+        file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
         lines = ""
         sql = ""
         tb = f"tb{self.id}{side}"
@@ -79,23 +90,17 @@ class ReportLib(BaseLib):
                 lines += str(row[i]) + ";"
             lines += "\n"
         status, error = self.save_file(file, lines)
-        return status, error
+        if status == False:
+            if error[0] == 13:
+                msg = msglib.get_value(msglib.console, "M13", [file])
+                raise Exception(msg)
 
     def process(self, cn, recon):
         self.method = "reportlib.process()"
         try:
-
-            path = fslib.get_path_report(cfglib.get_config("path_report"))
-            report = msglib.get_value(msglib.label, "L1")
-            file = fslib.join(path, f"[{self.name}] [{report}].csv")
-            status, error = self.create_report_synthetic(cn, file)
-
-            report = msglib.get_value(msglib.label, "L2")
-            label = msglib.get_value(msglib.label, "L3")
-            for side in range(1, 3):
-                file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
-                status, error = self.create_report_analytic(cn, file, side)
-
+            self.create_report_synthetic(cn)
+            self.create_report_analytic(cn, side=1)
+            self.create_report_analytic(cn, side=2)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)

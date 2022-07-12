@@ -1,4 +1,4 @@
-Conciliacao;Regra;Status;Total;
+Recon;Rule;Status;Total;
 Saldo x Extrato;Agencia/Conta;Divergent;2;
 Saldo x Extrato;Agencia/Conta;Matched;1;
 ;;Orphan;1;

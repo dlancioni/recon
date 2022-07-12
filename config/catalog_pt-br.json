@@ -31,6 +31,7 @@
         "M9":"Batendo as chaves",
         "M10":"Comparando os campos",
         "M11":"Consolidando os resultados",
-        "M12":"Gerando os relatorios de batimento"
+        "M12":"Gerando os relatorios de batimento",
+        "M13":"Sem permissao para salvar, feche o arquivo e tente novamente: {1}"
     }
 }

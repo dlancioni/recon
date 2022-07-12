@@ -1,4 +1,4 @@
-Id;Parente;Conciliacao;Regra;Status;Data do Movimento;Codigo da Agencia;Numero da Conta;Saldo na Data;Saldo na Data (Diferenca);Data do Movimento (Diferenca);
+Id;Parent;Recon;Rule;Status;Data do Movimento;Codigo da Agencia;Numero da Conta;Saldo na Data;Saldo na Data (Difference);Data do Movimento (Difference);
 1;1;Saldo x Extrato;Agencia/Conta;Matched;20220101;1001;10001-1;333.33;;;
 2;1;Saldo x Extrato;Agencia/Conta;Matched;20220101;1001;10001-1;333.33;;;
 3;1;Saldo x Extrato;Agencia/Conta;Matched;20220101;1001;10001-1;333.34;;;
