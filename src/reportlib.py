@@ -25,13 +25,18 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
 
     def save_file(self, file, lines):
+        saved = False
+        msg = ""
         try:
             with open(file, "w") as f:
                 f.write(lines)
-        except IOError as err:
-            msg = f"File manipulation error -> {str(err)}"
-            raise Exception(msg)
-        print(str("done"))        
+            saved = True
+            msg = ""
+        except BaseException as err:
+            saved = False
+            msg = str(err)
+            
+        return saved, msg
 
     def create_report_synthetic(self, cn, file):                
         lines = ""
@@ -49,7 +54,8 @@ class ReportLib(BaseLib):
             for i in range(0, len(fields)):
                 lines += str(row[i]) + ";"
             lines += "\n"
-        self.save_file(file, lines)
+        status, error = self.save_file(file, lines)
+        return status, error
         
     def create_report_analytic(self, cn, file, side):
         lines = ""
@@ -72,7 +78,8 @@ class ReportLib(BaseLib):
             for i in range(0, total):
                 lines += str(row[i]) + ";"
             lines += "\n"
-        self.save_file(file, lines)        
+        status, error = self.save_file(file, lines)
+        return status, error
 
     def process(self, cn, recon):
         self.method = "reportlib.process()"
@@ -81,13 +88,13 @@ class ReportLib(BaseLib):
             path = fslib.get_path_report(cfglib.get_config("path_report"))
             report = msglib.get_value(msglib.label, "L1")
             file = fslib.join(path, f"[{self.name}] [{report}].csv")
-            self.create_report_synthetic(cn, file)
+            status, error = self.create_report_synthetic(cn, file)
 
             report = msglib.get_value(msglib.label, "L2")
             label = msglib.get_value(msglib.label, "L3")
             for side in range(1, 3):
                 file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
-                self.create_report_analytic(cn, file, side)
+                status, error = self.create_report_analytic(cn, file, side)
 
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
