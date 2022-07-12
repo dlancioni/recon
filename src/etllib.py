@@ -38,7 +38,7 @@ class EtlLib(BaseLib):
         fl = sqlib.get_field_list(fields)
         with open(path, "r") as file:
             for line in file.readlines():
-                if not first:
+                if not first and str(line.strip()) != "":
                     values = line.split(separator)
                     for field in fields:
                         position = int(field["Id"]) -1

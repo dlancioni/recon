@@ -1,0 +1,8 @@
+Id;Parente;Conciliacao;Regra;Status;Data do Movimento;Codigo da Agencia;Numero da Conta;Saldo na Data;Saldo na Data (Diferenca);Data do Movimento (Diferenca);
+1;1;Saldo x Extrato;Agencia/Conta;Batido;20220101;1001;10001-1;333.33;;;
+2;1;Saldo x Extrato;Agencia/Conta;Batido;20220101;1001;10001-1;333.33;;;
+3;1;Saldo x Extrato;Agencia/Conta;Batido;20220101;1001;10001-1;333.34;;;
+4;2;Saldo x Extrato;Agencia/Conta;Divergente;20220202;2002;20002-2;1000.0;2000.0/1999.99;;
+5;2;Saldo x Extrato;Agencia/Conta;Divergente;20220202;2002;20002-2;999.99;2000.0/1999.99;;
+6;3;Saldo x Extrato;Agencia/Conta;Divergente;19990101;3003;30003-3;3000.3;3000.0/3000.3;20220303/19990101;
+7;0;;;Orfao;20220505;5005;50005-5;5000.0;;;
