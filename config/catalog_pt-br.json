@@ -10,7 +10,10 @@
         "L7":"Total",
         "L8":"Id",
         "L9":"Parente",
-        "L10":" (Diferenca)"
+        "L10":" (Diferenca)",
+        "L11":"Batido",
+        "L12":"Divergente",
+        "L13":"Orfao"
     },
     "Validation":
     {

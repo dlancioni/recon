@@ -4,8 +4,11 @@ import json
 import logging
 from sqlite3 import Error
 from src.sqllib import SqlLib
+from src.msglib import MsgLib
 from src.utillib import UtilLib
 from src.baselib import BaseLib
+
+msglib = MsgLib()
 
 class AreaLib(BaseLib):
 
@@ -33,7 +36,8 @@ class AreaLib(BaseLib):
     def create_recon_area(self, cn, setup):
         sqllib = SqlLib()
         utillib = UtilLib()
-        id = setup["Id"]        
+        id = setup["Id"]
+        status = msglib.get_value(msglib.label, "L13")
         f1, t1, f2, t2 = self.merge_datasources(setup)
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
         for side in range(1, 3):
@@ -41,8 +45,8 @@ class AreaLib(BaseLib):
             tmp = f"tmp{id}{side}"
             cn.execute(f"drop table if exists {tb}")
             cn.execute(f"drop table if exists {tmp}")
-            cn.execute(sqllib.get_create_table_definition(tb, fields, types))
-            cn.execute(sqllib.get_create_table_definition(tmp, fields, types))
+            cn.execute(sqllib.get_create_table_definition(tb, fields, types, status))
+            cn.execute(sqllib.get_create_table_definition(tmp, fields, types, status))
         return fields, types
     
     def process(self, cn, recon):

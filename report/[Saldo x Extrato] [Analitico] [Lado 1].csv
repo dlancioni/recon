@@ -1,5 +1,0 @@
-Id;Parente;Conciliacao;Regra;Status;Data do Movimento;Codigo da Agencia;Numero da Conta;Saldo na Data;Saldo na Data (Diferenca);Data do Movimento (Diferenca);
-1;1;Saldo x Extrato;Agencia/Conta;Matched;20220101;1001;10001-1;1000.0;;;
-2;2;Saldo x Extrato;Agencia/Conta;Divergent;19990202;2002;20002-2;2000.2;2000.2/2000.0;19990202/20220202;
-3;3;Saldo x Extrato;Agencia/Conta;Divergent;20220303;3003;30003-3;3000.0;3000.0/3000.3;;
-4;0;;;Orphan;20220404;4004;40004-4;4000.0;;;

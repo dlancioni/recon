@@ -68,6 +68,7 @@ class ReconLib(BaseLib):
         rows_affected = 0
         rule = self.tagv(recon, "Rule", "Regra")
         field = self.tagf(recon, "Fields", "Campos")
+        status = msglib.get_value(msglib.label, "L11")
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
         for side in range(1, 3):
             tmp1 = self.tmp1 if side == 1 else self.tmp2
@@ -76,7 +77,7 @@ class ReconLib(BaseLib):
             sql += f"update {tmp1} set "
             sql += f"recon='{self.name}', "
             sql += f"rule='{rule}', "
-            sql += f"status = 'Matched', "
+            sql += f"status = '{status}', "
             sql += f"id_parent = {tmp2}.id "
             sql += f"from {tmp2} "
             sql += f"where 1=1 "
@@ -93,6 +94,7 @@ class ReconLib(BaseLib):
         rule = self.tagv(recon, "Rule", "Regra")
         field = self.tagf(recon, "Fields", "Campos")
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
+        status = msglib.get_value(msglib.label, "L11")
         """ create temp table  to compare fields """
         for field in self.field_key:
             fields_key += f"{self.tmp1}.{field}, "
@@ -113,7 +115,7 @@ class ReconLib(BaseLib):
             sql += f", ({tmp1} || '/' || {tmp2}) difference"
             sql += f", ({tmp1} = {tmp2}) equality"
             sql += f" from {self.tmp1}, {self.tmp2}"
-            sql += f" where {self.tmp1}.status = 'Matched'"
+            sql += f" where {self.tmp1}.status = '{status}'"
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
             
@@ -124,6 +126,7 @@ class ReconLib(BaseLib):
         rows_affected = 0
         field_name = ""
         label = msglib.get_value(msglib.label, "L10")
+        status = msglib.get_value(msglib.label, "L12")
         for field in self.field_compare:
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
@@ -137,7 +140,7 @@ class ReconLib(BaseLib):
                 rows_affected = dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
-                sql += f"status = 'Divergent', "
+                sql += f"status = '{status}', "
                 sql += f"{field_name} = {tmp3}.difference "
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "

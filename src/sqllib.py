@@ -61,7 +61,7 @@ class SqlLib(BaseLib):
         sql = sql.strip()[:-1]
         return sql
     
-    def get_create_table_definition(self, tablename, fields, types):
+    def get_create_table_definition(self, tablename, fields, types, status):
         i = 0
         sql = ""
         fieldlist = ""
@@ -69,7 +69,7 @@ class SqlLib(BaseLib):
         fieldlist += ", Id_Parent integer default 0"
         fieldlist += ", Recon text default ''"
         fieldlist += ", Rule text default ''"
-        fieldlist += ", Status text default 'Orphan'"
+        fieldlist += ", Status text default '" + status + "'"
         fieldlist += ", "
         if tablename == "" or fields == [] or types == []: return ""
         size = len(fields) -1
