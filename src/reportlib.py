@@ -47,7 +47,7 @@ class ReportLib(BaseLib):
         file = fslib.join(path, f"[{self.name}] [{report}].csv")
         sql += f"select "
         sql += f"Recon, Rule, Status, count(Status) Total "
-        sql += f"from tmp{self.id}1 "
+        sql += f"from tb{self.id}1 "
         sql += f"group by Status"
         rows = dblib.query(cn, sql)        
         fields = ["L4", "L5", "L6", "L7"]

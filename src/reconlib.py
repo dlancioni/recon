@@ -32,6 +32,7 @@ class ReconLib(BaseLib):
         self.matched = ""
         self.divergent = ""
         self.orphan = ""
+        self.rule_count = 0
         
     def prepare(self, cn, recon):
         """ keep common information in class level """
@@ -47,6 +48,7 @@ class ReconLib(BaseLib):
                 self.field_key.append(field_name)
             if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
                 self.field_compare.append(field_name)
+        self.rule_count += 1
 
     def aggregate(self, cn, recon):
         """ aggregate, group and order imported data into temporary table """
@@ -61,7 +63,8 @@ class ReconLib(BaseLib):
         for side in range(1, 3):
             tb = self.tb1 if side == 1 else self.tb2
             tmp = self.tmp1 if side == 1 else self.tmp2
-            rows_affected = dblib.execute(cn, f"delete from {tmp}")
+            sql = f"delete from {tmp}"
+            rows_affected = dblib.execute(cn, sql)
             sql = ""
             sql += f"insert into {tmp} ({field_list}) "
             sql += f"select {value_list}  "
@@ -151,7 +154,9 @@ class ReconLib(BaseLib):
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
-                rows_affected = dblib.execute(cn, sql)
+                rows_affected = dblib.execute(cn, sql)               
+            sql = f"drop table if exists {tmp3}"
+            rows_affected = dblib.execute(cn, sql)                
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
 
     def stamp_tb(self, cn, recon):
@@ -183,10 +188,15 @@ class ReconLib(BaseLib):
                 tb = self.tb1 if side == 1 else self.tb2
                 tmp = self.tmp1 if side == 1 else self.tmp2
                 matching_key = matching_key1 if side == 1 else matching_key2
-                sql = f"alter table {tb} add {field} text default ''"
-                rows_affected = dblib.execute(cn, sql)
+                if self.rule_count == 1:
+                    sql = f"alter table {tb} add {field} text default ''"
+                    rows_affected = dblib.execute(cn, sql)
                 sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
                 rows_affected = dblib.execute(cn, sql)
+        for side in range(1, 3):
+            sql = f"drop table if exists tmp{self.id}{side}"
+            rows_affected = dblib.execute(cn, sql)
+    
 
     def process(self, cn, recon):
         """ reconcile the positions """
