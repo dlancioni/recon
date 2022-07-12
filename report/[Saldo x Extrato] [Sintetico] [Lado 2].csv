@@ -1,0 +1,4 @@
+Conciliacao;Regra;Status;Total;
+Saldo x Extrato;Agencia/Conta [Exato];Batido;3;
+Saldo x Extrato;Agencia/Conta [Exato];Divergente;3;
+;;Orfao;1;

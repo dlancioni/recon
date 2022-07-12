@@ -39,17 +39,18 @@ class ReportLib(BaseLib):
             error = [err.errno, err.strerror]
         return saved, error
 
-    def create_report_synthetic(self, cn):
+    def create_report_synthetic(self, cn, side):
         sql = ""        
         lines = ""
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         report = msglib.get_value(msglib.label, "L1")
-        file = fslib.join(path, f"[{self.name}] [{report}].csv")
+        label = msglib.get_value(msglib.label, "L3")
+        file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
         sql += f"select "
         sql += f"Recon, Rule, Status, count(Status) Total "
-        sql += f"from tb{self.id}1 "
+        sql += f"from tb{self.id}{side} "
         sql += f"group by Status"
-        rows = dblib.query(cn, sql)        
+        rows = dblib.query(cn, sql)
         fields = ["L4", "L5", "L6", "L7"]
         for field in fields:
             lines += f"{msglib.get_value(msglib.label, field)};"
@@ -66,7 +67,7 @@ class ReportLib(BaseLib):
         
     def create_report_analytic(self, cn, side):
         report = msglib.get_value(msglib.label, "L2")
-        label = msglib.get_value(msglib.label, "L3")        
+        label = msglib.get_value(msglib.label, "L3")
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
         lines = ""
@@ -98,9 +99,9 @@ class ReportLib(BaseLib):
     def process(self, cn, recon):
         self.method = "reportlib.process()"
         try:
-            self.create_report_synthetic(cn)
-            self.create_report_analytic(cn, side=1)
-            self.create_report_analytic(cn, side=2)
+            for side in range(1, 3):
+                self.create_report_synthetic(cn, side)
+                self.create_report_analytic(cn, side)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)
