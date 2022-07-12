@@ -25,8 +25,13 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
 
     def save_file(self, file, lines):
-        with open(file, "w") as f:
-            f.write(lines)
+        try:
+            with open(file, "w") as f:
+                f.write(lines)
+        except IOError as err:
+            msg = f"File manipulation error -> {str(err)}"
+            raise Exception(msg)
+        print(str("done"))        
 
     def create_report_synthetic(self, cn, file):                
         lines = ""
@@ -47,15 +52,27 @@ class ReportLib(BaseLib):
         self.save_file(file, lines)
         
     def create_report_analytic(self, cn, file, side):
-        tb = f"tb{self.id}{side}"
+        lines = ""
         sql = ""
+        tb = f"tb{self.id}{side}"
         sql += f"select "
-        sql += f"Recon, Rule, Status "
+        sql += f"* "
         sql += f"from {tb} "
         rows = dblib.query(cn, sql)
-        fields = ["L4", "L5", "L6"]
-        lines = self.get_data(rows, fields)
-        self.save_file(file, lines)
+        fields = ["L8", "L9", "L4", "L5", "L6"]
+        for field in fields:
+            lines += f"{msglib.get_value(msglib.label, field)};"
+        first = len(fields)
+        total = len(cn.description)
+        for i in range(first, total):
+            label = str(cn.description[i][0]).strip()
+            lines += f"{label};"
+        lines += f"\n"
+        for row in rows:
+            for i in range(0, total):
+                lines += str(row[i]) + ";"
+            lines += "\n"
+        self.save_file(file, lines)        
 
     def process(self, cn, recon):
         self.method = "reportlib.process()"

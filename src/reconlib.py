@@ -5,11 +5,13 @@ from src.baselib import BaseLib
 from src.utillib import UtilLib
 from src.dblib import DbLib
 from src.msglib import MsgLib
+from src.cfglib import ConfigLib
 
 dblib = DbLib()
 sqllib = SqlLib()
 utillib = UtilLib()
 msglib = MsgLib()
+cfglib = ConfigLib()
 
 class ReconLib(BaseLib):
 
@@ -121,6 +123,7 @@ class ReconLib(BaseLib):
         count = 0
         rows_affected = 0
         field_name = ""
+        label = msglib.get_value(msglib.label, "L10")
         for field in self.field_compare:
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
@@ -128,7 +131,7 @@ class ReconLib(BaseLib):
                 _field = self.tagf(recon, "Fields", "Campos")                
                 temps = self.tmp1 if side == 1 else self.tmp2
                 matching_key = sqllib.get_sql_key(temps, tmp3, recon[_field])
-                field_name = sqllib.field_diff(field)
+                field_name = sqllib.field_diff(field, label)
                 self.field_with_diff.append(field_name)
                 sql = f"alter table {temps} add {field_name} text default ''"
                 rows_affected = dblib.execute(cn, sql)

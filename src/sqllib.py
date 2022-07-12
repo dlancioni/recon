@@ -141,11 +141,11 @@ class SqlLib(BaseLib):
         sql = sql.strip()
         return sql
 
-    def field_diff(self, field_name):
+    def field_diff(self, field_name, label):
         field_name = str(field_name).replace("[", "")
         field_name = str(field_name).replace("]", "")
         field_name = field_name.strip()
-        field_name = field_name + " (Difference)"
+        field_name = field_name + label
         field_name = "[" + field_name + "]"
         return field_name
         
