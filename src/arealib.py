@@ -14,19 +14,20 @@ class AreaLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
 
-    def merge_datasources(self, setup):
+    def merge_datasources(self, recon):
         f1, t1 = [], []
         f2, t2 = [], []
-        for datasource in setup["Datasources"]:
-            side = datasource["Side"]
-            fields = datasource["Fields"]
+        datasources = self.tagv(recon, "Datasources", "Dados")
+        for datasource in datasources:
+            side = self.tagv(datasource, "Side", "Lado")
+            fields = self.tagv(datasource, "Fields", "Campos")
             for field in fields:
-                if side == 1:
-                    f1.append(field["Name"])
-                    t1.append(field["Type"])
+                if side == 1:                    
+                    f1.append(self.tagv(field, "Name", "Nome"))
+                    t1.append(self.tagv(field, "Type", "Tipo"))
                 else:
-                    f2.append(field["Name"])
-                    t2.append(field["Type"])
+                    f2.append(self.tagv(field, "Name", "Nome"))
+                    t2.append(self.tagv(field, "Type", "Tipo"))
         return f1, t1, f2, t2
 
     def create_recon_area(self, cn, setup):

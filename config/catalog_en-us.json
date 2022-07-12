@@ -1,23 +1,4 @@
 {
-    "Field":
-    {
-        "_":"Change fields will impact the code, do not change",
-        "ID":"Id",
-        "NAME":"Name",
-        "DESC":"Description",
-        "DTSC":"Datasources",
-        "FLDS":"Fields",
-        "RECN":"Recons",       
-        "SIDE":"Side",
-        "PATH":"Path",
-        "FILE":"File",
-        "SEPT":"Separator",
-        "TYPE":"Type",
-        "VLUE":"Value",
-        "MASK":"Mask",
-        "RULE":"Rule",
-        "FUNC":"Function"
-    },
     "Label":
     {
         "L1":"Synthetic",

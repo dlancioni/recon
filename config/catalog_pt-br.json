@@ -1,29 +1,13 @@
 {
-    "Field":
-    {
-        "_":"Alterar os campos abaixo impacta o codigo, evite mudar",
-        "ID":"Id",
-        "NAME":"Nome",
-        "DESC":"Descricao",
-        "DTSC":"Fontes",
-        "FLDS":"Campos",
-        "RECN":"Conciliacoes",       
-        "SIDE":"Lado",
-        "PATH":"Caminho",
-        "FILE":"Arquivo",
-        "SEPT":"Separador",
-        "TYPE":"Tipo",
-        "VLUE":"Valor",
-        "MASK":"Mascara",
-        "RULE":"Regra",
-        "FUNC":"Funcao"
-    },
     "Label":
     {
-        "L1":"Conciliacao",
-        "L2":"Regra",
-        "L3":"Status",
-        "L4":"Total"
+        "L1":"Sintetico",
+        "L2":"Analitico",
+        "L3":"Lado",
+        "L4":"Conciliacao",
+        "L5":"Regra",
+        "L6":"Status",
+        "L7":"Total"
     },
     "Validation":
     {

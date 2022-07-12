@@ -67,14 +67,14 @@ class ReportLib(BaseLib):
             """ path to generate reports """
             path = fslib.get_path_report(cfglib.get_config("path_report"))
             """ create synthetic report (totals) """
-            report = msglib.get_value(msglib.label, "L1")
-            file = fslib.join(path, f"[{report}] [{self.name}].csv")
+            report = msglib.get_value(msglib.label, "L1")            
+            file = fslib.join(path, f"[{self.name}] [{report}].csv")            
             self.create_report_synthetic(cn, file)
             """ create analytic report """
             report = msglib.get_value(msglib.label, "L2")            
             label = msglib.get_value(msglib.label, "L3")
-            for side in range(1, 3):
-                file = fslib.join(path, f"[{report}] [{label} {side}] [{self.name}].csv")
+            for side in range(1, 3):                
+                file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")                
                 self.create_report_analytic(cn, file, side)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"

@@ -1,4 +1,6 @@
-class SqlLib:
+from src.baselib import BaseLib
+
+class SqlLib(BaseLib):
     
     def __init__(self):
         pass    
@@ -20,14 +22,17 @@ class SqlLib:
         function = ""
         alias = ""
         if field_def == "": return ""
-        size = len(field_def) -1
+        size = len(field_def) -1        
         while i <= size:
-            name = str(field_def[i]["Name"]).strip() if "Name" in field_def[i] else ""
+            field_name = self.tagf(field_def[i], "Name", "Nome")
+            field_type = self.tagf(field_def[i], "Type", "Tipo")
+            name = str(field_def[i][field_name]).strip() if field_name in field_def[i] else ""
             name = f"[{name}]"
             alias = name            
-            type = str(field_def[i]["Type"]).strip() if "Type" in field_def[i] else ""
+            type = str(field_def[i][field_type]).strip() if field_type in field_def[i] else ""
             if aggregation:
-                function = str(field_def[i]["Function"]).strip() if "Function" in field_def[i] else ""
+                field_function = self.tagf(field_def[i], "Function", "Funcao")
+                function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
             sql += f"{function}({name}) {alias}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
@@ -39,11 +44,15 @@ class SqlLib:
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            name = str(field_def[i]["Name"]).strip()
+            field_name = self.tagf(field_def[i], "Name", "Nome")
+            field_type = self.tagf(field_def[i], "Type", "Tipo")
+            field_value = self.tagf(field_def[i], "Value", "Valor")
+            field_mask = self.tagf(field_def[i], "Mask", "Mascara")
+            name = str(field_def[i][field_name]).strip()
             name = f"[{name}]"
-            type = field_def[i]["Type"] if "Type" in field_def[i] else ""
-            value = str(field_def[i]["Value"]).strip() if "Value" in field_def[i] else ""
-            mask = str(field_def[i]["Mask"]).strip() if "Mask" in field_def[i] else ""
+            type = field_def[i][field_type] if field_type in field_def[i] else ""
+            value = str(field_def[i][field_value]).strip() if field_value in field_def[i] else ""
+            mask = str(field_def[i][field_mask]).strip() if field_mask in field_def[i] else ""
             quote = "'" if type.lower() in ["text", "datetime"] else ""
             if mask == ",":
                 value = value.replace(".", "").replace(",", ".")
@@ -111,8 +120,10 @@ class SqlLib:
     def get_field_key(self, fields="", tb1="", tb2=""):
         sql = ""
         for field in fields:
-            if str(field["Type"]).strip().lower() == "key":
-                field_name = "[" + str(field["Name"]).strip() + "]"
+            _name = self.tagf(field, "Name", "Nome")
+            _type = self.tagf(field, "Type", "Tipo")
+            if str(field[_type]).strip().lower() in ["key", "chave"]:
+                field_name = "[" + str(field[_name]).strip() + "]"
                 sql += f"{field_name}, "
         sql = sql.strip()
         sql = sql[:-1]
@@ -121,8 +132,10 @@ class SqlLib:
     def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
         for field in fields:
-            if str(field["Type"]).strip().lower() == "key":
-                field_name = str(field["Name"]).strip()
+            _name = self.tagf(field, "Name", "Nome")
+            _type = self.tagf(field, "Type", "Tipo")            
+            if str(field[_type]).strip().lower() in ["key", "chave"]:
+                field_name = str(field[_name]).strip()
                 field_name = f"[{field_name}]"
                 sql += f"and {tb1}.{field_name} = {tb2}.{field_name} "
         sql = sql.strip()

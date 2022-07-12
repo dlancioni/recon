@@ -19,74 +19,68 @@ class SetupLib(BaseLib):
         self.error = ""
         self.logger = logging.getLogger(__name__)
     
-    def validate_tag(self, session, recon, field, mandatory=False):
+    def validate_tag(self, session, recon, fields, mandatory=False):
         """ dynamic validator """                
-        field = msglib.get_value(msglib.field, field)
-        if not field in recon:
-            raise Exception(msglib.get_value(msglib.validation, "M1", [session, field]))
         if mandatory:
-            if str(recon[field]).strip() == "":
+            field = self.tagf(recon, fields[0], fields[1])
+            value = self.tagv(recon, fields[0], fields[1])
+            if str(value) == "":
                 raise Exception(msglib.get_value(msglib.validation, "M2", [field]))
 
     def validate_info(self, recon):
         """ validate key info """
         session = ""
-        self.validate_tag(session, recon, "ID", True)
-        self.validate_tag(session, recon, "NAME", True)
-        self.validate_tag(session, recon, "DESC", True)
-        field = msglib.get_value(msglib.field, "ID")
-        id = str(recon[field]).strip()
-        if int(id) <= 0: raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
+        self.validate_tag(session, recon, ["Id", "Id"], True)
+        self.validate_tag(session, recon, ["Name", "Nome"], True)
+        self.validate_tag(session, recon, ["Description", "Descricao"], True)
+        field = self.tagf(recon, "Id", "Id")
+        value = self.tagv(recon, "Id", "Id")
+        if int(value) <= 0: raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
         
     def validate_datasource(self, recon):
-        """ validate datasources """        
-        sds = msglib.get_value(msglib.field, "DTSC")
-        sfd = msglib.get_value(msglib.field, "FLDS")
-        session = sds
-        self.validate_tag(session, recon, "DTSC")
-        ds = msglib.get_value(msglib.field, "DTSC")
-        datasources = recon[ds]
+        """ validate datasources """
+        session = ""
+        tag_ds = self.tagf(recon, "Datasources", "Dados")
+
+        datasources = recon[tag_ds]
         for i in range(0, len(datasources)):
-            session = sds
-            tag = recon[ds][i]
-            self.validate_tag(session, tag, "SIDE", True)
-            self.validate_tag(session, tag, "NAME", True)
-            self.validate_tag(session, tag, "PATH", False)
-            self.validate_tag(session, tag, "FILE", True)
-            self.validate_tag(session, tag, "SEPT", True)
+            session = tag_ds
+            values = recon[tag_ds][i]
+            self.validate_tag(session, values, ["Side", "Lado"], True)
+            self.validate_tag(session, values, ["Name", "Nome"], True)
+            self.validate_tag(session, values, ["Path", "Caminho"], False)
+            self.validate_tag(session, values, ["File", "Arquivo"], True)
+            self.validate_tag(session, values, ["Separator", "Separador"], True)
             """ validate fields """
-            self.validate_tag(session, recon[ds][i], "FLDS")
-            field = msglib.get_value(msglib.field, "FLDS")
-            fields = recon[ds][i][field]
+            self.validate_tag(session, recon[tag_ds][i], ["Fields", "Campos"])
+            tag_field = self.tagf(recon[tag_ds][i], "Fields", "Campos")
+            fields = recon[tag_ds][i][tag_field]
             for j in range(0, len(fields)):
-                session = f"{sds}/{sfd}"
-                tag = recon[ds][i][field][j]
-                self.validate_tag(session, tag, "NAME", True)
-                self.validate_tag(session, tag, "TYPE", True)
-                self.validate_tag(session, tag, "VLUE", False)
-                self.validate_tag(session, tag, "MASK", False)
+                session = f"{tag_ds}/{tag_field}"
+                values = recon[tag_ds][i][tag_field][j]
+                self.validate_tag(session, values, ["Name", "Nome"], True)
+                self.validate_tag(session, values, ["Type", "Tipo"], True)
+                self.validate_tag(session, values, ["Value", "Valor"], False)
+                self.validate_tag(session, values, ["Mask", "Mascara"], False)
                 
     def validate_recon(self, recon):
         """ validate conciliations """
-        src = msglib.get_value(msglib.field, "RECN")
-        sfd = msglib.get_value(msglib.field, "FLDS")        
         session = ""
-        self.validate_tag(session, recon, "RECN")
-        rc = msglib.get_value(msglib.field, "RECN")
-        recons = recon[rc]
+        tag_recon = self.tagf(recon, "Recon", "Conciliacao")
+        recons = recon[tag_recon]
         for i in range(0, len(recons)):
-            session = msglib.get_value(msglib.field, "RECN")
-            tag = recon[rc][i]
-            self.validate_tag(session, tag, "RULE", True)
+            session = tag_recon
+            tag_rule = self.tagf(recon[tag_recon][i], "Rule", "Regra")
+            self.validate_tag(session, recon[tag_recon][i], ["Rule", "Regra"], True)
             """ validate fields """
-            self.validate_tag(session, recons[i], "FLDS")
-            field = msglib.get_value(msglib.field, "FLDS")
-            fields = recon[rc][i][field]
+            self.validate_tag(session, recons[i], ["Fields", "Campos"], True)
+            tag_fields = self.tagf(recon[tag_recon][i], "Fields", "Campos")
+            fields = recon[tag_recon][i][tag_fields]
             for j in range(0, len(fields)):
-                session = f"{src}/{sfd}"
-                tag = recon[rc][i][field][j]
-                self.validate_tag(session, tag, "TYPE", True)
-                self.validate_tag(session, tag, "NAME", True)
+                session = f"{tag_recon}/{tag_fields}"
+                values = recon[tag_recon][i][tag_fields][j]
+                self.validate_tag(session, values, ["Type", "Tipo"], True)
+                self.validate_tag(session ,values, ["Name", "Nome"], True)
 
     def validate(self, recon):
         """ full validation, structure and data """

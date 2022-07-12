@@ -32,12 +32,12 @@ class ReconLib(BaseLib):
         """ keep common information in class level """
         self.method = "reconlib.prepare()"
         field_name = ""
-        for field in recon["Fields"]:
-            field_name = str(field["Name"]).strip()
+        for field in self.tagv(recon, "Fields", "Campos"):
+            field_name = self.tagv(field, "Name", "Nome")
             field_name = f"[{field_name}]"
-            if str(field["Type"]).strip().lower() == "key":
+            if self.tagv(field, "Tipo", "Type").lower() in ["key", "chave"]:
                 self.field_key.append(field_name)
-            if str(field["Type"]).strip().lower() == "compare":
+            if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
                 self.field_compare.append(field_name)
 
     def aggregate(self, cn, recon):
@@ -46,9 +46,10 @@ class ReconLib(BaseLib):
         sql = ""
         rows_affected = 0
         funcs = []
-        grouping_key = sqllib.get_field_key(recon["Fields"])
-        field_list = sqllib.get_field_list(recon["Fields"], False)
-        value_list = sqllib.get_field_list(recon["Fields"], True)
+        field = self.tagf(recon, "Fields", "Campos")
+        grouping_key = sqllib.get_field_key(recon[field])
+        field_list = sqllib.get_field_list(recon[field], False)
+        value_list = sqllib.get_field_list(recon[field], True)
         for side in range(1, 3):
             tb = self.tb1 if side == 1 else self.tb2
             tmp = self.tmp1 if side == 1 else self.tmp2
@@ -63,8 +64,9 @@ class ReconLib(BaseLib):
         """ set id as id_parent plus recon details in both sides  """
         self.method = "reconlib.match_key()"
         rows_affected = 0
-        rule = recon["Rule"]
-        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
+        rule = self.tagv(recon, "Rule", "Regra")
+        field = self.tagf(recon, "Fields", "Campos")
+        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
         for side in range(1, 3):
             tmp1 = self.tmp1 if side == 1 else self.tmp2
             tmp2 = self.tmp2 if side == 1 else self.tmp1
@@ -86,8 +88,9 @@ class ReconLib(BaseLib):
         fields_key = ""
         count = 0
         rows_affected = 0
-        rule = recon["Rule"]
-        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon["Fields"])
+        rule = self.tagv(recon, "Rule", "Regra")
+        field = self.tagf(recon, "Fields", "Campos")
+        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
         """ create temp table  to compare fields """
         for field in self.field_key:
             fields_key += f"{self.tmp1}.{field}, "
@@ -122,8 +125,9 @@ class ReconLib(BaseLib):
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
             for side in range(1,3):
+                _field = self.tagf(recon, "Fields", "Campos")                
                 temps = self.tmp1 if side == 1 else self.tmp2
-                matching_key = sqllib.get_sql_key(temps, tmp3, recon["Fields"])
+                matching_key = sqllib.get_sql_key(temps, tmp3, recon[_field])
                 field_name = sqllib.field_diff(field)
                 self.field_with_diff.append(field_name)
                 sql = f"alter table {temps} add {field_name} text default ''"
@@ -144,11 +148,12 @@ class ReconLib(BaseLib):
         field_list = ""
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
-        rule = recon["Rule"]
+        rule = self.tagv(recon, "Rule", "Regra")
+        field = self.tagf(recon, "Fields", "Campos")
         match_result = ["Id_Parent", "Recon", "Rule", "Status"]
         compare_result = self.field_with_diff
-        matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon["Fields"])
-        matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon["Fields"])
+        matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon[field])
+        matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon[field])
         """ stamp key information in final table """
         for side in range(1, 3):
             field_list = ""
@@ -171,14 +176,13 @@ class ReconLib(BaseLib):
                 sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
                 rows_affected = dblib.execute(cn, sql)
 
-    def process(self, cn, setup):
+    def process(self, cn, recon):
         """ reconcile the positions """
         self.method = "reconlib.process()"
-        utillib = UtilLib()
         try:
-            recons = setup["Recons"]            
+            recons = self.tagv(recon, "Recon", "Conciliacao")
             for recon in recons:
-                msglib.print(msglib.get_value(msglib.console, "M8", [recon["Rule"]]))
+                msglib.print(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
                 self.prepare(cn, recon)
                 self.aggregate(cn, recon)
                 msglib.print(msglib.get_value(msglib.console, "M9"))

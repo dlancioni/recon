@@ -16,7 +16,6 @@ class MsgLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         self.console = "Console"
         self.validation = "Validation"
-        self.field = "Field"
         self.label = "Label"
 
     def get_value(self, session, key, param=[]):

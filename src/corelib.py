@@ -56,8 +56,8 @@ class CoreLib(BaseLib):
             recon = self.open_recon(recon)
             """ validate key info """            
             setuplib.validate_info(recon)
-            self.id = recon["Id"]
-            self.name = recon["Name"]
+            self.id = self.tagv(recon, "Id", "Id")
+            self.name = self.tagv(recon, "Name", "Nome")
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
             """ create log and validate recon """            
             logger = self.create_log_file()

@@ -24,11 +24,11 @@ class EtlLib(BaseLib):
     def import_file(self, cn, ds):
         self.method = "etllib.import_file()"
         sql = ""       
-        side = ds["Side"]
-        path = ds["Path"]
-        file = ds["File"]
-        fields = ds["Fields"]
-        separator = ds["Separator"]
+        side = self.tagv(ds, "Side", "Lado")
+        path = self.tagv(ds, "Path", "Caminho")
+        file = self.tagv(ds, "File", "Arquivo")
+        fields = self.tagv(ds, "Fields", "Campos")
+        separator = self.tagv(ds, "Separator", "Separador")
         tb = f"tb{self.id}{side}"        
         path = fslib.get_path_file(path, file)
         first = True
@@ -57,9 +57,9 @@ class EtlLib(BaseLib):
         """ import positions """
         self.method = "etllib.process()"
         try:
-            datasources = recon["Datasources"]
+            datasources = self.tagv(recon, "Datasources", "Dados")
             for datasource in datasources:
-                msglib.print(msglib.get_value(msglib.console, "M7", [datasource['File']]))
+                msglib.print(msglib.get_value(msglib.console, "M7", [self.tagv(datasource, "File", "Arquivo")]))
                 self.import_file(cn, datasource)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"

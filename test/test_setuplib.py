@@ -26,9 +26,9 @@ class UtilLibTest(unittest.TestCase):
         values.append({"Id":"1", "Name":"", "Description":"1:M reconciliation"})
         values.append({"Id":"1", "Name":"Saldo x Extrato", "Description":""})
         session = ""
-        for field in ["ID", "NAME", "DESC"]:
-            fieldname = msglib.get_value(msglib.field, field)
-            message = msglib.get_value(msglib.validation, "M2", [fieldname])
+        fields = ["Id", "Name", "Description"]
+        for field in fields:
+            message = msglib.get_value(msglib.validation, "M2", [field])
             status, error = corelib.process(values[i])
             self.assertEqual(False, status)
             self.assertEqual(message, error)

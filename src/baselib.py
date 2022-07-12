@@ -15,9 +15,23 @@ class BaseLib:
 
     def log_error(self, message):
         self.logger.info(f"{self.method}: {message}")
-        
-    def tagv(self, doc, tag_en="", tag_pt=""):
+
+    def tagfv(self, doc, tag_en="", tag_pt=""):
+        f, v = "", ""
         tag_en = tag_en.capitalize().strip()
         tag_pt = tag_pt.capitalize().strip()
-        value = doc[tag_en] if tag_en in doc else doc[tag_pt]
-        return value        
+        if tag_en in doc:
+            f = tag_en            
+            v = doc[tag_en]
+            return f, v
+        if tag_pt in doc:
+            f = tag_pt            
+            v = doc[tag_pt]
+        return f, v
+        
+    def tagf(self, doc, tag_en="", tag_pt=""):
+        f, v = self.tagfv(doc, tag_en, tag_pt)
+        return f
+    def tagv(self, doc, tag_en="", tag_pt=""):
+        f, v = self.tagfv(doc, tag_en, tag_pt)
+        return v
