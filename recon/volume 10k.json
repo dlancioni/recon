@@ -41,7 +41,7 @@
     "Conciliacao":
     [
         {
-            "Regra": "Agencia/Conta",
+            "Regra": "Batimento Total",
             "Campos":
             [
                 {"Tipo":"Chave", "Nome":"Codigo"},

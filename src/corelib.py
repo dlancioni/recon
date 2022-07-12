@@ -15,13 +15,13 @@ from src.reconlib import ReconLib
 from src.msglib import MsgLib
 from src.reportlib import ReportLib
 
-setuplib = SetupLib()
 dblib = DbLib()
 fslib = FsLib()
+msglib = MsgLib()
 sqllib = SqlLib()
 utillib = UtilLib()
 cfglib = ConfigLib()
-msglib = MsgLib()
+setuplib = SetupLib()
 
 class CoreLib(BaseLib):
 

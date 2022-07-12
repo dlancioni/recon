@@ -7,11 +7,11 @@ from src.dblib import DbLib
 from src.utillib import UtilLib
 from src.msglib import MsgLib
 
-sqlib = SqlLib()
 dblib = DbLib()
 fslib = FsLib()
-utillib = UtilLib()
+sqlib = SqlLib()
 msglib = MsgLib()
+utillib = UtilLib()
 
 class EtlLib(BaseLib):
 

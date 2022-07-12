@@ -1,16 +1,16 @@
 import logging
 from sqlite3 import Error
+from src.dblib import DbLib
+from src.msglib import MsgLib
 from src.sqllib import SqlLib
 from src.baselib import BaseLib
 from src.utillib import UtilLib
-from src.dblib import DbLib
-from src.msglib import MsgLib
 from src.cfglib import ConfigLib
 
 dblib = DbLib()
+msglib = MsgLib()
 sqllib = SqlLib()
 utillib = UtilLib()
-msglib = MsgLib()
 cfglib = ConfigLib()
 
 class ReconLib(BaseLib):

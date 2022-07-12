@@ -3,10 +3,10 @@ import sys
 import json
 import logging
 from src.fslib import FsLib
-from src.utillib import UtilLib
 from src.msglib import MsgLib
-from src.cfglib import ConfigLib
 from src.baselib import BaseLib
+from src.utillib import UtilLib
+from src.cfglib import ConfigLib
 
 msglib = MsgLib()
 cfglib = ConfigLib()

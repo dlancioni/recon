@@ -4,14 +4,15 @@ import logging
 import argparse
 from src.fslib import FsLib
 from src.fslib import FsLib
+from src.msglib import MsgLib
 from datetime import timedelta
 from src.utillib import UtilLib
 from src.corelib import CoreLib
-from src.msglib import MsgLib
 from timeit import default_timer as timer
-utillib = UtilLib()
+
 fslib = FsLib()
 msglib = MsgLib()
+utillib = UtilLib()
 
 """ control the user input """
 parser = argparse.ArgumentParser()

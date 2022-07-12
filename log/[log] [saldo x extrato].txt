@@ -1,1 +1,0 @@
-2022-07-12 10:32:24 INFO reportlib.process(): General error -> Permission danied to save the file, close it and try again: c:\Users\david\Developer\recon\report\[Saldo x Extrato] [Synthetic].csv

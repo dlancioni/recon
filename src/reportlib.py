@@ -14,10 +14,10 @@ from src.msglib import MsgLib
 
 dblib = DbLib()
 fslib = FsLib()
+msglib = MsgLib()
 sqllib = SqlLib()
 utillib = UtilLib()
 cfglib = ConfigLib()
-msglib = MsgLib()
 
 class ReportLib(BaseLib):
 
