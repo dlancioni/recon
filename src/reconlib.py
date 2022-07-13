@@ -6,6 +6,7 @@ from src.sqllib import SqlLib
 from src.baselib import BaseLib
 from src.utillib import UtilLib
 from src.cfglib import ConfigLib
+from progress.bar import ShadyBar
 
 dblib = DbLib()
 msglib = MsgLib()
@@ -204,17 +205,25 @@ class ReconLib(BaseLib):
         try:
             recons = self.tagv(recon, "Recon", "Conciliacao")
             for recon in recons:
-                msglib.print(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
+                msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
+                progress_bar = ShadyBar(msg, max=5)                
+                progress_bar.next()
+                #msglib.print(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
                 self.prepare(cn, recon)
                 self.aggregate(cn, recon)
-                msglib.print(msglib.get_value(msglib.console, "M9"))
+                progress_bar.next()
+                #msglib.print(msglib.get_value(msglib.console, "M9"))
                 self.match_key(cn, recon)
-                msglib.print(msglib.get_value(msglib.console, "M10"))
+                progress_bar.next()
+                #msglib.print(msglib.get_value(msglib.console, "M10"))
                 self.compare(cn, recon)
-                msglib.print(msglib.get_value(msglib.console, "M11"))
+                progress_bar.next()
+                #msglib.print(msglib.get_value(msglib.console, "M11"))
                 self.stamp_tmp(cn, recon)
                 self.stamp_tb(cn, recon)
-                msglib.print(msglib.get_value(msglib.console, "M12"))
+                progress_bar.next()
+                #msglib.print(msglib.get_value(msglib.console, "M12"))
+                progress_bar.finish()
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)

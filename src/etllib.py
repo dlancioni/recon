@@ -1,5 +1,6 @@
 import logging
 from sqlite3 import Error
+from progress.bar import ShadyBar
 from src.baselib import BaseLib
 from src.sqllib import SqlLib
 from src.fslib import FsLib
@@ -20,6 +21,12 @@ class EtlLib(BaseLib):
         self.name = name
         self.app_path = ""
         self.logger = logging.getLogger(__name__)
+        
+    def count(self, file):
+        lines = 0
+        with open(file, "r") as file:
+            lines = len(file.readlines())
+        return lines
 
     def import_file(self, cn, ds):
         self.method = "etllib.import_file()"
@@ -36,6 +43,10 @@ class EtlLib(BaseLib):
         rows_affected = 0
         rows_imported = 0
         fl = sqlib.get_field_list(fields)
+        count = self.count(path)
+        msg = msglib.get_value(msglib.console, "M7", [self.tagv(ds, "File", "Arquivo")])
+        msg = msglib.set_time(msg)
+        progress_bar = ShadyBar(msg, max=count-1)
         with open(path, "r") as file:
             for line in file.readlines():
                 if not first and str(line.strip()) != "":
@@ -48,18 +59,18 @@ class EtlLib(BaseLib):
                     try:
                         rows_affected = dblib.execute(cn, sql)
                         rows_imported += 1
+                        progress_bar.next()
                     except Error as err:
                         error_count += 1                           
                         self.log_error(f"Error to manipulate data [{sql}]: {str(err)}")
                 first = False
-        
+        progress_bar.finish()
     def process(self, cn, recon):
         """ import positions """
         self.method = "etllib.process()"
         try:
             datasources = self.tagv(recon, "Datasources", "Dados")
-            for datasource in datasources:
-                msglib.print(msglib.get_value(msglib.console, "M7", [self.tagv(datasource, "File", "Arquivo")]))
+            for datasource in datasources:                
                 self.import_file(cn, datasource)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"

@@ -17,6 +17,12 @@ class MsgLib(BaseLib):
         self.console = "Console"
         self.validation = "Validation"
         self.label = "Label"
+        
+    def set_time(self, msg):
+        now = datetime.now()
+        dt = str(time.strftime("%Y-%m-%d %H:%M:%S", now.timetuple()))
+        msg = f"{dt}: {msg}"
+        return msg
 
     def get_value(self, session, key, param=[]):
         path = fslib.get_path_config("app.json")
@@ -35,7 +41,5 @@ class MsgLib(BaseLib):
         return value
     
     def print(self, msg):
-        now = datetime.now()
-        dt = str(time.strftime("%Y-%m-%d %H:%M:%S", now.timetuple()))
-        msg = f"{dt}: {msg}"
+        msg = self.set_time(msg)
         print(msg)

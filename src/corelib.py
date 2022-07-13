@@ -58,15 +58,15 @@ class CoreLib(BaseLib):
             setuplib.validate_info(recon)
             self.id = self.tagv(recon, "Id", "Id")
             self.name = self.tagv(recon, "Name", "Nome")
-            msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
+            #msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
             """ create log and validate recon """            
             logger = self.create_log_file()
             setuplib.validate(recon)
-            msglib.print(msglib.get_value(msglib.console, "M5"))
+            #msglib.print(msglib.get_value(msglib.console, "M5"))
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.process(cn, recon)
-            msglib.print(msglib.get_value(msglib.console, "M6"))
+            #msglib.print(msglib.get_value(msglib.console, "M6"))
             """ import files """
             etllib = EtlLib(self.id, self.name)
             etllib.process(cn, recon)

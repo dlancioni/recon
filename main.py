@@ -30,6 +30,7 @@ if args.r:
 """ start processing """
 if len(recons) == 0:    
     recons = ["recon 01.json", "recon 02.json"]
+    recons = ["volume 10k.json"]
 os.system("cls||clear")
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
