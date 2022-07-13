@@ -18,6 +18,7 @@ utillib = UtilLib()
 parser = argparse.ArgumentParser()
 parser.add_argument("--g", help="json file that groups the recons")
 parser.add_argument("--r", help="json file with single recon")
+parser.add_argument("--o", help="output info on console [tb, tb1, tb2]")
 args = parser.parse_args()
 recons = []
 if args.g:
@@ -31,12 +32,13 @@ if args.r:
 if len(recons) == 0:    
     recons = ["recon 01.json", "recon 02.json"]
     recons = ["volume 10k.json"]
+    recons = ["recon 01.json"]
 os.system("cls||clear")
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
 for recon in recons:
-    status, error = corelib.process(recon)
+    status, error, tb1, tb2 = corelib.process(recon)
     if not status:
         msglib.print(error)
 end = timer()
@@ -44,3 +46,8 @@ end = timer()
 msglib.print(msglib.get_value(msglib.console, "M2"))
 msg = msglib.get_value(msglib.console, "M3")
 msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
+
+if args.o in ["tb", "tb1"]:
+    print(tb1)
+if args.o in ["tb", "tb2"]:    
+    print(tb2)

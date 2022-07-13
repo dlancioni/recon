@@ -2,6 +2,7 @@ import os
 import logging
 import sqlite3
 from sqlite3 import Error
+from prettytable import from_db_cursor
 from src.utillib import UtilLib
 
 utillib = UtilLib()
@@ -18,9 +19,12 @@ class DbLib:
         conn.isolation_level = None
         return conn        
     
-    def query(self, cn, sql):
+    def query(self, cn, sql, format=False):
         cn.execute(sql)
-        rs = cn.fetchall()
+        if format == False:
+            rs = cn.fetchall()
+        if format == True:
+            rs = from_db_cursor(cn)
         return rs
     
     def execute(self, cn, sql):

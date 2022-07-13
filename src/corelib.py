@@ -76,10 +76,12 @@ class CoreLib(BaseLib):
             """ generate reports """
             reportlib = ReportLib(self.id, self.name)
             reportlib.process(cn, recon)
-            """ commit info """
-            dblib.commit_tran(cn)            
             """ generate output """
-            return True, ""
+            tb1 = dblib.query(cn, f"select * from tb{self.id}1", True)
+            tb2 = dblib.query(cn, f"select * from tb{self.id}2", True)
+            """ commit info """
+            dblib.commit_tran(cn)                        
+            return True, "", tb1, tb2
         except BaseException as err:
             dblib.rollback_tran(cn)
             return False, str(err)
