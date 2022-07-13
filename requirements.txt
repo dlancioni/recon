@@ -3,6 +3,6 @@
 pysqlite3
 pyinstaller
 prettytable
-progressbar
+progress
 
 ###### Requirements with Version Specifiers ######
