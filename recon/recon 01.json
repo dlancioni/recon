@@ -1,7 +1,7 @@
 {
     "Id": "1",
     "Name": "Recon 01",
-    "Description": "1:1 Reconciliation [en-us]",
+    "Description": "Reconciliation [en-us]",
     "Datasources":
     [
         {
@@ -12,8 +12,9 @@
             "Separator": ";",
             "Fields":
             [
-                {"Id":1, "Name":"Code", "Type":"Integer", "Value":"", "Mask":""},
-                {"Id":2, "Name":"Value", "Type":"Decimal", "Value":"", "Mask":""}
+                {"Id":1, "Name":"Account", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Digit", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":3, "Name":"Balance", "Type":"Decimal", "Value":"", "Mask":""}
             ]
         }
         ,
@@ -25,8 +26,9 @@
             "Separator": ";",
             "Fields":
             [
-                {"Id":1, "Name":"Code", "Type":"Integer", "Value":"", "Mask":""},
-                {"Id":2, "Name":"Value", "Type":"Decimal", "Value":"", "Mask":""}
+                {"Id":1, "Name":"Account", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Digit", "Type":"Text", "Value":"", "Mask":""},
+                {"Id":3, "Name":"Balance", "Type":"Decimal", "Value":"", "Mask":""}
             ]
         }
     ],
@@ -36,9 +38,10 @@
             "Rule": "Rule 1",
             "Fields":
             [
-                {"Type":"Key", "Name":"Code"},
-                {"Type":"Compare", "Name":"Value"}
+                {"Type":"Key", "Name":"Account"},
+                {"Type":"Key", "Name":"Digit"}
             ]
         }
+     
     ]
 }

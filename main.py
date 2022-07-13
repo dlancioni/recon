@@ -18,7 +18,7 @@ utillib = UtilLib()
 parser = argparse.ArgumentParser()
 parser.add_argument("--g", help="json file that groups the recons")
 parser.add_argument("--r", help="json file with single recon")
-parser.add_argument("--o", help="output info on console [tb, tb1, tb2]")
+parser.add_argument("--c", help="output info on console [tb, tb1, tb2]")
 args = parser.parse_args()
 recons = []
 if args.g:
@@ -47,7 +47,7 @@ msglib.print(msglib.get_value(msglib.console, "M2"))
 msg = msglib.get_value(msglib.console, "M3")
 msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
 
-if args.o in ["tb", "tb1"]:
+if args.c in ["tb", "tb1"]:
     print(tb1)
-if args.o in ["tb", "tb2"]:    
+if args.c in ["tb", "tb2"]:    
     print(tb2)
