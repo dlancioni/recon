@@ -39,9 +39,17 @@
             "Fields":
             [
                 {"Type":"Key", "Name":"Account"},
-                {"Type":"Key", "Name":"Digit"}
+                {"Type":"Key", "Name":"Digit"},
+                {"Type":"Compare", "Name":"Balance", "Function":"Sum"}
+            ]
+        },
+        {
+            "Rule": "Rule 2",
+            "Fields":
+            [
+                {"Type":"Key", "Name":"Account"},
+                {"Type":"Compare", "Name":"Balance", "Function":"Sum"}
             ]
         }
-     
     ]
 }

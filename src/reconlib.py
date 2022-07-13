@@ -70,7 +70,7 @@ class ReconLib(BaseLib):
             sql += f"insert into {tmp} ({field_list}) "
             sql += f"select {value_list}  "
             sql += f"from {tb} "
-            sql += f"where status = '{self.orphan}' "
+            sql += f"where status <> '{self.matched}' "
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
@@ -196,7 +196,7 @@ class ReconLib(BaseLib):
                 rows_affected = dblib.execute(cn, sql)
         for side in range(1, 3):
             sql = f"drop table if exists tmp{self.id}{side}"
-            rows_affected = dblib.execute(cn, sql)
+            #rows_affected = dblib.execute(cn, sql)
     
 
     def process(self, cn, recon):

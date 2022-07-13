@@ -1,5 +1,5 @@
 Lado;Conciliacao;Regra;Status;Total;
-1;;;Orfao;2;
 1;Recon 01;Rule 1;Batido;2;
-2;;;Orfao;2;
+1;Recon 01;Rule 2;Divergente;2;
 2;Recon 01;Rule 1;Batido;2;
+2;Recon 01;Rule 2;Divergente;2;

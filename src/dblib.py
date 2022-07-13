@@ -14,8 +14,8 @@ class DbLib:
         
     def get_connection(db=""):
         conn = None
-        conn = sqlite3.connect(":memory:")
-        #conn = sqlite3.connect("c:\\temp\\db.db")
+        #conn = sqlite3.connect(":memory:")
+        conn = sqlite3.connect("c:\\temp\\db.db")
         conn.isolation_level = None
         return conn        
     
@@ -43,13 +43,13 @@ class DbLib:
         self.method = "dblib.begin_tran()"
         cn = self.get_connection()
         cursor = cn.cursor()
-        cursor.execute("begin")
+        #cursor.execute("begin")
         return cursor
     
     def commit_tran(self, cn):
         self.method = "dblib.commit_tran()"
-        cn.execute("commit")
+        #cn.execute("commit")
         
     def rollback_tran(self, cn):
         self.method = "dblib.rollback_tran()"
-        cn.execute("rollback")
+        #cn.execute("rollback")

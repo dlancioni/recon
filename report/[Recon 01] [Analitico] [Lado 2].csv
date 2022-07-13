@@ -1,5 +1,5 @@
-Id;Parente;Conciliacao;Regra;Status;Account;Digit;Balance;
-1;1;Recon 01;Rule 1;Batido;1;1;1000.0;
-2;2;Recon 01;Rule 1;Batido;2;2;2000.0;
-3;0;;;Orfao;3;0;3000.0;
-4;0;;;Orfao;4;4;3000.0;
+Id;Parente;Conciliacao;Regra;Status;Account;Digit;Balance;Balance (Diferenca);
+1;1;Recon 01;Rule 1;Batido;1;1;500.0;;
+2;1;Recon 01;Rule 1;Batido;1;1;500.0;;
+3;1;Recon 01;Rule 2;Divergente;2;2;1000.0;2000.0/2000.01;
+4;1;Recon 01;Rule 2;Divergente;2;2;1000.01;2000.0/2000.01;
