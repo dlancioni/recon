@@ -2,5 +2,7 @@
 ###### Requirements without Version Specifiers ######
 pysqlite3
 pyinstaller
+prettytable
+progressbar
 
 ###### Requirements with Version Specifiers ######
