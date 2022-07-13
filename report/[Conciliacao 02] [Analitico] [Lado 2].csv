@@ -1,0 +1,4 @@
+Id;Parente;Conciliacao;Regra;Status;Codigo;Valor;Valor (Diferenca);
+1;1;Conciliacao 02;Regra 1;Batido;1;1000.0;;
+2;2;Conciliacao 02;Regra 1;Batido;2;2000.0;;
+3;3;Conciliacao 02;Regra 1;Batido;3;3000.0;;

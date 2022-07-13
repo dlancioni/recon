@@ -26,7 +26,7 @@
         "M1":"Start processing",
         "M2":"Finish processing",
         "M3":"Elapsed time",
-        "M4":"Openning conciliation [{1}] {2}",
+        "M4":"Openning conciliation {1} {2}",
         "M5":"Successfuly validated",
         "M6":"Area successfuly created",
         "M7":"Importing file {1}",

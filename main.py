@@ -29,8 +29,7 @@ if args.r:
     recons.append(filename)
 """ start processing """
 if len(recons) == 0:    
-    #recons = ["saldo x extrato.json"]
-    recons = ["volume 10k.json"]
+    recons = ["recon 01.json", "recon 02.json"]
 os.system("cls||clear")
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))

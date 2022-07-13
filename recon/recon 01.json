@@ -1,0 +1,44 @@
+{
+    "Id": "1",
+    "Name": "Recon 01",
+    "Description": "1:1 Reconciliation [en-us]",
+    "Datasources":
+    [
+        {
+            "Side": "1",
+            "Name": "Side 1",
+            "Path": "",
+            "File": "recon 011.txt",
+            "Separator": ";",
+            "Fields":
+            [
+                {"Id":1, "Name":"Code", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Value", "Type":"Decimal", "Value":"", "Mask":""}
+            ]
+        }
+        ,
+        {
+            "Side": 2,
+            "Name": "Side 2",
+            "Path": "",
+            "File": "recon 012.txt",
+            "Separator": ";",
+            "Fields":
+            [
+                {"Id":1, "Name":"Code", "Type":"Integer", "Value":"", "Mask":""},
+                {"Id":2, "Name":"Value", "Type":"Decimal", "Value":"", "Mask":""}
+            ]
+        }
+    ],
+    "Recon":
+    [
+        {
+            "Rule": "Rule 1",
+            "Fields":
+            [
+                {"Type":"Key", "Name":"Code"},
+                {"Type":"Compare", "Name":"Value"}
+            ]
+        }
+    ]
+}
