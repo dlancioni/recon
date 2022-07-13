@@ -26,7 +26,7 @@
         "M1":"Iniciando processamento",
         "M2":"Finalizando processamento",
         "M3":"Tempo de processamento",
-        "M4":"Abrindo conciliacao {1} {2}",
+        "M4":"Executando {1}{2}",
         "M5":"Validado com sucesso",
         "M6":"Area criada com sucesso",
         "M7":"Importando o arquivo {1}",
