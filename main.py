@@ -15,8 +15,8 @@ utillib = UtilLib()
 """ control the user input """
 utillib.cls()
 parser = argparse.ArgumentParser()
-parser.add_argument("--f", help="json file with single recon")
-parser.add_argument("--c", help="Recon results per side: [1, 2, 12]")
+parser.add_argument("--f", help="File with conciliation configuration")
+parser.add_argument("--c", help="Conciliation results per side: [1, 2, 12]")
 args = parser.parse_args()
 """ append file extension if not provided """
 filename = "recon.cfg" if args.f == None else args.f
@@ -33,8 +33,7 @@ msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
 """ print console information """
 if status == False:
     utillib.cls()
-    msg = f"Error processing {filename}"
-    msglib.print(msg)
+    msglib.print(f"{filename}")
     msglib.print(error)
 else:
     if str(args.c).isnumeric():
