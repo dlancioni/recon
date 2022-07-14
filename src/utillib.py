@@ -1,25 +1,21 @@
 import os
+from src.dblib import DbLib
+
+dblib = DbLib()
 
 class UtilLib:
 
     def __init__(self):
         pass
 
-    def print(self, cursor):
-        for side in range(1,3):
-            print(f"Side{side}:")
-            cursor.execute(f"select Status, count(Status) from tb1{side} group by Status")
-            rows = cursor.fetchall()
-            for row in rows:
-                print(row)
-
-    def log(self, message):
-        import time
-        from datetime import datetime
-        now = datetime.now()
-        dt = str(time.strftime("%Y-%m-%d %H:%M:%S", now.timetuple()))
-        output = f"{dt}: {message}"
-        print(output)
+    def get_result(self, cn, id):
+        result  = ["Results", "", ""]
+        console = ["Console", "", ""]
+        result[1] = dblib.query(cn, f"select * from tb{id}1", False)
+        result[2] = dblib.query(cn, f"select * from tb{id}2", False)
+        console[1] = dblib.query(cn, f"select * from tb{id}1", True)
+        console[2] = dblib.query(cn, f"select * from tb{id}2", True)        
+        return result, console
 
     def cls(self):
         os.system("cls||clear")

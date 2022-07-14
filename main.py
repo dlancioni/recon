@@ -16,7 +16,7 @@ utillib = UtilLib()
 utillib.cls()
 parser = argparse.ArgumentParser()
 parser.add_argument("--r", help="json file with single recon")
-parser.add_argument("--c", help="output info on console [tb, tb1, tb2]")
+parser.add_argument("--c", help="Recon results per side: [1, 2, 12]")
 args = parser.parse_args()
 """ append file extension if not provided """
 filename = "recon.cfg" if str(args.r).strip() == "" else args.r
@@ -24,7 +24,7 @@ filename = "recon.cfg" if str(args.r).strip() == "" else args.r
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
-status, error, tb1, tb2 = corelib.process(filename)
+status, error, result, console = corelib.process(filename)
 end = timer()
 """ finish processing """
 msglib.print(msglib.get_value(msglib.console, "M2"))
@@ -38,8 +38,12 @@ if status == False:
     msglib.print(error)
 else:
     utillib.cls()
-    print(f"{filename} 1/2")
-    if args.c in ["tb", "tb1"]:
-        print(tb1)
-    if args.c in ["tb", "tb2"]:    
-        print(tb2)
+    print(f"{filename}")
+    if str(args.c).isnumeric():
+        if int(args.c) == 1:
+            print(console[1])
+        if int(args.c) == 2:
+            print(console[2])
+        if int(args.c) == 12:
+            print(console[1])
+            print(console[2])

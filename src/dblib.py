@@ -3,9 +3,6 @@ import logging
 import sqlite3
 from sqlite3 import Error
 from prettytable import from_db_cursor
-from src.utillib import UtilLib
-
-utillib = UtilLib()
 
 class DbLib:
     

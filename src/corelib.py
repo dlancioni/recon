@@ -82,12 +82,11 @@ class CoreLib(BaseLib):
             reportlib.process(cn, recon)
             loglib.log(loglib.INFO, "Reports OK, ready to commit the process")
             """ generate output """
-            tb1 = dblib.query(cn, f"select * from tb{self.id}1", True)
-            tb2 = dblib.query(cn, f"select * from tb{self.id}2", True)
+            result, console = utillib.get_result(cn, self.id)
             """ commit info """
             dblib.commit_tran(cn)
-            return True, "", tb1, tb2
+            return True, "", result, console
         except BaseException as err:
-            loglib.log(loglib.ERROR, f"{str(err)}")
             dblib.rollback_tran(cn)
+            loglib.log(loglib.ERROR, f"{str(err)}")            
             return False, str(err), "", ""
