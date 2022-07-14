@@ -9,12 +9,6 @@ class BaseLib:
         tmp2 = ""
         last_error = ""
         cn = ""
-        
-    def log_info(self, message):
-        self.logger.info(f"{self.method}: {message}")
-
-    def log_error(self, message):
-        self.logger.info(f"{self.method}: {message}")
 
     def tagfv(self, doc, tag_en="", tag_pt=""):
         f, v = "", ""

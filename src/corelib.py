@@ -14,6 +14,7 @@ from src.setuplib import SetupLib
 from src.reconlib import ReconLib
 from src.msglib import MsgLib
 from src.reportlib import ReportLib
+from src.loglib import LogLib
 
 dblib = DbLib()
 fslib = FsLib()
@@ -49,40 +50,44 @@ class CoreLib(BaseLib):
         return logger
 
     def process(self, recon):
-        self.method = "corelib.process()"
+        loglib = LogLib("CoreLib", "process")
         try:
             """ create new transaction for each recon """
             cn = dblib.begin_tran()
             """ open json recon or file """
             recon = self.open_recon(recon)
-            """ validate key info """            
+            """ validate key info """
             setuplib.validate_info(recon)
             self.id = self.tagv(recon, "Id", "Id")
             self.name = self.tagv(recon, "Name", "Nome")
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
-            """ create log and validate recon """            
+            """ create log and validate recon """
             logger = self.create_log_file()
             setuplib.validate(recon)
-            #msglib.print(msglib.get_value(msglib.console, "M5"))
+            loglib.log(loglib.INFO, "Validation OK, ready to create area")
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.process(cn, recon)
-            #msglib.print(msglib.get_value(msglib.console, "M6"))
+            loglib.log(loglib.INFO, "Area OK, ready to import files")
             """ import files """
             etllib = EtlLib(self.id, self.name)
             etllib.process(cn, recon)
+            loglib.log(loglib.INFO, "Files OK, ready to execute reconciliation rules")
             """ reconcile data """
             reconlib = ReconLib(self.id, self.name, fields, types)
             reconlib.process(cn, recon)
+            loglib.log(loglib.INFO, "Reconciliation OK, ready to generate reports")
             """ generate reports """
             reportlib = ReportLib(self.id, self.name)
             reportlib.process(cn, recon)
+            loglib.log(loglib.INFO, "Reports OK, ready to commit the process")
             """ generate output """
             tb1 = dblib.query(cn, f"select * from tb{self.id}1", True)
             tb2 = dblib.query(cn, f"select * from tb{self.id}2", True)
             """ commit info """
-            dblib.commit_tran(cn)                        
+            dblib.commit_tran(cn)
             return True, "", tb1, tb2
         except BaseException as err:
+            loglib.log(loglib.ERROR, f"{str(err)}")
             dblib.rollback_tran(cn)
             return False, str(err), "", ""

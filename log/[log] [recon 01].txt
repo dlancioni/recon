@@ -1,1 +1,4 @@
-2022-07-14 08:49:57 INFO reconlib.stamp_tmp(): General error -> dblib.execute(): SQL Error -> duplicate column name: Balance (Diferenca)
+2022-07-14 09:46:22 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-14 09:46:22 INFO CoreLib.process: Area OK, ready to import files
+2022-07-14 09:46:22 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-14 09:46:23 ERROR CoreLib.process: 'ReconLib' object has no attribute 'log_error'
