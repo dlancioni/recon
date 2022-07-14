@@ -76,6 +76,7 @@ class ReportLib(BaseLib):
             if error[0] == 13:
                 msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
+        return file    
         
     def create_report_analytic(self, cn, side):
         report = msglib.get_value(msglib.label, "L2")
@@ -107,13 +108,15 @@ class ReportLib(BaseLib):
             if error[0] == 13:
                 msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
+        return file            
 
     def process(self, cn, recon):
         self.method = "reportlib.process()"
+        reports = []
         try:
-            self.create_report_synthetic(cn)
+            reports.append(self.create_report_synthetic(cn))
             for side in range(1, 3):
-                self.create_report_analytic(cn, side)
+                reports.append(self.create_report_analytic(cn, side))
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
             self.log_error(msg)
@@ -126,3 +129,4 @@ class ReportLib(BaseLib):
             msg = f"General error -> {str(err)}"
             self.log_error(msg)
             raise Exception(msg)
+        return reports

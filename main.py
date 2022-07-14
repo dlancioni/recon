@@ -1,5 +1,6 @@
 import os
 import sys
+import csv
 import logging
 import argparse
 from src.fslib import FsLib
@@ -17,6 +18,7 @@ utillib.cls()
 parser = argparse.ArgumentParser()
 parser.add_argument("--f", help="File with conciliation configuration")
 parser.add_argument("--c", help="Conciliation results per side: [1, 2, 12]")
+parser.add_argument("--r", help="Show path for generated reports")
 args = parser.parse_args()
 """ append file extension if not provided """
 filename = "recon.cfg" if args.f == None else args.f
@@ -24,7 +26,7 @@ filename = "recon.cfg" if args.f == None else args.f
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
-status, error, result, console = corelib.process(filename)
+status, error, result, console, reports = corelib.process(filename)
 end = timer()
 """ finish processing """
 msglib.print(msglib.get_value(msglib.console, "M2"))
@@ -36,8 +38,20 @@ if status == False:
     msglib.print(f"{filename}")
     msglib.print(error)
 else:
+    # print paths to reports
+    if args.r:
+        index = int(args.r)
+        if index in [0,1,2,3]:
+            utillib.cls()
+            if index == 3:
+                print(reports[0])
+                print(reports[1])
+                print(reports[2])
+            else:
+                print(reports[index])
+    # print report contents                
     if str(args.c).isnumeric():
-        utillib.cls()        
+        utillib.cls()
         print(f"{filename}")
         if int(args.c) == 1:
             print(console[1])

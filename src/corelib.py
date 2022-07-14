@@ -84,13 +84,13 @@ class CoreLib(BaseLib):
             loglib.log(loglib.INFO, "Reconciliation OK, ready to generate reports")
             """ generate reports """
             reportlib = ReportLib(self.id, self.name)
-            reportlib.process(cn, recon)
+            reports = reportlib.process(cn, recon)
             loglib.log(loglib.INFO, "Reports OK, ready to commit the process")
             """ generate output """
             result, console = utillib.get_result(cn, self.id)
             """ commit info """
             dblib.commit_tran(cn)
-            return True, "", result, console
+            return True, "", result, console, reports
         except BaseException as err:
             dblib.rollback_tran(cn)
             loglib.log(loglib.ERROR, f"{str(err)}")            
