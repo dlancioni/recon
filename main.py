@@ -9,16 +9,17 @@ from src.msglib import MsgLib
 from datetime import timedelta
 from src.utillib import UtilLib
 from src.corelib import CoreLib
+from src.reportlib import ReportLib
 from timeit import default_timer as timer
 fslib = FsLib()
 msglib = MsgLib()
 utillib = UtilLib()
+reportlib = ReportLib()
 """ control the user input """
 utillib.cls()
 parser = argparse.ArgumentParser()
 parser.add_argument("--f", help="File with conciliation configuration")
-parser.add_argument("--c", help="Conciliation results per side: [1, 2, 12]")
-parser.add_argument("--r", help="Show path for generated reports")
+parser.add_argument("--r", help="Report on console [(]0] Sinthetic, [1] Side 1 [2] Side 2 [12] Side 1 and 2")
 args = parser.parse_args()
 """ append file extension if not provided """
 filename = "recon.cfg" if args.f == None else args.f
@@ -26,7 +27,7 @@ filename = "recon.cfg" if args.f == None else args.f
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
-status, error, result, console, reports = corelib.process(filename)
+status, error, reports = corelib.process(filename)
 end = timer()
 """ finish processing """
 msglib.print(msglib.get_value(msglib.console, "M2"))
@@ -38,25 +39,6 @@ if status == False:
     msglib.print(f"{filename}")
     msglib.print(error)
 else:
-    # print paths to reports
     if args.r:
         index = int(args.r)
-        if index in [0,1,2,3]:
-            utillib.cls()
-            if index == 3:
-                print(reports[0])
-                print(reports[1])
-                print(reports[2])
-            else:
-                print(reports[index])
-    # print report contents                
-    if str(args.c).isnumeric():
-        utillib.cls()
-        print(f"{filename}")
-        if int(args.c) == 1:
-            print(console[1])
-        if int(args.c) == 2:
-            print(console[2])
-        if int(args.c) == 12:
-            print(console[1])
-            print(console[2])
+        reportlib.print_report(reports, index)

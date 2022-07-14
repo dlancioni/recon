@@ -3,6 +3,7 @@ import sys
 import json
 import shutil
 import logging
+from prettytable import from_csv
 from sqlite3 import Error
 from src.baselib import BaseLib
 from src.dblib import DbLib
@@ -26,6 +27,24 @@ class ReportLib(BaseLib):
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
+        
+    def print_csv(self, filename):
+        with open(filename) as file:
+            table = from_csv(file)
+        print(table)
+        
+    def print_report(self, reports, index):
+        index = int(index)
+        if index in [0,1,2,12]:
+            utillib.cls()
+            if index in [0, 1, 2]:
+                print(reports[index])
+                self.print_csv(reports[index])
+            if index == 12:
+                print(reports[1])
+                self.print_csv(reports[1])
+                print(reports[2])
+                self.print_csv(reports[2])        
 
     def save_file(self, file, lines):
         saved = False
@@ -66,10 +85,12 @@ class ReportLib(BaseLib):
         fields = ["L3", "L4", "L5", "L6", "L7"]
         for field in fields:
             lines += f"{msglib.get_value(msglib.label, field)};"
+        lines = lines[:-1]            
         lines += f"\n"
         for row in rows:
             for i in range(0, len(fields)):
                 lines += str(row[i]) + ";"
+            lines = lines[:-1]
             lines += "\n"
         status, error = self.save_file(file, lines)
         if status == False:
@@ -98,10 +119,12 @@ class ReportLib(BaseLib):
         for i in range(first, total):
             label = str(cn.description[i][0]).strip()
             lines += f"{label};"
+        lines = lines[:-1]
         lines += f"\n"
         for row in rows:
             for i in range(0, total):
                 lines += str(row[i]) + ";"
+            lines = lines[:-1]                
             lines += "\n"
         status, error = self.save_file(file, lines)
         if status == False:
