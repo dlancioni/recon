@@ -19,7 +19,7 @@ parser.add_argument("--r", help="json file with single recon")
 parser.add_argument("--c", help="Recon results per side: [1, 2, 12]")
 args = parser.parse_args()
 """ append file extension if not provided """
-filename = "recon.cfg" if str(args.r).strip() == "" else args.r
+filename = "recon.cfg" if args.r == None else args.r
 """ start processing """
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))

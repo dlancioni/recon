@@ -31,13 +31,18 @@ class CoreLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
         
-    def open_recon(self, recon):        
+    def open_recon(self, recon):
+        msg = ""
         if type(recon) == dict:
             return recon
         else:
-            filename = str(recon.split(".")[0]) +".cfg"
-            path = fslib.get_path_recon(cfglib.get_config("path_recon"), filename)
-            recon = fslib.open_json(path)
+            try:              
+                filename = str(recon.split(".")[0]) +".cfg"
+                path = fslib.get_path_recon(cfglib.get_config("path_recon"), filename)
+                msg = msglib.get_value(msglib.validation, "M4", [path])
+                recon = fslib.open_json(path)
+            except BaseException as err:
+                raise Exception(msg)
         return recon
 
     def create_log_file(self):
