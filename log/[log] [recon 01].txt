@@ -1,20 +1,44 @@
-2022-07-14 10:08:33 INFO CoreLib.process: Validation OK, ready to create area
-2022-07-14 10:08:33 INFO AreaLib.merge_datasources: []['Account', 'Digit', 'Balance', 'Account', 'Digit', 'Balance']
-2022-07-14 10:08:33 INFO AreaLib.create_recon_area: Area created:
-2022-07-14 10:08:33 INFO AreaLib.create_recon_area: ['Account', 'Digit', 'Balance']['Text', 'Text', 'Decimal']
-2022-07-14 10:08:33 INFO CoreLib.process: Area OK, ready to import files
-2022-07-14 10:08:36 INFO EtlLib.import_file: Side: 1
-2022-07-14 10:08:36 INFO EtlLib.import_file: Path: 
-2022-07-14 10:08:36 INFO EtlLib.import_file: File: recon 011.txt
-2022-07-14 10:08:36 INFO EtlLib.import_file: Separator: ;
-2022-07-14 10:08:36 INFO EtlLib.import_file: Field List: [Account], [Digit], [Balance]
-2022-07-14 10:08:36 INFO EtlLib.import_file: Total records to import: 5
-2022-07-14 10:08:38 INFO EtlLib.import_file: File sucessfully imported: <_io.TextIOWrapper name='c:\\Users\\david\\Developer\\recon\\data\\recon 011.txt' mode='r' encoding='cp1252'>
-2022-07-14 10:09:00 INFO EtlLib.import_file: Side: 2
-2022-07-14 10:09:00 INFO EtlLib.import_file: Path: 
-2022-07-14 10:09:00 INFO EtlLib.import_file: File: recon 012.txt
-2022-07-14 10:09:00 INFO EtlLib.import_file: Separator: ;
-2022-07-14 10:09:00 INFO EtlLib.import_file: Field List: [Account], [Digit], [Balance]
-2022-07-14 10:09:00 INFO EtlLib.import_file: Total records to import: 5
-2022-07-14 10:09:00 INFO EtlLib.import_file: File sucessfully imported: <_io.TextIOWrapper name='c:\\Users\\david\\Developer\\recon\\data\\recon 012.txt' mode='r' encoding='cp1252'>
-2022-07-14 10:09:03 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-14 10:37:13 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-14 10:37:13 INFO AreaLib.merge_datasources: []['Account', 'Digit', 'Balance', 'Account', 'Digit', 'Balance']
+2022-07-14 10:37:13 INFO AreaLib.create_recon_area: Area created:
+2022-07-14 10:37:13 INFO AreaLib.create_recon_area: ['Account', 'Digit', 'Balance']['Text', 'Text', 'Decimal']
+2022-07-14 10:37:13 INFO CoreLib.process: Area OK, ready to import files
+2022-07-14 10:37:13 INFO EtlLib.import_file: Side: 1
+2022-07-14 10:37:13 INFO EtlLib.import_file: Path: 
+2022-07-14 10:37:13 INFO EtlLib.import_file: File: recon 011.txt
+2022-07-14 10:37:13 INFO EtlLib.import_file: Separator: ;
+2022-07-14 10:37:13 INFO EtlLib.import_file: Field List: [Account], [Digit], [Balance]
+2022-07-14 10:37:13 INFO EtlLib.import_file: Total records to import: 5
+2022-07-14 10:37:13 INFO EtlLib.import_file: File sucessfully imported
+2022-07-14 10:37:13 INFO EtlLib.import_file: Side: 2
+2022-07-14 10:37:13 INFO EtlLib.import_file: Path: 
+2022-07-14 10:37:13 INFO EtlLib.import_file: File: recon 012.txt
+2022-07-14 10:37:13 INFO EtlLib.import_file: Separator: ;
+2022-07-14 10:37:13 INFO EtlLib.import_file: Field List: [Account], [Digit], [Balance]
+2022-07-14 10:37:13 INFO EtlLib.import_file: Total records to import: 5
+2022-07-14 10:37:13 INFO EtlLib.import_file: File sucessfully imported
+2022-07-14 10:37:13 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-14 10:37:13 INFO ReconLib.prepare: Fiekd Key: ['[Account]', '[Digit]']
+2022-07-14 10:37:13 INFO ReconLib.prepare: Fiekd Compare: ['[Balance]']
+2022-07-14 10:37:13 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-14 10:37:13 INFO ReconLib.match_key: Matched key for side 1
+2022-07-14 10:37:13 INFO ReconLib.match_key: Matched key for side 2
+2022-07-14 10:37:13 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Stamping tmp (alter table): [Balance (Diferenca)]
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Stamping tmp (update equality): [Balance (Diferenca)]
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Comparison results stamped in tmp table for side 1
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Stamping tmp (alter table): [Balance (Diferenca)]
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Stamping tmp (update equality): [Balance (Diferenca)]
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Comparison results stamped in tmp table for side 2
+2022-07-14 10:37:13 INFO ReconLib.stamp_tmp: Fields with difference: ['[Balance (Diferenca)]']
+2022-07-14 10:37:13 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-14 10:37:14 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-14 10:37:14 INFO ReconLib.prepare: Fiekd Key: ['[Account]', '[Digit]', '[Account]']
+2022-07-14 10:37:14 INFO ReconLib.prepare: Fiekd Compare: ['[Balance]', '[Balance]']
+2022-07-14 10:37:14 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-14 10:37:14 INFO ReconLib.match_key: Matched key for side 1
+2022-07-14 10:37:14 INFO ReconLib.match_key: Matched key for side 2
+2022-07-14 10:37:14 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-14 10:37:14 INFO ReconLib.stamp_tmp: Stamping tmp (alter table): [Balance (Diferenca)]
+2022-07-14 10:37:14 ERROR ReconLib.process: General error -> dblib.execute(): SQL Error -> duplicate column name: Balance (Diferenca)
+2022-07-14 10:37:14 ERROR CoreLib.process: General error -> dblib.execute(): SQL Error -> duplicate column name: Balance (Diferenca)

@@ -38,7 +38,7 @@ class ReconLib(BaseLib):
         
     def prepare(self, cn, recon):
         """ keep common information in class level """
-        self.method = "reconlib.prepare()"
+        loglib = LogLib("ReconLib", "prepare")
         field_name = ""
         self.matched = msglib.get_value(msglib.label, "L11")
         self.divergent = msglib.get_value(msglib.label, "L12")
@@ -51,10 +51,12 @@ class ReconLib(BaseLib):
             if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
                 self.field_compare.append(field_name)
         self.rule_count += 1
+        loglib.log(loglib.INFO, f"Fiekd Key: {str(self.field_key)}")
+        loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")
 
     def aggregate(self, cn, recon):
         """ aggregate, group and order imported data into temporary table """
-        self.method = "reconlib.aggregate()"        
+        loglib = LogLib("ReconLib", "aggregate")
         sql = ""
         rows_affected = 0
         funcs = []
@@ -75,10 +77,11 @@ class ReconLib(BaseLib):
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
+        loglib.log(loglib.INFO, f"Data successfuly aggregated")
         
     def match_key(self, cn, recon):
         """ set id as id_parent plus recon details in both sides  """
-        self.method = "reconlib.match_key()"
+        loglib = LogLib("ReconLib", "match_key")
         rows_affected = 0
         rule = self.tagv(recon, "Rule", "Regra")
         field = self.tagf(recon, "Fields", "Campos")
@@ -96,10 +99,11 @@ class ReconLib(BaseLib):
             sql += f"where 1=1 "
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
+            loglib.log(loglib.INFO, f"Matched key for side {side}")
 
     def compare(self, cn, recon):
         """ compare the records and relegate the status from matched to divergent """
-        self.method = "reconlib.compare()"
+        loglib = LogLib("ReconLib", "compare")
         sql = ""
         fields_key = ""
         count = 0
@@ -130,10 +134,11 @@ class ReconLib(BaseLib):
             sql += f" where {self.tmp1}.status = '{self.matched}'"
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
+        loglib.log(loglib.INFO, f"Field comparison successfuly completed")
             
     def stamp_tmp(self, cn, recon):
         """ stamp the differences from tmp3 in tmp1/tmp2 tables """        
-        self.method = "reconlib.stamp_tmp()"
+        loglib = LogLib("ReconLib", "stamp_tmp")
         count = 0
         rows_affected = 0
         field_name = ""
@@ -146,9 +151,11 @@ class ReconLib(BaseLib):
                 temps = self.tmp1 if side == 1 else self.tmp2
                 matching_key = sqllib.get_sql_key(temps, tmp3, recon[_field])
                 field_name = sqllib.field_diff(field, label)
+                loglib.log(loglib.INFO, f"Stamping tmp (alter table): {field_name}")
                 self.field_with_diff.append(field_name)
                 sql = f"alter table {temps} add {field_name} text default ''"
                 rows_affected = dblib.execute(cn, sql)
+                loglib.log(loglib.INFO, f"Stamping tmp (update equality): {field_name}")
                 sql = ""
                 sql += f"update {temps} set "
                 sql += f"status = '{self.divergent}', "
@@ -156,14 +163,16 @@ class ReconLib(BaseLib):
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
-                rows_affected = dblib.execute(cn, sql)               
+                rows_affected = dblib.execute(cn, sql)
+                loglib.log(loglib.INFO, f"Comparison results stamped in tmp table for side {side}")
             sql = f"drop table if exists {tmp3}"
-            rows_affected = dblib.execute(cn, sql)                
+            rows_affected = dblib.execute(cn, sql)
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
+        loglib.log(loglib.INFO, f"Fields with difference: {str(self.field_with_diff)}")
 
     def stamp_tb(self, cn, recon):
         """ update the final status from grouped tmp table to flat table """
-        self.method = "reconlib.stamp_tb()"
+        loglib = LogLib("ReconLib", "stamp_tb")
         field_list = ""
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
@@ -184,6 +193,7 @@ class ReconLib(BaseLib):
             field_list = field_list.strip()[:-1]
             sql = f"update {tb} set {field_list} from {tmp} where 1=1 {matching_key}"
             rows_affected = dblib.execute(cn, sql)
+        loglib.log(loglib.INFO, f"Key info stamped in final tables")
         """ stamp compare information in final table """
         for side in range(1, 3):
             for field in compare_result:
@@ -195,41 +205,42 @@ class ReconLib(BaseLib):
                     rows_affected = dblib.execute(cn, sql)
                 sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
                 rows_affected = dblib.execute(cn, sql)
+        loglib.log(loglib.INFO, f"Compare info stamped in final tables")
+                
+    def drop_tmp(self, cn):
+        loglib = LogLib("ReconLib", "drop_tmp")
         for side in range(1, 3):
             sql = f"drop table if exists tmp{self.id}{side}"
-            #rows_affected = dblib.execute(cn, sql)
-    
+            rows_affected = dblib.execute(cn, sql)
+            sql = f"alter table tb{self.id}{side} drop column Id_Parent"
+            rows_affected = dblib.execute(cn, sql)            
 
     def process(self, cn, recon):
         """ reconcile the positions """
-        self.method = "reconlib.process()"
+        loglib = LogLib("ReconLib", "process")
         try:
             recons = self.tagv(recon, "Recon", "Conciliacao")
             for recon in recons:
                 msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
                 progress_bar = ShadyBar(msg, max=5)                
                 progress_bar.next()
-                #msglib.print(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
                 self.prepare(cn, recon)
                 self.aggregate(cn, recon)
                 progress_bar.next()
-                #msglib.print(msglib.get_value(msglib.console, "M9"))
                 self.match_key(cn, recon)
                 progress_bar.next()
-                #msglib.print(msglib.get_value(msglib.console, "M10"))
                 self.compare(cn, recon)
                 progress_bar.next()
-                #msglib.print(msglib.get_value(msglib.console, "M11"))
                 self.stamp_tmp(cn, recon)
                 self.stamp_tb(cn, recon)
                 progress_bar.next()
-                #msglib.print(msglib.get_value(msglib.console, "M12"))
                 progress_bar.finish()
+            self.drop_tmp(cn)                
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
             msg = f"General error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
