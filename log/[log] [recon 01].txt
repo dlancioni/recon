@@ -1,0 +1,1 @@
+2022-07-14 08:49:57 INFO reconlib.stamp_tmp(): General error -> dblib.execute(): SQL Error -> duplicate column name: Balance (Diferenca)

@@ -17,7 +17,7 @@ class EtlLibTest(unittest.TestCase):
         pass
     
     def test_import_file(self):
-        path = fslib.get_path_recon("", "saldo x extrato.json")
+        path = fslib.get_path_recon("", "saldo x extrato.cfg")
         recon = fslib.open_json(path)
         ds = recon["Datasources"][0]
         cn = dblib.get_connection()

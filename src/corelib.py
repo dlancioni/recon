@@ -34,10 +34,11 @@ class CoreLib(BaseLib):
         if type(recon) == dict:
             return recon
         else:
-            path = fslib.get_path_recon(cfglib.get_config("path_recon"), recon)
+            filename = str(recon.split(".")[0]) +".cfg"
+            path = fslib.get_path_recon(cfglib.get_config("path_recon"), filename)
             recon = fslib.open_json(path)
         return recon
-        
+
     def create_log_file(self):
         fslib = FsLib()
         file_name = f"[log] [{self.name.strip().lower()}].txt"
@@ -84,4 +85,4 @@ class CoreLib(BaseLib):
             return True, "", tb1, tb2
         except BaseException as err:
             dblib.rollback_tran(cn)
-            return False, str(err)
+            return False, str(err), "", ""

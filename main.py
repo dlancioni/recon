@@ -9,45 +9,40 @@ from datetime import timedelta
 from src.utillib import UtilLib
 from src.corelib import CoreLib
 from timeit import default_timer as timer
-
 fslib = FsLib()
 msglib = MsgLib()
 utillib = UtilLib()
 
 """ control the user input """
+utillib.cls()
 parser = argparse.ArgumentParser()
-parser.add_argument("--g", help="json file that groups the recons")
 parser.add_argument("--r", help="json file with single recon")
 parser.add_argument("--c", help="output info on console [tb, tb1, tb2]")
 args = parser.parse_args()
-recons = []
-if args.g:
-    print("Importing a group of recons...", args.g)
-if args.r:
-    arr = str(args.r).split(".")
-    arr = arr[0]
-    filename = arr +".json"
-    recons.append(filename)
+
+""" append file extension if not provided """
+filename = "recon.cfg" if str(args.r).strip() == "" else args.r
+
 """ start processing """
-if len(recons) == 0:    
-    recons = ["recon 01.json", "recon 02.json"]
-    recons = ["volume 10k.json"]
-    recons = ["recon 01.json"]
-os.system("cls||clear")
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
-for recon in recons:
-    status, error, tb1, tb2 = corelib.process(recon)
-    if not status:
-        msglib.print(error)
+status, error, tb1, tb2 = corelib.process(filename)
 end = timer()
+
 """ finish processing """
 msglib.print(msglib.get_value(msglib.console, "M2"))
 msg = msglib.get_value(msglib.console, "M3")
 msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
 
-if args.c in ["tb", "tb1"]:
-    print(tb1)
-if args.c in ["tb", "tb2"]:    
-    print(tb2)
+""" print console information """
+if status == False:
+    utillib.cls()    
+    msg = f"Error processing {filename}"
+    msglib.print(msg)
+    msglib.print(error)
+else:    
+    if args.c in ["tb", "tb1"]:
+        print(tb1)
+    if args.c in ["tb", "tb2"]:    
+        print(tb2)

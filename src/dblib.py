@@ -36,8 +36,7 @@ class DbLib:
         except Error as err:
             message = f"{self.method}: SQL Error -> {str(err)}"
             utillib.log(message)
-        finally:
-            return rows_affected    
+            raise Exception(message)
     
     def begin_tran(self):
         self.method = "dblib.begin_tran()"

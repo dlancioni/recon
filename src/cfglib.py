@@ -11,7 +11,7 @@ class ConfigLib:
         pass
 
     def get_config(self, key):
-        path = fslib.get_path_config("app.json")
+        path = fslib.get_path_config("app.cfg")
         config = fslib.open_json(path)
         value = str(config[key])
         value = value.strip()

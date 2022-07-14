@@ -25,10 +25,10 @@ class MsgLib(BaseLib):
         return msg
 
     def get_value(self, session, key, param=[]):
-        path = fslib.get_path_config("app.json")
+        path = fslib.get_path_config("app.cfg")
         config = fslib.open_json(path)
         language = str(config["catalog"])
-        catalog = f"catalog_{language}.json"
+        catalog = f"catalog_{language}.cfg"
         path = fslib.get_path_config(catalog)
         dictionary = fslib.open_json(path)
         value = str(dictionary[str(session)][str(key)])
