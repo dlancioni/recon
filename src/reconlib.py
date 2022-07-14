@@ -7,6 +7,7 @@ from src.baselib import BaseLib
 from src.utillib import UtilLib
 from src.cfglib import ConfigLib
 from progress.bar import ShadyBar
+from src.loglib import LogLib
 
 dblib = DbLib()
 msglib = MsgLib()

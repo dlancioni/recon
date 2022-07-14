@@ -11,6 +11,7 @@ from src.sqllib import SqlLib
 from src.cfglib import ConfigLib
 from src.utillib import UtilLib
 from src.msglib import MsgLib
+from src.loglib import LogLib
 
 dblib = DbLib()
 fslib = FsLib()

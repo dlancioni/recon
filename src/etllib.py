@@ -7,6 +7,7 @@ from src.fslib import FsLib
 from src.dblib import DbLib
 from src.utillib import UtilLib
 from src.msglib import MsgLib
+from src.loglib import LogLib
 
 dblib = DbLib()
 fslib = FsLib()
