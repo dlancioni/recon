@@ -29,7 +29,7 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         
     def print_csv(self, filename):
-        with open(filename) as file:
+        with open(filename, encoding="UTF-8") as file:    
             table = from_csv(file)
         print(table)
         
@@ -50,7 +50,7 @@ class ReportLib(BaseLib):
         saved = False
         error = []
         try:
-            with open(file, "w", encoding='utf-8') as f:
+            with open(file, "w", encoding="UTF-8") as f:
                 f.write(lines)
             saved = True
             error = []

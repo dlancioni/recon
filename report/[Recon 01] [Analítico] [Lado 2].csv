@@ -1,5 +1,0 @@
-Id;Parente;Conciliação;Regra;Status;Digit;Balance;Balance (Diferença)
-1;Recon 01;Rule 1;Batido;1;1;500.0;
-2;Recon 01;Rule 1;Batido;1;1;500.0;
-3;Recon 01;Rule 2;Divergente;2;2;1000.0;2000.0/2000.01
-4;Recon 01;Rule 2;Divergente;2;2;1000.01;2000.0/2000.01

@@ -7,13 +7,13 @@ import csv
 class FsLib:
     
     def get_csv_as_list(self, file, delimiter):
-        with open(file, newline='') as file:
+        with open(path, encoding="UTF-8") as file:
             data = csv.reader(file, delimiter=delimiter)
             data = list(data)
         return data
     
     def open_json(self, path):
-        with open(path, encoding='utf-8') as f:
+        with open(path, encoding="UTF-8") as f:
             data = json.load(f)
             return data
 
