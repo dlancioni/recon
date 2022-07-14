@@ -49,7 +49,7 @@ class EtlLib(BaseLib):
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
         loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")
-        with open(path, "r", encoding='utf-8') as file:
+        with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 if not first and str(line.strip()) != "":
                     values = line.split(separator)
