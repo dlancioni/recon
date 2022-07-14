@@ -58,7 +58,6 @@ class AreaLib(BaseLib):
         return fields, types
     
     def process(self, cn, recon):
-        """ consolidate layout definition and create recon area (tables) """
         loglib = LogLib("AreaLib", "process")
         utillib = UtilLib()
         try:

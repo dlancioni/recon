@@ -69,7 +69,6 @@ class EtlLib(BaseLib):
         progress_bar.finish()
         loglib.log(loglib.INFO, f"File sucessfully imported")
     def process(self, cn, recon):
-        """ import positions """
         loglib = LogLib("EtlLib", "process")
         try:
             datasources = self.tagv(recon, "Datasources", "Dados")

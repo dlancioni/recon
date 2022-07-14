@@ -37,7 +37,6 @@ class ReconLib(BaseLib):
         self.rule_count = 0
         
     def prepare(self, cn, recon):
-        """ keep common information in class level """
         loglib = LogLib("ReconLib", "prepare")
         field_name = ""
         self.matched = msglib.get_value(msglib.label, "L11")
@@ -55,7 +54,6 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")
 
     def aggregate(self, cn, recon):
-        """ aggregate, group and order imported data into temporary table """
         loglib = LogLib("ReconLib", "aggregate")
         sql = ""
         rows_affected = 0
@@ -80,7 +78,6 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Data successfuly aggregated")
         
     def match_key(self, cn, recon):
-        """ set id as id_parent plus recon details in both sides  """
         loglib = LogLib("ReconLib", "match_key")
         rows_affected = 0
         rule = self.tagv(recon, "Rule", "Regra")
@@ -102,7 +99,6 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Match key successfuly completed")
 
     def compare(self, cn, recon):
-        """ compare the records and relegate the status from matched to divergent """
         loglib = LogLib("ReconLib", "compare")
         sql = ""
         fields_key = ""
@@ -137,7 +133,6 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Field comparison successfuly completed")
             
     def stamp_tmp(self, cn, recon):
-        """ stamp the differences from tmp3 in tmp1/tmp2 tables """        
         loglib = LogLib("ReconLib", "stamp_tmp")
         count = 0
         rows_affected = 0
@@ -170,7 +165,6 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Fields with difference: {str(self.field_with_diff)}")
 
     def stamp_tb(self, cn, recon):
-        """ update the final status from grouped tmp table to flat table """
         loglib = LogLib("ReconLib", "stamp_tb")
         field_list = ""
         rows_affected = 0
@@ -215,7 +209,6 @@ class ReconLib(BaseLib):
             rows_affected = dblib.execute(cn, sql)            
 
     def process(self, cn, recon):
-        """ reconcile the positions """
         loglib = LogLib("ReconLib", "process")
         try:
             recons = self.tagv(recon, "Recon", "Conciliacao")
