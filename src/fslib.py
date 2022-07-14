@@ -6,9 +6,9 @@ import pathlib
 class FsLib:
     
     def open_json(self, path):
-        with open(path) as f:
+        with open(path, encoding='utf-8') as f:
             data = json.load(f)
-            return data    
+            return data
 
     def join(self, path1, path2):
         path = os.path.join(path1, path2) if path2.strip() != "" else path1
