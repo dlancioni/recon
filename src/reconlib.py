@@ -48,7 +48,9 @@ class ReconLib(BaseLib):
             if self.tagv(field, "Tipo", "Type").lower() in ["key", "chave"]:
                 self.field_key.append(field_name)
             if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
-                self.field_compare.append(field_name)
+                self.field_compare.append(field_name)                
+            index = self.fields.index(field_name.replace("[", "").replace("]", ""))
+            field["Datatype"] = self.types[index]
         self.rule_count += 1
         loglib.log(loglib.INFO, f"Fiekd Key: {str(self.field_key)}")
         loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")

@@ -26,6 +26,7 @@ class SqlLib(BaseLib):
         while i <= size:
             field_name = self.tagf(field_def[i], "Name", "Nome")
             field_type = self.tagf(field_def[i], "Type", "Tipo")
+            datatype = field_def[i]["Datatype"] if "Datatype" in field_def[i] else ""
             name = str(field_def[i][field_name]).strip() if field_name in field_def[i] else ""
             name = f"[{name}]"
             alias = name            
@@ -33,11 +34,13 @@ class SqlLib(BaseLib):
             if aggregation:
                 field_function = self.tagf(field_def[i], "Function", "Funcao")
                 function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
+                if aggregation == True and datatype == "Decimal" and function == "":
+                    function = "Sum"
             sql += f"{function}({name}) {alias}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
         return sql
-    
+
     def get_value_list(self, field_def=""):
         i = 0
         sql = ""        
