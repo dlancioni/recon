@@ -216,9 +216,9 @@ class ReconLib(BaseLib):
             recons = self.tagv(recon, "Recon", "Conciliacao")
             for recon in recons:                
                 rule_name = self.tagv(recon, "Rule", "Regra")
-                msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))                
+                msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))
                 loglib.log(loglib.INFO, f"Processing rule: {rule_name}")
-                progress_bar = ShadyBar(msg, max=5)                
+                progress_bar = ShadyBar(msg, max=5)
                 progress_bar.next()
                 self.prepare(cn, recon)
                 self.aggregate(cn, recon)

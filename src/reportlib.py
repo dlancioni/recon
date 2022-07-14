@@ -13,6 +13,7 @@ from src.cfglib import ConfigLib
 from src.utillib import UtilLib
 from src.msglib import MsgLib
 from src.loglib import LogLib
+from progress.bar import ShadyBar
 
 dblib = DbLib()
 fslib = FsLib()
@@ -83,6 +84,8 @@ class ReportLib(BaseLib):
         sql += f" ) "
         sql += f" order by Side, Recon, Rule, Status"        
         rows = dblib.query(cn, sql)
+        msg = msglib.set_time(msglib.get_value(msglib.console, "M9"))
+        progress_bar = ShadyBar(msg, max=len(rows))        
         fields = ["L3", "L4", "L5", "L6", "L7"]
         line = ""
         for field in fields:
@@ -98,7 +101,9 @@ class ReportLib(BaseLib):
             line = line[:-1]
             line += "\n"
             lines += line
+            progress_bar.next()
         status, error = self.save_file(file, lines)
+        progress_bar.finish()
         if status == False:
             if error[0] == 13:
                 msg = msglib.get_value(msglib.console, "M7", [file])
@@ -118,7 +123,9 @@ class ReportLib(BaseLib):
         sql += f"select "
         sql += f"* "
         sql += f"from {tb} "
-        rows = dblib.query(cn, sql)
+        rows = dblib.query(cn, sql)        
+        msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [side]))
+        progress_bar = ShadyBar(msg, max=len(rows))
         fields = ["L8", "L9", "L4", "L5", "L6"]
         line = ""
         for field in fields:
@@ -139,7 +146,9 @@ class ReportLib(BaseLib):
             line = line[:-1]
             line += "\n"
             lines += line
+            progress_bar.next()
         status, error = self.save_file(file, lines)
+        progress_bar.finish()
         if status == False:
             if error[0] == 13:
                 msg = msglib.get_value(msglib.console, "M7", [file])
