@@ -15,11 +15,11 @@ utillib = UtilLib()
 """ control the user input """
 utillib.cls()
 parser = argparse.ArgumentParser()
-parser.add_argument("--r", help="json file with single recon")
+parser.add_argument("--f", help="json file with single recon")
 parser.add_argument("--c", help="Recon results per side: [1, 2, 12]")
 args = parser.parse_args()
 """ append file extension if not provided """
-filename = "recon.cfg" if args.r == None else args.r
+filename = "recon.cfg" if args.f == None else args.f
 """ start processing """
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
@@ -37,9 +37,9 @@ if status == False:
     msglib.print(msg)
     msglib.print(error)
 else:
-    utillib.cls()
-    print(f"{filename}")
     if str(args.c).isnumeric():
+        utillib.cls()        
+        print(f"{filename}")
         if int(args.c) == 1:
             print(console[1])
         if int(args.c) == 2:
