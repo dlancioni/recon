@@ -2,8 +2,15 @@ import os
 import sys
 import json
 import pathlib
+import csv
 
 class FsLib:
+    
+    def get_csv_as_list(self, file, delimiter):
+        with open(file, newline='') as file:
+            data = csv.reader(file, delimiter=delimiter)
+            data = list(data)
+        return data
     
     def open_json(self, path):
         with open(path, encoding='utf-8') as f:
