@@ -30,13 +30,17 @@ class EtlLib(BaseLib):
         return lines
 
     def import_file(self, cn, ds):
-        self.method = "etllib.import_file()"
+        loglib = LogLib("EtlLib", "import_file")
         sql = ""       
         side = self.tagv(ds, "Side", "Lado")
+        loglib.log(loglib.INFO, f"Side: {side}")
         path = self.tagv(ds, "Path", "Caminho")
+        loglib.log(loglib.INFO, f"Path: {path}")
         file = self.tagv(ds, "File", "Arquivo")
+        loglib.log(loglib.INFO, f"File: {file}")
         fields = self.tagv(ds, "Fields", "Campos")
         separator = self.tagv(ds, "Separator", "Separador")
+        loglib.log(loglib.INFO, f"Separator: {separator}")
         tb = f"tb{self.id}{side}"        
         path = fslib.get_path_file(path, file)
         first = True
@@ -44,7 +48,9 @@ class EtlLib(BaseLib):
         rows_affected = 0
         rows_imported = 0
         fl = sqlib.get_field_list(fields)
+        loglib.log(loglib.INFO, f"Field List: {str(fl)}")
         count = self.count(path)
+        loglib.log(loglib.INFO, f"Total records to import: {count}")
         msg = msglib.get_value(msglib.console, "M7", [self.tagv(ds, "File", "Arquivo")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
@@ -62,26 +68,27 @@ class EtlLib(BaseLib):
                         rows_imported += 1
                         progress_bar.next()
                     except Error as err:
-                        error_count += 1                           
-                        self.log_error(f"Error to manipulate data [{sql}]: {str(err)}")
+                        error_count += 1                                                   
+                        loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")
                 first = False
         progress_bar.finish()
+        loglib.log(loglib.INFO, f"File sucessfully imported")
     def process(self, cn, recon):
         """ import positions """
-        self.method = "etllib.process()"
+        loglib = LogLib("EtlLib", "process")
         try:
             datasources = self.tagv(recon, "Datasources", "Dados")
-            for datasource in datasources:                
+            for datasource in datasources:
                 self.import_file(cn, datasource)
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
             msg = f"File manipulation error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
             msg = f"General error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

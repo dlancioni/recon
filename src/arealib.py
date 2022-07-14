@@ -20,6 +20,7 @@ class AreaLib(BaseLib):
         self.logger = logging.getLogger(__name__)
 
     def merge_datasources(self, recon):
+        loglib = LogLib("AreaLib", "merge_datasources")        
         f1, t1 = [], []
         f2, t2 = [], []
         datasources = self.tagv(recon, "Datasources", "Dados")
@@ -33,6 +34,7 @@ class AreaLib(BaseLib):
                 else:
                     f2.append(self.tagv(field, "Name", "Nome"))
                     t2.append(self.tagv(field, "Type", "Tipo"))
+        loglib.log(loglib.INFO, str(f1) + str(f2))
         return f1, t1, f2, t2
 
     def create_recon_area(self, cn, setup):
