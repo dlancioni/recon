@@ -99,7 +99,7 @@ class ReconLib(BaseLib):
             sql += f"where 1=1 "
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
-            loglib.log(loglib.INFO, f"Matched key for side {side}")
+        loglib.log(loglib.INFO, f"Match key successfuly completed")
 
     def compare(self, cn, recon):
         """ compare the records and relegate the status from matched to divergent """
@@ -151,11 +151,10 @@ class ReconLib(BaseLib):
                 temps = self.tmp1 if side == 1 else self.tmp2
                 matching_key = sqllib.get_sql_key(temps, tmp3, recon[_field])
                 field_name = sqllib.field_diff(field, label)
-                loglib.log(loglib.INFO, f"Stamping tmp (alter table): {field_name}")
+                loglib.log(loglib.INFO, f"Stamping field (alter table): {field_name}")
                 self.field_with_diff.append(field_name)
                 sql = f"alter table {temps} add {field_name} text default ''"
                 rows_affected = dblib.execute(cn, sql)
-                loglib.log(loglib.INFO, f"Stamping tmp (update equality): {field_name}")
                 sql = ""
                 sql += f"update {temps} set "
                 sql += f"status = '{self.divergent}', "
@@ -164,7 +163,6 @@ class ReconLib(BaseLib):
                 sql += f"where {tmp3}.equality = 0 "
                 sql += f"{matching_key}"
                 rows_affected = dblib.execute(cn, sql)
-                loglib.log(loglib.INFO, f"Comparison results stamped in tmp table for side {side}")
             sql = f"drop table if exists {tmp3}"
             rows_affected = dblib.execute(cn, sql)
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
@@ -220,8 +218,10 @@ class ReconLib(BaseLib):
         loglib = LogLib("ReconLib", "process")
         try:
             recons = self.tagv(recon, "Recon", "Conciliacao")
-            for recon in recons:
-                msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [self.tagv(recon, "Rule", "Regra")]))
+            for recon in recons:                
+                rule_name = self.tagv(recon, "Rule", "Regra")
+                msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [rule_name]))                
+                loglib.log(loglib.INFO, f"Processing rule: {rule_name}")
                 progress_bar = ShadyBar(msg, max=5)                
                 progress_bar.next()
                 self.prepare(cn, recon)

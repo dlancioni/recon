@@ -33,14 +33,10 @@ class EtlLib(BaseLib):
         loglib = LogLib("EtlLib", "import_file")
         sql = ""       
         side = self.tagv(ds, "Side", "Lado")
-        loglib.log(loglib.INFO, f"Side: {side}")
         path = self.tagv(ds, "Path", "Caminho")
-        loglib.log(loglib.INFO, f"Path: {path}")
         file = self.tagv(ds, "File", "Arquivo")
-        loglib.log(loglib.INFO, f"File: {file}")
         fields = self.tagv(ds, "Fields", "Campos")
         separator = self.tagv(ds, "Separator", "Separador")
-        loglib.log(loglib.INFO, f"Separator: {separator}")
         tb = f"tb{self.id}{side}"        
         path = fslib.get_path_file(path, file)
         first = True
@@ -48,12 +44,11 @@ class EtlLib(BaseLib):
         rows_affected = 0
         rows_imported = 0
         fl = sqlib.get_field_list(fields)
-        loglib.log(loglib.INFO, f"Field List: {str(fl)}")
         count = self.count(path)
-        loglib.log(loglib.INFO, f"Total records to import: {count}")
         msg = msglib.get_value(msglib.console, "M7", [self.tagv(ds, "File", "Arquivo")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
+        loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")
         with open(path, "r") as file:
             for line in file.readlines():
                 if not first and str(line.strip()) != "":
