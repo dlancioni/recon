@@ -1,36 +1,36 @@
-2022-07-14 17:13:53 INFO CoreLib.process: Validation OK, ready to create area
-2022-07-14 17:13:53 INFO AreaLib.merge_datasources: []['Account', 'Digit', 'Balance', 'Account', 'Digit', 'Balance']
-2022-07-14 17:13:53 INFO AreaLib.create_recon_area: Area created:
-2022-07-14 17:13:53 INFO AreaLib.create_recon_area: ['Account', 'Digit', 'Balance']['Text', 'Text', 'Decimal']
-2022-07-14 17:13:53 INFO CoreLib.process: Area OK, ready to import files
-2022-07-14 17:13:53 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon 011.txt] [recon 011.txt] [;] [5] [[Account], [Digit], [Balance]]
-2022-07-14 17:13:53 INFO EtlLib.import_file: File sucessfully imported
-2022-07-14 17:13:53 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon 012.txt] [recon 012.txt] [;] [5] [[Account], [Digit], [Balance]]
-2022-07-14 17:13:53 INFO EtlLib.import_file: File sucessfully imported
-2022-07-14 17:13:53 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-07-14 17:13:53 INFO ReconLib.process: Processing rule: Rule 1
-2022-07-14 17:13:53 INFO ReconLib.prepare: Fiekd Key: ['[Account]', '[Digit]']
-2022-07-14 17:13:53 INFO ReconLib.prepare: Fiekd Compare: ['[Balance]']
-2022-07-14 17:13:53 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-07-14 17:13:53 INFO ReconLib.match_key: Match key successfuly completed
-2022-07-14 17:13:53 INFO ReconLib.compare: Field comparison successfuly completed
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Fields with difference: ['[Balance (Diferença)]']
-2022-07-14 17:13:53 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-07-14 17:13:53 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-07-14 17:13:53 INFO ReconLib.process: Processing rule: Rule 2
-2022-07-14 17:13:53 INFO ReconLib.prepare: Fiekd Key: ['[Account]', '[Digit]', '[Account]']
-2022-07-14 17:13:53 INFO ReconLib.prepare: Fiekd Compare: ['[Balance]', '[Balance]']
-2022-07-14 17:13:53 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-07-14 17:13:53 INFO ReconLib.match_key: Match key successfuly completed
-2022-07-14 17:13:53 INFO ReconLib.compare: Field comparison successfuly completed
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
-2022-07-14 17:13:53 INFO ReconLib.stamp_tmp: Fields with difference: ['[Balance (Diferença)]']
-2022-07-14 17:13:53 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-07-14 17:13:53 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-07-14 17:13:53 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-07-14 17:13:53 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-07-14 17:57:37 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-14 17:57:37 INFO AreaLib.merge_datasources: []['Account', 'Digit', 'Balance', 'Account', 'Digit', 'Balance']
+2022-07-14 17:57:37 INFO AreaLib.create_recon_area: Area created:
+2022-07-14 17:57:37 INFO AreaLib.create_recon_area: ['Account', 'Digit', 'Balance']['Text', 'Text', 'Decimal']
+2022-07-14 17:57:37 INFO CoreLib.process: Area OK, ready to import files
+2022-07-14 17:57:37 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon 011.txt] [recon 011.txt] [;] [5] [[Account], [Digit], [Balance]]
+2022-07-14 17:57:37 INFO EtlLib.import_file: File sucessfully imported
+2022-07-14 17:57:37 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon 012.txt] [recon 012.txt] [;] [5] [[Account], [Digit], [Balance]]
+2022-07-14 17:57:37 INFO EtlLib.import_file: File sucessfully imported
+2022-07-14 17:57:37 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-14 17:57:37 INFO ReconLib.process: Processing rule: Rule 1
+2022-07-14 17:57:37 INFO ReconLib.prepare: Fiekd Key: ['[Account]', '[Digit]']
+2022-07-14 17:57:37 INFO ReconLib.prepare: Fiekd Compare: ['[Balance]']
+2022-07-14 17:57:37 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-14 17:57:37 INFO ReconLib.match_key: Match key successfuly completed
+2022-07-14 17:57:37 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Fields with difference: ['[Balance (Diferença)]']
+2022-07-14 17:57:37 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-14 17:57:37 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-14 17:57:37 INFO ReconLib.process: Processing rule: Rule 2
+2022-07-14 17:57:37 INFO ReconLib.prepare: Fiekd Key: ['[Account]', '[Digit]', '[Account]']
+2022-07-14 17:57:37 INFO ReconLib.prepare: Fiekd Compare: ['[Balance]', '[Balance]']
+2022-07-14 17:57:37 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-14 17:57:37 INFO ReconLib.match_key: Match key successfuly completed
+2022-07-14 17:57:37 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Balance (Diferença)]
+2022-07-14 17:57:37 INFO ReconLib.stamp_tmp: Fields with difference: ['[Balance (Diferença)]']
+2022-07-14 17:57:37 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-14 17:57:37 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-14 17:57:37 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-07-14 17:57:49 INFO CoreLib.process: Reports OK, ready to commit the process

@@ -50,7 +50,7 @@ class ReportLib(BaseLib):
         saved = False
         error = []
         try:
-            with open(file, "w") as f:
+            with open(file, "w", encoding='utf-8') as f:
                 f.write(lines)
             saved = True
             error = []
@@ -61,7 +61,8 @@ class ReportLib(BaseLib):
 
     def create_report_synthetic(self, cn):
         loglib = LogLib("Reportlib", "create_report_synthetic")
-        sql = ""        
+        sql = ""
+        line = ""
         lines = ""
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         report = msglib.get_value(msglib.label, "L1")
@@ -83,15 +84,20 @@ class ReportLib(BaseLib):
         sql += f" order by Side, Recon, Rule, Status"        
         rows = dblib.query(cn, sql)
         fields = ["L3", "L4", "L5", "L6", "L7"]
+        line = ""
         for field in fields:
-            lines += f"{msglib.get_value(msglib.label, field)};"
-        lines = lines[:-1]            
-        lines += f"\n"
+            line += f"{msglib.get_value(msglib.label, field)};"
+        line = line[:-1]
+        line += f"\n"
+        lines += line
+        line = ""
         for row in rows:
+            line = ""
             for i in range(0, len(fields)):
-                lines += str(row[i]) + ";"
-            lines = lines[:-1]
-            lines += "\n"
+                line += str(row[i]) + ";"
+            line = line[:-1]
+            line += "\n"
+            lines += line
         status, error = self.save_file(file, lines)
         if status == False:
             if error[0] == 13:
@@ -105,6 +111,7 @@ class ReportLib(BaseLib):
         label = msglib.get_value(msglib.label, "L3")
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         file = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
+        line = ""
         lines = ""
         sql = ""
         tb = f"tb{self.id}{side}"
@@ -113,20 +120,25 @@ class ReportLib(BaseLib):
         sql += f"from {tb} "
         rows = dblib.query(cn, sql)
         fields = ["L8", "L9", "L4", "L5", "L6"]
+        line = ""
         for field in fields:
-            lines += f"{msglib.get_value(msglib.label, field)};"
+            line += f"{msglib.get_value(msglib.label, field)};"
         first = len(fields)
         total = len(cn.description)
         for i in range(first, total):
             label = str(cn.description[i][0]).strip()
-            lines += f"{label};"
-        lines = lines[:-1]
-        lines += f"\n"
+            line += f"{label};"
+        line = line[:-1]
+        line += f"\n"
+        lines += line
+        line = ""
         for row in rows:
+            line = ""            
             for i in range(0, total):
-                lines += str(row[i]) + ";"
-            lines = lines[:-1]                
-            lines += "\n"
+                line += str(row[i]) + ";"
+            line = line[:-1]
+            line += "\n"
+            lines += line
         status, error = self.save_file(file, lines)
         if status == False:
             if error[0] == 13:
