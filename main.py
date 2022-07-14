@@ -32,11 +32,13 @@ msg = msglib.get_value(msglib.console, "M3")
 msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
 """ print console information """
 if status == False:
-    utillib.cls()    
+    utillib.cls()
     msg = f"Error processing {filename}"
     msglib.print(msg)
     msglib.print(error)
-else:    
+else:
+    utillib.cls()
+    print(f"{filename} 1/2")
     if args.c in ["tb", "tb1"]:
         print(tb1)
     if args.c in ["tb", "tb2"]:    

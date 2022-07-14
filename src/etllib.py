@@ -45,7 +45,7 @@ class EtlLib(BaseLib):
         rows_imported = 0
         fl = sqlib.get_field_list(fields)
         count = self.count(path)
-        msg = msglib.get_value(msglib.console, "M7", [self.tagv(ds, "File", "Arquivo")])
+        msg = msglib.get_value(msglib.console, "M5", [self.tagv(ds, "File", "Arquivo")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
         loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")

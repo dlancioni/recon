@@ -153,8 +153,9 @@ class ReconLib(BaseLib):
                 field_name = sqllib.field_diff(field, label)
                 loglib.log(loglib.INFO, f"Stamping field (alter table): {field_name}")
                 self.field_with_diff.append(field_name)
-                sql = f"alter table {temps} add {field_name} text default ''"
-                rows_affected = dblib.execute(cn, sql)
+                if self.rule_count == 1:
+                    sql = f"alter table {temps} add {field_name} text default ''"
+                    rows_affected = dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
                 sql += f"status = '{self.divergent}', "
@@ -220,7 +221,7 @@ class ReconLib(BaseLib):
             recons = self.tagv(recon, "Recon", "Conciliacao")
             for recon in recons:                
                 rule_name = self.tagv(recon, "Rule", "Regra")
-                msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [rule_name]))                
+                msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))                
                 loglib.log(loglib.INFO, f"Processing rule: {rule_name}")
                 progress_bar = ShadyBar(msg, max=5)                
                 progress_bar.next()

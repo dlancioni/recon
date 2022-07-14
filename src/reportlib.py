@@ -74,7 +74,7 @@ class ReportLib(BaseLib):
         status, error = self.save_file(file, lines)
         if status == False:
             if error[0] == 13:
-                msg = msglib.get_value(msglib.console, "M13", [file])
+                msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
         
     def create_report_analytic(self, cn, side):
@@ -105,7 +105,7 @@ class ReportLib(BaseLib):
         status, error = self.save_file(file, lines)
         if status == False:
             if error[0] == 13:
-                msg = msglib.get_value(msglib.console, "M13", [file])
+                msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
 
     def process(self, cn, recon):
