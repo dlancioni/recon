@@ -92,4 +92,4 @@ class CoreLib(BaseLib):
         except BaseException as err:
             dblib.rollback_tran(cn)
             loglib.log(loglib.ERROR, f"{str(err)}")            
-            return False, str(err), "", ""
+            return False, str(err), ""

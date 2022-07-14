@@ -60,12 +60,12 @@ class ReportLib(BaseLib):
         return saved, error
 
     def create_report_synthetic(self, cn):
+        loglib = LogLib("Reportlib", "create_report_synthetic")
         sql = ""        
         lines = ""
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         report = msglib.get_value(msglib.label, "L1")
         file = fslib.join(path, f"[{self.name}] [{report}].csv")
-        
         sql += f" select * from"
         sql += f" ("
         sql += f" select"
@@ -97,9 +97,10 @@ class ReportLib(BaseLib):
             if error[0] == 13:
                 msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
-        return file    
+        return file
         
     def create_report_analytic(self, cn, side):
+        loglib = LogLib("Reportlib", "create_report_analytic")
         report = msglib.get_value(msglib.label, "L2")
         label = msglib.get_value(msglib.label, "L3")
         path = fslib.get_path_report(cfglib.get_config("path_report"))
@@ -131,10 +132,10 @@ class ReportLib(BaseLib):
             if error[0] == 13:
                 msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
-        return file            
+        return file
 
     def process(self, cn, recon):
-        self.method = "reportlib.process()"
+        loglib = LogLib("Reportlib", "process")
         reports = []
         try:
             reports.append(self.create_report_synthetic(cn))
@@ -142,14 +143,14 @@ class ReportLib(BaseLib):
                 reports.append(self.create_report_analytic(cn, side))
         except Error as err:
             msg = f"SQL Error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
             msg = f"File manipulation error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
             msg = f"General error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         return reports
