@@ -7,6 +7,7 @@ from src.msglib import MsgLib
 from src.baselib import BaseLib
 from src.utillib import UtilLib
 from src.cfglib import ConfigLib
+from src.loglib import LogLib
 
 msglib = MsgLib()
 cfglib = ConfigLib()
@@ -20,7 +21,6 @@ class SetupLib(BaseLib):
         self.logger = logging.getLogger(__name__)
     
     def validate_tag(self, session, recon, fields, mandatory=False):
-        """ dynamic validator """                
         if mandatory:
             field = self.tagf(recon, fields[0], fields[1])
             value = self.tagv(recon, fields[0], fields[1])
@@ -28,7 +28,7 @@ class SetupLib(BaseLib):
                 raise Exception(msglib.get_value(msglib.validation, "M2", [field]))
 
     def validate_info(self, recon):
-        """ validate key info """
+        loglib = LogLib("Setuplib", "validate_info")
         session = ""
         self.validate_tag(session, recon, ["Id", "Id"], True)
         self.validate_tag(session, recon, ["Name", "Nome"], True)
@@ -38,10 +38,9 @@ class SetupLib(BaseLib):
         if int(value) <= 0: raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
         
     def validate_datasource(self, recon):
-        """ validate datasources """
+        loglib = LogLib("Setuplib", "validate_datasource")
         session = ""
         tag_ds = self.tagf(recon, "Datasources", "Dados")
-
         datasources = recon[tag_ds]
         for i in range(0, len(datasources)):
             session = tag_ds
@@ -64,9 +63,9 @@ class SetupLib(BaseLib):
                 self.validate_tag(session, values, ["Mask", "Mascara"], False)
                 
     def validate_recon(self, recon):
-        """ validate conciliations """
+        loglib = LogLib("Setuplib", "validate_recon")
         session = ""
-        tag_recon = self.tagf(recon, "Recon", "Conciliacao")
+        tag_recon = self.tagf(recon, "Recon", "Conciliação")
         recons = recon[tag_recon]
         for i in range(0, len(recons)):
             session = tag_recon
@@ -83,13 +82,12 @@ class SetupLib(BaseLib):
                 self.validate_tag(session ,values, ["Name", "Nome"], True)
 
     def validate(self, recon):
-        """ full validation, structure and data """
-        self.method = "setuplib.validate()"
+        loglib = LogLib("Setuplib", "validate")
         try:
             self.validate_info(recon)
             self.validate_datasource(recon)
             self.validate_recon(recon)
         except BaseException as err:
             msg = f"Validation error -> {str(err)}"
-            self.log_error(msg)
+            loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

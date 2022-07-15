@@ -17,13 +17,13 @@ class CoreLibTest(unittest.TestCase):
         Test case: Validate ALL tags in configuration file
         Comment: As we can configure the recon using portuguese or english fields,
         we need to make sure the code will touch all possible labels.
-        """
+
         status, error, reports = corelib.process("recon [en_us].cfg")
         rpt0 = fslib.get_csv_as_list(reports[0])
         rpt1 = fslib.get_csv_as_list(reports[1])
         rpt2 = fslib.get_csv_as_list(reports[2])
         print(rpt0)
-
+        """
         status, error, reports = corelib.process("recon [pt_br].cfg")
         rpt0 = fslib.get_csv_as_list(reports[0])
         rpt1 = fslib.get_csv_as_list(reports[1])

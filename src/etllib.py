@@ -33,11 +33,11 @@ class EtlLib(BaseLib):
         loglib = LogLib("EtlLib", "import_file")
         sql = ""       
         side = self.tagv(ds, "Side", "Lado")
-        path = self.tagv(ds, "Path", "Caminho")
+        path = self.tagv(ds, "Path", "Caminho", False)
         file = self.tagv(ds, "File", "Arquivo")
         fields = self.tagv(ds, "Fields", "Campos")
         separator = self.tagv(ds, "Separator", "Separador")
-        tb = f"tb{self.id}{side}"        
+        tb = f"tb{self.id}{side}"
         path = fslib.get_path_file(path, file)
         first = True
         error_count = 0

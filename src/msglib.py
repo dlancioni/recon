@@ -4,12 +4,11 @@ import logging
 from src.fslib import FsLib
 from datetime import datetime
 from src.utillib import UtilLib
-from src.baselib import BaseLib
 
 fslib = FsLib()
 utillib = UtilLib()
 
-class MsgLib(BaseLib):
+class MsgLib():
 
     def __init__(self):
         self.method = ""

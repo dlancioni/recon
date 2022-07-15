@@ -50,7 +50,7 @@ class SqlLib(BaseLib):
             field_name = self.tagf(field_def[i], "Name", "Nome")
             field_type = self.tagf(field_def[i], "Type", "Tipo")
             field_value = self.tagf(field_def[i], "Value", "Valor")
-            field_mask = self.tagf(field_def[i], "Mask", "Mascara")
+            field_mask = self.tagf(field_def[i], "Mask", "Mascara", False)
             name = str(field_def[i][field_name]).strip()
             name = f"[{name}]"
             type = field_def[i][field_type] if field_type in field_def[i] else ""
