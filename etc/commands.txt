@@ -7,3 +7,10 @@ pip install -r requirements.txt
 
 # test application
 python -m unittest discover -stest -v
+
+# run recon
+python --f "recon.cfg" --r 0     (Sinthetic report)
+python --f "recon.cfg" --r 1     (Analytic report side 1)
+python --f "recon.cfg" --r 2     (Analytic report side 2)
+python --f "recon.cfg" --r 12    (Analytic report) both sides
+
