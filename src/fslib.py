@@ -6,14 +6,14 @@ import csv
 
 class FsLib:
     
-    def get_csv_as_list(self, file, delimiter):
-        with open(path, encoding="UTF-8") as file:
-            data = csv.reader(file, delimiter=delimiter)
+    def get_csv_as_list(self, path, delimiter=";"):
+        with open(path, encoding="utf-8") as f:
+            data = csv.reader(f, delimiter=delimiter)
             data = list(data)
         return data
-    
+
     def open_json(self, path):
-        with open(path, encoding="UTF-8") as f:
+        with open(path, encoding="utf-8") as f:
             data = json.load(f)
             return data
 
@@ -33,7 +33,7 @@ class FsLib:
     
     def get_path_recon(self, path="", file=""):
         path = self.get_path() if path == "" else path
-        path = self.join(path, "recon")
+        path = self.join(path, "recons")
         path = self.join(path, file)
         return path
         

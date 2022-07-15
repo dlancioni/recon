@@ -38,9 +38,12 @@ class CoreLib(BaseLib):
         else:
             try:              
                 filename = str(recon.split(".")[0]) +".cfg"
-                path = fslib.get_path_recon(cfglib.get_config("path_recon"), filename)
+                path = cfglib.get_config("path_recon")
+                path = fslib.get_path_recon(path, filename)
                 msg = msglib.get_value(msglib.validation, "M4", [path])
                 recon = fslib.open_json(path)
+            except json.decoder.JSONDecodeError:
+                print("There was a problem accessing the equipment data.")
             except BaseException as err:
                 raise Exception(msg)
         return recon
