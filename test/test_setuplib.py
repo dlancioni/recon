@@ -20,6 +20,14 @@ class UtilLibTest(unittest.TestCase):
         pass
 
     def test_validate_info(self):
+        
+        """
+        path = fslib.get_path_recon("", "recon [en_us].cfg")
+        recon_en = fslib.open_json(path)
+        path = fslib.get_path_recon("", "recon [pt_br].cfg")
+        recon_pt = fslib.open_json(path)
+        """
+                
         i = 0
         values = []
         values.append({"Id":"", "Name":"Saldo x Extrato", "Description":"1:M reconciliation"})
