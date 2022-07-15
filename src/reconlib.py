@@ -48,7 +48,7 @@ class ReconLib(BaseLib):
             if self.tagv(field, "Tipo", "Type").lower() in ["key", "chave"]:
                 self.field_key.append(field_name)
             if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
-                self.field_compare.append(field_name)                
+                self.field_compare.append(field_name)
             index = self.fields.index(field_name.replace("[", "").replace("]", ""))
             field["Datatype"] = self.types[index]
         self.rule_count += 1
@@ -213,7 +213,7 @@ class ReconLib(BaseLib):
     def process(self, cn, recon):
         loglib = LogLib("ReconLib", "process")
         try:
-            recons = self.tagv(recon, "Recon", "Conciliacao")
+            recons = self.tagv(recon, "Recon", "Conciliação")
             for recon in recons:                
                 rule_name = self.tagv(recon, "Rule", "Regra")
                 msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))

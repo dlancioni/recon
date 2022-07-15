@@ -6,14 +6,15 @@ class SqlLib(BaseLib):
         pass    
 
     def get_field_type(self, key=""):
-        types = {
-            "integer": "Integer",
-            "decimal": "Real",
-            "text": "Text",
-            "datetime": "Text",
-        }
-        key = types.get(key.lower())
-        key = "" if key is None else key
+        key = "" if key is None else key.lower()
+        if key in ["integer", "inteiro"]:
+            return "Integer"
+        if key in ["decimal"]:
+            return "Real"
+        if key in ["text", "texto"]:
+            return "Text"
+        if key in ["datetime", "datahora"]:
+            return "Text"
         return key
 
     def get_field_list(self, field_def="", aggregation=False):
@@ -32,7 +33,7 @@ class SqlLib(BaseLib):
             alias = name            
             type = str(field_def[i][field_type]).strip() if field_type in field_def[i] else ""
             if aggregation:
-                field_function = self.tagf(field_def[i], "Function", "Funcao")
+                field_function = self.tagf(field_def[i], "Function", "Funcao", False)
                 function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
                 if aggregation == True and datatype == "Decimal" and function == "":
                     function = "Sum"
@@ -56,7 +57,7 @@ class SqlLib(BaseLib):
             type = field_def[i][field_type] if field_type in field_def[i] else ""
             value = str(field_def[i][field_value]).strip() if field_value in field_def[i] else ""
             mask = str(field_def[i][field_mask]).strip() if field_mask in field_def[i] else ""
-            quote = "'" if type.lower() in ["text", "datetime"] else ""
+            quote = "'" if type.lower() in ["text", "texto", "datetime", "datahora"] else ""
             if mask == ",":
                 value = value.replace(".", "").replace(",", ".")
             sql += f"{quote}{value}{quote}, "

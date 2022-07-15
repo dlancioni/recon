@@ -10,6 +10,9 @@ from src.baselib import BaseLib
 from src.loglib import LogLib
 from src.dblib import DbLib
 
+sqllib = SqlLib()
+utillib = UtilLib()
+dblib = DbLib()
 msglib = MsgLib()
 
 class AreaLib(BaseLib):
@@ -28,20 +31,17 @@ class AreaLib(BaseLib):
             side = self.tagv(datasource, "Side", "Lado")
             fields = self.tagv(datasource, "Fields", "Campos")
             for field in fields:
-                if side == 1:                    
+                if int(side) == 1:
                     f1.append(self.tagv(field, "Name", "Nome"))
-                    t1.append(self.tagv(field, "Type", "Tipo"))
-                else:
+                    t1.append(sqllib.get_field_type(self.tagv(field, "Type", "Tipo")))
+                if int(side) == 2:
                     f2.append(self.tagv(field, "Name", "Nome"))
-                    t2.append(self.tagv(field, "Type", "Tipo"))
+                    t2.append(sqllib.get_field_type(self.tagv(field, "Type", "Tipo")))
         loglib.log(loglib.INFO, str(f1) + str(f2))
         return f1, t1, f2, t2
 
     def create_recon_area(self, cn, setup):
         loglib = LogLib("AreaLib", "create_recon_area")
-        sqllib = SqlLib()
-        utillib = UtilLib()
-        dblib = DbLib()
         id = setup["Id"]
         status = msglib.get_value(msglib.label, "L13")
         f1, t1, f2, t2 = self.merge_datasources(setup)
@@ -59,7 +59,6 @@ class AreaLib(BaseLib):
     
     def process(self, cn, recon):
         loglib = LogLib("AreaLib", "process")
-        utillib = UtilLib()
         try:
             fields, types = self.create_recon_area(cn, recon)
         except Error as err:
