@@ -4,38 +4,28 @@ import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 from src.corelib import CoreLib
 from src.fslib import FsLib
+from src.utillib import UtilLib
 corelib = CoreLib()
 fslib = FsLib()
+utillib = UtilLib()
 
 class CoreLibTest(unittest.TestCase):
-    
-    def setUp(self):
-        pass
-    
-    def test_tag_english_portuguese(self):
-        """
-        Test case: Validate ALL tags in configuration file
-        Comment: As we can configure the recon using portuguese or english fields,
-        we need to make sure the code will touch all possible labels.
-        """
-        status, error, reports = corelib.process("recon [en_us].cfg")
-        rpt0 = fslib.get_csv_as_list(reports[0])
-        rpt1 = fslib.get_csv_as_list(reports[1])
-        rpt2 = fslib.get_csv_as_list(reports[2])
-        self.assertEqual(status, True)
-        self.assertEqual(error, "")
-        self.assertEqual(len(reports), 3)
 
-        status, error, reports = corelib.process("recon [pt_br].cfg")
-        rpt0 = fslib.get_csv_as_list(reports[0])
-        rpt1 = fslib.get_csv_as_list(reports[1])
-        rpt2 = fslib.get_csv_as_list(reports[2])
+    def validate_cfg(self):
+        status, error, reports = corelib.process("recon [en_us]")
         self.assertEqual(status, True)
-        self.assertEqual(error, "")
-        self.assertEqual(len(reports), 3)
+        status, error, reports = corelib.process("recon [pt_br]")
+        self.assertEqual(status, True)
         
+    def setUp(self):
+        pass        
+    
     def tearDown(self):
         pass
+    
+    def test_validation(self):
+        utillib.cls()        
+        self.validate_cfg()    
 
 if __name__ == '__main__':
     unittest.main()
