@@ -29,7 +29,7 @@ class UtilLibTest(unittest.TestCase):
         fields = ["Id", "Name", "Description"]
         for field in fields:
             message = msglib.get_value(msglib.validation, "M2", [field])
-            status, error = corelib.process(values[i])
+            status, error, reports = corelib.process(values[i])
             self.assertEqual(False, status)
             self.assertEqual(message, error)
             i += 1
