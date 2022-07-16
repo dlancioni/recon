@@ -2,6 +2,7 @@ import os
 import sys
 import json
 import logging
+import copy
 import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 
@@ -13,34 +14,29 @@ from src.corelib import CoreLib
 
 msglib = MsgLib()
 corelib = CoreLib()
+fslib = FsLib()
 
 class UtilLibTest(unittest.TestCase):
+    
+    def open_recon(self):
+        path = fslib.get_path_recon("", "recon [en_us].cfg")
+        recon_en = fslib.open_json(path)
+        path = fslib.get_path_recon("", "recon [pt_br].cfg")
+        recon_pt = fslib.open_json(path)            
+        return recon_en, recon_pt
 
     def setUp(self):
         pass
 
     def test_validate_info(self):
-        
-        """
-        path = fslib.get_path_recon("", "recon [en_us].cfg")
-        recon_en = fslib.open_json(path)
-        path = fslib.get_path_recon("", "recon [pt_br].cfg")
-        recon_pt = fslib.open_json(path)
-        """
-                
-        i = 0
-        values = []
-        values.append({"Id":"", "Name":"Saldo x Extrato", "Description":"1:M reconciliation"})
-        values.append({"Id":"1", "Name":"", "Description":"1:M reconciliation"})
-        values.append({"Id":"1", "Name":"Saldo x Extrato", "Description":""})
-        session = ""
+
+        recon_en, recon_pt = self.open_recon()
         fields = ["Id", "Name", "Description"]
         for field in fields:
-            message = msglib.get_value(msglib.validation, "M2", [field])
-            status, error, reports = corelib.process(values[i])
+            recon = copy.copy(recon_en)
+            recon[field] = ""
+            status, error, reports = corelib.process(recon)
             self.assertEqual(False, status)
-            self.assertEqual(message, error)
-            i += 1
 
     def tearDown(self):
         pass
