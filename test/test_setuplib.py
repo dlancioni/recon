@@ -29,14 +29,17 @@ class UtilLibTest(unittest.TestCase):
         pass
 
     def test_validate_info(self):
-
         recon_en, recon_pt = self.open_recon()
         fields = ["Id", "Name", "Description"]
         for field in fields:
+            us = f"Mandatory field: {field}"
+            pt = f"Campo obrigatório: {field}"            
             recon = copy.copy(recon_en)
             recon[field] = ""
-            status, error, reports = corelib.process(recon)
-            self.assertEqual(False, status)
+            status, message, reports = corelib.process(recon)
+            if message in [us, pt]: message = True
+            self.assertEqual(status, False)
+            self.assertEqual(message, True)
 
     def tearDown(self):
         pass
