@@ -23,14 +23,15 @@ class MsgLib():
         msg = f"{dt}: {msg}"
         return msg
 
-    def get_value(self, session, key, param=[]):
-        path = fslib.get_path_config("app.cfg")
-        config = fslib.open_json(path)
-        language = str(config["catalog"])
-        catalog = f"catalog_{language}.cfg"
-        path = fslib.get_path_config(catalog)
-        dictionary = fslib.open_json(path)
-        value = str(dictionary[str(session)][str(key)])
+    def get_value(self, session, key, param=[], language=""):
+        key = str(key).upper()
+        session = str(session).capitalize()
+        if language.strip().lower() == "":
+            config = fslib.open_json(fslib.get_path_config("app.cfg"))
+            language = str(config["catalog"])
+        path = fslib.get_path_config(f"catalog_{language}.cfg")
+        catalog = fslib.open_json(path)
+        value = str(catalog[str(session)][str(key)])
         i = 0
         for item in param:
             i = i + 1
