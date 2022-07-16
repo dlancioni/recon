@@ -10,6 +10,15 @@ class UtilLibTest(unittest.TestCase):
 
     def setUp(self):
         pass
+    
+    def test_open_config(self):
+        config = msglib.open_config()
+        language = str(config["catalog"])
+        if language.lower() in ["en-us", "pt-br"]:
+            validated = True
+        else:
+            validated = False
+        self.assertEqual(validated, True)
 
     def test_get_value(self):
         # No parameters
@@ -25,8 +34,8 @@ class UtilLibTest(unittest.TestCase):
         self.assertEqual(x, y)
         x = "Campo obrigatório: {1}".replace("{1}", "Id")
         y = msglib.get_value("validation", "M2", ["Id"], "pt-br")
-        self.assertEqual(x, y)        
-        
+        self.assertEqual(x, y)
+
     def tearDown(self):
         pass
 
