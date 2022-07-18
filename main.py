@@ -35,7 +35,7 @@ msg = msglib.get_value(msglib.console, "M3")
 msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
 """ print console information """
 if status == False:
-    utillib.cls()
+    #utillib.cls()
     msglib.print(f"{filename}")
     msglib.print(error)
 else:
