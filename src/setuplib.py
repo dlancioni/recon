@@ -32,7 +32,7 @@ class SetupLib(BaseLib):
         session = ""
         self.validate_tag(session, recon, ["Id", "Id"], True)
         self.validate_tag(session, recon, ["Name", "Nome"], True)
-        self.validate_tag(session, recon, ["Description", "Descricao"], True)
+        self.validate_tag(session, recon, ["Description", "Descrição"], True)
         field = self.tagf(recon, "Id", "Id")
         value = self.tagv(recon, "Id", "Id")
         if int(value) <= 0: raise Exception(msglib.get_value(msglib.validation, "M3", [field]))

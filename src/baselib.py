@@ -11,7 +11,7 @@ class BaseLib:
         last_error = ""
         cn = ""
 
-    def tagfv(self, doc, tag_en, tag_pt, mandatory):
+    def tagfv(self, doc, tag_en, tag_pt):
         f, v = "", ""
         tag_en = tag_en.capitalize().strip()
         tag_pt = tag_pt.capitalize().strip()
@@ -22,17 +22,17 @@ class BaseLib:
         if tag_pt in doc:
             f = tag_pt
             v = doc[tag_pt]
+        return f, v
+        
+    def tagf(self, doc, tag_en="", tag_pt="", mandatory=True):
+        f, v = self.tagfv(doc, tag_en, tag_pt)
         if mandatory == True:
-            if f == "" or v == "":
+            if f == "":
                 msglib = MsgLib()
                 msg = f"{tag_en}/{tag_pt}"
                 msg = msglib.get_value(msglib.validation, "M5", [msg])
                 raise Exception(msg)
-        return f, v
-        
-    def tagf(self, doc, tag_en="", tag_pt="", mandatory=True):
-        f, v = self.tagfv(doc, tag_en, tag_pt, mandatory)
         return f
     def tagv(self, doc, tag_en="", tag_pt="", mandatory=True):
-        f, v = self.tagfv(doc, tag_en, tag_pt, mandatory)
+        f, v = self.tagfv(doc, tag_en, tag_pt)
         return v
