@@ -30,7 +30,7 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         
     def print_csv(self, filename):
-        with open(filename, encoding="UTF-8") as file:    
+        with open(filename, encoding="UTF-8") as file:
             table = from_csv(file)
         print(table)
         
@@ -47,24 +47,10 @@ class ReportLib(BaseLib):
                 print(reports[2])
                 self.print_csv(reports[2])        
 
-    def save_file(self, file, lines):
-        saved = False
-        error = []
-        try:
-            with open(file, "w", encoding="UTF-8") as f:
-                f.write(lines)
-            saved = True
-            error = []
-        except BaseException as err:
-            saved = False
-            error = [err.errno, err.strerror]
-        return saved, error
-
     def create_report_synthetic(self, cn):
         loglib = LogLib("Reportlib", "create_report_synthetic")
         sql = ""
         line = ""
-        lines = ""
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         report = msglib.get_value(msglib.label, "L1")
         file = fslib.join(path, f"[{self.name}] [{report}].csv")
@@ -84,37 +70,34 @@ class ReportLib(BaseLib):
         sql += f" ) "
         sql += f" order by Side, Recon, Rule, Status"        
         rows = dblib.query(cn, sql)
-        msg = msglib.set_time(msglib.get_value(msglib.console, "M9"))
-        progress_bar = ShadyBar(msg, max=len(rows))        
-        fields = ["L3", "L4", "L5", "L6", "L7"]
-        line = ""
-        for field in fields:
-            line += f"{msglib.get_value(msglib.label, field)};"
-        line = line[:-1]
-        line += f"\n"
-        lines += line
-        line = ""
-        for row in rows:
+        with open(file, "w", encoding="UTF-8") as f:
+            msg = msglib.set_time(msglib.get_value(msglib.console, "M9"))
+            progress_bar = ShadyBar(msg, max=len(rows))        
+            # header
+            fields = ["L3", "L4", "L5", "L6", "L7"]
             line = ""
-            for i in range(0, len(fields)):
-                line += str(row[i]) + ";"
+            for field in fields:
+                line += f"{msglib.get_value(msglib.label, field)};"
             line = line[:-1]
-            line += "\n"
-            lines += line
-            progress_bar.next()
-        status, error = self.save_file(file, lines)
-        progress_bar.finish()
-        if status == False:
-            if error[0] == 13:
-                msg = msglib.get_value(msglib.console, "M7", [file])
-                raise Exception(msg)
+            line += f"\n"
+            f.write(line)
+            # contents            
+            line = ""
+            for row in rows:
+                line = ""
+                for i in range(0, len(fields)):
+                    line += str(row[i]) + ";"
+                line = line[:-1]
+                line += "\n"
+                f.write(line)
+                progress_bar.next()
+            progress_bar.finish()
         return file
     
     def create_report_analytic_header(self, cn):
         loglib = LogLib("Reportlib", "create_report_analytic_header")
         sql = ""        
         line = ""
-        lines = ""
         tb = f"tb{self.id}1"
         sql += f"select * from {tb}"
         rows = dblib.query(cn, sql)
@@ -134,34 +117,31 @@ class ReportLib(BaseLib):
         loglib = LogLib("Reportlib", "create_report_analytic")
         sql = ""
         line = ""
-        lines = ""
         tb = f"tb{self.id}{side}"        
         report = msglib.get_value(msglib.label, "L2")
         label = msglib.get_value(msglib.label, "L3")
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         filename = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
         sql = f"select * from {tb}"
-        rows = dblib.query(cn, sql)        
-        msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [side]))
-        progress_bar = ShadyBar(msg, max=len(rows))
-        total = len(cn.description)
-        line = self.create_report_analytic_header(cn)
-        lines += line
-        line = ""
-        for row in rows:
-            line = ""            
-            for i in range(0, total):
-                line += str(row[i]) + ";"
-            line = line[:-1]
-            line += "\n"
-            lines += line
-            progress_bar.next()
-        status, error = self.save_file(filename, lines)
-        progress_bar.finish()
-        if status == False:
-            if error[0] == 13:
-                msg = msglib.get_value(msglib.console, "M7", [filename])
-                raise Exception(msg)
+        rows = dblib.query(cn, sql)
+        with open(filename, "w", encoding="UTF-8") as f:
+            msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [side]))
+            progress_bar = ShadyBar(msg, max=len(rows))
+            total = len(cn.description)
+            # header
+            line = self.create_report_analytic_header(cn)
+            f.write(line)
+            # contents
+            line = ""
+            for row in rows:
+                line = ""            
+                for i in range(0, total):
+                    line += str(row[i]) + ";"
+                line = line[:-1]
+                line += "\n"
+                f.write(line)
+                progress_bar.next()
+            progress_bar.finish()
         return filename
 
     def process(self, cn, recon):
