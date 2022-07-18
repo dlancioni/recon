@@ -1,5 +1,0 @@
-Id;Parent;Recon;Rule;Status;Campo 2;Campo 3;Campo 4;Campo 3 (Difference);Campo 4 (Difference)
-1;Conciliacao 02;Regra 1;Matched;1;20220101;Texto 1;1000.0;;
-2;Conciliacao 02;Regra 1;Matched;2;20220202;Texto 2;2000.0;;
-3;Conciliacao 02;Regra 1;Matched;3;20220303;Texto 3;3000.0;;
-4;Conciliacao 02;Regra 1;Matched;4;20220404;Texto 4;4000.0;;

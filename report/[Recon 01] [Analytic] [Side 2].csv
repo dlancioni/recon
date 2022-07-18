@@ -1,5 +1,0 @@
-Id;Parent;Recon;Rule;Status;Field 2;Field 3;Field 4;Field 3 (Difference);Field 4 (Difference)
-1;Recon 01;Rule 1;Matched;1;20220101;Text 1;1000.0;;
-2;Recon 01;Rule 1;Matched;2;20220202;Text 2;2000.0;;
-3;Recon 01;Rule 1;Matched;3;20220303;Text 3;3000.0;;
-4;Recon 01;Rule 1;Matched;4;20220404;Text 4;4000.0;;
