@@ -52,13 +52,14 @@ class Validation(unittest.TestCase):
             session_ds = "Dados"
             session_fd = "Campos"
         for field in fields_ds:
-            recon = self.open_recon(language)
-            del recon[session_ds][0][field]
-            self.assert_field(recon)
-            recon = self.open_recon(language)
-            recon[session_ds][0][field] = ""
-            self.assert_field(recon)
-            if field == session_fd:
+            if field != session_fd:
+                recon = self.open_recon(language)
+                del recon[session_ds][0][field]
+                self.assert_field(recon)
+                recon = self.open_recon(language)
+                recon[session_ds][0][field] = ""
+                self.assert_field(recon)
+            else:
                 for field in fields_fd:
                     recon = self.open_recon(language)
                     del recon[session_ds][0][session_fd][0][field]
@@ -66,3 +67,31 @@ class Validation(unittest.TestCase):
                     recon = self.open_recon(language)
                     recon[session_ds][0][session_fd][0][field] = ""
                     self.assert_field(recon)
+                    
+    def validate_recon(self, language):
+        if language == "en-us":
+            fields_rc = ["Rule", "Fields"]
+            fields_fd = ["Type", "Name"]
+            session_rc = "Recon"
+            session_fd = "Fields"
+        else:
+            fields_rc = ["Regra", "Campos"]
+            fields_fd = ["Tipo", "Nome"]
+            session_rc = "Conciliação"
+            session_fd = "Campos"
+        for field in fields_rc:
+            if field != session_fd:
+                recon = self.open_recon(language)
+                del recon[session_rc][0][field]
+                self.assert_field(recon)
+                recon = self.open_recon(language)
+                recon[session_rc][0][field] = ""
+                self.assert_field(recon)
+            else:
+                for field in fields_fd:
+                    recon = self.open_recon(language)
+                    del recon[session_rc][0][session_fd][0][field]
+                    self.assert_field(recon)
+                    recon = self.open_recon(language)
+                    recon[session_rc][0][session_fd][0][field] = ""
+                    self.assert_field(recon)                    

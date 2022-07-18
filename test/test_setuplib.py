@@ -15,11 +15,12 @@ class SetupLibTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_validation(self):
+    def test_mandatory(self):
         validation = Validation()
         for language in ["en-us", "pt-br"]:
             validation.validate_header(language)
             validation.validate_datasource(language)
+            validation.validate_recon(language)
 
 if __name__ == '__main__':
     unittest.main()
