@@ -32,12 +32,10 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         
     def print_csv(self, filename):
-        
-        pt = None  # to avoid it vanished at end of block...
         with open(filename, encoding="UTF-8") as file:
-            data = csv.reader(file, delimiter = ';')
-            table = PrettyTable(next(data))
-            for row in data:
+            rows = csv.reader(file, delimiter = ';')
+            table = PrettyTable(next(rows))
+            for row in rows:
                 table.add_row(row) 
             print(table)
         
