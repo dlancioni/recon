@@ -21,7 +21,7 @@ class BaseLib:
             return f, v
         if tag_pt in doc:
             f = tag_pt
-            v = doc[tag_pt]            
+            v = doc[tag_pt]
         if mandatory == True:
             if f == "" or v == "":
                 msglib = MsgLib()
