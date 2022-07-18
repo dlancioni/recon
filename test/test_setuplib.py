@@ -36,12 +36,12 @@ class UtilLibTest(unittest.TestCase):
                 for field in fields:
                     recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)                    
                     if action == "tagf":
-                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
-                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        us = f"{self.msg_missing_tag_en}{fields_en[i]}/{fields_pt[i]}"
+                        pt = f"{self.msg_missing_tag_pt}{fields_en[i]}/{fields_pt[i]}"
                         del recon[field]
                     else:
-                        us = f"Mandatory field: {field}"
-                        pt = f"Campo obrigatório: {field}"
+                        us = f"{self.msg_mandatory_en}{field}"
+                        pt = f"{self.msg_mandatory_pt}{field}"
                         recon[field] = ""
                     status, message, reports = corelib.process(recon)
                     if message in [us, pt]: validated = True
@@ -63,12 +63,12 @@ class UtilLibTest(unittest.TestCase):
                     recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
                     session = "Datasources" if language == "en-us" else "Dados"
                     if action == "tagf":
-                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
-                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        us = f"{self.msg_missing_tag_en}{fields_en[i]}/{fields_pt[i]}"
+                        pt = f"{self.msg_missing_tag_pt}{fields_en[i]}/{fields_pt[i]}"
                         del recon[session][item][field]
                     else:
-                        us = f"Mandatory field: {field}"
-                        pt = f"Campo obrigatório: {field}"
+                        us = f"{self.msg_mandatory_en}{field}"
+                        pt = f"{self.msg_mandatory_pt}{field}"
                         recon[session][item][field] = ""
                     status, message, reports = corelib.process(recon)
                     if message in [us, pt]: validated = True
@@ -91,12 +91,12 @@ class UtilLibTest(unittest.TestCase):
                     session = "Datasources" if language == "en-us" else "Dados"
                     Fields = "Fields" if language == "en-us" else "Campos"
                     if action == "tagf":
-                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
-                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        us = f"{self.msg_missing_tag_en}{fields_en[i]}/{fields_pt[i]}"
+                        pt = f"{self.msg_missing_tag_pt}{fields_en[i]}/{fields_pt[i]}"
                         del recon[session][item][Fields][0][field]
                     else:
-                        us = f"Mandatory field: {field}"
-                        pt = f"Campo obrigatório: {field}"
+                        us = f"{self.msg_mandatory_en}{field}"
+                        pt = f"{self.msg_mandatory_pt}{field}"
                         recon[session][item][Fields][0][field] = ""
                     status, message, reports = corelib.process(recon)
                     if message in [us, pt]: validated = True
@@ -117,12 +117,12 @@ class UtilLibTest(unittest.TestCase):
                     recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
                     session = "Recon" if language == "en-us" else "Conciliação"
                     if action == "tagf":
-                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
-                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        us = f"{self.msg_missing_tag_en}{fields_en[i]}/{fields_pt[i]}"
+                        pt = f"{self.msg_missing_tag_pt}{fields_en[i]}/{fields_pt[i]}"
                         del recon[session][0][field]
                     else:
-                        us = f"Mandatory field: {field}"
-                        pt = f"Campo obrigatório: {field}"
+                        us = f"{self.msg_mandatory_en}{field}"
+                        pt = f"{self.msg_mandatory_pt}{field}"
                         recon[session][0][field] = ""
                     status, message, reports = corelib.process(recon)
                     if message in [us, pt]: validated = True
@@ -145,12 +145,12 @@ class UtilLibTest(unittest.TestCase):
                     session = "Recon" if language == "en-us" else "Conciliação"
                     Fields = "Fields" if language == "en-us" else "Campos"                    
                     if action == "tagf":
-                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
-                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        us = f"{self.msg_missing_tag_en}{fields_en[i]}/{fields_pt[i]}"
+                        pt = f"{self.msg_missing_tag_pt}{fields_en[i]}/{fields_pt[i]}"
                         del recon[session][item][Fields][0][field]
                     else:
-                        us = f"Mandatory field: {field}"
-                        pt = f"Campo obrigatório: {field}"
+                        us = f"{self.msg_mandatory_en}{field}"
+                        pt = f"{self.msg_mandatory_pt}{field}"
                         recon[session][item][Fields][0][field] = ""
                     status, message, reports = corelib.process(recon)
                     if message in [us, pt]: validated = True
@@ -160,7 +160,12 @@ class UtilLibTest(unittest.TestCase):
                     i += 1
                    
     def setUp(self):
-        pass
+        self.msg_missing_tag_en = f"Invalid or missing mandatory tag: "
+        self.msg_missing_tag_pt = f"Tag inválida ou obrigatória: "
+        
+        self.msg_mandatory_en = f"Mandatory field: "
+        self.msg_mandatory_pt = f"Campo obrigatório: "
+
                     
     def test_validate_mandatory(self):
         self.mandatory_info()
