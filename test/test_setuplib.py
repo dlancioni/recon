@@ -24,6 +24,23 @@ class UtilLibTest(unittest.TestCase):
         path = fslib.get_path_recon("", "recon [pt_br].cfg")
         recon_pt = fslib.open_json(path)            
         return recon_en, recon_pt
+    
+    def validate_side(self):
+        recon_en, recon_pt = self.open_recon()
+        for language in ["en-us", "pt-br"]:
+            recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
+            session = "Datasources" if language == "en-us" else "Dados"
+            Fields = "Fields" if language == "en-us" else "Campos"
+            name = "Name" if language == "en-us" else "Nome"
+            name = recon[session][0][name]
+            recon[session][0][Fields] = []
+            us = f"Definição dos campos não encontrada para fonte de dados: {name}"
+            pt = f"Field definition not found for datasource: {name}"
+            status, message, reports = corelib.process(recon)
+            if message in [us, pt]: validated = True
+            self.assertEqual(status, False)
+            self.assertEqual(validated, True)
+            status, message = "", ""
 
     def mandatory_info(self):
         recon_en, recon_pt = self.open_recon()
@@ -77,7 +94,7 @@ class UtilLibTest(unittest.TestCase):
                     status, message = "", ""
                     i += 1
 
-    def mandatory_datasource_fields(self):
+    def mandatory_datasource_field(self):
         recon_en, recon_pt = self.open_recon()
         fields_en = ["Id", "Name", "Type", "Value", "Mask"]
         fields_pt = ["Id", "Nome", "Tipo", "Valor", "Mascara"]
@@ -129,7 +146,24 @@ class UtilLibTest(unittest.TestCase):
                     self.assertEqual(status, False)
                     self.assertEqual(validated, True)
                     status, message = "", ""
-                    i += 1                    
+                    i += 1
+                    
+    def validate_recon_rule(self):
+        recon_en, recon_pt = self.open_recon()
+        for language in ["en-us", "pt-br"]:
+            recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
+            session = "Recon" if language == "en-us" else "Conciliação"
+            Fields = "Fields" if language == "en-us" else "Campos"
+            name = "Rule" if language == "en-us" else "Regra"
+            name = recon[session][0][name]
+            recon[session][0][Fields] = []
+            us = f"Definição dos campos não encontrada para regra de conciliação: {name}"
+            pt = f"Field definition not found for reconciliation rule: {name}"
+            status, message, reports = corelib.process(recon)
+            if message in [us, pt]: validated = True
+            self.assertEqual(status, False)
+            self.assertEqual(validated, True)
+            status, message = "", ""
                    
     def mandatory_recon_field(self):
         recon_en, recon_pt = self.open_recon()
@@ -161,16 +195,17 @@ class UtilLibTest(unittest.TestCase):
                    
     def setUp(self):
         self.msg_missing_tag_en = f"Invalid or missing mandatory tag: "
-        self.msg_missing_tag_pt = f"Tag inválida ou obrigatória: "
-        
+        self.msg_missing_tag_pt = f"Tag inválida ou obrigatória: "        
         self.msg_mandatory_en = f"Mandatory field: "
         self.msg_mandatory_pt = f"Campo obrigatório: "
 
                     
     def test_validate_mandatory(self):
+        self.validate_side()
         self.mandatory_info()
         self.mandatory_datasource()
-        self.mandatory_datasource_fields()
+        self.mandatory_datasource_field()
+        self.validate_recon_rule()
         self.mandatory_recon()
         self.mandatory_recon_field()
 

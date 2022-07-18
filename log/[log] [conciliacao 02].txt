@@ -1,2 +1,2 @@
-2022-07-18 11:52:20 ERROR Setuplib.validate: Invalid or missing mandatory tag: Rule/Regra
-2022-07-18 11:52:20 ERROR CoreLib.process: Invalid or missing mandatory tag: Rule/Regra
+2022-07-18 15:15:19 ERROR Setuplib.validate: Field definition not found for reconciliation rule: Regra 1
+2022-07-18 15:15:19 ERROR CoreLib.process: Field definition not found for reconciliation rule: Regra 1

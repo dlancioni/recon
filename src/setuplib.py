@@ -35,7 +35,17 @@ class SetupLib(BaseLib):
         self.validate_tag(session, recon, ["Description", "Descrição"], True)
         field = self.tagf(recon, "Id", "Id")
         value = self.tagv(recon, "Id", "Id")
-        if int(value) <= 0: raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
+        if int(value) <= 0: 
+            raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
+
+    def validate_side(self, recon):
+        loglib = LogLib("Setuplib", "validate_side")
+        datasources = self.tagv(recon, "Datasources", "Dados")
+        for datasource in datasources:
+            name = self.tagv(datasource, "Name", "Nome")
+            fields = self.tagv(datasource, "Fields", "Campos")
+            if len(fields) == 0:
+                raise Exception(msglib.get_value(msglib.validation, "M6", [name]))
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
@@ -62,7 +72,16 @@ class SetupLib(BaseLib):
                 self.validate_tag(session, values, ["Type", "Tipo"], True)
                 self.validate_tag(session, values, ["Value", "Valor"], False)
                 self.validate_tag(session, values, ["Mask", "Mascara"], False)
-                
+
+    def validate_recon_rules(self, recon):
+        loglib = LogLib("Setuplib", "validate_recon_rules")
+        rules = self.tagv(recon, "Recon", "Conciliação")
+        for rule in rules:
+            name = self.tagv(rule, "Rule", "Regra")           
+            fields = self.tagv(rule, "Fields", "Campos")
+            if len(fields) == 0:
+                raise Exception(msglib.get_value(msglib.validation, "M7", [name]))
+
     def validate_recon(self, recon):
         loglib = LogLib("Setuplib", "validate_recon")
         session = ""
@@ -86,7 +105,9 @@ class SetupLib(BaseLib):
         loglib = LogLib("Setuplib", "validate")
         try:
             self.validate_info(recon)
+            self.validate_side(recon)
             self.validate_datasource(recon)
+            self.validate_recon_rules(recon)
             self.validate_recon(recon)
         except BaseException as err:
             msg = f"{str(err)}"
