@@ -1,25 +1,24 @@
-2022-07-18 17:54:36 INFO CoreLib.process: Validation OK, ready to create area
-2022-07-18 17:54:36 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
-2022-07-18 17:54:36 INFO AreaLib.create_recon_area: Area created:
-2022-07-18 17:54:36 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Real']
-2022-07-18 17:54:36 INFO CoreLib.process: Area OK, ready to import files
-2022-07-18 17:54:36 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon [en_us].txt] [recon [en_us].txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
-2022-07-18 17:54:36 INFO EtlLib.import_file: File sucessfully imported
-2022-07-18 17:54:36 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon [en_us].txt] [recon [en_us].txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
-2022-07-18 17:54:36 INFO EtlLib.import_file: File sucessfully imported
-2022-07-18 17:54:36 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-07-18 17:54:36 INFO ReconLib.process: Processing rule: Rule 1
-2022-07-18 17:54:36 INFO ReconLib.prepare: Fiekd Key: ['[Field 1]', '[Field 2]']
-2022-07-18 17:54:36 INFO ReconLib.prepare: Fiekd Compare: ['[Field 3]', '[Field 4]']
-2022-07-18 17:54:36 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-07-18 17:54:36 INFO ReconLib.match_key: Match key successfuly completed
-2022-07-18 17:54:36 INFO ReconLib.compare: Field comparison successfuly completed
-2022-07-18 17:54:36 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
-2022-07-18 17:54:36 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
-2022-07-18 17:54:36 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
-2022-07-18 17:54:36 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
-2022-07-18 17:54:36 INFO ReconLib.stamp_tmp: Fields with difference: ['[Field 3 (Diferença)]', '[Field 4 (Diferença)]']
-2022-07-18 17:54:36 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-07-18 17:54:36 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-07-18 17:54:36 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-07-18 17:54:36 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-07-18 18:02:31 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-18 18:02:31 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
+2022-07-18 18:02:31 INFO AreaLib.create_recon_area: Area created:
+2022-07-18 18:02:31 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Real']
+2022-07-18 18:02:31 INFO CoreLib.process: Area OK, ready to import files
+2022-07-18 18:02:31 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon [en_us].txt] [recon [en_us].txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
+2022-07-18 18:02:31 INFO EtlLib.import_file: File sucessfully imported
+2022-07-18 18:02:31 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\recon [en_us].txt] [recon [en_us].txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
+2022-07-18 18:02:31 INFO EtlLib.import_file: File sucessfully imported
+2022-07-18 18:02:31 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-18 18:02:31 INFO ReconLib.process: Processing rule: Rule 1
+2022-07-18 18:02:31 INFO ReconLib.prepare: Fiekd Key: ['[Field 1]', '[Field 2]']
+2022-07-18 18:02:31 INFO ReconLib.prepare: Fiekd Compare: ['[Field 3]', '[Field 4]']
+2022-07-18 18:02:31 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-18 18:02:31 INFO ReconLib.match_key: Match key successfuly completed
+2022-07-18 18:02:31 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-18 18:02:31 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
+2022-07-18 18:02:31 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
+2022-07-18 18:02:31 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
+2022-07-18 18:02:31 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
+2022-07-18 18:02:31 INFO ReconLib.stamp_tmp: Fields with difference: ['[Field 3 (Diferença)]', '[Field 4 (Diferença)]']
+2022-07-18 18:02:31 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-18 18:02:31 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-18 18:02:31 INFO CoreLib.process: Reconciliation OK, ready to generate reports

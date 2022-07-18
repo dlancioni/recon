@@ -109,6 +109,29 @@ class ReportLib(BaseLib):
                 msg = msglib.get_value(msglib.console, "M7", [file])
                 raise Exception(msg)
         return file
+    
+    def create_report_analytic_header(self, cn):
+        loglib = LogLib("Reportlib", "create_report_analytic_header")
+        line = ""
+        lines = ""
+        sql = ""
+        tb = f"tb{self.id}1"
+        sql += f"select "
+        sql += f"* "
+        sql += f"from {tb} "
+        rows = dblib.query(cn, sql)
+        fields = ["L8", "L9", "L4", "L5", "L6"]
+        line = ""
+        for field in fields:
+            line += f"{msglib.get_value(msglib.label, field)};"
+        first = len(fields)
+        total = len(cn.description)
+        for i in range(first, total):
+            label = str(cn.description[i][0]).strip()
+            line += f"{label};"
+        line = line[:-1]
+        line += f"\n"
+        return line
         
     def create_report_analytic(self, cn, side):
         loglib = LogLib("Reportlib", "create_report_analytic")
@@ -159,6 +182,7 @@ class ReportLib(BaseLib):
         loglib = LogLib("Reportlib", "process")
         reports = []
         try:
+            self.create_report_analytic_header(cn)
             reports.append(self.create_report_synthetic(cn))
             for side in range(1, 3):
                 reports.append(self.create_report_analytic(cn, side))
