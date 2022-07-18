@@ -68,11 +68,11 @@ class CoreLib(BaseLib):
             setuplib.validate_info(recon)
             self.id = self.tagv(recon, "Id", "Id")
             self.name = self.tagv(recon, "Name", "Nome")
-            msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
             """ create log and validate recon """
             logger = self.create_log_file()
             setuplib.validate(recon)
             loglib.log(loglib.INFO, "Validation OK, ready to create area")
+            msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))            
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
             fields, types = arealib.process(cn, recon)
