@@ -1,31 +1,31 @@
-2022-07-18 19:55:12 INFO CoreLib.process: Validation OK, ready to create area
-2022-07-18 19:55:12 INFO AreaLib.merge_datasources: ['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']
-2022-07-18 19:55:12 INFO AreaLib.create_recon_area: Area created:
-2022-07-18 19:55:12 INFO AreaLib.create_recon_area: ['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']['Integer', 'Text', 'Text', 'Text', 'Text', 'Real']
-2022-07-18 19:55:12 INFO CoreLib.process: Area OK, ready to import files
-2022-07-18 19:55:12 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\10k.txt] [10k.txt] [;] [10001] [[Codigo], [Nome], [Email], [Data], [Cargo], [Salario]]
-2022-07-18 19:55:14 INFO EtlLib.import_file: File sucessfully imported
-2022-07-18 19:55:14 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\10k.txt] [10k.txt] [;] [10001] [[Codigo], [Nome], [Email], [Data], [Cargo], [Salario]]
-2022-07-18 19:55:16 INFO EtlLib.import_file: File sucessfully imported
-2022-07-18 19:55:16 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-07-18 19:55:16 INFO ReconLib.process: Processing rule: Batimento Total
-2022-07-18 19:55:16 INFO ReconLib.prepare: Fiekd Key: ['[Codigo]']
-2022-07-18 19:55:16 INFO ReconLib.prepare: Fiekd Compare: ['[Nome]', '[Email]', '[Data]', '[Cargo]', '[Salario]']
-2022-07-18 19:55:16 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-07-18 19:55:16 INFO ReconLib.match_key: Match key successfuly completed
-2022-07-18 19:55:17 INFO ReconLib.compare: Field comparison successfuly completed
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Nome (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Nome (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Email (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Email (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Data (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Data (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Cargo (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Cargo (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Salario (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Salario (Diferença)]
-2022-07-18 19:55:17 INFO ReconLib.stamp_tmp: Fields with difference: ['[Nome (Diferença)]', '[Email (Diferença)]', '[Data (Diferença)]', '[Cargo (Diferença)]', '[Salario (Diferença)]']
-2022-07-18 19:55:17 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-07-18 19:55:17 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-07-18 19:55:17 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-07-18 19:55:19 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-07-18 20:09:00 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-18 20:09:00 INFO AreaLib.merge_datasources: ['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']
+2022-07-18 20:09:00 INFO AreaLib.create_recon_area: Area created:
+2022-07-18 20:09:00 INFO AreaLib.create_recon_area: ['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']['Integer', 'Text', 'Text', 'Text', 'Text', 'Real']
+2022-07-18 20:09:00 INFO CoreLib.process: Area OK, ready to import files
+2022-07-18 20:09:00 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\10k.txt] [10k.txt] [;] [10001] [[Codigo], [Nome], [Email], [Data], [Cargo], [Salario]]
+2022-07-18 20:09:02 INFO EtlLib.import_file: File sucessfully imported
+2022-07-18 20:09:02 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\10k.txt] [10k.txt] [;] [10001] [[Codigo], [Nome], [Email], [Data], [Cargo], [Salario]]
+2022-07-18 20:09:04 INFO EtlLib.import_file: File sucessfully imported
+2022-07-18 20:09:04 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-18 20:09:04 INFO ReconLib.process: Processing rule: Batimento Total
+2022-07-18 20:09:04 INFO ReconLib.prepare: Fiekd Key: ['[Codigo]']
+2022-07-18 20:09:04 INFO ReconLib.prepare: Fiekd Compare: ['[Nome]', '[Email]', '[Data]', '[Cargo]', '[Salario]']
+2022-07-18 20:09:04 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-18 20:09:04 INFO ReconLib.match_key: Match key successfuly completed
+2022-07-18 20:09:05 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Nome (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Nome (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Email (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Email (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Data (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Data (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Cargo (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Cargo (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Salario (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Salario (Diferença)]
+2022-07-18 20:09:05 INFO ReconLib.stamp_tmp: Fields with difference: ['[Nome (Diferença)]', '[Email (Diferença)]', '[Data (Diferença)]', '[Cargo (Diferença)]', '[Salario (Diferença)]']
+2022-07-18 20:09:05 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-18 20:09:05 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-18 20:09:05 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-07-18 20:09:07 INFO CoreLib.process: Reports OK, ready to commit the process

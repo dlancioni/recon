@@ -1,9 +1,11 @@
 import os
+import csv
 import sys
 import json
 import shutil
 import logging
 from prettytable import from_csv
+from prettytable import PrettyTable
 from sqlite3 import Error
 from src.baselib import BaseLib
 from src.dblib import DbLib
@@ -30,9 +32,14 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
         
     def print_csv(self, filename):
+        
+        pt = None  # to avoid it vanished at end of block...
         with open(filename, encoding="UTF-8") as file:
-            table = from_csv(file)
-        print(table)
+            data = csv.reader(file, delimiter = ';')
+            table = PrettyTable(next(data))
+            for row in data:
+                table.add_row(row) 
+            print(table)
         
     def print_report(self, reports, index):
         index = int(index)
