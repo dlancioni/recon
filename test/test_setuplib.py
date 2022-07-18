@@ -34,17 +34,25 @@ class UtilLibTest(unittest.TestCase):
         fields_pt = ["Id", "Nome", "Descrição"]
         for language in ["en-us", "pt-br"]:
             fields = fields_en if language == "en-us" else fields_pt
-            for field in fields:
-                us = f"Mandatory field: {field}"
-                pt = f"Campo obrigatório: {field}"
-                recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
-                recon[field] = ""
-                status, message, reports = corelib.process(recon)
-                if message in [us, pt]: validated = True
-                self.assertEqual(status, False)
-                self.assertEqual(validated, True)
-                status, message = "", ""                
-            
+            i = 0
+            for action in ["tagf", "tagv"]:
+                for field in fields:
+                    recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)                    
+                    if action == "tagf":
+                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
+                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        del recon[field]
+                    else:
+                        us = f"Mandatory field: {field}"
+                        pt = f"Campo obrigatório: {field}"
+                        recon[field] = ""
+                    status, message, reports = corelib.process(recon)
+                    if message in [us, pt]: validated = True
+                    self.assertEqual(status, False)
+                    self.assertEqual(validated, True)
+                    status, message = "", ""
+                    i += 1
+
     def test_validate_datasource(self):
         pass
 
