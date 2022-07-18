@@ -5,24 +5,21 @@ import logging
 import copy
 import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
-from validate_en import ValidateEn
-from validate_pt import ValidatePt
+from validation import Validation
 
-class UtilLibTest(unittest.TestCase):
+class SetupLibTest(unittest.TestCase):
                   
     def setUp(self):
         pass
     
     def tearDown(self):
         pass
-                    
-    def test_validate_en(self):
-        en = ValidateEn()
-        en.validate_header()
-        
-    def test_validate_pt(self):
-        pt = ValidatePt()
-        pt.validate_header()
+
+    def test_validation(self):
+        validation = Validation()
+        for language in ["en-us", "pt-br"]:
+            validation.validate_header(language)
+            validation.validate_datasource(language)
 
 if __name__ == '__main__':
     unittest.main()
