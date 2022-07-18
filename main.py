@@ -19,7 +19,8 @@ reportlib = ReportLib()
 utillib.cls()
 parser = argparse.ArgumentParser()
 parser.add_argument("--f", help="File with conciliation configuration")
-parser.add_argument("--r", help="Report on console [(]0] Sinthetic, [1] Side 1 [2] Side 2 [12] Side 1 and 2")
+parser.add_argument("--t", nargs='?', const=1, type=int, help="Time elapsed")
+parser.add_argument("--r", nargs='?', const=0, type=int, help="Results on console: [0] Sinthetic, [1] Side 1 [2] Side 2 [12] Side 1 and 2")
 args = parser.parse_args()
 """ append file extension if not provided """
 filename = "recon [en_us].cfg" if args.f == None else args.f
@@ -31,14 +32,18 @@ status, error, reports = corelib.process(filename)
 end = timer()
 """ finish processing """
 msglib.print(msglib.get_value(msglib.console, "M2"))
-msg = msglib.get_value(msglib.console, "M3")
-msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
 """ print console information """
 if status == False:
-    #utillib.cls()
     msglib.print(f"{filename}")
-    msglib.print(error)
+    msg = msglib.set_time(error)
+    CRED = '\033[91m'
+    CEND = '\033[0m'    
+    print(CRED + msg + CEND)
 else:
-    if args.r:
+    if args.r != None:
         index = int(args.r)
         reportlib.print_report(reports, index)
+""" time elapsed """
+if args.t != None:
+    msg = msglib.get_value(msglib.console, "M3")
+    msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
