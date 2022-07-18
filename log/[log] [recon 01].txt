@@ -1,2 +1,60 @@
-2022-07-18 10:41:01 ERROR Setuplib.validate: Validation error -> Invalid or missing mandatory tag: Datasources/Dados
-2022-07-18 10:41:01 ERROR CoreLib.process: Validation error -> Invalid or missing mandatory tag: Datasources/Dados
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Side
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Side
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Side
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Side
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Side
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Side
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Side
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Side
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Side
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Side
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Invalid or missing mandatory tag: Side/Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR Setuplib.validate: Mandatory field: Lado
+2022-07-18 11:37:09 ERROR CoreLib.process: Mandatory field: Lado
+2022-07-18 11:37:13 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-18 11:37:13 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
+2022-07-18 11:37:13 INFO AreaLib.create_recon_area: Area created:
+2022-07-18 11:37:13 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Real']
+2022-07-18 11:37:13 INFO CoreLib.process: Area OK, ready to import files
+2022-07-18 11:37:28 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [en_us].txt] [recon [en_us].txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
+2022-07-18 11:39:11 ERROR EtlLib.process: General error -> 'Id'
+2022-07-18 11:39:11 ERROR CoreLib.process: General error -> 'Id'
+2022-07-18 11:39:11 ERROR CoreLib.process: Invalid or missing mandatory tag: Id/Id
+2022-07-18 11:39:11 ERROR CoreLib.process: Invalid or missing mandatory tag: Name/Nome
+2022-07-18 11:39:11 ERROR CoreLib.process: Invalid or missing mandatory tag: Description/Descrição
+2022-07-18 11:39:11 ERROR CoreLib.process: Mandatory field: Id
+2022-07-18 11:39:11 ERROR CoreLib.process: Mandatory field: Name
+2022-07-18 11:39:11 ERROR CoreLib.process: Mandatory field: Description
+2022-07-18 11:39:11 ERROR CoreLib.process: Invalid or missing mandatory tag: Id/Id
+2022-07-18 11:39:11 ERROR CoreLib.process: Invalid or missing mandatory tag: Name/Nome
+2022-07-18 11:39:11 ERROR CoreLib.process: Invalid or missing mandatory tag: Description/Descrição
+2022-07-18 11:39:11 ERROR CoreLib.process: Mandatory field: Id
+2022-07-18 11:39:11 ERROR CoreLib.process: Mandatory field: Nome
+2022-07-18 11:39:11 ERROR CoreLib.process: Mandatory field: Descrição

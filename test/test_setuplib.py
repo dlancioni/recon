@@ -54,7 +54,59 @@ class UtilLibTest(unittest.TestCase):
                     i += 1
 
     def test_validate_datasource(self):
-        pass
+        recon_en, recon_pt = self.open_recon()
+        fields_en = ["Side", "Name", "Path", "File", "Separator"]
+        fields_pt = ["Lado", "Nome", "Caminho", "Arquivo", "Separador"]
+        item = 0
+        for language in ["en-us", "pt-br"]:
+            fields = fields_en if language == "en-us" else fields_pt
+            i = 0
+            for action in ["tagf", "tagv"]:
+                for field in fields:
+                    recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
+                    session = "Datasources" if language == "en-us" else "Dados"
+                    if action == "tagf":
+                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
+                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        del recon[session][item][field]
+                    else:
+                        us = f"Mandatory field: {field}"
+                        pt = f"Campo obrigatório: {field}"
+                        recon[session][item][field] = ""
+                    status, message, reports = corelib.process(recon)
+                    if message in [us, pt]: validated = True
+                    self.assertEqual(status, False)
+                    self.assertEqual(validated, True)
+                    status, message = "", ""
+                    i += 1
+                    
+    def test_validate_datasource_fields(self):
+        recon_en, recon_pt = self.open_recon()
+        fields_en = ["Id", "Name", "Type", "Value", "Mask"]
+        fields_pt = ["Id", "Nome", "Tipo", "Valor", "Mascara"]
+        item = 0
+        for language in ["en-us", "pt-br"]:
+            fields = fields_en if language == "en-us" else fields_pt
+            i = 0
+            for action in ["tagf", "tagv"]:
+                for field in fields:
+                    recon = copy.copy(recon_en) if language == "en-us" else copy.copy(recon_pt)
+                    session = "Datasources" if language == "en-us" else "Dados"
+                    Fields = "Fields" if language == "en-us" else "Campos"
+                    if action == "tagf":
+                        us = f"Invalid or missing mandatory tag: {fields_en[i]}/{fields_pt[i]}"
+                        pt = f"Tag inválida ou obrigatória: {fields_en[i]}/{fields_pt[i]}"
+                        del recon[session][item][Fields][0][field]
+                    else:
+                        us = f"Mandatory field: {field}"
+                        pt = f"Campo obrigatório: {field}"
+                        recon[session][item][Fields][0][field] = ""
+                    status, message, reports = corelib.process(recon)
+                    if message in [us, pt]: validated = True
+                    self.assertEqual(status, False)
+                    self.assertEqual(validated, True)
+                    status, message = "", ""
+                    i += 1
 
     def tearDown(self):
         pass
