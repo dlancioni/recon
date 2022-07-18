@@ -57,6 +57,7 @@ class SetupLib(BaseLib):
             for j in range(0, len(fields)):
                 session = f"{tag_ds}/{tag_field}"
                 values = recon[tag_ds][i][tag_field][j]
+                self.validate_tag(session, values, ["Id", "Id"], True)
                 self.validate_tag(session, values, ["Name", "Nome"], True)
                 self.validate_tag(session, values, ["Type", "Tipo"], True)
                 self.validate_tag(session, values, ["Value", "Valor"], False)
