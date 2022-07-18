@@ -16,6 +16,7 @@ class MsgLib():
         self.console = "Console"
         self.validation = "Validation"
         self.label = "Label"
+        self.exception = "Exception"
         
     def set_time(self, msg):
         now = datetime.now()

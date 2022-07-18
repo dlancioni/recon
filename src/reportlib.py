@@ -163,15 +163,18 @@ class ReportLib(BaseLib):
             for side in range(1, 3):
                 reports.append(self.create_report_analytic(cn, side))
         except Error as err:
-            msg = f"SQL Error -> {str(err)}"
+            cat = msglib.get_value(msglib.exception, "E1")
+            msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
-            msg = f"File manipulation error -> {str(err)}"
+            cat = msglib.get_value(msglib.exception, "E2")
+            msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
-            msg = f"General error -> {str(err)}"
+            cat = msglib.get_value(msglib.exception, "E3")
+            msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         return reports

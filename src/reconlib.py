@@ -233,10 +233,12 @@ class ReconLib(BaseLib):
                 progress_bar.finish()
             self.drop_tmp(cn)                
         except Error as err:
-            msg = f"SQL Error -> {str(err)}"
+            cat = msglib.get_value(msglib.exception, "E1")
+            msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
-            msg = f"General error -> {str(err)}"
+            cat = msglib.get_value(msglib.exception, "E3")
+            msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

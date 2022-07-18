@@ -110,6 +110,6 @@ class SetupLib(BaseLib):
             self.validate_recon_rules(recon)
             self.validate_recon(recon)
         except BaseException as err:
-            msg = f"{str(err)}"
+            msg = f"Validation error -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
