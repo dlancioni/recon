@@ -1,4 +1,4 @@
 Id;Parente;Conciliação;Regra;Status;Field 2;Field 3;Field 4;Field 3 (Diferença);Field 4 (Diferença)
 1;Recon 1;Rule 1;Batido;1;20220101;Text 1;1000.01;;
-2;Recon 1;Rule 1;Divergente;2;20220202;Text 2;2000.02;Text_2/Text 2;2002.02/2000.02
+2;Recon 1;Rule 1;Divergente;2;20220202;Text 2;2000.02;Text-2/Text 2;2002.02/2000.02
 3;;;Órfão;4;20220404;Text 4;4004.04;;

@@ -58,10 +58,16 @@ class CoreLib(BaseLib):
         return logger
 
     def process(self, recon):
+        debug = 0
+        path_temp = ""        
         loglib = LogLib("CoreLib", "process")
         try:
             """ create new transaction for each recon """
-            cn = dblib.begin_tran()
+            path_temp = cfglib.get_config("path_temp")
+            debug = int(cfglib.get_config("debug"))
+            loglib.log(loglib.INFO, f"Debug mode: {True if debug == 1 else False}")
+            cn = dblib.get_connection(path_temp, debug)
+            cn = dblib.begin_tran(cn, debug)
             """ open json recon or file """
             recon = self.open_recon(recon)
             """ validate key info """
@@ -90,9 +96,9 @@ class CoreLib(BaseLib):
             reports = reportlib.process(cn, recon)
             loglib.log(loglib.INFO, "Reports OK, ready to commit the process")
             """ commit info """
-            dblib.commit_tran(cn)
+            dblib.commit_tran(cn, debug)
             return True, "", reports
         except BaseException as err:
-            dblib.rollback_tran(cn)
+            dblib.rollback_tran(cn, debug)
             loglib.log(loglib.ERROR, f"{str(err)}")            
             return False, str(err), ""

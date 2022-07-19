@@ -3,18 +3,14 @@ import logging
 import sqlite3
 from sqlite3 import Error
 from prettytable import from_db_cursor
+from src.fslib import FsLib
+
+fslib = FsLib()
 
 class DbLib:
     
     def __init__(self):
         self.logger = logging.getLogger(__name__)
-        
-    def get_connection(db=""):
-        conn = None
-        conn = sqlite3.connect(":memory:")
-        #conn = sqlite3.connect("c:\\temp\\db.db")
-        conn.isolation_level = None
-        return conn        
     
     def query(self, cn, sql, format=False):
         cn.execute(sql)
@@ -29,18 +25,27 @@ class DbLib:
         cn.execute(sql)
         rows_affected = cn.rowcount
         return rows_affected
+    
+    def get_connection(self, path_temp, debug=0):
+        conn = None
+        if debug == 0:
+            conn = sqlite3.connect(":memory:")
+        else:
+            connection = fslib.join(path_temp, "tmp.db")
+            conn = sqlite3.connect(connection)
+        conn.isolation_level = None
+        return conn
 
-    def begin_tran(self):
-        self.method = "dblib.begin_tran()"
-        cn = self.get_connection()
+    def begin_tran(self, cn, debug=0):
         cursor = cn.cursor()
-        cursor.execute("begin")
+        if debug == 0:        
+            cursor.execute("begin")
         return cursor
     
-    def commit_tran(self, cn):
-        self.method = "dblib.commit_tran()"
-        cn.execute("commit")
+    def commit_tran(self, cn, debug=0):
+        if debug == 0:        
+            cn.execute("commit")
         
-    def rollback_tran(self, cn):
-        self.method = "dblib.rollback_tran()"
-        cn.execute("rollback")
+    def rollback_tran(self, cn, debug=0):
+        if debug == 0:
+            cn.execute("rollback")
