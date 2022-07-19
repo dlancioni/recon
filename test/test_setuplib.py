@@ -18,7 +18,7 @@ fslib = FsLib()
 class SetupLibTest(unittest.TestCase):
     
     def open_recon(self, language):
-        filename = "recon [en_us].cfg" if language == "en-us" else "recon [pt_br].cfg"
+        filename = "recon [en-us].cfg" if language == "en-us" else "recon [pt-br].cfg"
         path = fslib.get_path_recon("", filename)
         recon = fslib.open_json(path)
         return recon
@@ -42,12 +42,12 @@ class SetupLibTest(unittest.TestCase):
             
     def validate_datasource(self, language):        
         if language == "en-us":
-            fields_ds = ["Side", "Name", "File", "Separator", "Fields"]
+            fields_ds = ["Side", "Name", "File", "Separator", "Start", "Fields"]
             fields_fd = ["Id", "Name", "Type"]
             session_ds = "Datasources"
             session_fd = "Fields"
         else:
-            fields_ds = ["Lado", "Nome", "Arquivo", "Separador", "Campos"]
+            fields_ds = ["Lado", "Nome", "Arquivo", "Separador", "Inicio", "Campos"]
             fields_fd = ["Id", "Nome", "Tipo"]
             session_ds = "Dados"
             session_fd = "Campos"

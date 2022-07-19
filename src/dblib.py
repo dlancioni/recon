@@ -26,13 +26,9 @@ class DbLib:
     
     def execute(self, cn, sql):
         rows_affected = 0
-        self.method = "dblib.execute()"
-        try:
-            cn.execute(sql)
-            rows_affected = cn.rowcount
-        except Error as err:
-            message = f"{self.method}: SQL Error -> {str(err)}"
-            raise Exception(message)
+        cn.execute(sql)
+        rows_affected = cn.rowcount
+        return rows_affected
 
     def begin_tran(self):
         self.method = "dblib.begin_tran()"

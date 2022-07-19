@@ -1,0 +1,3 @@
+Id;Parente;Conciliação;Regra;Status;Field 2;Field 3;Field 4;Field 3 (Diferença);Field 4 (Diferença)
+1;Recon 01;Rule 1;Divergente;1;20220101;Text 1;1000.0;;1000.0/333.0
+2;Recon 01;Rule 1;Divergente;1;20220101;Text 1;333.0;;1000.0/333.0

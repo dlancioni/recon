@@ -37,12 +37,14 @@ class EtlLib(BaseLib):
         file = self.tagv(ds, "File", "Arquivo")
         fields = self.tagv(ds, "Fields", "Campos")
         separator = self.tagv(ds, "Separator", "Separador")
+        start = int(self.tagv(ds, "Start", "Inicio"))
         tb = f"tb{self.id}{side}"
         path = fslib.get_path_file(path, file)
         first = True
         error_count = 0
         rows_affected = 0
         rows_imported = 0
+        row = 0
         fl = sqlib.get_field_list(fields)
         count = self.count(path)
         msg = msglib.get_value(msglib.console, "M5", [self.tagv(ds, "File", "Arquivo")])
@@ -51,7 +53,8 @@ class EtlLib(BaseLib):
         loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
-                if not first and str(line.strip()) != "":
+                row += 1
+                if (row >= start) and (str(line.strip()) != ""):
                     values = line.split(separator)
                     for field in fields:
                         position = int(field["Id"]) -1
@@ -63,11 +66,13 @@ class EtlLib(BaseLib):
                         rows_imported += 1
                         progress_bar.next()
                     except Error as err:
+                        pass                        
                         error_count += 1                                                   
                         loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")
-                first = False
+
         progress_bar.finish()
         loglib.log(loglib.INFO, f"File sucessfully imported")
+        
     def process(self, cn, recon):
         loglib = LogLib("EtlLib", "process")
         try:

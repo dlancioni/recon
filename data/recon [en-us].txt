@@ -1,0 +1,8 @@
+Integer;Date;Text;Decimal
+
+1;20220101;Text 1;1000.00
+
+
+
+1;20220101;Text 1;333.00
+

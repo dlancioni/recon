@@ -12,9 +12,9 @@ utillib = UtilLib()
 class CoreLibTest(unittest.TestCase):
 
     def validate_cfg(self):
-        status, message, reports = corelib.process("recon [en_us]")
+        status, message, reports = corelib.process("recon [en-us]")
         self.assertEqual(status, True)
-        status, message, reports = corelib.process("recon [pt_br]")
+        status, message, reports = corelib.process("recon [pt-br]")
         self.assertEqual(status, True)
         
     def setUp(self):

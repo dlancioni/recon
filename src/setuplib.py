@@ -60,6 +60,7 @@ class SetupLib(BaseLib):
             self.validate_tag(session, values, ["Path", "Caminho"], False)
             self.validate_tag(session, values, ["File", "Arquivo"], True)
             self.validate_tag(session, values, ["Separator", "Separador"], True)
+            self.validate_tag(session, values, ["Start", "Inicio"], True)
             """ validate fields """
             self.validate_tag(session, recon[tag_ds][i], ["Fields", "Campos"])
             tag_field = self.tagf(recon[tag_ds][i], "Fields", "Campos")

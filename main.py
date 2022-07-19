@@ -23,7 +23,7 @@ parser.add_argument("--t", nargs='?', const=1, type=int, help="Time elapsed")
 parser.add_argument("--r", nargs='?', const=0, type=int, help="Results on console: [0] Sinthetic, [1] Side 1 [2] Side 2 [12] Side 1 and 2")
 args = parser.parse_args()
 """ append file extension if not provided """
-filename = "recon [en_us].cfg" if args.f == None else args.f
+filename = "recon [en-us].cfg" if args.f == None else args.f
 """ start processing """
 start = timer()
 msglib.print(msglib.get_value(msglib.console, "M1"))
