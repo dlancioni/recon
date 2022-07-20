@@ -18,37 +18,38 @@ class CoreLibTest(unittest.TestCase):
     def tearDown(self):
         pass
     
-    def check_synthetic(self, data, matched, divergent, orphan):
-        for side in range(1, 3):
-            i = 1 if side == 1 else 4
-            total_match = matched[0] if side == 1 else matched[1]
-            total_divergent = divergent[0] if side == 1 else divergent[1]
-            total_orphan = orphan[0] if side == 1 else orphan[1]
-            self.assertEqual(data[i][0], str(side))
-            self.assertEqual(data[i][1] in ["Matched", "Batido"], True)
-            self.assertEqual(data[i][2], str(total_match))
-            i+=1
-            self.assertEqual(data[i][0], str(side))
-            self.assertEqual(data[i][1] in ["Divergent", "Divergente"], True)
-            self.assertEqual(data[i][2], str(total_divergent))            
-            i+=1            
-            self.assertEqual(data[i][0], str(side))
-            self.assertEqual(data[i][1] in ["Orphan", "Órfão"], True)
-            self.assertEqual(data[i][2], str(total_orphan))
+    def check_synthetic(self, side, data, matched, divergent, orphan):
+        SIDE, STATUS, TOTAL = 0, 1, 2
+        line = 1 if side == 1 else 4
+        self.assertEqual(data[line][SIDE], str(side))
+        self.assertEqual(data[line][STATUS] in ["Matched", "Batido"], True)
+        self.assertEqual(data[line][TOTAL], str(matched))
+        line += 1
+        self.assertEqual(data[line][SIDE], str(side))
+        self.assertEqual(data[line][STATUS] in ["Divergent", "Divergente"], True)
+        self.assertEqual(data[line][TOTAL], str(divergent))            
+        line += 1            
+        self.assertEqual(data[line][SIDE], str(side))
+        self.assertEqual(data[line][STATUS] in ["Orphan", "Órfão"], True)
+        self.assertEqual(data[line][TOTAL], str(orphan))
     
-    def basic(self):        
+    def basic(self):
+        
         status, message, reports = corelib.process("recon [en-us]")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 3)
         data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(data, [1,2], [1,1], [1,1])
+        self.check_synthetic(1, data, 1, 1, 1)
+        self.check_synthetic(2, data, 2, 1, 1)
+        
         status, message, reports = corelib.process("recon [pt-br]")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 3)
         data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(data, [1,2], [1,1], [1,1])
+        self.check_synthetic(1, data, 1, 1, 1)
+        self.check_synthetic(2, data, 2, 1, 1)
         
     def test_run(self):
         utillib.cls()
