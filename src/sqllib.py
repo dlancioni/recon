@@ -5,7 +5,7 @@ class SqlLib(BaseLib):
     def __init__(self):
         pass
 
-    def get_aggregate_function(self, key=""):
+    def get_aggregate_function(self, key="", default="Sum"):
         key = "" if key is None else key.lower()
         if key in ["sum", "somar"]:
             return "Sum"
@@ -15,7 +15,7 @@ class SqlLib(BaseLib):
             return "Min"
         if key in ["avg", "media"]:
             return "Avg"
-        return "Sum"
+        return default
 
     def get_field_type(self, key=""):
         key = "" if key is None else key.lower()
@@ -149,7 +149,7 @@ class SqlLib(BaseLib):
         sql = ""
         for field in fields:
             _name = self.tagf(field, "Name", "Nome")
-            _type = self.tagf(field, "Type", "Tipo")            
+            _type = self.tagf(field, "Type", "Tipo")
             if str(field[_type]).strip().lower() in ["key", "chave"]:
                 field_name = str(field[_name]).strip()
                 field_name = f"[{field_name}]"
