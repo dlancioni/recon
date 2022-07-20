@@ -1,7 +1,7 @@
-Lado;Conciliação;Regra;Status;Total
-1;;;Órfão;1
-1;Conciliação 1;Regra 1;Batido;1
-1;Conciliação 1;Regra 1;Divergente;1
-2;;;Órfão;1
-2;Conciliação 1;Regra 1;Batido;2
-2;Conciliação 1;Regra 1;Divergente;1
+Lado;Status;Total
+1;Batido;1
+1;Divergente;1
+1;Órfão;1
+2;Batido;2
+2;Divergente;1
+2;Órfão;1

@@ -1,0 +1,5 @@
+Id;Recon;Rule;Status;Field 1;Field 2;Field 3;Field 4;Field 3 (Difference);Field 4 (Difference)
+1;Recon 1;Rule 1;Matched;1;20220101;Text 1;500;;
+2;Recon 1;Rule 1;Matched;1;20220101;Text 1;500.01;;
+3;Recon 1;Rule 1;Divergent;2;20220202;Text 2;2000;Text-2/Text 2;2002/2000
+4;;;Orphan;4;20220404;Text 4;4000;;

@@ -50,7 +50,20 @@ class ReportLib(BaseLib):
                 print(reports[1])
                 self.print_csv(reports[1])
                 print(reports[2])
-                self.print_csv(reports[2])        
+                self.print_csv(reports[2])
+
+    def get_ordenation(self):
+        sql = ""
+        sql += " case Status"
+        sql += " when 'Matched' then 1"
+        sql += " when 'Batido' then 1"
+        sql += " when 'Divergent' then 2"
+        sql += " when 'Divergente' then 2"
+        sql += " when 'Orphan' then 3"
+        sql += " when 'Órfão' then 3"
+        sql += " end Ordenation"  
+        
+        return sql
 
     def create_report_synthetic(self, cn):
         loglib = LogLib("Reportlib", "create_report_synthetic")
@@ -59,27 +72,29 @@ class ReportLib(BaseLib):
         path = fslib.get_path_report(cfglib.get_config("path_report"))
         report = msglib.get_value(msglib.label, "L1")
         file = fslib.join(path, f"[{self.name}] [{report}].csv")
-        sql += f" select * from"
+        sql += f" select Side, Status, Total from"
         sql += f" ("
         sql += f" select"
         sql += f" 1 Side,"
-        sql += f" Recon, Rule, Status, count(Status) Total"
+        sql += f" Status, count(Status) Total,"
+        sql += self.get_ordenation()
         sql += f" from tb{self.id}1"
         sql += f" group by Status"
         sql += f"  union all"
         sql += f" select"
         sql += f" 2 Side,"
-        sql += f" Recon, Rule, Status, count(Status) Total"
+        sql += f" Status, count(Status) Total,"
+        sql += self.get_ordenation()
         sql += f" from tb{self.id}2"
         sql += f" group by Status"
         sql += f" ) "
-        sql += f" order by Side, Recon, Rule, Status"        
+        sql += f" order by Side, Ordenation"
         rows = dblib.query(cn, sql)
         with open(file, "w", encoding="UTF-8") as f:
             msg = msglib.set_time(msglib.get_value(msglib.console, "M9"))
             progress_bar = ShadyBar(msg, max=len(rows))        
             # header
-            fields = ["L3", "L4", "L5", "L6", "L7"]
+            fields = ["L3", "L6", "L7"]
             line = ""
             for field in fields:
                 line += f"{msglib.get_value(msglib.label, field)};"
