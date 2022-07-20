@@ -106,7 +106,7 @@ class ReportLib(BaseLib):
         tb = f"tb{self.id}1"
         sql += f"select * from {tb}"
         rows = dblib.query(cn, sql)
-        fields = ["L8", "L9", "L4", "L5", "L6"]
+        fields = ["L8", "L4", "L5", "L6"]
         for field in fields:
             line += f"{msglib.get_value(msglib.label, field)};"
         first = len(fields)
