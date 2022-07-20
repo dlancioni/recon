@@ -4,5 +4,6 @@ pysqlite3
 pyinstaller
 prettytable
 progress
+termcolor
 
 ###### Requirements with Version Specifiers ######

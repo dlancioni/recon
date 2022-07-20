@@ -11,6 +11,8 @@ from src.utillib import UtilLib
 from src.corelib import CoreLib
 from src.reportlib import ReportLib
 from timeit import default_timer as timer
+from termcolor import colored, cprint
+
 fslib = FsLib()
 msglib = MsgLib()
 utillib = UtilLib()
@@ -30,20 +32,21 @@ msglib.print(msglib.get_value(msglib.console, "M1"))
 corelib = CoreLib()
 status, error, reports = corelib.process(filename)
 end = timer()
-""" finish processing """
-msglib.print(msglib.get_value(msglib.console, "M2"))
-""" print console information """
-if status == False:
-    msglib.print(f"{filename}")
-    msg = msglib.set_time(error)
-    CRED = '\033[91m'
-    CEND = '\033[0m'    
-    print(CRED + msg + CEND)
-else:
-    if args.r != None:
-        index = int(args.r)
-        reportlib.print_report(reports, index)
 """ time elapsed """
 if args.t != None:
     msg = msglib.get_value(msglib.console, "M3")
-    msglib.print(f"{msg}: {timedelta(seconds=end-start)}")
+    msg = msglib.set_time(f"{msg}: {timedelta(seconds=end-start)}")
+    msg = colored(msg, "yellow")
+    print(msg)
+""" finish processing """
+if status == True:
+    print(colored(msglib.set_time(msglib.get_value(msglib.console, "M10", [filename])), "green"))
+else:
+    print(colored(msglib.set_time(msglib.get_value(msglib.console, "M11", [filename])), "red"))
+    print(colored(msglib.set_time(error), "red"))
+""" all done """
+msglib.print(msglib.get_value(msglib.console, "M2"))    
+""" generate reports """    
+if args.r != None:
+    index = int(args.r)
+    reportlib.print_report(reports, index)

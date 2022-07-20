@@ -42,7 +42,6 @@ class ReportLib(BaseLib):
     def print_report(self, reports, index):
         index = int(index)
         if index in [0,1,2,12]:
-            utillib.cls()
             if index in [0, 1, 2]:
                 print(reports[index])
                 self.print_csv(reports[index])
