@@ -100,6 +100,22 @@ class ReconLib(BaseLib):
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Match key successfuly completed")
+        
+    def get_tolerance(self, recon, fieldname):
+        tolerance = 0
+        field_name = self.tagf(recon, "Fields", "Campos")
+        fields = recon[field_name]
+        for field in fields:
+            field_name = self.tagv(field, "Name", "Nome")
+            rule_type = self.tagv(field, "Type", "Tipo")
+            if rule_type.strip().lower() in ["compare", "comparar"]:
+                if field["Datatype"].strip().lower() == "decimal":
+                    if field_name.strip().lower() == fieldname.strip().lower().replace("[", "").replace("]", ""):
+                        tol = self.tagv(field, "Tolerance", "Tolerancia")
+                        if tol.strip() != "":
+                            tolerance = float(tol)
+                            break
+        return tolerance
 
     def compare(self, cn, recon):
         loglib = LogLib("ReconLib", "compare")
@@ -118,7 +134,8 @@ class ReconLib(BaseLib):
         for field in self.field_compare:
             count += 1
             tablename = self.tmp3            
-            tablename += str(count)
+            tablename += str(count)           
+            tolerance = self.get_tolerance(recon, field)
             sql = f"drop table if exists {tablename}"
             dblib.execute(cn, sql)
             sql = ""
@@ -127,8 +144,11 @@ class ReconLib(BaseLib):
             sql += f" create table {tablename} as"
             sql += f" select"
             sql += f" {fields_key}"
-            sql += f", ({tmp1} || '/' || {tmp2}) difference"
-            sql += f", ({tmp1} = {tmp2}) equality"
+            sql += f", ({tmp1} || '/' || {tmp2}) difference"            
+            if tolerance == 0:
+                sql += f", ({tmp1} = {tmp2}) equality"
+            else:    
+                sql += f", (abs({tmp1} - {tmp2}) <= {tolerance}) equality"            
             sql += f" from {self.tmp1}, {self.tmp2}"
             sql += f" where {self.tmp1}.status = '{self.matched}'"
             sql += f" {matching_key}"
