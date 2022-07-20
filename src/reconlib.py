@@ -96,7 +96,7 @@ class ReconLib(BaseLib):
             sql += f"status = '{self.matched}', "
             sql += f"id_parent = {tmp2}.id "
             sql += f"from {tmp2} "
-            sql += f"where 1=1 "
+            sql += f"where {tmp1}.status = '{self.orphan}' "
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Match key successfuly completed")
