@@ -56,7 +56,7 @@ class SqlLib(BaseLib):
 
     def get_value_list(self, field_def=""):
         i = 0
-        sql = ""        
+        sql = ""
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
