@@ -41,16 +41,17 @@ class ReconLib(BaseLib):
         field_name = ""
         self.matched = msglib.get_value(msglib.label, "L11")
         self.divergent = msglib.get_value(msglib.label, "L12")
-        self.orphan = msglib.get_value(msglib.label, "L13")        
-        for field in self.tagv(recon, "Fields", "Campos"):
+        self.orphan = msglib.get_value(msglib.label, "L13")                
+        for field in self.tagv(recon, "Fields", "Campos"):            
             field_name = self.tagv(field, "Name", "Nome")
             field_name = f"[{field_name}]"
             if self.tagv(field, "Tipo", "Type").lower() in ["key", "chave"]:
                 self.field_key.append(field_name)
             if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
                 self.field_compare.append(field_name)
+            # stamp the type in recon definition    
             index = self.fields.index(field_name.replace("[", "").replace("]", ""))
-            field["Datatype"] = self.types[index]
+            field["Datatype"] = self.types[index]                
         self.rule_count += 1
         loglib.log(loglib.INFO, f"Fiekd Key: {str(self.field_key)}")
         loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")

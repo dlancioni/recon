@@ -1,16 +1,28 @@
 from src.baselib import BaseLib
 
 class SqlLib(BaseLib):
-    
+
     def __init__(self):
-        pass    
+        pass
+
+    def get_aggregate_function(self, key=""):
+        key = "" if key is None else key.lower()
+        if key in ["sum", "somar"]:
+            return "Sum"
+        if key in ["max", "maximo"]:
+            return "Max"
+        if key in ["min", "minimo"]:
+            return "Min"
+        if key in ["avg", "media"]:
+            return "Avg"
+        return "Sum"
 
     def get_field_type(self, key=""):
         key = "" if key is None else key.lower()
         if key in ["integer", "inteiro"]:
             return "Integer"
-        if key in ["decimal"]:
-            return "Real"
+        if key in ["real", "decimal"]:
+            return "Decimal"
         if key in ["text", "texto"]:
             return "Text"
         if key in ["datetime", "datahora"]:
@@ -35,8 +47,8 @@ class SqlLib(BaseLib):
             if aggregation:
                 field_function = self.tagf(field_def[i], "Function", "Funcao", False)
                 function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
-                if aggregation == True and datatype == "Decimal" and function == "":
-                    function = "Sum"
+                if aggregation == True and datatype == "Decimal":
+                    function = self.get_aggregate_function(function)
             sql += f"{function}({name}) {alias}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]

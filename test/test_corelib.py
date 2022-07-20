@@ -17,7 +17,7 @@ class CoreLibTest(unittest.TestCase):
     
     def tearDown(self):
         pass
-
+    
     def process(self, filename):
         status, message, reports = corelib.process(filename)
         rpt1 = reports[0]
@@ -31,23 +31,28 @@ class CoreLibTest(unittest.TestCase):
                 recon = "Conciliação 2"
                 rule = "Regra 1"
             i = 1 if side == 1 else 4
+            
+            total_orphan = "1"
+            total_divergent = "1"
+            total_match = "1" if side == 1 else "2"
+            
             self.assertEqual(data[i][0], str(side))
             self.assertEqual(data[i][1], "")
             self.assertEqual(data[i][2], "")
             self.assertEqual(data[1][3] in ["Orphan", "Órfão"], True)
-            self.assertEqual(data[i][4], "1")
+            self.assertEqual(data[i][4], total_orphan)
             i+=1
             self.assertEqual(data[i][0], str(side))
             self.assertEqual(data[i][1], recon)
             self.assertEqual(data[i][2], rule)
             self.assertEqual(data[i][3] in ["Matched", "Batido"], True)
-            self.assertEqual(data[i][4], "1")
+            self.assertEqual(data[i][4], total_match)
             i+=1
             self.assertEqual(data[i][0], str(side))
             self.assertEqual(data[i][1], recon)
             self.assertEqual(data[i][2], rule)
             self.assertEqual(data[i][3] in ["Divergent", "Divergente"], True)
-            self.assertEqual(data[i][4], "1")
+            self.assertEqual(data[i][4], total_divergent)
 
     def test_process(self):
         utillib.cls()
