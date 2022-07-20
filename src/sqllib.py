@@ -44,11 +44,14 @@ class SqlLib(BaseLib):
             name = f"[{name}]"
             alias = name            
             type = str(field_def[i][field_type]).strip() if field_type in field_def[i] else ""
+            decimals = 2
             if aggregation:
                 field_function = self.tagf(field_def[i], "Function", "Funcao", False)
                 function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
-                if aggregation == True and datatype == "Decimal":
-                    function = self.get_aggregate_function(function)
+                if datatype.strip().lower() == "decimal":
+                    name = f"Round({name}, {decimals})"
+                    if aggregation == True:
+                        function = self.get_aggregate_function(function)
             sql += f"{function}({name}) {alias}, " if function else f"{name}, "
             i += 1
         sql = sql.strip()[:-1]
