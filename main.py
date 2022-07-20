@@ -20,6 +20,7 @@ reportlib = ReportLib()
 """ control the user input """
 utillib.cls()
 parser = argparse.ArgumentParser()
+parser.add_argument("--c", nargs='?', const=1, type=int, help="Clear screen before show results")
 parser.add_argument("--f", help="File with conciliation configuration")
 parser.add_argument("--t", nargs='?', const=1, type=int, help="Time elapsed")
 parser.add_argument("--r", nargs='?', const=0, type=int, help="Results on console: [0] Sinthetic, [1] Side 1 [2] Side 2 [12] Side 1 and 2")
@@ -48,5 +49,7 @@ else:
 msglib.print(msglib.get_value(msglib.console, "M2"))    
 """ generate reports """    
 if args.r != None:
+    if args.c != None:
+        utillib.cls()
     index = int(args.r)
     reportlib.print_report(reports, index)
