@@ -5,17 +5,17 @@ import pathlib
 import csv
 
 class FsLib:
-    
-    def get_csv_as_list(self, path, delimiter=";"):
-        with open(path, encoding="utf-8") as f:
-            data = csv.reader(f, delimiter=delimiter)
-            data = list(data)
-        return data
 
     def open_json(self, path):
         with open(path, encoding="utf-8") as f:
             data = json.load(f)
             return data
+
+    def get_csv_as_list(self, path, delimiter=";"):
+        with open(path, encoding="utf-8") as f:
+            data = csv.reader(f, delimiter=delimiter)
+            data = list(data)
+        return data
 
     def join(self, path1, path2):
         path = os.path.join(path1, path2) if path2.strip() != "" else path1

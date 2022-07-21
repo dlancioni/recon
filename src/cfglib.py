@@ -16,3 +16,10 @@ class ConfigLib:
         value = str(config[key])
         value = value.strip()
         return value
+    
+    def get(self, id=0):
+        path = fslib.get_path_config("app1.cfg")
+        app = fslib.open_json(path)
+        for config in app["AppConfig"]:
+            if config["Key"] == str(id):
+                return str(config["Value"]).strip()    
