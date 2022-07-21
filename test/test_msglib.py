@@ -3,8 +3,10 @@ import sys
 import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 from src.msglib import MsgLib
+from src.cfglib import ConfigLib
 
 msglib = MsgLib()
+cfglib = ConfigLib()
 
 class UtilLibTest(unittest.TestCase):
 
@@ -12,8 +14,7 @@ class UtilLibTest(unittest.TestCase):
         pass
     
     def test_open_config(self):
-        config = msglib.open_config()
-        language = str(config["catalog"])
+        language = cfglib.get(7)
         if language.lower() in ["en-us", "pt-br"]:
             validated = True
         else:

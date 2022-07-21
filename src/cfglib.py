@@ -9,16 +9,9 @@ class ConfigLib:
 
     def __init__(self):
         pass
-
-    def get_config(self, key):
-        path = fslib.get_path_config("app.cfg")
-        config = fslib.open_json(path)
-        value = str(config[key])
-        value = value.strip()
-        return value
     
     def get(self, id=0):
-        path = fslib.get_path_config("app1.cfg")
+        path = fslib.get_path_config("app.cfg")
         app = fslib.open_json(path)
         for config in app["AppConfig"]:
             if config["Key"] == str(id):

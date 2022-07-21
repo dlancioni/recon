@@ -68,7 +68,7 @@ class ReportLib(BaseLib):
         loglib = LogLib("Reportlib", "create_report_synthetic")
         sql = ""
         line = ""
-        path = fslib.get_path_report(cfglib.get_config("path_report"))
+        path = fslib.get_path_report(cfglib.get(4))
         report = msglib.get_value(msglib.label, "L1")
         file = fslib.join(path, f"[{self.name}] [{report}].csv")
         sql += f" select Side, Status, Total from"
@@ -139,7 +139,7 @@ class ReportLib(BaseLib):
         tb = f"tb{self.id}{side}"        
         report = msglib.get_value(msglib.label, "L2")
         label = msglib.get_value(msglib.label, "L3")
-        path = fslib.get_path_report(cfglib.get_config("path_report"))
+        path = fslib.get_path_report(cfglib.get(4))
         filename = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
         sql = f"select * from {tb}"
         rows = dblib.query(cn, sql)

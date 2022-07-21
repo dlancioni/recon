@@ -38,7 +38,7 @@ class CoreLib(BaseLib):
         else:
             try:              
                 filename = str(recon.split(".")[0]) +".cfg"
-                path = cfglib.get_config("path_recon")
+                path = cfglib.get(2)
                 path = fslib.get_path_recon(path, filename)
                 msg = msglib.get_value(msglib.validation, "M4", [path])
                 recon = fslib.open_json(path)
@@ -51,7 +51,7 @@ class CoreLib(BaseLib):
     def create_log_file(self):
         fslib = FsLib()
         file_name = f"[log] [{self.name.strip().lower()}].txt"
-        log_path = fslib.get_path_log(cfglib.get_config("path_log"), file_name)
+        log_path = fslib.get_path_log(cfglib.get(1), file_name)
         log_format = "%(asctime)s %(levelname)s %(message)s"
         logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
         logger = logging.getLogger()
@@ -63,8 +63,8 @@ class CoreLib(BaseLib):
         loglib = LogLib("CoreLib", "process")
         try:
             """ create new transaction for each recon """
-            path_temp = cfglib.get_config("path_temp")
-            debug = int(cfglib.get_config("debug"))
+            path_temp = cfglib.get(5)
+            debug = int(cfglib.get(6))
             loglib.log(loglib.INFO, f"Debug mode: {True if debug == 1 else False}")
             cn = dblib.get_connection(path_temp, debug)
             cn = dblib.begin_tran(cn, debug)
