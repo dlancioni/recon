@@ -25,6 +25,10 @@ class MsgLib():
         dt = str(time.strftime("%Y-%m-%d %H:%M:%S", now.timetuple()))
         msg = f"{dt}: {msg}"
         return msg
+    
+    def print(self, msg):
+        msg = self.set_time(msg)
+        print(msg)    
 
     def get_value(self, session, key, param=[], language=""):
         key = str(key).upper()
@@ -42,6 +46,3 @@ class MsgLib():
             value = value.replace(old, new)
         return value
     
-    def print(self, msg):
-        msg = self.set_time(msg)
-        print(msg)

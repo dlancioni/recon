@@ -15,4 +15,4 @@ class ConfigLib:
         app = fslib.open_json(path)
         for config in app["AppConfig"]:
             if config["Key"] == str(id):
-                return str(config["Value"]).strip()    
+                return str(config["Value"]).strip()
