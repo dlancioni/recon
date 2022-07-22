@@ -48,15 +48,6 @@ class CoreLib(BaseLib):
                 raise Exception(msg)
         return recon
 
-    def create_log_file(self):
-        fslib = FsLib()
-        file_name = f"[log] [{self.name.strip().lower()}].txt"
-        log_path = fslib.get_path_log(cfglib.get(1), file_name)
-        log_format = "%(asctime)s %(levelname)s %(message)s"
-        logging.basicConfig(filename = log_path, filemode = "w", datefmt='%Y-%m-%d %H:%M:%S', format = log_format, level=logging.DEBUG)
-        logger = logging.getLogger()
-        return logger
-
     def process(self, recon):
         debug = 0
         path_temp = ""        
@@ -70,12 +61,10 @@ class CoreLib(BaseLib):
             cn = dblib.begin_tran(cn, debug)
             """ open json recon or file """
             recon = self.open_recon(recon)
-            """ validate key info """
-            setuplib.validate_info(recon)
             self.id = self.tagv(recon, "Id", "Id")
             self.name = self.tagv(recon, "Name", "Nome")
             """ create log and validate recon """
-            logger = self.create_log_file()
+            logger = loglib.create_log_file(self.name)
             setuplib.validate(recon)
             loglib.log(loglib.INFO, "Validation OK, ready to create area")
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))            

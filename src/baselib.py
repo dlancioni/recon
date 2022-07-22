@@ -22,7 +22,7 @@ class BaseLib:
         if tag_pt in doc:
             f = tag_pt
             v = doc[tag_pt]
-        return f, v
+        return f.strip(), v.strip()
         
     def tagf(self, doc, tag_en="", tag_pt="", mandatory=True):
         f, v = self.tagfv(doc, tag_en, tag_pt)

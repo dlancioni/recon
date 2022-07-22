@@ -4,8 +4,12 @@ import json
 import logging
 from src.msglib import MsgLib
 from src.baselib import BaseLib
+from src.fslib import FsLib
+from src.cfglib import ConfigLib
 
+fslib = FsLib()
 msglib = MsgLib()
+cfglib = ConfigLib()
 
 class LogLib(BaseLib):
 
@@ -30,3 +34,11 @@ class LogLib(BaseLib):
         if level == self.INFO:
             self.log_info(msg)
     
+    def create_log_file(self, name):
+        fslib = FsLib()
+        file_name = f"[log] [{name}].txt" if name != "" else "log.txt"
+        log_path = fslib.get_path_log(cfglib.get(1), file_name)
+        log_format = "%(asctime)s %(levelname)s %(message)s"
+        logging.basicConfig(filename=log_path, filemode="w", datefmt='%Y-%m-%d %H:%M:%S', format=log_format, level=logging.DEBUG, encoding='utf-8')
+        logger = logging.getLogger()
+        return logger
