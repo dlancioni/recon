@@ -46,7 +46,7 @@ class AreaLib(BaseLib):
     def create_recon_area(self, cn, setup):
         loglib = LogLib("AreaLib", "create_recon_area")
         id = setup["Id"]
-        status = msglib.get_value(msglib.label, "L13")
+        status = msglib.get("L13")
         f1, t1, f2, t2 = self.merge_datasources(setup)
         fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
         for side in range(1, 3):
@@ -65,12 +65,12 @@ class AreaLib(BaseLib):
         try:
             fields, types = self.create_recon_area(cn, recon)
         except Error as err:
-            cat = msglib.get_value(msglib.exception, "E1")
+            cat = msglib.get("E1")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
-            cat = msglib.get_value(msglib.exception, "E3")
+            cat = msglib.get("E3")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

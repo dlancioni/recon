@@ -49,7 +49,7 @@ class EtlLib(BaseLib):
         row = 0
         fl = sqlib.get_field_list(fields)
         count = self.count(path)
-        msg = msglib.get_value(msglib.console, "M5", [setuplib.tag_value(ds, "File")])
+        msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
         loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")
@@ -82,17 +82,17 @@ class EtlLib(BaseLib):
             for datasource in datasources:
                 self.import_file(cn, datasource)
         except Error as err:
-            cat = msglib.get_value(msglib.exception, "E1")
+            cat = msglib.get("E1")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
-            cat = msglib.get_value(msglib.exception, "E2")
+            cat = msglib.get("E2")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
-            cat = msglib.get_value(msglib.exception, "E3")
+            cat = msglib.get("E3")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

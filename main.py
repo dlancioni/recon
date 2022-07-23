@@ -33,30 +33,31 @@ filename = "recon [en-us].cfg" if args.f == None else args.f
 
 """ start processing """
 start = timer()
-msglib.print(msglib.get_value(msglib.console, "M1"))
+msglib.print(msglib.get("M1"))
 status, error, reports = corelib.process(filename)
 end = timer()
 
 """ time elapsed """
 if args.t != None:
-    msg = msglib.get_value(msglib.console, "M3")
+    msg = msglib.get("M3")
     msg = msglib.set_time(f"{msg}: {timedelta(seconds=end-start)}")
     msg = colored(msg, "yellow")
     print(msg)
-    
+
 """ finish processing """
 if status == True:
-    print(colored(msglib.set_time(msglib.get_value(msglib.console, "M10", [filename])), "green"))
+    print(colored(msglib.set_time(msglib.get("M10", [filename])), "green"))
 else:
-    print(colored(msglib.set_time(msglib.get_value(msglib.console, "M11", [filename])), "red"))
+    print(colored(msglib.set_time(msglib.get("M11", [filename])), "red"))
     print(colored(msglib.set_time(error), "red"))
     
 """ all done """
-msglib.print(msglib.get_value(msglib.console, "M2"))
+msglib.print(msglib.get("M2"))
 
 """ generate reports """    
-if args.r != None:
-    if args.c != None:
-        utillib.cls()
-    index = int(args.r)
-    reportlib.print_report(reports, index)
+if status == True:
+    if args.r != None:
+        if args.c != None:
+            utillib.cls()
+        index = int(args.r)
+        reportlib.print_report(reports, index)

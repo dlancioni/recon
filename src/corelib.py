@@ -56,7 +56,7 @@ class CoreLib(BaseLib):
             """ validate recon """
             setuplib.validate(recon)
             loglib.log(loglib.INFO, "Validation OK, ready to create area")
-            msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))
+            msglib.print(msglib.get("M4", [self.id, self.name]))
             
             """ create recon area """
             arealib = AreaLib(self.id, self.name)
@@ -86,5 +86,5 @@ class CoreLib(BaseLib):
             
             """ rollback info """            
             dblib.rollback_tran(cn, debug)
-            loglib.log(loglib.ERROR, f"{str(err)}")            
+            loglib.log(loglib.ERROR, f"{str(err)}")
             return False, str(err), ""

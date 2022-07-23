@@ -41,9 +41,9 @@ class ReconLib(BaseLib):
     def prepare(self, cn, recon):
         loglib = LogLib("ReconLib", "prepare")
         field_name = ""
-        self.matched = msglib.get_value(msglib.label, "L11")
-        self.divergent = msglib.get_value(msglib.label, "L12")
-        self.orphan = msglib.get_value(msglib.label, "L13")                
+        self.matched = msglib.get("L11")
+        self.divergent = msglib.get("L12")
+        self.orphan = msglib.get("L13")                
         for field in setuplib.tag_value(recon, "Fields"):
             field_name = setuplib.tag_value(field, "Name")
             field_name = f"[{field_name}]"
@@ -166,7 +166,7 @@ class ReconLib(BaseLib):
         count = 0
         rows_affected = 0
         field_name = ""
-        label = msglib.get_value(msglib.label, "L10")
+        label = msglib.get("L10")
         for field in self.field_compare:
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
@@ -246,7 +246,7 @@ class ReconLib(BaseLib):
             for rule in recon:
                 rule_name = setuplib.tag_value(rule, "Rule")
                 loglib.log(loglib.INFO, f"Processing rule: {rule_name}")
-                msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))
+                msg = msglib.set_time(msglib.get("M6", [rule_name]))
                 self.progress_bar = ShadyBar(msg, max=6)
                 self.prepare(cn, rule)
                 self.aggregate(cn, rule)
@@ -257,12 +257,12 @@ class ReconLib(BaseLib):
                 self.progress_bar.finish()
             self.drop_tmp(cn)
         except Error as err:
-            cat = msglib.get_value(msglib.exception, "E1")
+            cat = msglib.get("E1")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
-            cat = msglib.get_value(msglib.exception, "E3")
+            cat = msglib.get("E3")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

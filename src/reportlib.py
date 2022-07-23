@@ -69,7 +69,7 @@ class ReportLib(BaseLib):
         sql = ""
         line = ""
         path = fslib.get_path_report(cfglib.get(4))
-        report = msglib.get_value(msglib.label, "L1")
+        report = msglib.get("L1")
         file = fslib.join(path, f"[{self.name}] [{report}].csv")
         sql += f" select Side, Status, Total from"
         sql += f" ("
@@ -90,13 +90,13 @@ class ReportLib(BaseLib):
         sql += f" order by Side, Ordenation"
         rows = dblib.query(cn, sql)
         with open(file, "w", encoding="UTF-8") as f:
-            msg = msglib.set_time(msglib.get_value(msglib.console, "M9"))
+            msg = msglib.set_time(msglib.get("M9"))
             progress_bar = ShadyBar(msg, max=len(rows))        
             # header
             fields = ["L3", "L6", "L7"]
             line = ""
             for field in fields:
-                line += f"{msglib.get_value(msglib.label, field)};"
+                line += f"{msglib.get(field)};"
             line = line[:-1]
             line += f"\n"
             f.write(line)
@@ -122,7 +122,7 @@ class ReportLib(BaseLib):
         rows = dblib.query(cn, sql)
         fields = ["L8", "L4", "L5", "L6"]
         for field in fields:
-            line += f"{msglib.get_value(msglib.label, field)};"
+            line += f"{msglib.get(field)};"
         first = len(fields)
         total = len(cn.description)
         for i in range(first, total):
@@ -137,14 +137,14 @@ class ReportLib(BaseLib):
         sql = ""
         line = ""
         tb = f"tb{self.id}{side}"        
-        report = msglib.get_value(msglib.label, "L2")
-        label = msglib.get_value(msglib.label, "L3")
+        report = msglib.get("L2")
+        label = msglib.get("L3")
         path = fslib.get_path_report(cfglib.get(4))
         filename = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
         sql = f"select * from {tb}"
         rows = dblib.query(cn, sql)
         with open(filename, "w", encoding="UTF-8") as f:
-            msg = msglib.set_time(msglib.get_value(msglib.console, "M8", [side]))
+            msg = msglib.set_time(msglib.get("M8", [side]))
             progress_bar = ShadyBar(msg, max=len(rows))
             total = len(cn.description)
             # header
@@ -171,17 +171,17 @@ class ReportLib(BaseLib):
             for side in range(1, 3):
                 reports.append(self.create_report_analytic(cn, side))
         except Error as err:
-            cat = msglib.get_value(msglib.exception, "E1")
+            cat = msglib.get("E1")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
-            cat = msglib.get_value(msglib.exception, "E2")
+            cat = msglib.get("E2")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
-            cat = msglib.get_value(msglib.exception, "E3")
+            cat = msglib.get("E3")
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

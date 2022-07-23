@@ -58,7 +58,7 @@ class SetupLib(BaseLib):
             tag_name = self.tag_name(recon, field)
             tag_value = recon[tag_name]
             if str(tag_value) == "":
-                raise Exception(msglib.get_value(msglib.validation, "M2", [field]))
+                raise Exception(msglib.get("V2", [field]))
 
     def validate_info(self, recon):
         loglib = LogLib("Setuplib", "validate_info")
@@ -69,7 +69,7 @@ class SetupLib(BaseLib):
         field = self.tag_name(recon, "Id")
         value = self.tag_value(recon, "Id")
         if int(value) <= 0:
-            raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
+            raise Exception(msglib.get("V3", [field]))
 
     def validate_side(self, recon):
         loglib = LogLib("Setuplib", "validate_side")
@@ -78,7 +78,7 @@ class SetupLib(BaseLib):
             name = self.tag_value(datasource, "Name")
             fields = self.tag_value(datasource, "Fields")
             if len(fields) == 0:
-                raise Exception(msglib.get_value(msglib.validation, "M6", [name]))
+                raise Exception(msglib.get("V6", [name]))
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
@@ -114,7 +114,7 @@ class SetupLib(BaseLib):
             name = self.tag_value(rule, "Rule")
             fields = self.tag_value(rule, "Fields")
             if len(fields) == 0:
-                raise Exception(msglib.get_value(msglib.validation, "M7", [name]))
+                raise Exception(msglib.get("V7", [name]))
 
     def validate_recon(self, recon):
         loglib = LogLib("Setuplib", "validate_recon")
@@ -144,7 +144,8 @@ class SetupLib(BaseLib):
             self.validate_recon_rules(recon)
             self.validate_recon(recon)
         except BaseException as err:
-            msg = f"Validation error -> {str(err)}"
+            cat = msglib.get("E4")
+            msg = f"{cat} -> {str(err)}"            
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         
@@ -157,7 +158,7 @@ class SetupLib(BaseLib):
                 filename = str(recon.split(".")[0]) +".cfg"
                 path = cfglib.get(2)
                 path = fslib.get_path_recon(path, filename)
-                msg = msglib.get_value(msglib.validation, "M4", [path])
+                msg = msglib.get("V4", [path])
                 recon = fslib.open_json(path)
             except json.decoder.JSONDecodeError:
                 print("There was a problem accessing the equipment data.")
@@ -185,7 +186,7 @@ class SetupLib(BaseLib):
             if f == "":
                 msglib = MsgLib()
                 msg = f"{tag_en}/{tag_pt}"
-                msg = msglib.get_value(msglib.validation, "M5", [msg])
+                msg = msglib.get("V5", [msg])
                 raise Exception(msg)
         return f
 
