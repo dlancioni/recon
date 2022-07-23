@@ -22,13 +22,13 @@ reportlib = ReportLib()
 """ control the user input """
 utillib.cls()
 parser = argparse.ArgumentParser()
-parser.add_argument("--c", nargs='?', const=1, type=int, help="Clear screen before show results")
 parser.add_argument("--f", help="File with conciliation configuration")
+parser.add_argument("--c", nargs='?', const=1, type=int, help="Clear screen before show results")
 parser.add_argument("--t", nargs='?', const=1, type=int, help="Time elapsed")
 parser.add_argument("--r", nargs='?', const=0, type=int, help="Results on console: [0] Sinthetic, [1] Side 1 [2] Side 2 [12] Side 1 and 2")
 args = parser.parse_args()
 
-""" append file extension if not provided """
+""" set default configuration if not provided """
 filename = "recon [en-us].cfg" if args.f == None else args.f
 
 """ start processing """
