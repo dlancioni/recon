@@ -57,6 +57,7 @@ class ReconLib(BaseLib):
         self.rule_count += 1
         loglib.log(loglib.INFO, f"Fiekd Key: {str(self.field_key)}")
         loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")
+        self.progress_bar.next()
 
     def aggregate(self, cn, recon):
         loglib = LogLib("ReconLib", "aggregate")
@@ -81,6 +82,7 @@ class ReconLib(BaseLib):
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Data successfuly aggregated")
+        self.progress_bar.next()
         
     def match_key(self, cn, recon):
         loglib = LogLib("ReconLib", "match_key")
@@ -102,6 +104,7 @@ class ReconLib(BaseLib):
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Match key successfuly completed")
+        self.progress_bar.next()
         
     def get_tolerance(self, recon, fieldname):
         tolerance = 0
@@ -156,6 +159,7 @@ class ReconLib(BaseLib):
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Field comparison successfuly completed")
+        self.progress_bar.next()        
             
     def stamp_tmp(self, cn, recon):
         loglib = LogLib("ReconLib", "stamp_tmp")
@@ -188,6 +192,7 @@ class ReconLib(BaseLib):
             rows_affected = dblib.execute(cn, sql)
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
         loglib.log(loglib.INFO, f"Fields with difference: {str(self.field_with_diff)}")
+        self.progress_bar.next()
 
     def stamp_tb(self, cn, recon):
         loglib = LogLib("ReconLib", "stamp_tb")
@@ -224,6 +229,7 @@ class ReconLib(BaseLib):
                 sql = f"update {tb} set {field} = {tmp}.{field} from {tmp} where 1=1 {matching_key}"
                 rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Compare info stamped in final tables")
+        self.progress_bar.next()
                 
     def drop_tmp(self, cn):
         loglib = LogLib("ReconLib", "drop_tmp")
@@ -236,25 +242,20 @@ class ReconLib(BaseLib):
     def process(self, cn, recon):
         loglib = LogLib("ReconLib", "process")
         try:
-            recons = setuplib.tag_value(recon, "Recon")
-            for recon in recons:                
-                rule_name = setuplib.tag_value(recon, "Rule")
-                msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))
+            recon = setuplib.tag_value(recon, "Recon")
+            for rule in recon:
+                rule_name = setuplib.tag_value(rule, "Rule")
                 loglib.log(loglib.INFO, f"Processing rule: {rule_name}")
-                progress_bar = ShadyBar(msg, max=5)
-                progress_bar.next()
-                self.prepare(cn, recon)
-                self.aggregate(cn, recon)
-                progress_bar.next()
-                self.match_key(cn, recon)
-                progress_bar.next()
-                self.compare(cn, recon)
-                progress_bar.next()
-                self.stamp_tmp(cn, recon)
-                self.stamp_tb(cn, recon)
-                progress_bar.next()
-                progress_bar.finish()
-            self.drop_tmp(cn)                
+                msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))
+                self.progress_bar = ShadyBar(msg, max=6)
+                self.prepare(cn, rule)
+                self.aggregate(cn, rule)
+                self.match_key(cn, rule)
+                self.compare(cn, rule)
+                self.stamp_tmp(cn, rule)
+                self.stamp_tb(cn, rule)
+                self.progress_bar.finish()
+            self.drop_tmp(cn)
         except Error as err:
             cat = msglib.get_value(msglib.exception, "E1")
             msg = f"{cat} -> {str(err)}"
