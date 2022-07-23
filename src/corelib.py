@@ -31,23 +31,6 @@ class CoreLib(BaseLib):
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
-        
-    def open_recon(self, recon):
-        msg = ""
-        if type(recon) == dict:
-            return recon
-        else:
-            try:              
-                filename = str(recon.split(".")[0]) +".cfg"
-                path = cfglib.get(2)
-                path = fslib.get_path_recon(path, filename)
-                msg = msglib.get_value(msglib.validation, "M4", [path])
-                recon = fslib.open_json(path)
-            except json.decoder.JSONDecodeError:
-                print("There was a problem accessing the equipment data.")
-            except BaseException as err:
-                raise Exception(msg)
-        return recon
 
     def process(self, recon):
         debug = 0
@@ -63,7 +46,7 @@ class CoreLib(BaseLib):
             cn = dblib.begin_tran(cn, debug)
             
             """ open json recon or file """
-            recon = self.open_recon(recon)
+            recon = setuplib.open_recon(recon)
             self.id = self.tagv(recon, "Id", "Id")
             self.name = self.tagv(recon, "Name", "Nome")
             
