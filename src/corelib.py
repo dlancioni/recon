@@ -47,11 +47,13 @@ class CoreLib(BaseLib):
             
             """ open json recon or file """
             recon = setuplib.open_recon(recon)
-            self.id = self.tagv(recon, "Id", "Id")
-            self.name = self.tagv(recon, "Name", "Nome")
+            self.id = setuplib.tag_value(recon, "Id")
+            self.name = setuplib.tag_value(recon, "Name")
             
-            """ create log and validate recon """
+            """ create log """
             logger = loglib.create_log_file(self.name)
+            
+            """ validate recon """
             setuplib.validate(recon)
             loglib.log(loglib.INFO, "Validation OK, ready to create area")
             msglib.print(msglib.get_value(msglib.console, "M4", [self.id, self.name]))

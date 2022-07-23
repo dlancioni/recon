@@ -1,4 +1,7 @@
 from src.baselib import BaseLib
+from src.setuplib import SetupLib
+
+setuplib = SetupLib()
 
 class SqlLib(BaseLib):
 
@@ -37,8 +40,8 @@ class SqlLib(BaseLib):
         if field_def == "": return ""
         size = len(field_def) -1        
         while i <= size:
-            field_name = self.tagf(field_def[i], "Name", "Nome")
-            field_type = self.tagf(field_def[i], "Type", "Tipo")
+            field_name = setuplib.tag_name(field_def[i], "Name")
+            field_type = setuplib.tag_name(field_def[i], "Type")
             datatype = field_def[i]["Datatype"] if "Datatype" in field_def[i] else ""
             name = str(field_def[i][field_name]).strip() if field_name in field_def[i] else ""
             name = f"[{name}]"
@@ -46,7 +49,7 @@ class SqlLib(BaseLib):
             type = str(field_def[i][field_type]).strip() if field_type in field_def[i] else ""
             decimals = 2
             if aggregation:
-                field_function = self.tagf(field_def[i], "Function", "Funcao", False)
+                field_function = setuplib.tag_name(field_def[i], "Function", False)
                 function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
                 if datatype.strip().lower() == "decimal":
                     name = f"Round({name}, {decimals})"
@@ -63,10 +66,10 @@ class SqlLib(BaseLib):
         if field_def == "": return ""
         size = len(field_def) -1
         while i <= size:
-            field_name = self.tagf(field_def[i], "Name", "Nome")
-            field_type = self.tagf(field_def[i], "Type", "Tipo")
-            field_value = self.tagf(field_def[i], "Value", "Valor")
-            field_mask = self.tagf(field_def[i], "Mask", "Mascara", False)
+            field_name = setuplib.tag_name(field_def[i], "Name")
+            field_type = setuplib.tag_name(field_def[i], "Type")
+            field_value = setuplib.tag_name(field_def[i], "Value")
+            field_mask = setuplib.tag_name(field_def[i], "Mask", False)
             name = str(field_def[i][field_name]).strip()
             name = f"[{name}]"
             type = field_def[i][field_type] if field_type in field_def[i] else ""
@@ -139,8 +142,8 @@ class SqlLib(BaseLib):
     def get_field_key(self, fields="", tb1="", tb2=""):
         sql = ""
         for field in fields:
-            _name = self.tagf(field, "Name", "Nome")
-            _type = self.tagf(field, "Type", "Tipo")
+            _name = setuplib.tag_name(field, "Name")
+            _type = setuplib.tag_name(field, "Type")
             if str(field[_type]).strip().lower() in ["key", "chave"]:
                 field_name = "[" + str(field[_name]).strip() + "]"
                 sql += f"{field_name}, "
@@ -151,8 +154,8 @@ class SqlLib(BaseLib):
     def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
         for field in fields:
-            _name = self.tagf(field, "Name", "Nome")
-            _type = self.tagf(field, "Type", "Tipo")
+            _name = setuplib.tag_name(field, "Name")
+            _type = setuplib.tag_name(field, "Type")
             if str(field[_type]).strip().lower() in ["key", "chave"]:
                 field_name = str(field[_name]).strip()
                 field_name = f"[{field_name}]"

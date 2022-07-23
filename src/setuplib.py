@@ -20,88 +20,120 @@ class SetupLib(BaseLib):
         self.name = name
         self.error = ""
         self.logger = logging.getLogger(__name__)
+        
+    def tag_def(self):
+        tags = {
+            "Id":"Id",
+            "Name":"Nome",
+            "Description":"Descrição",
+            "Datasources":"Dados",
+            "Fields":"Campos",
+            "Side":"Lado",
+            "Path":"Caminho",
+            "File":"Arquivo",
+            "Separator":"Separador",
+            "Start":"Inicio",
+            "Type":"Tipo",
+            "Value":"Valor",
+            "Mask":"Mascara",
+            "Recon":"Conciliação",
+            "Rule":"Regra",
+            "Tolerance":"Tolerancia",
+            "Type":"Tipo",
+            "Function":"Funcao"
+        }
+        return tags
+        
+    def translate(self, tag_en=""):
+        tag_pt = ""
+        tag_en = tag_en.capitalize()
+        tags = self.tag_def()
+        tag_pt = tags[tag_en]
+        if tag_pt.strip() == "":
+            raise Exception("tag_pt not found in setuplib.translate()")
+        return tag_pt
     
-    def validate_tag(self, session, recon, fields, mandatory=False):
+    def validate_tag(self, recon, field, mandatory=True):
         if mandatory:
-            field = self.tagf(recon, fields[0], fields[1])
-            value = self.tagv(recon, fields[0], fields[1])
-            if str(value) == "":
+            tag_name = self.tag_name(recon, field)
+            tag_value = recon[tag_name]
+            if str(tag_value) == "":
                 raise Exception(msglib.get_value(msglib.validation, "M2", [field]))
 
     def validate_info(self, recon):
         loglib = LogLib("Setuplib", "validate_info")
         session = ""
-        self.validate_tag(session, recon, ["Id", "Id"], True)
-        self.validate_tag(session, recon, ["Name", "Nome"], True)
-        self.validate_tag(session, recon, ["Description", "Descrição"], True)
-        field = self.tagf(recon, "Id", "Id")
-        value = self.tagv(recon, "Id", "Id")
-        if int(value) <= 0: 
+        self.validate_tag(recon, "Id")
+        self.validate_tag(recon, "Name")
+        self.validate_tag(recon, "Description")
+        field = self.tag_name(recon, "Id")
+        value = self.tag_value(recon, "Id")
+        if int(value) <= 0:
             raise Exception(msglib.get_value(msglib.validation, "M3", [field]))
 
     def validate_side(self, recon):
         loglib = LogLib("Setuplib", "validate_side")
-        datasources = self.tagv(recon, "Datasources", "Dados")
+        datasources = self.tag_value(recon, "Datasources")
         for datasource in datasources:
-            name = self.tagv(datasource, "Name", "Nome")
-            fields = self.tagv(datasource, "Fields", "Campos")
+            name = self.tag_value(datasource, "Name")
+            fields = self.tag_value(datasource, "Fields")
             if len(fields) == 0:
                 raise Exception(msglib.get_value(msglib.validation, "M6", [name]))
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
         session = ""
-        tag_ds = self.tagf(recon, "Datasources", "Dados")
+        tag_ds = self.tag_name(recon, "Datasources")
         datasources = recon[tag_ds]
         for i in range(0, len(datasources)):
             session = tag_ds
             values = recon[tag_ds][i]
-            self.validate_tag(session, values, ["Side", "Lado"], True)
-            self.validate_tag(session, values, ["Name", "Nome"], True)
-            self.validate_tag(session, values, ["Path", "Caminho"], False)
-            self.validate_tag(session, values, ["File", "Arquivo"], True)
-            self.validate_tag(session, values, ["Separator", "Separador"], True)
-            self.validate_tag(session, values, ["Start", "Inicio"], True)
+            self.validate_tag(values, "Side")
+            self.validate_tag(values, "Name")
+            self.validate_tag(values, "Path", False)
+            self.validate_tag(values, "File")
+            self.validate_tag(values, "Separator")
+            self.validate_tag(values, "Start")
             """ validate fields """
-            self.validate_tag(session, recon[tag_ds][i], ["Fields", "Campos"])
-            tag_field = self.tagf(recon[tag_ds][i], "Fields", "Campos")
+            self.validate_tag(recon[tag_ds][i], "Fields")
+            tag_field = self.tag_name(recon[tag_ds][i], "Fields")
             fields = recon[tag_ds][i][tag_field]
             for j in range(0, len(fields)):
                 session = f"{tag_ds}/{tag_field}"
                 values = recon[tag_ds][i][tag_field][j]
-                self.validate_tag(session, values, ["Id", "Id"], True)
-                self.validate_tag(session, values, ["Name", "Nome"], True)
-                self.validate_tag(session, values, ["Type", "Tipo"], True)
-                self.validate_tag(session, values, ["Value", "Valor"], False)
-                self.validate_tag(session, values, ["Mask", "Mascara"], False)
+                self.validate_tag(values, "Id")
+                self.validate_tag(values, "Name")
+                self.validate_tag(values, "Type")
+                self.validate_tag(values, "Value", False)
+                self.validate_tag(values, "Mask", False)
 
     def validate_recon_rules(self, recon):
         loglib = LogLib("Setuplib", "validate_recon_rules")
-        rules = self.tagv(recon, "Recon", "Conciliação")
+        rules = self.tag_value(recon, "Recon")
         for rule in rules:
-            name = self.tagv(rule, "Rule", "Regra")           
-            fields = self.tagv(rule, "Fields", "Campos")
+            name = self.tag_value(rule, "Rule")
+            fields = self.tag_value(rule, "Fields")
             if len(fields) == 0:
                 raise Exception(msglib.get_value(msglib.validation, "M7", [name]))
 
     def validate_recon(self, recon):
         loglib = LogLib("Setuplib", "validate_recon")
         session = ""
-        tag_recon = self.tagf(recon, "Recon", "Conciliação")
+        tag_recon = self.tag_name(recon, "Recon")
         recons = recon[tag_recon]
         for i in range(0, len(recons)):
             session = tag_recon
-            tag_rule = self.tagf(recon[tag_recon][i], "Rule", "Regra")
-            self.validate_tag(session, recon[tag_recon][i], ["Rule", "Regra"], True)
+            tag_rule = self.tag_name(recon[tag_recon][i], "Rule")
+            self.validate_tag(recon[tag_recon][i], "Rule")
             """ validate fields """
-            self.validate_tag(session, recons[i], ["Fields", "Campos"], True)
-            tag_fields = self.tagf(recon[tag_recon][i], "Fields", "Campos")
+            self.validate_tag(recons[i], "Fields")
+            tag_fields = self.tag_name(recon[tag_recon][i], "Fields")
             fields = recon[tag_recon][i][tag_fields]
             for j in range(0, len(fields)):
                 session = f"{tag_recon}/{tag_fields}"
                 values = recon[tag_recon][i][tag_fields][j]
-                self.validate_tag(session, values, ["Type", "Tipo"], True)
-                self.validate_tag(session ,values, ["Name", "Nome"], True)
+                self.validate_tag(values, "Type")
+                self.validate_tag(values, "Name")
 
     def validate(self, recon):
         loglib = LogLib("Setuplib", "validate")
@@ -131,4 +163,32 @@ class SetupLib(BaseLib):
                 print("There was a problem accessing the equipment data.")
             except BaseException as err:
                 raise Exception(msg)
-        return recon        
+        return recon
+
+    def tagfv(self, doc, tag_en):
+        f, v = "", ""
+        tag_pt = self.translate(tag_en)
+        tag_en = tag_en.capitalize().strip()
+        tag_pt = tag_pt.capitalize().strip()
+        if tag_en in doc:
+            f = tag_en
+            v = doc[tag_en]
+            return f, v
+        if tag_pt in doc:
+            f = tag_pt
+            v = doc[tag_pt]
+        return f, v
+
+    def tag_name(self, doc, tag_en="", mandatory=True):
+        f, v = self.tagfv(doc, tag_en)
+        if mandatory == True:
+            if f == "":
+                msglib = MsgLib()
+                msg = f"{tag_en}/{tag_pt}"
+                msg = msglib.get_value(msglib.validation, "M5", [msg])
+                raise Exception(msg)
+        return f
+
+    def tag_value(self, doc, tag_en="", mandatory=True):
+        f, v = self.tagfv(doc, tag_en)
+        return v

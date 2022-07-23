@@ -8,12 +8,14 @@ from src.utillib import UtilLib
 from src.cfglib import ConfigLib
 from progress.bar import ShadyBar
 from src.loglib import LogLib
+from src.setuplib import SetupLib
 
 dblib = DbLib()
 msglib = MsgLib()
 sqllib = SqlLib()
 utillib = UtilLib()
 cfglib = ConfigLib()
+setuplib = SetupLib()
 
 class ReconLib(BaseLib):
 
@@ -42,12 +44,12 @@ class ReconLib(BaseLib):
         self.matched = msglib.get_value(msglib.label, "L11")
         self.divergent = msglib.get_value(msglib.label, "L12")
         self.orphan = msglib.get_value(msglib.label, "L13")                
-        for field in self.tagv(recon, "Fields", "Campos"):            
-            field_name = self.tagv(field, "Name", "Nome")
+        for field in setuplib.tag_value(recon, "Fields"):
+            field_name = setuplib.tag_value(field, "Name")
             field_name = f"[{field_name}]"
-            if self.tagv(field, "Tipo", "Type").lower() in ["key", "chave"]:
+            if setuplib.tag_value(field, "Type").lower() in ["key", "chave"]:
                 self.field_key.append(field_name)
-            if self.tagv(field, "Tipo", "Type").lower() in ["compare", "comparar"]:
+            if setuplib.tag_value(field, "Type").lower() in ["compare", "comparar"]:
                 self.field_compare.append(field_name)
             # stamp the type in recon definition    
             index = self.fields.index(field_name.replace("[", "").replace("]", ""))
@@ -61,7 +63,7 @@ class ReconLib(BaseLib):
         sql = ""
         rows_affected = 0
         funcs = []
-        field = self.tagf(recon, "Fields", "Campos")
+        field = setuplib.tag_name(recon, "Fields")
         grouping_key = sqllib.get_field_key(recon[field])
         field_list = sqllib.get_field_list(recon[field], False)
         value_list = sqllib.get_field_list(recon[field], True)
@@ -83,8 +85,8 @@ class ReconLib(BaseLib):
     def match_key(self, cn, recon):
         loglib = LogLib("ReconLib", "match_key")
         rows_affected = 0
-        rule = self.tagv(recon, "Rule", "Regra")
-        field = self.tagf(recon, "Fields", "Campos")
+        rule = setuplib.tag_value(recon, "Rule")
+        field = setuplib.tag_name(recon, "Fields")
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
         for side in range(1, 3):
             tmp1 = self.tmp1 if side == 1 else self.tmp2
@@ -103,15 +105,15 @@ class ReconLib(BaseLib):
         
     def get_tolerance(self, recon, fieldname):
         tolerance = 0
-        field_name = self.tagf(recon, "Fields", "Campos")
+        field_name = setuplib.tag_name(recon, "Fields")
         fields = recon[field_name]
         for field in fields:
-            field_name = self.tagv(field, "Name", "Nome")
-            rule_type = self.tagv(field, "Type", "Tipo")
+            field_name = setuplib.tag_value(field, "Name")
+            rule_type = setuplib.tag_value(field, "Type")
             if rule_type.strip().lower() in ["compare", "comparar"]:
                 if field["Datatype"].strip().lower() == "decimal":
                     if field_name.strip().lower() == fieldname.strip().lower().replace("[", "").replace("]", ""):
-                        tol = self.tagv(field, "Tolerance", "Tolerancia")
+                        tol = setuplib.tag_value(field, "Tolerance")
                         if tol.strip() != "":
                             tolerance = float(tol)
                             break
@@ -123,8 +125,8 @@ class ReconLib(BaseLib):
         fields_key = ""
         count = 0
         rows_affected = 0
-        rule = self.tagv(recon, "Rule", "Regra")
-        field = self.tagf(recon, "Fields", "Campos")
+        rule = setuplib.tag_value(recon, "Rule")
+        field = setuplib.tag_name(recon, "Fields")
         matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
         """ create temp table  to compare fields """
         for field in self.field_key:
@@ -165,7 +167,7 @@ class ReconLib(BaseLib):
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
             for side in range(1,3):
-                _field = self.tagf(recon, "Fields", "Campos")                
+                _field = setuplib.tag_name(recon, "Fields")
                 temps = self.tmp1 if side == 1 else self.tmp2
                 matching_key = sqllib.get_sql_key(temps, tmp3, recon[_field])
                 field_name = sqllib.field_diff(field, label)
@@ -192,8 +194,8 @@ class ReconLib(BaseLib):
         field_list = ""
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
-        rule = self.tagv(recon, "Rule", "Regra")
-        field = self.tagf(recon, "Fields", "Campos")
+        rule = setuplib.tag_value(recon, "Rule")
+        field = setuplib.tag_name(recon, "Fields")
         match_result = ["Id_Parent", "Recon", "Rule", "Status"]
         compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon[field])
@@ -234,9 +236,9 @@ class ReconLib(BaseLib):
     def process(self, cn, recon):
         loglib = LogLib("ReconLib", "process")
         try:
-            recons = self.tagv(recon, "Recon", "Conciliação")
+            recons = setuplib.tag_value(recon, "Recon")
             for recon in recons:                
-                rule_name = self.tagv(recon, "Rule", "Regra")
+                rule_name = setuplib.tag_value(recon, "Rule")
                 msg = msglib.set_time(msglib.get_value(msglib.console, "M6", [rule_name]))
                 loglib.log(loglib.INFO, f"Processing rule: {rule_name}")
                 progress_bar = ShadyBar(msg, max=5)

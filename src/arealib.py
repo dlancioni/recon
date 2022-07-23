@@ -9,11 +9,14 @@ from src.utillib import UtilLib
 from src.baselib import BaseLib
 from src.loglib import LogLib
 from src.dblib import DbLib
+from src.setuplib import SetupLib
 
+""" general declaration """
 sqllib = SqlLib()
 utillib = UtilLib()
 dblib = DbLib()
 msglib = MsgLib()
+setuplib = SetupLib()
 
 class AreaLib(BaseLib):
 
@@ -26,17 +29,17 @@ class AreaLib(BaseLib):
         loglib = LogLib("AreaLib", "merge_datasources")        
         f1, t1 = [], []
         f2, t2 = [], []
-        datasources = self.tagv(recon, "Datasources", "Dados")
+        datasources = setuplib.tag_value(recon, "Datasources")
         for datasource in datasources:
-            side = self.tagv(datasource, "Side", "Lado")
-            fields = self.tagv(datasource, "Fields", "Campos")
+            side = setuplib.tag_value(datasource, "Side")
+            fields = setuplib.tag_value(datasource, "Fields")
             for field in fields:
                 if int(side) == 1:
-                    f1.append(self.tagv(field, "Name", "Nome"))
-                    t1.append(sqllib.get_field_type(self.tagv(field, "Type", "Tipo")))
+                    f1.append(setuplib.tag_value(field, "Name"))
+                    t1.append(sqllib.get_field_type(setuplib.tag_value(field, "Type")))
                 if int(side) == 2:
-                    f2.append(self.tagv(field, "Name", "Nome"))
-                    t2.append(sqllib.get_field_type(self.tagv(field, "Type", "Tipo")))
+                    f2.append(setuplib.tag_value(field, "Name", "Nome"))
+                    t2.append(sqllib.get_field_type(setuplib.tag_value(field, "Type")))
         loglib.log(loglib.INFO, str(f1) + str(f2))
         return f1, t1, f2, t2
 

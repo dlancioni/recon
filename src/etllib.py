@@ -8,12 +8,14 @@ from src.dblib import DbLib
 from src.utillib import UtilLib
 from src.msglib import MsgLib
 from src.loglib import LogLib
+from src.setuplib import SetupLib
 
 dblib = DbLib()
 fslib = FsLib()
 sqlib = SqlLib()
 msglib = MsgLib()
 utillib = UtilLib()
+setuplib = SetupLib()
 
 class EtlLib(BaseLib):
 
@@ -32,12 +34,12 @@ class EtlLib(BaseLib):
     def import_file(self, cn, ds):
         loglib = LogLib("EtlLib", "import_file")
         sql = ""       
-        side = self.tagv(ds, "Side", "Lado")
-        path = self.tagv(ds, "Path", "Caminho", False)
-        file = self.tagv(ds, "File", "Arquivo")
-        fields = self.tagv(ds, "Fields", "Campos")
-        separator = self.tagv(ds, "Separator", "Separador")
-        start = int(self.tagv(ds, "Start", "Inicio"))
+        side = setuplib.tag_value(ds, "Side")
+        path = setuplib.tag_value(ds, "Path", False)
+        file = setuplib.tag_value(ds, "File")
+        fields = setuplib.tag_value(ds, "Fields")
+        separator = setuplib.tag_value(ds, "Separator")
+        start = int(setuplib.tag_value(ds, "Start"))
         tb = f"tb{self.id}{side}"
         path = fslib.get_path_file(path, file)
         first = True
@@ -47,7 +49,7 @@ class EtlLib(BaseLib):
         row = 0
         fl = sqlib.get_field_list(fields)
         count = self.count(path)
-        msg = msglib.get_value(msglib.console, "M5", [self.tagv(ds, "File", "Arquivo")])
+        msg = msglib.get_value(msglib.console, "M5", [setuplib.tag_value(ds, "File")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
         loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")
@@ -76,7 +78,7 @@ class EtlLib(BaseLib):
     def process(self, cn, recon):
         loglib = LogLib("EtlLib", "process")
         try:
-            datasources = self.tagv(recon, "Datasources", "Dados")
+            datasources = setuplib.tag_value(recon, "Datasources")
             for datasource in datasources:
                 self.import_file(cn, datasource)
         except Error as err:

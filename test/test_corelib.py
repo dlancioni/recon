@@ -34,7 +34,7 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(data[line][TOTAL], str(orphan))
     
     def basic(self):
-        
+
         status, message, reports = corelib.process("recon [en-us]")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
@@ -42,7 +42,7 @@ class CoreLibTest(unittest.TestCase):
         data = fslib.get_csv_as_list(reports[0])
         self.check_synthetic(1, data, 1, 1, 1)
         self.check_synthetic(2, data, 2, 1, 1)
-        
+
         status, message, reports = corelib.process("recon [pt-br]")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
