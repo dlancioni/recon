@@ -1,2 +1,9 @@
-2022-07-23 15:22:45 ERROR Setuplib.validate: Validation error -> name 'tag_pt' is not defined
-2022-07-23 15:22:45 ERROR CoreLib.process: Validation error -> name 'tag_pt' is not defined
+2022-07-26 01:00:35 ERROR Setuplib.validate: Erro de validação -> name 'tag_pt' is not defined
+2022-07-26 01:00:35 ERROR CoreLib.process: Erro de validação -> name 'tag_pt' is not defined
+2022-07-26 01:00:48 INFO CoreLib.process: Debug mode: False
+2022-07-26 01:00:48 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-07-26 01:00:48 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-07-26 01:00:50 INFO CoreLib.process: Debug mode: False
+2022-07-26 01:01:14 ERROR Setuplib.validate: Erro de validação -> name 'tag_pt' is not defined
+2022-07-26 01:01:18 ERROR CoreLib.process: Erro de validação -> name 'tag_pt' is not defined
+2022-07-26 01:01:47 INFO CoreLib.process: Debug mode: False

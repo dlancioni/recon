@@ -58,7 +58,7 @@ class SetupLib(BaseLib):
             tag_name = self.tag_name(recon, field)
             tag_value = recon[tag_name]
             if str(tag_value) == "":
-                raise Exception(msglib.get("V2", [field]))
+                raise Exception(msglib.get("V2", [tag_name]))
 
     def validate_info(self, recon):
         loglib = LogLib("Setuplib", "validate_info")
@@ -170,7 +170,7 @@ class SetupLib(BaseLib):
         f, v = "", ""
         tag_pt = self.translate(tag_en)
         tag_en = tag_en.capitalize().strip()
-        tag_pt = tag_pt.capitalize().strip()
+
         if tag_en in doc:
             f = tag_en
             v = doc[tag_en]
