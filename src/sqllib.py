@@ -92,10 +92,11 @@ class SqlLib(BaseLib):
         i = 0
         sql = ""
         fieldlist = ""
-        fieldlist += "Id integer primary key"
+        fieldlist += "  Id integer primary key"
         fieldlist += ", Id_Parent integer default 0"
         fieldlist += ", Recon text default ''"
         fieldlist += ", Rule text default ''"
+        fieldlist += ", Id_Status text default ''"
         fieldlist += ", Status text default '" + status + "'"
         fieldlist += ", "
         if tablename == "" or fields == [] or types == []: return ""
