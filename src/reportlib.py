@@ -51,19 +51,6 @@ class ReportLib(BaseLib):
                 print(reports[2])
                 self.print_csv(reports[2])
 
-    def get_ordenation(self):
-        sql = ""
-        sql += " case Status"
-        sql += " when 'Matched' then 1"
-        sql += " when 'Batido' then 1"
-        sql += " when 'Divergent' then 2"
-        sql += " when 'Divergente' then 2"
-        sql += " when 'Orphan' then 3"
-        sql += " when 'Órfão' then 3"
-        sql += " end Ordenation"  
-        
-        return sql
-
     def create_report_synthetic(self, cn):
         loglib = LogLib("Reportlib", "create_report_synthetic")
         sql = ""
@@ -75,19 +62,17 @@ class ReportLib(BaseLib):
         sql += f" ("
         sql += f" select"
         sql += f" 1 Side,"
-        sql += f" Status, count(Status) Total,"
-        sql += self.get_ordenation()
+        sql += f" Id_Status, Status, count(Status) Total"
         sql += f" from tb{self.id}1"
         sql += f" group by Status"
         sql += f"  union all"
         sql += f" select"
         sql += f" 2 Side,"
-        sql += f" Status, count(Status) Total,"
-        sql += self.get_ordenation()
+        sql += f" Id_Status, Status, count(Status) Total"
         sql += f" from tb{self.id}2"
         sql += f" group by Status"
         sql += f" ) "
-        sql += f" order by Side, Ordenation"
+        sql += f" order by Side, Id_Status"
         rows = dblib.query(cn, sql)
         with open(file, "w", encoding="UTF-8") as f:
             msg = msglib.set_time(msglib.get("M9"))

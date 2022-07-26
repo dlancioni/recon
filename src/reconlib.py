@@ -98,6 +98,7 @@ class ReconLib(BaseLib):
             sql += f"update {tmp1} set "
             sql += f"recon='{self.name}', "
             sql += f"rule='{rule}', "
+            sql += f"id_status='{const.STATUS_MATCHED}',"
             sql += f"status = '{self.matched}', "
             sql += f"id_parent = {tmp2}.id "
             sql += f"from {tmp2} "
@@ -183,6 +184,7 @@ class ReconLib(BaseLib):
                     rows_affected = dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
+                sql += f"id_status='{const.STATUS_DIVERGENT}',"
                 sql += f"status = '{self.divergent}', "
                 sql += f"{field_name} = {tmp3}.difference "
                 sql += f"from {tmp3} "
@@ -202,7 +204,7 @@ class ReconLib(BaseLib):
         """ stamp the differences from tmps in tbs """
         rule = setuplib.tag_value(recon, "Rule")
         field = setuplib.tag_name(recon, "Fields")
-        match_result = ["Id_Parent", "Recon", "Rule", "Status"]
+        match_result = ["Id_Parent", "Recon", "Rule", "Id_Status", "Status"]
         compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon[field])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon[field])

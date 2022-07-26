@@ -92,7 +92,7 @@ class SqlLib(BaseLib):
         fieldlist += f"{const.FIELD_ID_PARENT} integer default 0, "
         fieldlist += f"{const.FIELD_RECON} text default '', "
         fieldlist += f"{const.FIELD_RULE} text default '', "
-        fieldlist += f"{const.FIELD_ID_STATUS} text default '', "
+        fieldlist += f"{const.FIELD_ID_STATUS} integer default {const.STATUS_ORPHAN}, "
         fieldlist += f"{const.FIELD_STATUS} text default '{status}', "        
         if tablename == "" or fields == [] or types == []: return ""
         size = len(fields) -1
