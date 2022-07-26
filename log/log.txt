@@ -1,0 +1,2 @@
+2022-07-23 16:46:07 ERROR Setuplib.validate: Erro de validação -> Tag Name/Nome não encontrada na configuração da conciliação
+2022-07-23 16:46:07 ERROR CoreLib.process: Erro de validação -> Tag Name/Nome não encontrada na configuração da conciliação

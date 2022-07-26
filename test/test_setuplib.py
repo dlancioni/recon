@@ -23,6 +23,13 @@ class SetupLibTest(unittest.TestCase):
         recon = fslib.open_json(path)
         return recon
 
+    def assert_validate_tag(self, recon):
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, False)        
+    def assert_validate_msg(self, recon):
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, False)        
+
     def assert_field(self, recon):
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, False)
@@ -32,13 +39,13 @@ class SetupLibTest(unittest.TestCase):
             fields = ["Id", "Name", "Description"]
         else:
             fields = ["Id", "Nome", "Descrição"]
-        for field in fields:
+        for field in fields:            
             recon = self.open_recon(language)
             del recon[field]
-            self.assert_field(recon)            
+            self.assert_validate_tag(recon)            
             recon = self.open_recon(language)
             recon[field] = ""
-            self.assert_field(recon)
+            self.assert_validate_msg(recon)
             
     def validate_datasource(self, language):        
         if language == "en-us":
@@ -55,18 +62,18 @@ class SetupLibTest(unittest.TestCase):
             if field != session_fd:
                 recon = self.open_recon(language)
                 del recon[session_ds][0][field]
-                self.assert_field(recon)
+                self.assert_validate_tag(recon)
                 recon = self.open_recon(language)
                 recon[session_ds][0][field] = ""
-                self.assert_field(recon)
+                self.assert_validate_msg(recon)
             else:
                 for field in fields_fd:
                     recon = self.open_recon(language)
                     del recon[session_ds][0][session_fd][0][field]
-                    self.assert_field(recon)
+                    self.assert_validate_tag(recon)
                     recon = self.open_recon(language)
                     recon[session_ds][0][session_fd][0][field] = ""
-                    self.assert_field(recon)
+                    self.assert_validate_msg(recon)
                     
     def validate_recon(self, language):
         if language == "en-us":
@@ -83,18 +90,18 @@ class SetupLibTest(unittest.TestCase):
             if field != session_fd:
                 recon = self.open_recon(language)
                 del recon[session_rc][0][field]
-                self.assert_field(recon)
+                self.assert_validate_tag(recon)
                 recon = self.open_recon(language)
                 recon[session_rc][0][field] = ""
-                self.assert_field(recon)
+                self.assert_validate_msg(recon)
             else:
                 for field in fields_fd:
                     recon = self.open_recon(language)
                     del recon[session_rc][0][session_fd][0][field]
-                    self.assert_field(recon)
+                    self.assert_validate_tag(recon)
                     recon = self.open_recon(language)
                     recon[session_rc][0][session_fd][0][field] = ""
-                    self.assert_field(recon)    
+                    self.assert_validate_msg(recon)    
                   
     def setUp(self):
         pass
