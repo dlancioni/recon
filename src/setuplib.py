@@ -145,11 +145,12 @@ class SetupLib(BaseLib):
             self.validate_recon(recon)
         except BaseException as err:
             cat = msglib.get("E4")
-            msg = f"{cat} -> {str(err)}"            
+            msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         
     def open_recon(self, recon):
+        loglib = LogLib("Setuplib", "open_recon")
         msg = ""
         if type(recon) == dict:
             return recon
@@ -160,10 +161,14 @@ class SetupLib(BaseLib):
                 path = fslib.get_path_recon(path, filename)
                 msg = msglib.get("V4", [path])
                 recon = fslib.open_json(path)
-            except json.decoder.JSONDecodeError:
-                print("There was a problem accessing the equipment data.")
-            except BaseException as err:
+            except json.decoder.JSONDecodeError as err:
+                cat = msglib.get("E4")
+                error = msglib.get("E5", [err.msg, err.lineno, err.colno])
+                msg = f"{cat} -> {str(error)}"
+                loglib.log(loglib.ERROR, msg)
                 raise Exception(msg)
+            except BaseException as err:
+                raise
         return recon
 
     def tagfv(self, doc, tag_en):

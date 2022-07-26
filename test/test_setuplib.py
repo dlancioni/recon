@@ -10,17 +10,20 @@ from src.utillib import UtilLib
 from src.msglib import MsgLib
 from src.cfglib import ConfigLib
 from src.corelib import CoreLib
+from src.setuplib import SetupLib
 
 msglib = MsgLib()
 corelib = CoreLib()
 fslib = FsLib()
+setuplib = SetupLib()
 
 class SetupLibTest(unittest.TestCase):
     
     def open_recon(self, language):
         filename = "recon [en-us].cfg" if language == "en-us" else "recon [pt-br].cfg"
         path = fslib.get_path_recon("", filename)
-        recon = fslib.open_json(path)
+        #recon = fslib.open_json(path)
+        recon = setuplib.open_recon(path)
         return recon
 
     def assert_validate_tag(self, recon):
