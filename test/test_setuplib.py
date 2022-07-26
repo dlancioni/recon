@@ -25,7 +25,9 @@ class SetupLibTest(unittest.TestCase):
 
     def assert_validate_tag(self, recon):
         status, message, reports = corelib.process(recon)
-        self.assertEqual(status, False)        
+        self.assertEqual(status, False)
+        self.assertNotEqual(message, "")
+        
     def assert_validate_msg(self, recon, field=""):
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, False)
