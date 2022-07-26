@@ -170,7 +170,6 @@ class SetupLib(BaseLib):
         f, v = "", ""
         tag_pt = self.translate(tag_en)
         tag_en = tag_en.capitalize().strip()
-
         if tag_en in doc:
             f = tag_en
             v = doc[tag_en]
@@ -185,8 +184,9 @@ class SetupLib(BaseLib):
         if mandatory == True:
             if f == "":
                 msglib = MsgLib()
+                tag_pt = self.translate(tag_en)
                 msg = f"{tag_en}/{tag_pt}"
-                msg = msglib.get("V5", [msg])
+                msg = msglib.get("V1", [msg])
                 raise Exception(msg)
         return f
 

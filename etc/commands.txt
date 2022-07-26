@@ -9,8 +9,8 @@ pip install -r requirements.txt
 python -m unittest discover -stest -v
 
 # run recon
-python main.py --f "recon [en_us]" --r 0     (Sinthetic report)
-python main.py --f "recon [en_us]" --r 1     (Analytic report side 1)
-python main.py --f "recon [en_us]" --r 2     (Analytic report side 2)
-python main.py --f "recon [en_us]" --r 12    (Analytic report) both sides
+python main.py --f "recon [en-us]" --r 0     (Sinthetic report)
+python main.py --f "recon [en-us]" --r 1     (Analytic report side 1)
+python main.py --f "recon [en-us]" --r 2     (Analytic report side 2)
+python main.py --f "recon [en-us]" --r 12    (Analytic report) both sides
 

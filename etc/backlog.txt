@@ -3,3 +3,4 @@
 3) Nome de campo nao pode ter . ou []
 4) validar sides 1 e 2 existem
 5) validar se lado 1 e lado 2 estao importando mesmo arquivo
+6) validar campos numericos (id, side, etc)
