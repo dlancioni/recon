@@ -9,6 +9,7 @@ from src.cfglib import ConfigLib
 from progress.bar import ShadyBar
 from src.loglib import LogLib
 from src.setuplib import SetupLib
+from src.constlib import const
 
 dblib = DbLib()
 msglib = MsgLib()

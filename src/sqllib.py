@@ -2,10 +2,6 @@ from src.baselib import BaseLib
 from src.setuplib import SetupLib
 from src.constlib import const
 
-print(const.STATUS_DIVERGENT)
-print(const.FIELD_ID_PARENT)
-
-
 setuplib = SetupLib()
 
 class SqlLib(BaseLib):
@@ -92,13 +88,12 @@ class SqlLib(BaseLib):
         i = 0
         sql = ""
         fieldlist = ""
-        fieldlist += "  Id integer primary key"
-        fieldlist += ", Id_Parent integer default 0"
-        fieldlist += ", Recon text default ''"
-        fieldlist += ", Rule text default ''"
-        fieldlist += ", Id_Status text default ''"
-        fieldlist += ", Status text default '" + status + "'"
-        fieldlist += ", "
+        fieldlist += f"{const.FIELD_ID} integer primary key, "
+        fieldlist += f"{const.FIELD_ID_PARENT} integer default 0, "
+        fieldlist += f"{const.FIELD_RECON} text default '', "
+        fieldlist += f"{const.FIELD_RULE} text default '', "
+        fieldlist += f"{const.FIELD_ID_STATUS} text default '', "
+        fieldlist += f"{const.FIELD_STATUS} text default '{status}', "        
         if tablename == "" or fields == [] or types == []: return ""
         size = len(fields) -1
         while i <= size:
