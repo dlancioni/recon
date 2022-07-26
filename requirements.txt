@@ -5,5 +5,6 @@ pyinstaller
 prettytable
 progress
 termcolor
+pconst
 
 ###### Requirements with Version Specifiers ######

@@ -1,5 +1,10 @@
 from src.baselib import BaseLib
 from src.setuplib import SetupLib
+from src.constlib import const
+
+print(const.STATUS_DIVERGENT)
+print(const.FIELD_ID_PARENT)
+
 
 setuplib = SetupLib()
 
