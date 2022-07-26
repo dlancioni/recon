@@ -54,8 +54,8 @@ class AreaLib(BaseLib):
             tmp = f"tmp{id}{side}"
             dblib.execute(cn, f"drop table if exists {tb}")
             dblib.execute(cn, f"drop table if exists {tmp}")
-            dblib.execute(cn, sqllib.get_create_table_definition(tb, fields, types, status))
-            dblib.execute(cn, sqllib.get_create_table_definition(tmp, fields, types, status))
+            dblib.execute(cn, sqllib.get_create_table_definition(tb, fields, types, status, side))
+            dblib.execute(cn, sqllib.get_create_table_definition(tmp, fields, types, status, side))
         loglib.log(loglib.INFO, "Area created:")
         loglib.log(loglib.INFO, str(fields) + str(types))
         return fields, types

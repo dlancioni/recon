@@ -84,16 +84,17 @@ class SqlLib(BaseLib):
         sql = sql.strip()[:-1]
         return sql
     
-    def get_create_table_definition(self, tablename, fields, types, status):
+    def get_create_table_definition(self, tablename, fields, types, status, side):
         i = 0
         sql = ""
         fieldlist = ""
         fieldlist += f"{const.FIELD_ID} integer primary key, "
+        fieldlist += f"{const.FIELD_SIDE} integer default {side}, "
         fieldlist += f"{const.FIELD_ID_PARENT} integer default 0, "
         fieldlist += f"{const.FIELD_RECON} text default '', "
         fieldlist += f"{const.FIELD_RULE} text default '', "
         fieldlist += f"{const.FIELD_ID_STATUS} integer default {const.STATUS_ORPHAN}, "
-        fieldlist += f"{const.FIELD_STATUS} text default '{status}', "        
+        fieldlist += f"{const.FIELD_STATUS} text default '{status}', "
         if tablename == "" or fields == [] or types == []: return ""
         size = len(fields) -1
         while i <= size:
