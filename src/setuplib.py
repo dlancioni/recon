@@ -163,7 +163,7 @@ class SetupLib(BaseLib):
                 recon = fslib.open_json(path)
             except json.decoder.JSONDecodeError as err:
                 cat = msglib.get("E4")
-                error = msglib.get("E5", [err.msg, err.lineno, err.colno])
+                error = msglib.get("E5", [err.lineno, err.colno, err.msg])
                 msg = f"{cat} -> {str(error)}"
                 loglib.log(loglib.ERROR, msg)
                 raise Exception(msg)

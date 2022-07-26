@@ -22,7 +22,6 @@ class SetupLibTest(unittest.TestCase):
     def open_recon(self, language):
         filename = "recon [en-us].cfg" if language == "en-us" else "recon [pt-br].cfg"
         path = fslib.get_path_recon("", filename)
-        #recon = fslib.open_json(path)
         recon = setuplib.open_recon(path)
         return recon
 
@@ -106,6 +105,16 @@ class SetupLibTest(unittest.TestCase):
                     recon = self.open_recon(language)
                     recon[session_rc][0][session_fd][0][field] = ""
                     self.assert_validate_msg(recon, field)    
+                    
+    def open_bad_recon(self):
+        message = ""
+        try:
+            filename = "invalid_json.cfg"
+            path = fslib.get_path_recon("", filename)
+            recon = setuplib.open_recon(path)
+        except BaseException as err:
+            message = str(err)
+        self.assertNotEqual(message, "")
                   
     def setUp(self):
         pass
@@ -113,7 +122,8 @@ class SetupLibTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_mandatory(self):
+    def test_recon(self):
+        self.open_bad_recon()
         for language in ["en-us", "pt-br"]:
             self.validate_header(language)
             self.validate_datasource(language)
