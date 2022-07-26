@@ -72,13 +72,24 @@ class SetupLib(BaseLib):
             raise Exception(msglib.get("V3", [field]))
 
     def validate_side(self, recon):
+        found1 = False
+        found2 = False
         loglib = LogLib("Setuplib", "validate_side")
         datasources = self.tag_value(recon, "Datasources")
         for datasource in datasources:
             name = self.tag_value(datasource, "Name")
             fields = self.tag_value(datasource, "Fields")
+            side = self.tag_value(datasource, "Side")
             if len(fields) == 0:
                 raise Exception(msglib.get("V6", [name]))
+            if str(side) == "1":
+                found1 = True
+            if str(side) == "2":
+                found2 = True
+        if found1 == False:
+            raise Exception(msglib.get("V5", [1]))
+        if found2 == False:
+            raise Exception(msglib.get("V5", [2]))
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
@@ -139,8 +150,8 @@ class SetupLib(BaseLib):
         loglib = LogLib("Setuplib", "validate")
         try:
             self.validate_info(recon)
-            self.validate_side(recon)
             self.validate_datasource(recon)
+            self.validate_side(recon)            
             self.validate_recon_rules(recon)
             self.validate_recon(recon)
         except BaseException as err:

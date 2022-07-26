@@ -1,2 +1,2 @@
-2022-07-26 09:56:11 ERROR Setuplib.validate: Erro de validação -> Campo Lado é obrigatório
-2022-07-26 09:56:11 ERROR CoreLib.process: Erro de validação -> Campo Lado é obrigatório
+2022-07-26 20:47:10 ERROR Setuplib.validate: Erro de validação -> Configuração para o lado 1 não encontrada
+2022-07-26 20:47:10 ERROR CoreLib.process: Erro de validação -> Configuração para o lado 1 não encontrada
