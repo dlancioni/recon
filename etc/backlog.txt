@@ -5,8 +5,10 @@ Pendente
 6) validar campos numericos (id, side, etc)
 7) Validar tipo de dado (texto, inteiro, etc)
 
+
 Pendente teste automatico
 5) validar se lado 1 e lado 2 estao importando mesmo arquivo
 4) validar sides 1 e 2 existem
+8) Fonte de dados com mesmo nome em lados diferentes
 
 Feito

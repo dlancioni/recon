@@ -72,11 +72,10 @@ class SetupLib(BaseLib):
             raise Exception(msglib.get("V3", [field]))
 
     def validate_side(self, recon):
-        found1 = False
-        found2 = False
-        file1 = []
-        file2 = []
-        loglib = LogLib("Setuplib", "validate_side")
+        loglib = LogLib("Setuplib", "validate_side")        
+        found1, found2 = False, False
+        file1, file2 = [], []
+        name1, name2 = [], []
         datasources = self.tag_value(recon, "Datasources")
         for datasource in datasources:
             name = self.tag_value(datasource, "Name")
@@ -88,9 +87,11 @@ class SetupLib(BaseLib):
             if str(side) == "1":
                 found1 = True
                 file1.append(filename)
+                name1.append(name)
             if str(side) == "2":
                 found2 = True
                 file2.append(filename)
+                name2.append(name)
         if found1 == False:
             raise Exception(msglib.get("V5", [1]))
         if found2 == False:
@@ -98,6 +99,9 @@ class SetupLib(BaseLib):
         diff = [item for item in file1 if item in file2]
         if len(diff) > 0:
             raise Exception(msglib.get("V8", [diff[0]]))
+        diff = [item for item in name1 if item in name2]
+        if len(diff) > 0:
+            raise Exception(msglib.get("V9", [diff[0]]))
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
