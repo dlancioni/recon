@@ -1,4 +1,5 @@
 import os
+import re
 import sys
 import json
 import logging
@@ -103,6 +104,21 @@ class SetupLib(BaseLib):
         if len(diff) > 0:
             raise Exception(msglib.get("V9", [diff[0]]))
         
+    def validate_field_name(self, fieldname=""):
+        invalid_char = ""
+        valid_char = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ")
+        for item in fieldname:
+            if item not in valid_char:
+                invalid_char = item
+                break
+        if invalid_char != "":
+            raise Exception(msglib.get("V10", [invalid_char]))
+        
+    def validate_field_type(self, field_type=""):
+        datatypes =  ["decimal", "integer", "inteiro", "text", "texto", "datetime", "datahora"]
+        if field_type.strip().lower() not in datatypes:
+            raise Exception(msglib.get("V11", [field_type]))
+        
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
         session = ""
@@ -129,6 +145,8 @@ class SetupLib(BaseLib):
                 self.validate_tag(values, "Type")
                 self.validate_tag(values, "Value", False)
                 self.validate_tag(values, "Mask", False)
+                self.validate_field_name(self.tag_value(values, "Name"))
+                self.validate_field_type(self.tag_value(values, "Type"))
 
     def validate_recon_rules(self, recon):
         loglib = LogLib("Setuplib", "validate_recon_rules")

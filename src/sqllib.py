@@ -31,7 +31,7 @@ class SqlLib(BaseLib):
             return "Text"
         if key in ["datetime", "datahora"]:
             return "Text"
-        return key
+        return ""
 
     def get_field_list(self, field_def="", aggregation=False):
         i = 0
