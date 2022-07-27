@@ -68,9 +68,11 @@ class SetupLib(BaseLib):
         self.validate_tag(recon, "Name")
         self.validate_tag(recon, "Description")
         field = self.tag_name(recon, "Id")
-        value = self.tag_value(recon, "Id")
+        value = self.tag_value(recon, "Id")        
+        self.validate_is_numeric(field, value)
         if int(value) <= 0:
             raise Exception(msglib.get("V3", [field]))
+        
 
     def validate_side(self, recon):
         loglib = LogLib("Setuplib", "validate_side")        
@@ -79,10 +81,14 @@ class SetupLib(BaseLib):
         name1, name2 = [], []
         datasources = self.tag_value(recon, "Datasources")
         for datasource in datasources:
+            id = self.tag_value(datasource, "Id")
             name = self.tag_value(datasource, "Name")
             fields = self.tag_value(datasource, "Fields")
-            side = self.tag_value(datasource, "Side")
             filename = self.tag_value(datasource, "File")
+            side = self.tag_value(datasource, "Side")
+            start = self.tag_value(datasource, "Start")
+            self.validate_is_numeric(self.tag_name(datasource, "Side"), side)
+            self.validate_is_numeric(self.tag_name(datasource, "Start"), start)
             if len(fields) == 0:
                 raise Exception(msglib.get("V6", [name]))
             if str(side) == "1":
@@ -103,6 +109,10 @@ class SetupLib(BaseLib):
         diff = [item for item in name1 if item in name2]
         if len(diff) > 0:
             raise Exception(msglib.get("V9", [diff[0]]))
+        
+    def validate_is_numeric(self, fieldname="", value=""):
+        if value.isnumeric() == False:
+            raise Exception(msglib.get("V12", [fieldname, value]))
         
     def validate_field_name(self, fieldname=""):
         invalid_char = ""
@@ -145,6 +155,7 @@ class SetupLib(BaseLib):
                 self.validate_tag(values, "Type")
                 self.validate_tag(values, "Value", False)
                 self.validate_tag(values, "Mask", False)
+                self.validate_is_numeric(self.tag_name(values, "Id"), self.tag_value(values, "Id"))
                 self.validate_field_name(self.tag_value(values, "Name"))
                 self.validate_field_type(self.tag_value(values, "Type"))
 
