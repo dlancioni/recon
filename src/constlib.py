@@ -11,3 +11,6 @@ const.FIELD_RECON = "recon"
 const.FIELD_RULE = "rule"
 const.FIELD_ID_STATUS = "id_status"
 const.FIELD_STATUS = "status"
+
+const.MATCH_TYPE_KEY = ["Key", "Chave"]
+const.MATCH_TYPE_COMPARE = ["Compare", "Comparar"]

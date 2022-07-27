@@ -9,6 +9,7 @@ from src.baselib import BaseLib
 from src.utillib import UtilLib
 from src.cfglib import ConfigLib
 from src.loglib import LogLib
+from src.constlib import const
 
 msglib = MsgLib()
 cfglib = ConfigLib()
@@ -240,6 +241,7 @@ class SetupLib(BaseLib):
         mapped_fields = self.get_all_mapped_fields(recon)
         tag_recon = self.tag_name(recon, "Recon")
         recons = recon[tag_recon]
+        mapped_types = []
         for i in range(0, len(recons)):
             session = tag_recon
             tag_rule = self.tag_name(recon[tag_recon][i], "Rule")
@@ -255,19 +257,13 @@ class SetupLib(BaseLib):
                 self.validate_tag(values, "Type")
                 self.validate_tag(values, "Name")                                
                 field_name = self.tag_value(values, "Name")
+                field_type = self.tag_value(values, "Type")
+                mapped_types.append(field_type)
                 if field_name not in mapped_fields:
                     raise Exception(msglib.get("V14", [field_name, rule_name]))
-                    
-                
-
-                    
-                
-                
-                
-                
-                
-                
-                
+            diff = [item for item in const.MATCH_TYPE_KEY if item in mapped_types]
+            if len(diff) <= 0:
+                raise Exception(msglib.get("V15", [rule_name]))
 
     def validate(self, recon):
         loglib = LogLib("Setuplib", "validate")

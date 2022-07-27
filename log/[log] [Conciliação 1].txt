@@ -1,2 +1,2 @@
-2022-07-27 14:36:14 ERROR Setuplib.validate: Erro de validação -> Campo Campo 11 da regra Regra 1 não está mapeado nas fontes de dados
-2022-07-27 14:36:14 ERROR CoreLib.process: Erro de validação -> Campo Campo 11 da regra Regra 1 não está mapeado nas fontes de dados
+2022-07-27 14:48:02 ERROR Setuplib.validate: Validation error -> Match Key not defined for rule Regra 1
+2022-07-27 14:48:02 ERROR CoreLib.process: Validation error -> Match Key not defined for rule Regra 1
