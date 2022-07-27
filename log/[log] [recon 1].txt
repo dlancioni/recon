@@ -1,220 +1,220 @@
-2022-07-26 20:49:38 INFO CoreLib.process: Validation OK, ready to create area
-2022-07-26 20:49:38 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
-2022-07-26 20:49:38 INFO AreaLib.create_recon_area: Area created:
-2022-07-26 20:49:38 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Decimal']
-2022-07-26 20:49:38 INFO CoreLib.process: Area OK, ready to import files
-2022-07-26 20:49:38 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 1.txt] [recon [test] 1.txt] [;] [4] [[Field 1], [Field 2], [Field 3], [Field 4]]
-2022-07-26 20:49:38 INFO EtlLib.import_file: File sucessfully imported
-2022-07-26 20:49:38 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 2.txt] [recon [test] 2.txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
-2022-07-26 20:49:38 INFO EtlLib.import_file: File sucessfully imported
-2022-07-26 20:49:38 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-07-26 20:49:38 INFO ReconLib.process: Processing rule: Rule 1
-2022-07-26 20:49:38 INFO ReconLib.prepare: Fiekd Key: ['[Field 1]', '[Field 2]']
-2022-07-26 20:49:38 INFO ReconLib.prepare: Fiekd Compare: ['[Field 3]', '[Field 4]']
-2022-07-26 20:49:38 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-07-26 20:49:38 INFO ReconLib.match_key: Match key successfuly completed
-2022-07-26 20:49:38 INFO ReconLib.compare: Field comparison successfuly completed
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Fields with difference: ['[Field 3 (Difference)]', '[Field 4 (Difference)]']
-2022-07-26 20:49:38 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-07-26 20:49:38 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-07-26 20:49:38 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-07-26 20:49:38 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 INFO CoreLib.process: Validation OK, ready to create area
-2022-07-26 20:49:38 INFO AreaLib.merge_datasources: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']
-2022-07-26 20:49:38 INFO AreaLib.create_recon_area: Area created:
-2022-07-26 20:49:38 INFO AreaLib.create_recon_area: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Integer', 'Text', 'Text', 'Decimal']
-2022-07-26 20:49:38 INFO CoreLib.process: Area OK, ready to import files
-2022-07-26 20:49:38 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 1.txt] [recon [test] 1.txt] [;] [4] [[Campo 1], [Campo 2], [Campo 3], [Campo 4]]
-2022-07-26 20:49:38 INFO EtlLib.import_file: File sucessfully imported
-2022-07-26 20:49:38 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 2.txt] [recon [test] 2.txt] [;] [5] [[Campo 1], [Campo 2], [Campo 3], [Campo 4]]
-2022-07-26 20:49:38 INFO EtlLib.import_file: File sucessfully imported
-2022-07-26 20:49:38 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-07-26 20:49:38 INFO ReconLib.process: Processing rule: Regra 1
-2022-07-26 20:49:38 INFO ReconLib.prepare: Fiekd Key: ['[Campo 1]', '[Campo 2]']
-2022-07-26 20:49:38 INFO ReconLib.prepare: Fiekd Compare: ['[Campo 3]', '[Campo 4]']
-2022-07-26 20:49:38 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-07-26 20:49:38 INFO ReconLib.match_key: Match key successfuly completed
-2022-07-26 20:49:38 INFO ReconLib.compare: Field comparison successfuly completed
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Difference)]
-2022-07-26 20:49:38 INFO ReconLib.stamp_tmp: Fields with difference: ['[Campo 3 (Difference)]', '[Campo 4 (Difference)]']
-2022-07-26 20:49:38 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-07-26 20:49:38 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-07-26 20:49:38 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-07-26 20:49:38 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-07-26 20:49:38 ERROR Setuplib.open_recon: Validation error -> Invalid configuration at line 11 column 11 (Expecting property name enclosed in double quotes)
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Description/Descrição not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Description/Descrição not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Description is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Description is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Side/Lado not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Side/Lado not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Side is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Side is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field File/Arquivo not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field File/Arquivo not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field File is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field File is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Separator/Separador not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Separator/Separador not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Separator is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Separator is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Start/Inicio not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Start/Inicio not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Start is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Start is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Type is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Type is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Rule/Regra not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Rule/Regra not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Rule is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Rule is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Type is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Type is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Description/Descrição not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Description/Descrição not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Descrição is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Descrição is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Side/Lado not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Side/Lado not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Lado is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Lado is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field File/Arquivo not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field File/Arquivo not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Arquivo is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Arquivo is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Separator/Separador not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Separator/Separador not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Separador is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Separador is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Start/Inicio not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Start/Inicio not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Inicio is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Inicio is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id/Id not found in the configuration
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Id is mandatory
-2022-07-26 20:49:38 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:38 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:38 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Tipo is mandatory
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Tipo is mandatory
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Rule/Regra not found in the configuration
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Rule/Regra not found in the configuration
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Regra is mandatory
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Regra is mandatory
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Type/Tipo not found in the configuration
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Tipo is mandatory
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Tipo is mandatory
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Name/Nome not found in the configuration
-2022-07-26 20:49:39 INFO CoreLib.process: Debug mode: True
-2022-07-26 20:49:39 ERROR Setuplib.validate: Validation error -> Field Nome is mandatory
-2022-07-26 20:49:39 ERROR CoreLib.process: Validation error -> Field Nome is mandatory
+2022-07-26 21:51:52 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-26 21:51:52 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
+2022-07-26 21:51:52 INFO AreaLib.create_recon_area: Area created:
+2022-07-26 21:51:52 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Decimal']
+2022-07-26 21:51:52 INFO CoreLib.process: Area OK, ready to import files
+2022-07-26 21:51:52 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 1.txt] [recon [test] 1.txt] [;] [4] [[Field 1], [Field 2], [Field 3], [Field 4]]
+2022-07-26 21:51:52 INFO EtlLib.import_file: File sucessfully imported
+2022-07-26 21:51:52 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 2.txt] [recon [test] 2.txt] [;] [5] [[Field 1], [Field 2], [Field 3], [Field 4]]
+2022-07-26 21:51:52 INFO EtlLib.import_file: File sucessfully imported
+2022-07-26 21:51:52 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-26 21:51:52 INFO ReconLib.process: Processing rule: Rule 1
+2022-07-26 21:51:52 INFO ReconLib.prepare: Fiekd Key: ['[Field 1]', '[Field 2]']
+2022-07-26 21:51:52 INFO ReconLib.prepare: Fiekd Compare: ['[Field 3]', '[Field 4]']
+2022-07-26 21:51:52 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-26 21:51:52 INFO ReconLib.match_key: Match key successfuly completed
+2022-07-26 21:51:52 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-26 21:51:52 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
+2022-07-26 21:51:52 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
+2022-07-26 21:51:52 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
+2022-07-26 21:51:52 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
+2022-07-26 21:51:52 INFO ReconLib.stamp_tmp: Fields with difference: ['[Field 3 (Diferença)]', '[Field 4 (Diferença)]']
+2022-07-26 21:51:52 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-26 21:51:52 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-26 21:51:52 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-07-26 21:51:52 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-07-26 21:51:52 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:52 INFO CoreLib.process: Validation OK, ready to create area
+2022-07-26 21:51:52 INFO AreaLib.merge_datasources: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']
+2022-07-26 21:51:52 INFO AreaLib.create_recon_area: Area created:
+2022-07-26 21:51:52 INFO AreaLib.create_recon_area: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Integer', 'Text', 'Text', 'Decimal']
+2022-07-26 21:51:52 INFO CoreLib.process: Area OK, ready to import files
+2022-07-26 21:51:52 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 1.txt] [recon [test] 1.txt] [;] [4] [[Campo 1], [Campo 2], [Campo 3], [Campo 4]]
+2022-07-26 21:51:52 INFO EtlLib.import_file: File sucessfully imported
+2022-07-26 21:51:52 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\recon [test] 2.txt] [recon [test] 2.txt] [;] [5] [[Campo 1], [Campo 2], [Campo 3], [Campo 4]]
+2022-07-26 21:51:53 INFO EtlLib.import_file: File sucessfully imported
+2022-07-26 21:51:53 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-07-26 21:51:53 INFO ReconLib.process: Processing rule: Regra 1
+2022-07-26 21:51:53 INFO ReconLib.prepare: Fiekd Key: ['[Campo 1]', '[Campo 2]']
+2022-07-26 21:51:53 INFO ReconLib.prepare: Fiekd Compare: ['[Campo 3]', '[Campo 4]']
+2022-07-26 21:51:53 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-07-26 21:51:53 INFO ReconLib.match_key: Match key successfuly completed
+2022-07-26 21:51:53 INFO ReconLib.compare: Field comparison successfuly completed
+2022-07-26 21:51:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Diferença)]
+2022-07-26 21:51:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Diferença)]
+2022-07-26 21:51:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Diferença)]
+2022-07-26 21:51:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Diferença)]
+2022-07-26 21:51:53 INFO ReconLib.stamp_tmp: Fields with difference: ['[Campo 3 (Diferença)]', '[Campo 4 (Diferença)]']
+2022-07-26 21:51:53 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-07-26 21:51:53 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-07-26 21:51:53 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-07-26 21:51:53 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-07-26 21:51:53 ERROR Setuplib.open_recon: Erro de validação -> Configuração inválida na linha 11 coluna 9 (Expecting property name enclosed in double quotes)
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Description é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Description é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Side é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Side é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo File é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo File é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Separator é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Separator é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Start é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Start é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Type é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Type é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Rule é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Rule é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Type é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Type é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Descrição é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Descrição é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Lado é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Lado é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Arquivo é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Arquivo é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Separador é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Separador é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Inicio é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Inicio é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Tipo é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Tipo é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Regra é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Regra é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Tipo é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Tipo é obrigatório
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-07-26 21:51:53 INFO CoreLib.process: Debug mode: True
+2022-07-26 21:51:53 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-07-26 21:51:53 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório

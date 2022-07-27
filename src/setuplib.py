@@ -74,22 +74,30 @@ class SetupLib(BaseLib):
     def validate_side(self, recon):
         found1 = False
         found2 = False
+        file1 = []
+        file2 = []
         loglib = LogLib("Setuplib", "validate_side")
         datasources = self.tag_value(recon, "Datasources")
         for datasource in datasources:
             name = self.tag_value(datasource, "Name")
             fields = self.tag_value(datasource, "Fields")
             side = self.tag_value(datasource, "Side")
+            filename = self.tag_value(datasource, "File")
             if len(fields) == 0:
                 raise Exception(msglib.get("V6", [name]))
             if str(side) == "1":
                 found1 = True
+                file1.append(filename)
             if str(side) == "2":
                 found2 = True
+                file2.append(filename)
         if found1 == False:
             raise Exception(msglib.get("V5", [1]))
         if found2 == False:
-            raise Exception(msglib.get("V5", [2]))
+            raise Exception(msglib.get("V5", [2]))        
+        diff = [item for item in file1 if item in file2]
+        if len(diff) > 0:
+            raise Exception(msglib.get("V8", [diff[0]]))
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
