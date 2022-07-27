@@ -213,6 +213,18 @@ class SetupLib(BaseLib):
             dup_count = abs(len(ids) - len(set(ids)))
             if dup_count > 0:
                 raise Exception(msglib.get("V13", [datasource_name, dup_count]))
+            
+    def get_all_mapped_fields(self, recon):
+        mapped_fields = []
+        tag_ds = self.tag_name(recon, "Datasources")
+        datasources = recon[tag_ds]
+        for datasource in datasources:
+            tag_field = self.tag_name(datasource, "Fields")
+            fields = datasource[tag_field]
+            for field in fields:
+                mapped_fields.append(self.tag_value(field, "Name"))
+        mapped_fields = list(set(mapped_fields))
+        return mapped_fields
 
     def validate_recon_rules(self, recon):
         loglib = LogLib("Setuplib", "validate_recon_rules")
@@ -225,13 +237,14 @@ class SetupLib(BaseLib):
 
     def validate_recon(self, recon):
         loglib = LogLib("Setuplib", "validate_recon")
-        session = ""
+        mapped_fields = self.get_all_mapped_fields(recon)
         tag_recon = self.tag_name(recon, "Recon")
         recons = recon[tag_recon]
         for i in range(0, len(recons)):
             session = tag_recon
             tag_rule = self.tag_name(recon[tag_recon][i], "Rule")
             self.validate_tag(recon[tag_recon][i], "Rule")
+            rule_name = self.tag_value(recon[tag_recon][i], "Rule")            
             """ validate fields """
             self.validate_tag(recons[i], "Fields")
             tag_fields = self.tag_name(recon[tag_recon][i], "Fields")
@@ -240,7 +253,21 @@ class SetupLib(BaseLib):
                 session = f"{tag_recon}/{tag_fields}"
                 values = recon[tag_recon][i][tag_fields][j]
                 self.validate_tag(values, "Type")
-                self.validate_tag(values, "Name")
+                self.validate_tag(values, "Name")                                
+                field_name = self.tag_value(values, "Name")
+                if field_name not in mapped_fields:
+                    raise Exception(msglib.get("V14", [field_name, rule_name]))
+                    
+                
+
+                    
+                
+                
+                
+                
+                
+                
+                
 
     def validate(self, recon):
         loglib = LogLib("Setuplib", "validate")

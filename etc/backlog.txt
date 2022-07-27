@@ -1,5 +1,5 @@
 Pendente
-1) Validar sessao recon
+
 2) Validar se os campos definidos na sessao recon existem no mapeamento dos arquivos (caso data mov x data)
 
 
