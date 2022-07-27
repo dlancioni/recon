@@ -21,7 +21,7 @@ class SetupLib(BaseLib):
         self.name = name
         self.error = ""
         self.logger = logging.getLogger(__name__)
-        
+
     def tag_def(self):
         tags = {
             "Id":"Id",
@@ -44,7 +44,57 @@ class SetupLib(BaseLib):
             "Function":"Funcao"
         }
         return tags
-        
+
+    def open_recon(self, recon):
+        loglib = LogLib("Setuplib", "open_recon")
+        msg = ""
+        if type(recon) == dict:
+            return recon
+        else:
+            try:              
+                filename = str(recon.split(".")[0]) +".cfg"
+                path = cfglib.get(2)
+                path = fslib.get_path_recon(path, filename)
+                msg = msglib.get("V4", [path])
+                recon = fslib.open_json(path)
+            except json.decoder.JSONDecodeError as err:
+                cat = msglib.get("E4")
+                error = msglib.get("E5", [err.lineno, err.colno, err.msg])
+                msg = f"{cat} -> {str(error)}"
+                loglib.log(loglib.ERROR, msg)
+                raise Exception(msg)
+            except BaseException as err:
+                raise
+        return recon
+
+    def tagfv(self, doc, tag_en):
+        f, v = "", ""
+        tag_pt = self.translate(tag_en)
+        tag_en = tag_en.capitalize().strip()
+        if tag_en in doc:
+            f = tag_en
+            v = doc[tag_en]
+            return f, v
+        if tag_pt in doc:
+            f = tag_pt
+            v = doc[tag_pt]
+        return f, v
+
+    def tag_name(self, doc, tag_en="", mandatory=True):
+        f, v = self.tagfv(doc, tag_en)
+        if mandatory == True:
+            if f == "":
+                msglib = MsgLib()
+                tag_pt = self.translate(tag_en)
+                msg = f"{tag_en}/{tag_pt}"
+                msg = msglib.get("V1", [msg])
+                raise Exception(msg)
+        return f
+
+    def tag_value(self, doc, tag_en="", mandatory=True):
+        f, v = self.tagfv(doc, tag_en)
+        return v    
+
     def translate(self, tag_en=""):
         tag_pt = ""
         tag_en = tag_en.capitalize()
@@ -53,7 +103,7 @@ class SetupLib(BaseLib):
         if tag_pt.strip() == "":
             raise Exception("tag_pt not found in setuplib.translate()")
         return tag_pt
-    
+
     def validate_tag(self, recon, field, mandatory=True):
         if mandatory:
             tag_name = self.tag_name(recon, field)
@@ -71,8 +121,7 @@ class SetupLib(BaseLib):
         value = self.tag_value(recon, "Id")        
         self.validate_is_numeric(field, value)
         if int(value) <= 0:
-            raise Exception(msglib.get("V3", [field]))
-        
+            raise Exception(msglib.get("V3", [field]))        
 
     def validate_side(self, recon):
         loglib = LogLib("Setuplib", "validate_side")        
@@ -164,7 +213,6 @@ class SetupLib(BaseLib):
             dup_count = abs(len(ids) - len(set(ids)))
             if dup_count > 0:
                 raise Exception(msglib.get("V13", [datasource_name, dup_count]))
-                
 
     def validate_recon_rules(self, recon):
         loglib = LogLib("Setuplib", "validate_recon_rules")
@@ -207,53 +255,3 @@ class SetupLib(BaseLib):
             msg = f"{cat} -> {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
-        
-    def open_recon(self, recon):
-        loglib = LogLib("Setuplib", "open_recon")
-        msg = ""
-        if type(recon) == dict:
-            return recon
-        else:
-            try:              
-                filename = str(recon.split(".")[0]) +".cfg"
-                path = cfglib.get(2)
-                path = fslib.get_path_recon(path, filename)
-                msg = msglib.get("V4", [path])
-                recon = fslib.open_json(path)
-            except json.decoder.JSONDecodeError as err:
-                cat = msglib.get("E4")
-                error = msglib.get("E5", [err.lineno, err.colno, err.msg])
-                msg = f"{cat} -> {str(error)}"
-                loglib.log(loglib.ERROR, msg)
-                raise Exception(msg)
-            except BaseException as err:
-                raise
-        return recon
-
-    def tagfv(self, doc, tag_en):
-        f, v = "", ""
-        tag_pt = self.translate(tag_en)
-        tag_en = tag_en.capitalize().strip()
-        if tag_en in doc:
-            f = tag_en
-            v = doc[tag_en]
-            return f, v
-        if tag_pt in doc:
-            f = tag_pt
-            v = doc[tag_pt]
-        return f, v
-
-    def tag_name(self, doc, tag_en="", mandatory=True):
-        f, v = self.tagfv(doc, tag_en)
-        if mandatory == True:
-            if f == "":
-                msglib = MsgLib()
-                tag_pt = self.translate(tag_en)
-                msg = f"{tag_en}/{tag_pt}"
-                msg = msglib.get("V1", [msg])
-                raise Exception(msg)
-        return f
-
-    def tag_value(self, doc, tag_en="", mandatory=True):
-        f, v = self.tagfv(doc, tag_en)
-        return v

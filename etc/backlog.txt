@@ -1,7 +1,7 @@
 Pendente
 1) Validar sessao recon
 2) Validar se os campos definidos na sessao recon existem no mapeamento dos arquivos (caso data mov x data)
-4) validar campos numericos (id, side, etc)
+
 
 Pendente teste automatico
 1) validar se lado 1 e lado 2 estao importando mesmo arquivo
@@ -9,5 +9,7 @@ Pendente teste automatico
 3) Fonte de dados com mesmo nome em lados diferentes
 4) Validar tipo de dado (texto, inteiro, etc)
 5) Nome de campo nao pode ter . ou []
+6) validar campos numericos (id, side, etc)
+7) Ids duplicados nas fontes de dados
 
 Feito
