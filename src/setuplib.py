@@ -143,10 +143,12 @@ class SetupLib(BaseLib):
             self.validate_tag(values, "File")
             self.validate_tag(values, "Separator")
             self.validate_tag(values, "Start")
+            datasource_name = self.tag_value(values, "Name")
             """ validate fields """
             self.validate_tag(recon[tag_ds][i], "Fields")
             tag_field = self.tag_name(recon[tag_ds][i], "Fields")
             fields = recon[tag_ds][i][tag_field]
+            ids = []
             for j in range(0, len(fields)):
                 session = f"{tag_ds}/{tag_field}"
                 values = recon[tag_ds][i][tag_field][j]
@@ -158,6 +160,11 @@ class SetupLib(BaseLib):
                 self.validate_is_numeric(self.tag_name(values, "Id"), self.tag_value(values, "Id"))
                 self.validate_field_name(self.tag_value(values, "Name"))
                 self.validate_field_type(self.tag_value(values, "Type"))
+                ids.append(self.tag_value(values, "Id"))
+            dup_count = abs(len(ids) - len(set(ids)))
+            if dup_count > 0:
+                raise Exception(msglib.get("V13", [datasource_name, dup_count]))
+                
 
     def validate_recon_rules(self, recon):
         loglib = LogLib("Setuplib", "validate_recon_rules")

@@ -1,2 +1,2 @@
-2022-07-27 10:41:20 ERROR Setuplib.validate: Erro de validação -> Tipo de dado Inteiro_ inválido. Deve ser Inteiro, Decimal, Texto ou DataHora
-2022-07-27 10:41:20 ERROR CoreLib.process: Erro de validação -> Tipo de dado Inteiro_ inválido. Deve ser Inteiro, Decimal, Texto ou DataHora
+2022-07-27 10:52:56 ERROR Setuplib.validate: Erro de validação -> Fonte de dados Lado 2 tem 1 ID(s) duplicados
+2022-07-27 10:52:56 ERROR CoreLib.process: Erro de validação -> Fonte de dados Lado 2 tem 1 ID(s) duplicados
