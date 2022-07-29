@@ -31,25 +31,29 @@ class ReportLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
         
-    def print_csv(self, filename):
+    def print_csv(self, filename, side=0):
         with open(filename, encoding="UTF-8") as file:
             rows = csv.reader(file, delimiter = ';')
-            table = PrettyTable(next(rows))
+            table = PrettyTable(next(rows))            
             for row in rows:
-                table.add_row(row) 
+                if int(side) == 1 or int(side) == 2:
+                    if int(row[1]) == int(side):
+                        table.add_row(row)
+                else:
+                    table.add_row(row)
             print(table)
-        
+
     def print_report(self, reports, index):
+        synt = 0
+        anal = 1
         index = int(index)
         if index in [0,1,2,12]:
-            if index in [0, 1, 2]:
-                print(reports[index])
-                self.print_csv(reports[index])
-            if index == 12:
-                print(reports[1])
-                self.print_csv(reports[1])
-                print(reports[2])
-                self.print_csv(reports[2])
+            if index in [0]:
+                print(reports[synt])
+                self.print_csv(reports[synt])
+            if index in [1, 2, 12]:
+                print(reports[anal])
+                self.print_csv(reports[anal], index)
 
     def create_report_synthetic(self, cn):
         loglib = LogLib("Reportlib", "create_report_synthetic")
