@@ -23,7 +23,7 @@ utillib.cls()
 
 """ control input flow """
 @click.command()
-@click.option('--fn', prompt=f"{msglib.get('M12')}", help=f"help", default="recon [pt-br].cfg")
+@click.option('--fn', prompt=f"{msglib.get('M12')}", help=f"help", default="template.cfg")
 @click.option('--cs',  prompt=f"{msglib.get('M13')}", help=f"help", default=0)
 @click.option('--et',  prompt=f"{msglib.get('M14')}", help=f"help", default=0)
 @click.option('--rs', prompt=f"{msglib.get('M15')}", help=f"help", default=12)
