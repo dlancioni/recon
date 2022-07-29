@@ -26,8 +26,8 @@ utillib.cls()
 @click.option('--fn', prompt=f"{msglib.get('M12')}", help=f"help", default="recon [pt-br].cfg")
 @click.option('--cs',  prompt=f"{msglib.get('M13')}", help=f"help", default=0)
 @click.option('--et',  prompt=f"{msglib.get('M14')}", help=f"help", default=0)
-@click.option('--rs', prompt=f"{msglib.get('M15')}", help=f"help", default=0)
-@click.option('--ra', prompt=f"{msglib.get('M16')}", help=f"help", default=12)
+@click.option('--rs', prompt=f"{msglib.get('M15')}", help=f"help", default=12)
+@click.option('--ra', prompt=f"{msglib.get('M16')}", help=f"help", default=0)
 
 def main(fn, cs, et, rs, ra):
 
