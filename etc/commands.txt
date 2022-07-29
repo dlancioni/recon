@@ -14,3 +14,5 @@ python main.py --f "recon [en-us]" --r 1     (Analytic report side 1)
 python main.py --f "recon [en-us]" --r 2     (Analytic report side 2)
 python main.py --f "recon [en-us]" --r 12    (Analytic report) both sides
 
+python main.py --f "recon [pt-br]"
+python main.py --f "volume 10k"

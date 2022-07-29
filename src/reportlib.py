@@ -103,31 +103,40 @@ class ReportLib(BaseLib):
         tb = f"tb{self.id}1"
         sql += f"select * from {tb}"
         rows = dblib.query(cn, sql)
-        fields = ["L8", "L4", "L5", "L6"]
+        fields = ["L8", "L3", "L4", "L5", "L6"]
         for field in fields:
             line += f"{msglib.get(field)};"
         first = len(fields)
         total = len(cn.description)
         for i in range(first, total):
-            label = str(cn.description[i][0]).strip()
-            line += f"{label};"
+            label = str(cn.description[i][0]).strip()           
+            if label != "status":
+                line += f"{label};"
         line = line[:-1]
         line += f"\n"
         return line
 
-    def create_report_analytic(self, cn, side):
+    def create_report_analytic(self, cn, side=1):
         loglib = LogLib("Reportlib", "create_report_analytic")
         sql = ""
         line = ""
-        tb = f"tb{self.id}{side}"        
         report = msglib.get("L2")
         label = msglib.get("L3")
         path = fslib.get_path_report(cfglib.get(4))
-        filename = fslib.join(path, f"[{self.name}] [{report}] [{label} {side}].csv")
-        sql = f"select * from {tb}"
+        filename = fslib.join(path, f"[{self.name}] [{report}].csv")
+        tb1 = f"tb{self.id}{1}"
+        tb2 = f"tb{self.id}{2}"
+        sql = ""
+        sql += "select * from "
+        sql += "("
+        sql += f"select * from {tb1}"
+        sql += f" union "
+        sql += f"select * from {tb2}"
+        sql += ") tb "
+        sql += "order by tb.side "        
         rows = dblib.query(cn, sql)
         with open(filename, "w", encoding="UTF-8") as f:
-            msg = msglib.set_time(msglib.get("M8", [side]))
+            msg = msglib.set_time(msglib.get("M8"))
             progress_bar = ShadyBar(msg, max=len(rows))
             total = len(cn.description)
             # header
@@ -135,10 +144,12 @@ class ReportLib(BaseLib):
             f.write(line)
             # contents
             line = ""
+            col_id_status = 4
             for row in rows:
                 line = ""            
                 for i in range(0, total):
-                    line += str(row[i]) + ";"
+                    if i != col_id_status:
+                        line += str(row[i]) + ";"
                 line = line[:-1]
                 line += "\n"
                 f.write(line)
@@ -151,8 +162,7 @@ class ReportLib(BaseLib):
         reports = []
         try:
             reports.append(self.create_report_synthetic(cn))
-            for side in range(1, 3):
-                reports.append(self.create_report_analytic(cn, side))
+            reports.append(self.create_report_analytic(cn))
         except Error as err:
             cat = msglib.get("E1")
             msg = f"{cat} -> {str(err)}"
