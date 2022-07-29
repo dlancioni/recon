@@ -161,7 +161,7 @@ class SetupLib(BaseLib):
             raise Exception(msglib.get("V9", [diff[0]]))
         
     def validate_is_numeric(self, fieldname="", value=""):
-        if value.isnumeric() == False:
+        if str(value).isnumeric() == False:
             raise Exception(msglib.get("V12", [fieldname, value]))
         
     def validate_field_name(self, fieldname=""):

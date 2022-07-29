@@ -35,18 +35,18 @@ class CoreLibTest(unittest.TestCase):
     
     def basic(self):
 
-        status, message, reports = corelib.process("recon [en-us]")
+        status, message, reports = corelib.process("en-us")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
-        self.assertEqual(len(reports), 3)
+        self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
         self.check_synthetic(1, data, 1, 1, 1)
         self.check_synthetic(2, data, 2, 1, 1)
 
-        status, message, reports = corelib.process("recon [pt-br]")
+        status, message, reports = corelib.process("pt-br")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
-        self.assertEqual(len(reports), 3)
+        self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
         self.check_synthetic(1, data, 1, 1, 1)
         self.check_synthetic(2, data, 2, 1, 1)

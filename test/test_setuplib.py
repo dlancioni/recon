@@ -20,7 +20,7 @@ setuplib = SetupLib()
 class SetupLibTest(unittest.TestCase):
     
     def open_recon(self, language):
-        filename = "recon [en-us].cfg" if language == "en-us" else "recon [pt-br].cfg"
+        filename = "en-us.cfg" if language == "en-us" else "pt-br.cfg"
         path = fslib.get_path_recon("", filename)
         recon = setuplib.open_recon(path)
         return recon

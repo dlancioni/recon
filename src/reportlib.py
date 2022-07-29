@@ -32,6 +32,7 @@ class ReportLib(BaseLib):
         self.logger = logging.getLogger(__name__)
 
     def print_report(self, type=0, filename="", side=0):
+        print(filename)
         col_side = 0 if type == 1 else 1
         with open(filename, encoding="UTF-8") as file:
             rows = csv.reader(file, delimiter = ';')

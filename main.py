@@ -23,22 +23,23 @@ utillib.cls()
 
 """ control input flow """
 @click.command()
-@click.option('--fn', prompt=f"{msglib.get('M12')}", help=f"help", default="template.cfg")
-@click.option('--cs',  prompt=f"{msglib.get('M13')}", help=f"help", default=0)
-@click.option('--et',  prompt=f"{msglib.get('M14')}", help=f"help", default=0)
-@click.option('--rs', prompt=f"{msglib.get('M15')}", help=f"help", default=12)
-@click.option('--ra', prompt=f"{msglib.get('M16')}", help=f"help", default=0)
+@click.option('--f',  help=f"{msglib.get('M12')}", default="recon.cfg")
+@click.option('--c',  help=f"{msglib.get('M13')}", is_flag=True)
+@click.option('--t',  help=f"{msglib.get('M14')}", is_flag=True)
+@click.option('--rs', help=f"{msglib.get('M15')}", is_flag=True)
+@click.option('--ra', help=f"{msglib.get('M16')}", is_flag=True)
+@click.option('--s',  help=f"{msglib.get('M17')}", default=0)
 
-def main(fn, cs, et, rs, ra):
+def main(f, c, t, rs, ra, s):
 
     """ Process the conciliation """
     start = timer()
     msglib.print(msglib.get("M1"))
-    status, error, reports = corelib.process(fn)
+    status, error, reports = corelib.process(f)
     end = timer()
 
     """ time elapsed """
-    if et:
+    if t == True:
         msg = msglib.get("M3")
         msg = msglib.set_time(f"{msg}: {timedelta(seconds=end-start)}")
         msg = colored(msg, "yellow")
@@ -46,9 +47,9 @@ def main(fn, cs, et, rs, ra):
 
     """ present results in screen """
     if status == True:
-        print(colored(msglib.set_time(msglib.get("M10", [fn])), "green"))
+        print(colored(msglib.set_time(msglib.get("M10", [f])), "green"))
     else:
-        print(colored(msglib.set_time(msglib.get("M11", [fn])), "red"))
+        print(colored(msglib.set_time(msglib.get("M11", [f])), "red"))
         print(colored(msglib.set_time(error), "red"))
 
     """ all done """
@@ -56,10 +57,12 @@ def main(fn, cs, et, rs, ra):
 
     """ generate reports """
     if status == True:
+        if c == True:
+            utillib.cls()
         if rs in [1, 2, 12]:
-            reportlib.print_report(1, reports[0], rs)
+            reportlib.print_report(1, reports[0], s)
         if ra in [1, 2, 12]:
-            reportlib.print_report(2, reports[1], ra)
+            reportlib.print_report(2, reports[1], s)
 
 if __name__ == '__main__':
     main()
