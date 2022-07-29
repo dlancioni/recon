@@ -6,5 +6,6 @@ prettytable
 progress
 termcolor
 pconst
+click
 
 ###### Requirements with Version Specifiers ######
