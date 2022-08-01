@@ -51,10 +51,9 @@ class FsLib:
         return path
     
     def get_path_report(self, path="", file=""):
-        path = self.get_path() if path == "" else path
-        path = self.join(path, "report")
+        path = self.join(self.get_path(), "report") if path == "" else path
         path = self.join(path, file)
-        return path    
+        return path
 
     def get_path_etc(self, file=""):
         path = self.get_path()
