@@ -43,52 +43,7 @@ class ReportLib(BaseLib):
                         table.add_row(row)
                 else:
                     table.add_row(row)
-            print(table)
-
-    def create_report_synthetic(self, cn):
-        loglib = LogLib("Reportlib", "create_report_synthetic")
-        sql = ""
-        line = ""
-        path = fslib.get_path_report(cfglib.get(4))
-        report = msglib.get("L1")
-        file = fslib.join(path, f"[{self.name}] [{report}].csv")
-        sql += f" select Side, Status, Total from"
-        sql += f" ("
-        sql += f" select"
-        sql += f" Side, Id_Status, Status, count(Status) Total"
-        sql += f" from tb{self.id}1"
-        sql += f" group by Status"
-        sql += f" union all"
-        sql += f" select"
-        sql += f" Side, Id_Status, Status, count(Status) Total"
-        sql += f" from tb{self.id}2"
-        sql += f" group by Status"
-        sql += f" ) "
-        sql += f" order by Side, Id_Status"
-        rows = dblib.query(cn, sql)
-        with open(file, "w", encoding="UTF-8") as f:
-            msg = msglib.set_time(msglib.get("M9"))
-            progress_bar = ShadyBar(msg, max=len(rows))        
-            # header
-            fields = ["L3", "L6", "L7"]
-            line = ""
-            for field in fields:
-                line += f"{msglib.get(field)};"
-            line = line[:-1]
-            line += f"\n"
-            f.write(line)
-            # contents            
-            line = ""
-            for row in rows:
-                line = ""
-                for i in range(0, len(fields)):
-                    line += str(row[i]) + ";"
-                line = line[:-1]
-                line += "\n"
-                f.write(line)
-                progress_bar.next()
-            progress_bar.finish()
-        return file
+            print(table)            
     
     def create_report_analytic_header(self, cn):
         loglib = LogLib("Reportlib", "create_report_analytic_header")
@@ -108,7 +63,7 @@ class ReportLib(BaseLib):
                 line += f"{label};"
         line = line[:-1]
         line += f"\n"
-        return line
+        return line            
 
     def create_report_analytic(self, cn, side=1):
         loglib = LogLib("Reportlib", "create_report_analytic")
@@ -117,7 +72,10 @@ class ReportLib(BaseLib):
         report = msglib.get("L2")
         label = msglib.get("L3")
         path = fslib.get_path_report(cfglib.get(4))
-        filename = fslib.join(path, f"[{self.name}] [{report}].csv")
+        if fslib.is_dir(path) == False:
+            raise Exception(msglib.get("V16", [path]))
+        report = f"[{self.name}] [{report}].csv"
+        filename = fslib.join(path, report)
         tb1 = f"tb{self.id}{1}"
         tb2 = f"tb{self.id}{2}"
         sql = ""
@@ -150,6 +108,54 @@ class ReportLib(BaseLib):
                 progress_bar.next()
             progress_bar.finish()
         return filename
+    
+
+    def create_report_synthetic(self, cn):
+        loglib = LogLib("Reportlib", "create_report_synthetic")
+        sql = ""
+        line = ""
+        report = msglib.get("L1")
+        path = fslib.get_path_report(cfglib.get(4))
+        if fslib.is_dir(path) == False:
+            raise Exception(msglib.get("V16", [path]))
+        filename = fslib.join(path, f"[{self.name}] [{report}].csv")
+        sql += f" select Side, Status, Total from"
+        sql += f" ("
+        sql += f" select"
+        sql += f" Side, Id_Status, Status, count(Status) Total"
+        sql += f" from tb{self.id}1"
+        sql += f" group by Status"
+        sql += f" union all"
+        sql += f" select"
+        sql += f" Side, Id_Status, Status, count(Status) Total"
+        sql += f" from tb{self.id}2"
+        sql += f" group by Status"
+        sql += f" ) "
+        sql += f" order by Side, Id_Status"
+        rows = dblib.query(cn, sql)
+        with open(filename, "w", encoding="UTF-8") as f:
+            msg = msglib.set_time(msglib.get("M9"))
+            progress_bar = ShadyBar(msg, max=len(rows))        
+            # header
+            fields = ["L3", "L6", "L7"]
+            line = ""
+            for field in fields:
+                line += f"{msglib.get(field)};"
+            line = line[:-1]
+            line += f"\n"
+            f.write(line)
+            # contents            
+            line = ""
+            for row in rows:
+                line = ""
+                for i in range(0, len(fields)):
+                    line += str(row[i]) + ";"
+                line = line[:-1]
+                line += "\n"
+                f.write(line)
+                progress_bar.next()
+            progress_bar.finish()
+        return filename    
 
     def process(self, cn, recon):
         loglib = LogLib("Reportlib", "process")
@@ -173,3 +179,5 @@ class ReportLib(BaseLib):
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         return reports
+    
+    

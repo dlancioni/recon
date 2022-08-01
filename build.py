@@ -36,7 +36,7 @@ filename = fslib.join(filename, "recon.exe")
 shutil.copy(filename, target)
 
 print(f"Copying folders to {target}")
-dirs = ["config", "data", "log", "recons", "report"]
+dirs = ["config", "data", "log", "recons", "reports"]
 for dir in dirs:
     path1 = fslib.join(source, dir)
     path2 = fslib.join(target, dir)
