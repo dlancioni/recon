@@ -6,7 +6,7 @@ pyinstaller.exe --onefile --icon=icon.ico --name recon main.py
 pip install -r requirements.txt
 
 # test application
-python -m unittest discover -stest -v
+python -m unittest discover -stest -v -b
 
 # recon calls
 python main.py --f "pt-br"

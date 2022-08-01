@@ -45,13 +45,6 @@ def main(f, c, t, rs, ra, s):
         msg = colored(msg, "yellow")
         print(msg)
 
-    """ present results in screen """
-    if status == True:
-        print(colored(msglib.set_time(msglib.get("M10", [f])), "green"))
-    else:
-        print(colored(msglib.set_time(msglib.get("M11", [f])), "red"))
-        print(colored(msglib.set_time(error), "red"))
-
     """ all done """
     msglib.print(msglib.get("M2"))
 
