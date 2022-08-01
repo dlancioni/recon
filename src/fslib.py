@@ -70,3 +70,9 @@ class FsLib:
        
     def get_parent(self, path):
         return os.path.dirname(path)
+
+    def is_dir(self, path):
+        if not os.path.isdir(path):
+            return False
+        else:
+            return True
