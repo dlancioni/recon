@@ -37,9 +37,7 @@ class FsLib:
         return path
         
     def get_path_log(self, path="", file=""):
-        if path == "":
-            path = self.get_path()
-            path = self.join(path, "logs")
+        path = self.join(self.get_path(), "logs") if path == "" else path
         path = self.join(path, file)
         return path
 
