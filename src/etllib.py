@@ -9,6 +9,7 @@ from src.utillib import UtilLib
 from src.msglib import MsgLib
 from src.loglib import LogLib
 from src.setuplib import SetupLib
+from src.cfglib import ConfigLib
 
 dblib = DbLib()
 fslib = FsLib()
@@ -16,13 +17,13 @@ sqlib = SqlLib()
 msglib = MsgLib()
 utillib = UtilLib()
 setuplib = SetupLib()
+cfglib = ConfigLib()
 
 class EtlLib(BaseLib):
 
     def __init__(self, id, name):
         self.id = id
         self.name = name
-        self.app_path = ""
         self.logger = logging.getLogger(__name__)
         
     def count(self, file):
@@ -30,18 +31,29 @@ class EtlLib(BaseLib):
         with open(file, "r") as file:
             lines = len(file.readlines())
         return lines
+    
+    def get_path(self, ds):
+        if setuplib.tag_value(ds, "Path", False) == "":
+            path = fslib.get_path_file(cfglib.get(3))
+        else:
+            path = setuplib.tag_value(ds, "Path", False)
+        if fslib.is_dir(path) == False:
+            raise Exception(msglib.get("V19", [path]))        
+        filename = setuplib.tag_value(ds, "File")
+        path = fslib.join(path, filename)        
+        if fslib.is_file(path) == False:
+            raise IOError(msglib.get("V4", [path]))
+        return path, filename
 
     def import_file(self, cn, ds):
         loglib = LogLib("EtlLib", "import_file")
         sql = ""       
-        side = setuplib.tag_value(ds, "Side")
-        path = setuplib.tag_value(ds, "Path", False)
-        file = setuplib.tag_value(ds, "File")
+        side = setuplib.tag_value(ds, "Side")       
         fields = setuplib.tag_value(ds, "Fields")
         separator = setuplib.tag_value(ds, "Separator")
         start = int(setuplib.tag_value(ds, "Start"))
         tb = f"tb{self.id}{side}"
-        path = fslib.get_path_file(path, file)
+        path, filename = self.get_path(ds)
         first = True
         error_count = 0
         rows_affected = 0
@@ -52,7 +64,7 @@ class EtlLib(BaseLib):
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
-        loglib.log(loglib.INFO, f"File info: [{path}] [{file}] [{separator}] [{count}] [{str(fl)}]")
+        loglib.log(loglib.INFO, f"File info: [{path}] [{filename}] [{separator}] [{count}] [{str(fl)}]")
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 row += 1
@@ -83,16 +95,16 @@ class EtlLib(BaseLib):
                 self.import_file(cn, datasource)
         except Error as err:
             cat = msglib.get("E1")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
             cat = msglib.get("E2")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
             cat = msglib.get("E3")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

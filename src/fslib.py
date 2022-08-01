@@ -32,21 +32,19 @@ class FsLib:
         return path
     
     def get_path_recon(self, path="", file=""):
-        path = self.get_path() if path == "" else path
-        path = self.join(path, "recons")
+        path = self.join(self.get_path(), "recons") if path == "" else path
         path = self.join(path, file)
         return path
         
     def get_path_log(self, path="", file=""):
         if path == "":
             path = self.get_path()
-            path = self.join(path, "log")
+            path = self.join(path, "logs")
         path = self.join(path, file)
         return path
 
     def get_path_file(self, path="", file=""):
-        path = self.get_path() if path == "" else path
-        path = self.join(path, "data")
+        path = self.join(self.get_path(), "data") if path == "" else path
         path = self.join(path, file)
         return path
     
@@ -72,6 +70,12 @@ class FsLib:
 
     def is_dir(self, path):
         if not os.path.isdir(path):
+            return False
+        else:
+            return True
+        
+    def is_file(self, filename):
+        if not os.path.exists(filename):
             return False
         else:
             return True

@@ -165,17 +165,17 @@ class ReportLib(BaseLib):
             reports.append(self.create_report_analytic(cn))
         except Error as err:
             cat = msglib.get("E1")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except IOError as err:
             cat = msglib.get("E2")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
             cat = msglib.get("E3")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         return reports

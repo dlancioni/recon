@@ -52,12 +52,15 @@ class SetupLib(BaseLib):
         if type(recon) == dict:
             return recon
         else:
-            try:              
+            try:
+                path = fslib.get_path_recon(cfglib.get(2))
+                if fslib.is_dir(path) == False:
+                    raise Exception(msglib.get("V17", [path]))
                 filename = str(recon.split(".")[0]) +".cfg"
-                path = cfglib.get(2)
-                path = fslib.get_path_recon(path, filename)
-                msg = msglib.get("V4", [path])
-                recon = fslib.open_json(path)
+                filename = fslib.get_path_recon(path, filename)
+                if fslib.is_file(filename) == False:
+                    raise Exception(msglib.get("V4", [filename]))
+                recon = fslib.open_json(filename)
             except json.decoder.JSONDecodeError as err:
                 cat = msglib.get("E4")
                 error = msglib.get("E5", [err.lineno, err.colno, err.msg])
@@ -94,7 +97,7 @@ class SetupLib(BaseLib):
 
     def tag_value(self, doc, tag_en="", mandatory=True):
         f, v = self.tagfv(doc, tag_en)
-        return v    
+        return v
 
     def translate(self, tag_en=""):
         tag_pt = ""
@@ -275,6 +278,6 @@ class SetupLib(BaseLib):
             self.validate_recon(recon)
         except BaseException as err:
             cat = msglib.get("E4")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)

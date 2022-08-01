@@ -36,9 +36,12 @@ class LogLib(BaseLib):
     
     def create_log_file(self, name):
         fslib = FsLib()
-        file_name = f"[log] [{name}].txt" if name != "" else "log.txt"
-        log_path = fslib.get_path_log(cfglib.get(1), file_name)
+        path = fslib.get_path_log(cfglib.get(1))
+        if fslib.is_dir(path) == False:
+            raise Exception(msglib.get("V18", [path]))
+        file_name = f"[log] [{name}].txt" if name != "" else "log.txt"        
+        path = fslib.get_path_log(cfglib.get(1), file_name)
         log_format = "%(asctime)s %(levelname)s %(message)s"
-        logging.basicConfig(filename=log_path, filemode="w", datefmt='%Y-%m-%d %H:%M:%S', format=log_format, level=logging.DEBUG, encoding='utf-8')
+        logging.basicConfig(filename=path, filemode="w", datefmt='%Y-%m-%d %H:%M:%S', format=log_format, level=logging.DEBUG, encoding='utf-8')
         logger = logging.getLogger()
         return logger

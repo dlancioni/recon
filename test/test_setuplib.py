@@ -33,8 +33,8 @@ class SetupLibTest(unittest.TestCase):
     def assert_validate_msg(self, recon, field=""):
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, False)
-        br = msglib.get("E4", [field], "en-us") + " -> " + msglib.get("V2", [field], "en-us")
-        us = msglib.get("E4", [field], "pt-br") + " -> " + msglib.get("V2", [field], "pt-br")
+        br = msglib.get("E4", [field], "en-us") + " " + msglib.get("V2", [field], "en-us")
+        us = msglib.get("E4", [field], "pt-br") + " " + msglib.get("V2", [field], "pt-br")
         self.assertEqual(message in [us, br], True)
 
     def validate_header(self, language):

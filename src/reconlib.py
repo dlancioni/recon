@@ -261,11 +261,11 @@ class ReconLib(BaseLib):
             self.drop_tmp(cn)
         except Error as err:
             cat = msglib.get("E1")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
         except BaseException as err:
             cat = msglib.get("E3")
-            msg = f"{cat} -> {str(err)}"
+            msg = f"{cat} {str(err)}"
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
