@@ -20,7 +20,7 @@ setuplib = SetupLib()
 class SetupLibTest(unittest.TestCase):
     
     def open_recon(self, language):
-        filename = "en-us.cfg" if language == "en-us" else "pt-br.cfg"
+        filename = "test [en-us].cfg" if language == "en-us" else "test [pt-br].cfg"
         path = fslib.get_path_recon("", filename)
         recon = setuplib.open_recon(path)
         return recon
@@ -109,7 +109,7 @@ class SetupLibTest(unittest.TestCase):
     def open_bad_recon(self):
         message = ""
         try:
-            filename = "invalid_json.cfg"
+            filename = "test [bad json].cfg"
             path = fslib.get_path_recon("", filename)
             recon = setuplib.open_recon(path)
         except BaseException as err:
