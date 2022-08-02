@@ -31,7 +31,7 @@ class DbLib:
         if debug == 0:
             conn = sqlite3.connect(":memory:")
         else:
-            connection = fslib.join(path_temp, "tmp.db")
+            connection = fslib.join(path_temp, "log.db")
             conn = sqlite3.connect(connection)
         conn.isolation_level = None
         return conn

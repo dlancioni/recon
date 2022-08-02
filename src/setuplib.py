@@ -53,11 +53,11 @@ class SetupLib(BaseLib):
             return recon
         else:
             try:
-                path = fslib.get_path_recon(cfglib.get(2))
+                path = fslib.get_path_config()
                 if fslib.is_dir(path) == False:
                     raise Exception(msglib.get("V17", [path]))
                 filename = str(recon.split(".")[0]) +".cfg"
-                filename = fslib.get_path_recon(path, filename)
+                filename = fslib.join(path, filename)
                 if fslib.is_file(filename) == False:
                     raise Exception(msglib.get("V4", [filename]))
                 recon = fslib.open_json(filename)

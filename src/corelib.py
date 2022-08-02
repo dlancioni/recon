@@ -41,7 +41,7 @@ class CoreLib(BaseLib):
         loglib = LogLib("CoreLib", "process")
         try:
             """ create new transaction for each recon """
-            path_temp = cfglib.get(5)
+            path_temp = fslib.get_path_log(cfglib.get(1))
             debug = int(cfglib.get(6))
             loglib.log(loglib.INFO, f"Debug mode: {True if debug == 1 else False}")
             cn = dblib.get_connection(path_temp, debug)

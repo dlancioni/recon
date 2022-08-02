@@ -30,11 +30,6 @@ class FsLib:
             for dir in ["\src", "\\src", "/src"]:
                 path = path.replace(dir, "")
         return path
-    
-    def get_path_recon(self, path="", file=""):
-        path = self.join(self.get_path(), "recons") if path == "" else path
-        path = self.join(path, file)
-        return path
         
     def get_path_log(self, path="", file=""):
         path = self.join(self.get_path(), "logs") if path == "" else path
