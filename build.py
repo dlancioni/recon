@@ -20,8 +20,8 @@ print(process.returncode)
 os.system("cls || clear")
 
 # base paths
-target = "c:\\temp\\recon"
 source = fslib.get_path()
+target = "c:\\temp\\recon"
 
 # create folder
 print(f"Create application folder {target}")
@@ -35,6 +35,7 @@ filename = fslib.join(source, "dist")
 filename = fslib.join(filename, "recon.exe")
 shutil.copy(filename, target)
 
+# copy folder structure
 print(f"Copying folders to {target}")
 dirs = ["config", "data", "logs", "reports"]
 for dir in dirs:
@@ -45,4 +46,25 @@ for dir in dirs:
     shutil.copytree(path1, path2)
     print(f"{path1}")
     
+# delete configs used in dev only
+print(f"Deleting recons used for test")
+path = fslib.join(target, "config")
+files = os.listdir(path)
+for file in files:
+    if str(file).find("test") >= 0:
+        path1 = fslib.join(path, file)
+        if fslib.is_file(path1):
+            os.remove(path1)
+
+# delete logs and reports
+print(f"Deleting logs and reports")
+for directory in ["logs", "reports", "data"]:
+    path = fslib.join(target, directory)
+    files = os.listdir(path)
+    for file in files:
+        path1 = fslib.join(path, file)
+        if fslib.is_file(path1):
+            if str(file) != "saldo.txt" and str(file) != "extrato.txt":
+                os.remove(path1)
+
 print(f"[SUCCESS] To run the app visit: {target}")
