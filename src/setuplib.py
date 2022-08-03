@@ -42,7 +42,7 @@ class SetupLib(BaseLib):
             "Rule":"Regra",
             "Tolerance":"Tolerancia",
             "Type":"Tipo",
-            "Function":"Funcao"
+            "Function":"Função"
         }
         return tags
 
@@ -169,7 +169,7 @@ class SetupLib(BaseLib):
         
     def validate_field_name(self, fieldname=""):
         invalid_char = ""
-        valid_char = list("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ")
+        valid_char = list("abcdefghijklmnopqrstuvwxyzáéíóúÁÉÍÓÚABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 ")
         for item in fieldname:
             if item not in valid_char:
                 invalid_char = item

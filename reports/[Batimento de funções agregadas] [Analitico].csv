@@ -1,0 +1,5 @@
+Id;Lado;Conciliação;Regra;Status;Código;Somatória;Máximo;Mínimo;Média;Somatória (Diferença)
+1;1;Batimento de funções agregadas;Batimento de Funções Agregadas;Batido;1;1;3;5;10;
+2;1;Batimento de funções agregadas;Batimento de Funções Agregadas;Batido;1;1;6;6;20;
+3;1;Batimento de funções agregadas;Batimento de Funções Agregadas;Batido;1;1;9;7;30;
+1;2;Batimento de funções agregadas;Batimento de Funções Agregadas;Batido;1;3;9;5;20;
