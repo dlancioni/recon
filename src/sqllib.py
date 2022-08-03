@@ -52,11 +52,18 @@ class SqlLib(BaseLib):
             if aggregation:
                 field_function = setuplib.tag_name(field_def[i], "Function", False)
                 function = str(field_def[i][field_function]).strip() if field_function in field_def[i] else ""
+                
+                if function != "":
+                    function = self.get_aggregate_function(function)
+                
                 if datatype.strip().lower() == "decimal":
                     name = f"Round({name}, {decimals})"
                     if aggregation == True:
+                        if function == "": function = "Sum"
                         function = self.get_aggregate_function(function)
+                        
             sql += f"{function}({name}) {alias}, " if function else f"{name}, "
+            
             i += 1
         sql = sql.strip()[:-1]
         return sql

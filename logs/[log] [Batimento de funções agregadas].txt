@@ -1,23 +1,23 @@
-2022-08-03 09:35:12 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-03 09:35:12 INFO AreaLib.merge_datasources: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']
-2022-08-03 09:35:13 INFO AreaLib.create_recon_area: Area created:
-2022-08-03 09:35:13 INFO AreaLib.create_recon_area: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Integer', 'Integer', 'Integer', 'Integer', 'Integer']
-2022-08-03 09:35:13 INFO CoreLib.process: Area OK, ready to import files
-2022-08-03 09:35:13 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\aggreg 1.txt] [aggreg 1.txt] [;] [4] [[Código], [Somatória], [Máximo], [Mínimo], [Média]]
-2022-08-03 09:35:13 INFO EtlLib.import_file: File sucessfully imported
-2022-08-03 09:35:13 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\aggreg 2.txt] [aggreg 2.txt] [;] [2] [[Código], [Somatória], [Máximo], [Mínimo], [Média]]
-2022-08-03 09:35:13 INFO EtlLib.import_file: File sucessfully imported
-2022-08-03 09:35:13 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-03 09:35:13 INFO ReconLib.process: Processing rule: Batimento de Funções Agregadas
-2022-08-03 09:35:13 INFO ReconLib.prepare: Fiekd Key: ['[Código]']
-2022-08-03 09:35:13 INFO ReconLib.prepare: Fiekd Compare: ['[Somatória]']
-2022-08-03 09:35:13 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-03 09:35:13 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-03 09:35:13 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-03 09:35:13 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
-2022-08-03 09:35:13 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
-2022-08-03 09:35:13 INFO ReconLib.stamp_tmp: Fields with difference: ['[Somatória (Diferença)]']
-2022-08-03 09:35:13 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-03 09:35:13 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-03 09:35:13 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-03 09:35:13 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-03 18:07:20 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-03 18:07:20 INFO AreaLib.merge_datasources: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']
+2022-08-03 18:07:20 INFO AreaLib.create_recon_area: Area created:
+2022-08-03 18:07:20 INFO AreaLib.create_recon_area: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Integer', 'Integer', 'Integer', 'Integer', 'Integer']
+2022-08-03 18:07:20 INFO CoreLib.process: Area OK, ready to import files
+2022-08-03 18:07:20 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\aggreg 1.txt] [aggreg 1.txt] [;] [4] [[Código], [Somatória], [Máximo], [Mínimo], [Média]]
+2022-08-03 18:07:20 INFO EtlLib.import_file: File sucessfully imported
+2022-08-03 18:07:20 INFO EtlLib.import_file: File info: [c:\Users\david\Developer\recon\data\aggreg 2.txt] [aggreg 2.txt] [;] [2] [[Código], [Somatória], [Máximo], [Mínimo], [Média]]
+2022-08-03 18:07:20 INFO EtlLib.import_file: File sucessfully imported
+2022-08-03 18:07:20 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-03 18:07:20 INFO ReconLib.process: Processing rule: Batimento de Funções Agregadas
+2022-08-03 18:07:20 INFO ReconLib.prepare: Fiekd Key: ['[Código]']
+2022-08-03 18:07:20 INFO ReconLib.prepare: Fiekd Compare: ['[Somatória]']
+2022-08-03 18:07:20 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-03 18:07:20 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-03 18:07:20 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-03 18:07:20 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
+2022-08-03 18:07:20 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
+2022-08-03 18:07:20 INFO ReconLib.stamp_tmp: Fields with difference: ['[Somatória (Diferença)]']
+2022-08-03 18:07:20 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-03 18:07:20 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-03 18:07:20 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-03 18:07:20 INFO CoreLib.process: Reports OK, ready to commit the process
