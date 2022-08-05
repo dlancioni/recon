@@ -13,11 +13,11 @@ class SqlLib(BaseLib):
         key = "" if key is None else key.lower()
         if key in ["sum", "somar"]:
             return "Sum"
-        if key in ["max", "maximo"]:
+        if key in ["max", "máximo"]:
             return "Max"
-        if key in ["min", "minimo"]:
+        if key in ["min", "mínimo"]:
             return "Min"
-        if key in ["avg", "media"]:
+        if key in ["avg", "média"]:
             return "Avg"
         return default
 
