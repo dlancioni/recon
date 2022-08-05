@@ -42,7 +42,8 @@ class SetupLib(BaseLib):
             "Rule":"Regra",
             "Tolerance":"Tolerancia",
             "Type":"Tipo",
-            "Function":"Função"
+            "Function":"Função",
+            "Default Value":"Valor Padrão"
         }
         return tags
 
@@ -74,7 +75,7 @@ class SetupLib(BaseLib):
     def tagfv(self, doc, tag_en):
         f, v = "", ""
         tag_pt = self.translate(tag_en)
-        tag_en = tag_en.capitalize().strip()
+        tag_en = tag_en.title().strip()
         if tag_en in doc:
             f = tag_en
             v = doc[tag_en]
@@ -101,7 +102,7 @@ class SetupLib(BaseLib):
 
     def translate(self, tag_en=""):
         tag_pt = ""
-        tag_en = tag_en.capitalize()
+        tag_en = tag_en.title()
         tags = self.tag_def()
         tag_pt = tags[tag_en]
         if tag_pt.strip() == "":

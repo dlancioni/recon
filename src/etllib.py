@@ -72,7 +72,10 @@ class EtlLib(BaseLib):
                     values = line.split(separator)
                     for field in fields:
                         position = int(field["Id"]) -1
-                        field["Value"] = values[position]
+                        value = str(values[position]).strip()
+                        if value == "":
+                            value = setuplib.tag_value(field, "Default Value")
+                        field["Value"] = value
                     vl = sqlib.get_value_list(fields)
                     sql = sqlib.get_sql_insert(tb, fl, vl)
                     try:
