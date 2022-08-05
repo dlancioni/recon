@@ -40,16 +40,16 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(1, data, 4, 1, 1)
-        self.check_synthetic(2, data, 3, 1, 1)
+        self.check_synthetic(1, data, 7, 1, 1)
+        self.check_synthetic(2, data, 4, 1, 1)
 
         status, message, reports = corelib.process("test (pt-br)")
         self.assertEqual(status, True)
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(1, data, 4, 1, 1)
-        self.check_synthetic(2, data, 3, 1, 1)
+        self.check_synthetic(1, data, 7, 1, 1)
+        self.check_synthetic(2, data, 4, 1, 1)
         
     def test_run(self):
         utillib.cls()

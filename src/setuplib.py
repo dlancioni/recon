@@ -65,7 +65,7 @@ class SetupLib(BaseLib):
             except json.decoder.JSONDecodeError as err:
                 cat = msglib.get("E4")
                 error = msglib.get("E5", [err.lineno, err.colno, err.msg])
-                msg = f"{cat} -> {str(error)}"
+                msg = f"{cat} {str(error)}"
                 loglib.log(loglib.ERROR, msg)
                 raise Exception(msg)
             except BaseException as err:
