@@ -69,15 +69,27 @@ class EtlLib(BaseLib):
             for line in file.readlines():
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
+
                     values = line.split(separator)
+
                     for field in fields:
+
                         position = int(field["Id"]) -1
                         value = str(values[position]).strip()
+
                         if value == "":
-                            value = setuplib.tag_value(field, "Default Value")
+                            field_type = default_value = setuplib.tag_value(field, "Type")
+                            if field_type.lower() in ["integer", "inteiro", "decimal"]:
+                                value = 0
+
+                        default_value = setuplib.tag_value(field, "Default Value")
+                        if default_value != "":
+                            value = default_value
                         field["Value"] = value
+
                     vl = sqlib.get_value_list(fields)
                     sql = sqlib.get_sql_insert(tb, fl, vl)
+
                     try:
                         rows_affected = dblib.execute(cn, sql)
                         rows_imported += 1
