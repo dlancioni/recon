@@ -1,0 +1,3 @@
+Id;Lado;Conciliação;Regra;Status;Code;Igual;Diferente;Maior;Maior ou Igual;Menor;Menor ou Igual;Igual (Diferença);Diferente (Diferença);Maior (Diferença);Maior ou Igual (Diferença);Menor (Diferença);Menor ou Igual (Diferença)
+1;1;;;Órfão;1;1;2;4;4;4;5;;;;;;
+1;2;;;Órfão;2;1;2;4;4;4;5;;;;;;

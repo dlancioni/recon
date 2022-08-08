@@ -162,13 +162,14 @@ class SqlLib(BaseLib):
 
     def get_sql_key(self, tb1="", tb2="", fields=""):
         sql = ""
+        operator = "="
         for field in fields:
             _name = setuplib.tag_name(field, "Name")
             _type = setuplib.tag_name(field, "Type")
             if str(field[_type]).strip().lower() in ["key", "chave"]:
                 field_name = str(field[_name]).strip()
-                field_name = f"[{field_name}]"
-                sql += f"and {tb1}.{field_name} = {tb2}.{field_name} "
+                field_name = f"[{field_name}]"                               
+                sql += f"and {tb1}.{field_name} {operator} {tb2}.{field_name} "
         sql = sql.strip()
         return sql
 

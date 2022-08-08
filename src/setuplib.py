@@ -43,7 +43,8 @@ class SetupLib(BaseLib):
             "Tolerance":"Tolerancia",
             "Type":"Tipo",
             "Function":"Função",
-            "Default Value":"Valor Padrão"
+            "Default Value":"Valor Padrão",
+            "Operator":"Operador"
         }
         return tags
 

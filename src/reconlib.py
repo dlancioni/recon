@@ -44,7 +44,7 @@ class ReconLib(BaseLib):
         field_name = ""
         self.matched = msglib.get("L11")
         self.divergent = msglib.get("L12")
-        self.orphan = msglib.get("L13")                
+        self.orphan = msglib.get("L13")
         for field in setuplib.tag_value(rule, "Fields"):
             field_name = setuplib.tag_value(field, "Name")
             field_name = f"[{field_name}]"
@@ -54,7 +54,7 @@ class ReconLib(BaseLib):
                 self.field_compare.append(field_name)
             # stamp the type in recon definition    
             index = self.fields.index(field_name.replace("[", "").replace("]", ""))
-            field["Datatype"] = self.types[index]                
+            field["Datatype"] = self.types[index]
         self.rule_count += 1
         loglib.log(loglib.INFO, f"Fiekd Key: {str(self.field_key)}")
         loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")
@@ -63,8 +63,8 @@ class ReconLib(BaseLib):
     def aggregate(self, cn, rule):
         loglib = LogLib("ReconLib", "aggregate")
         sql = ""
-        rows_affected = 0
         funcs = []
+        rows_affected = 0
         field = setuplib.tag_name(rule, "Fields")
         grouping_key = sqllib.get_field_key(rule[field])
         field_list = sqllib.get_field_list(rule[field], False)
