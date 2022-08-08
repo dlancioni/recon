@@ -33,27 +33,32 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(data[line][STATUS] in ["Orphan", "Órfão"], True)
         self.assertEqual(data[line][TOTAL], str(orphan))
     
-    def basic(self):
+    """ Test basic recon status [Matched, Divergent and Orphan] """
+    def recon_status(self):
 
-        status, message, reports = corelib.process("test (en-us)")
+        recon_en = "test datatype (en-us)"
+        recon_pt = "test datatype (pt-br)"
+
+        status, message, reports = corelib.process(recon_en)
         self.assertEqual(status, True)
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(1, data, 4, 4, 1)
-        self.check_synthetic(2, data, 3, 2, 1)
+        self.check_synthetic(1, data, 1, 1, 1)
+        self.check_synthetic(2, data, 2, 1, 1)
 
-        status, message, reports = corelib.process("test (pt-br)")
+        status, message, reports = corelib.process(recon_pt)
         self.assertEqual(status, True)
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(1, data, 4, 4, 1)
-        self.check_synthetic(2, data, 3, 2, 1)
-        
+        self.check_synthetic(1, data, 1, 1, 1)
+        self.check_synthetic(2, data, 2, 1, 1)
+
+    """ Trigger all tests """
     def test_run(self):
+        self.recon_status()
         utillib.cls()
-        self.basic()
 
 if __name__ == '__main__':
     unittest.main()

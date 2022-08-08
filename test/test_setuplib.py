@@ -16,11 +16,14 @@ msglib = MsgLib()
 corelib = CoreLib()
 fslib = FsLib()
 setuplib = SetupLib()
+utillib = UtilLib()
 
 class SetupLibTest(unittest.TestCase):
-    
+       
     def open_recon(self, language):
-        filename = "test (en-us).cfg" if language == "en-us" else "test (pt-br).cfg"
+        recon_en = "test datatype (en-us)"
+        recon_pt = "test datatype (pt-br)"        
+        filename = recon_en if language == "en-us" else recon_pt
         path = fslib.get_path_config(filename)
         recon = setuplib.open_recon(path)
         return recon
@@ -122,12 +125,23 @@ class SetupLibTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-    def test_recon(self):
+
+    """ Malformed configuration file """
+    def bad_configuration(self):       
         self.open_bad_recon()
+
+    """ Tag names and mandatory fields """
+    def validation(self):       
         for language in ["en-us", "pt-br"]:
             self.validate_header(language)
             self.validate_datasource(language)
             self.validate_recon(language)
+
+    """ Trigger all tests """
+    def test_run(self):
+        self.bad_configuration()
+        self.validation()
+        utillib.cls()
 
 if __name__ == '__main__':
     unittest.main()

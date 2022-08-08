@@ -4,16 +4,18 @@ import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 from src.msglib import MsgLib
 from src.cfglib import ConfigLib
+from src.utillib import UtilLib
 
 msglib = MsgLib()
 cfglib = ConfigLib()
+utillib = UtilLib()
 
 class UtilLibTest(unittest.TestCase):
 
     def setUp(self):
         pass
     
-    def test_open_config(self):
+    def open_config(self):
         language = cfglib.get(7)
         if language.lower() in ["en-us", "pt-br"]:
             validated = True
@@ -21,7 +23,7 @@ class UtilLibTest(unittest.TestCase):
             validated = False
         self.assertEqual(validated, True)
 
-    def test_get_value(self):
+    def get_value(self):
         # No parameters
         x = "Start processing"
         y = msglib.get("M1", [], "en-us")
@@ -39,6 +41,12 @@ class UtilLibTest(unittest.TestCase):
 
     def tearDown(self):
         pass
+    
+    """ Trigger all tests """
+    def test_run(self):
+        self.open_config()
+        self.get_value()
+        utillib.cls()    
 
 if __name__ == '__main__':
     unittest.main()
