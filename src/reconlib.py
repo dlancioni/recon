@@ -110,14 +110,15 @@ class ReconLib(BaseLib):
         
     def get_tolerance(self, rule, fieldname):
         tolerance = 0
+        fieldname = fieldname.strip().lower().replace("[", "").replace("]", "")
         field_name = setuplib.tag_name(rule, "Fields")
         fields = rule[field_name]
         for field in fields:
             field_name = setuplib.tag_value(field, "Name")
             rule_type = setuplib.tag_value(field, "Type")
             if rule_type.strip().lower() in ["compare", "comparar"]:
-                if field["Datatype"].strip().lower() == "decimal":
-                    if field_name.strip().lower() == fieldname.strip().lower().replace("[", "").replace("]", ""):
+                if field_name.strip().lower() == fieldname:
+                    if field["Datatype"].strip().lower() == "decimal":                
                         tol = setuplib.tag_value(field, "Tolerance")
                         if tol.strip() != "":
                             tolerance = float(tol)
