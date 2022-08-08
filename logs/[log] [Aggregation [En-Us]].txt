@@ -1,0 +1,29 @@
+2022-08-08 08:38:28 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-08 08:38:28 INFO AreaLib.merge_datasources: ['Code', 'Sum', 'Max', 'Min', 'Avg']['Code', 'Sum', 'Max', 'Min', 'Avg']
+2022-08-08 08:38:28 INFO AreaLib.create_recon_area: Area created:
+2022-08-08 08:38:28 INFO AreaLib.create_recon_area: ['Code', 'Sum', 'Max', 'Min', 'Avg']['Integer', 'Integer', 'Integer', 'Integer', 'Integer']
+2022-08-08 08:38:28 INFO CoreLib.process: Area OK, ready to import files
+2022-08-08 08:38:28 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\Aggregation 1.txt] [Aggregation 1.txt] [;] [9] [[Code], [Sum], [Max], [Min], [Avg]]
+2022-08-08 08:38:28 INFO EtlLib.import_file: File sucessfully imported
+2022-08-08 08:38:28 INFO EtlLib.import_file: File info: [C:\Users\david\Developer\recon\data\Aggregation 2.txt] [Aggregation 2.txt] [;] [7] [[Code], [Sum], [Max], [Min], [Avg]]
+2022-08-08 08:38:28 INFO EtlLib.import_file: File sucessfully imported
+2022-08-08 08:38:28 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-08 08:38:28 INFO ReconLib.process: Processing rule: Rule 1
+2022-08-08 08:38:28 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
+2022-08-08 08:38:28 INFO ReconLib.prepare: Fiekd Compare: ['[Sum]', '[Max]', '[Min]', '[Avg]']
+2022-08-08 08:38:28 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-08 08:38:28 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-08 08:38:28 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sum (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sum (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Max (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Max (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Min (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Min (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Avg (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Avg (Diferença)]
+2022-08-08 08:38:28 INFO ReconLib.stamp_tmp: Fields with difference: ['[Sum (Diferença)]', '[Max (Diferença)]', '[Min (Diferença)]', '[Avg (Diferença)]']
+2022-08-08 08:38:28 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-08 08:38:29 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-08 08:38:29 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-08 08:38:29 INFO CoreLib.process: Reports OK, ready to commit the process

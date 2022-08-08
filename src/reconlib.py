@@ -39,13 +39,13 @@ class ReconLib(BaseLib):
         self.orphan = ""
         self.rule_count = 0
         
-    def prepare(self, cn, recon):
+    def prepare(self, cn, rule):
         loglib = LogLib("ReconLib", "prepare")
         field_name = ""
         self.matched = msglib.get("L11")
         self.divergent = msglib.get("L12")
         self.orphan = msglib.get("L13")                
-        for field in setuplib.tag_value(recon, "Fields"):
+        for field in setuplib.tag_value(rule, "Fields"):
             field_name = setuplib.tag_value(field, "Name")
             field_name = f"[{field_name}]"
             if setuplib.tag_value(field, "Type").lower() in ["key", "chave"]:
@@ -60,15 +60,15 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Fiekd Compare: {str(self.field_compare)}")
         self.progress_bar.next()
 
-    def aggregate(self, cn, recon):
+    def aggregate(self, cn, rule):
         loglib = LogLib("ReconLib", "aggregate")
         sql = ""
         rows_affected = 0
         funcs = []
-        field = setuplib.tag_name(recon, "Fields")
-        grouping_key = sqllib.get_field_key(recon[field])
-        field_list = sqllib.get_field_list(recon[field], False)
-        value_list = sqllib.get_field_list(recon[field], True)
+        field = setuplib.tag_name(rule, "Fields")
+        grouping_key = sqllib.get_field_key(rule[field])
+        field_list = sqllib.get_field_list(rule[field], False)
+        value_list = sqllib.get_field_list(rule[field], True)
         for side in range(1, 3):
             tb = self.tb1 if side == 1 else self.tb2
             tmp = self.tmp1 if side == 1 else self.tmp2
@@ -84,20 +84,20 @@ class ReconLib(BaseLib):
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Data successfuly aggregated")
         self.progress_bar.next()
-        
-    def match_key(self, cn, recon):
+
+    def match_key(self, cn, rule):
         loglib = LogLib("ReconLib", "match_key")
         rows_affected = 0
-        rule = setuplib.tag_value(recon, "Rule")
-        field = setuplib.tag_name(recon, "Fields")
-        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
+        rule_name = setuplib.tag_value(rule, "Rule")
+        field = setuplib.tag_name(rule, "Fields")
+        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, rule[field])
         for side in range(1, 3):
             tmp1 = self.tmp1 if side == 1 else self.tmp2
             tmp2 = self.tmp2 if side == 1 else self.tmp1
             sql = ""
             sql += f"update {tmp1} set "
             sql += f"recon='{self.name}', "
-            sql += f"rule='{rule}', "
+            sql += f"rule='{rule_name}', "
             sql += f"id_status='{const.STATUS_MATCHED}',"
             sql += f"status = '{self.matched}', "
             sql += f"id_parent = {tmp2}.id "
@@ -108,10 +108,10 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Match key successfuly completed")
         self.progress_bar.next()
         
-    def get_tolerance(self, recon, fieldname):
+    def get_tolerance(self, rule, fieldname):
         tolerance = 0
-        field_name = setuplib.tag_name(recon, "Fields")
-        fields = recon[field_name]
+        field_name = setuplib.tag_name(rule, "Fields")
+        fields = rule[field_name]
         for field in fields:
             field_name = setuplib.tag_value(field, "Name")
             rule_type = setuplib.tag_value(field, "Type")
@@ -124,15 +124,14 @@ class ReconLib(BaseLib):
                             break
         return tolerance
 
-    def compare(self, cn, recon):
+    def compare(self, cn, rule):
         loglib = LogLib("ReconLib", "compare")
         sql = ""
         fields_key = ""
         count = 0
         rows_affected = 0
-        rule = setuplib.tag_value(recon, "Rule")
-        field = setuplib.tag_name(recon, "Fields")
-        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, recon[field])
+        field = setuplib.tag_name(rule, "Fields")
+        matching_key = sqllib.get_sql_key(self.tmp1, self.tmp2, rule[field])
         """ create temp table  to compare fields """
         for field in self.field_key:
             fields_key += f"{self.tmp1}.{field}, "
@@ -142,7 +141,7 @@ class ReconLib(BaseLib):
             count += 1
             tablename = self.tmp3            
             tablename += str(count)           
-            tolerance = self.get_tolerance(recon, field)
+            tolerance = self.get_tolerance(rule, field)
             sql = f"drop table if exists {tablename}"
             dblib.execute(cn, sql)
             sql = ""
@@ -163,7 +162,7 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Field comparison successfuly completed")
         self.progress_bar.next()        
             
-    def stamp_tmp(self, cn, recon):
+    def stamp_tmp(self, cn, rule):
         loglib = LogLib("ReconLib", "stamp_tmp")
         count = 0
         rows_affected = 0
@@ -173,9 +172,9 @@ class ReconLib(BaseLib):
             count += 1
             tmp3 = f"{self.tmp3}{str(count)}"
             for side in range(1,3):
-                _field = setuplib.tag_name(recon, "Fields")
+                _field = setuplib.tag_name(rule, "Fields")
                 temps = self.tmp1 if side == 1 else self.tmp2
-                matching_key = sqllib.get_sql_key(temps, tmp3, recon[_field])
+                matching_key = sqllib.get_sql_key(temps, tmp3, rule[_field])
                 field_name = sqllib.field_diff(field, label)
                 loglib.log(loglib.INFO, f"Stamping field (alter table): {field_name}")
                 self.field_with_diff.append(field_name)
@@ -197,17 +196,16 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Fields with difference: {str(self.field_with_diff)}")
         self.progress_bar.next()
 
-    def stamp_tb(self, cn, recon):
+    def stamp_tb(self, cn, rule):
         loglib = LogLib("ReconLib", "stamp_tb")
         field_list = ""
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
-        rule = setuplib.tag_value(recon, "Rule")
-        field = setuplib.tag_name(recon, "Fields")
+        field = setuplib.tag_name(rule, "Fields")
         match_result = ["Id_Parent", "Recon", "Rule", "Id_Status", "Status"]
         compare_result = self.field_with_diff
-        matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, recon[field])
-        matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, recon[field])
+        matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, rule[field])
+        matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, rule[field])
         """ stamp key information in final table """
         for side in range(1, 3):
             field_list = ""
