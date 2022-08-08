@@ -12,12 +12,6 @@ utillib = UtilLib()
 
 class CoreLibTest(unittest.TestCase):
 
-    def setUp(self):
-        pass        
-    
-    def tearDown(self):
-        pass
-    
     def check_synthetic(self, side, data, matched, divergent, orphan):
         SIDE, STATUS, TOTAL = 0, 1, 2
         line = 1 if side == 1 else 4
@@ -32,32 +26,42 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(data[line][SIDE], str(side))
         self.assertEqual(data[line][STATUS] in ["Orphan", "Órfão"], True)
         self.assertEqual(data[line][TOTAL], str(orphan))
+
+    def setUp(self):
+        pass        
+    
+    def tearDown(self):
+        pass
     
     """ Test basic recon status [Matched, Divergent and Orphan] """
-    def recon_status(self):
-
-        recon_en = "test datatype (en-us)"
-        recon_pt = "test datatype (pt-br)"
-
-        status, message, reports = corelib.process(recon_en)
-        self.assertEqual(status, True)
-        self.assertEqual(message, "")
-        self.assertEqual(len(reports), 2)
-        data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(1, data, 1, 1, 1)
-        self.check_synthetic(2, data, 2, 1, 1)
-
-        status, message, reports = corelib.process(recon_pt)
-        self.assertEqual(status, True)
-        self.assertEqual(message, "")
-        self.assertEqual(len(reports), 2)
-        data = fslib.get_csv_as_list(reports[0])
-        self.check_synthetic(1, data, 1, 1, 1)
-        self.check_synthetic(2, data, 2, 1, 1)
+    def recon_datatypes(self):
+        en = "test datatype (en-us)"
+        pt = "test datatype (pt-br)"
+        for recon in [ en, pt ]:
+            status, message, reports = corelib.process(recon)
+            self.assertEqual(status, True)
+            self.assertEqual(message, "")
+            self.assertEqual(len(reports), 2)
+            data = fslib.get_csv_as_list(reports[0])
+            self.check_synthetic(1, data, 1, 1, 1)
+            self.check_synthetic(2, data, 2, 1, 1)
+        
+    """ Test aggregate function [Sum, Max, Min, Avg] """ 
+    def recon_status(self):        
+        en = "test aggregation (en-us)"
+        pt = "test aggregation (pt-br)"
+        for recon in [ en, pt ]:
+            status, message, reports = corelib.process(recon)
+            self.assertEqual(status, True)
+            self.assertEqual(message, "")
+            self.assertEqual(len(reports), 2)
+            data = fslib.get_csv_as_list(reports[0])
+            self.check_synthetic(1, data, 4, 1, 1)
+            self.check_synthetic(2, data, 2, 1, 1)
 
     """ Trigger all tests """
     def test_run(self):
-        self.recon_status()
+        self.recon_datatypes()
         utillib.cls()
 
 if __name__ == '__main__':
