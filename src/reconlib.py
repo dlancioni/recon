@@ -108,8 +108,8 @@ class ReconLib(BaseLib):
         loglib.log(loglib.INFO, f"Match key successfuly completed")
         self.progress_bar.next()
         
-    def get_tolerance(self, rule, fieldname):
-        tolerance = 0
+    def get_attribute(self, rule, fieldname, attribute="tolerance"):
+        value = 0
         fieldname = fieldname.strip().lower().replace("[", "").replace("]", "")
         field_name = setuplib.tag_name(rule, "Fields")
         fields = rule[field_name]
@@ -118,12 +118,17 @@ class ReconLib(BaseLib):
             rule_type = setuplib.tag_value(field, "Type")
             if rule_type.strip().lower() in ["compare", "comparar"]:
                 if field_name.strip().lower() == fieldname:
-                    if field["Datatype"].strip().lower() == "decimal":                
-                        tol = setuplib.tag_value(field, "Tolerance")
-                        if tol.strip() != "":
-                            tolerance = float(tol)
-                            break
-        return tolerance
+                    if attribute == "tolerance":
+                        if field["Datatype"].strip().lower() == "decimal":                
+                            tol = setuplib.tag_value(field, "Tolerance")
+                            if tol.strip() != "":
+                                value = float(tol)
+                                break
+                    if attribute == "operator":
+                        value = setuplib.tag_value(field, "Operator")
+                        value = "=" if value == "" else value
+                        break
+        return value
 
     def compare(self, cn, rule):
         loglib = LogLib("ReconLib", "compare")
@@ -142,7 +147,8 @@ class ReconLib(BaseLib):
             count += 1
             tablename = self.tmp3            
             tablename += str(count)           
-            tolerance = self.get_tolerance(rule, field)
+            tolerance = self.get_attribute(rule, field, "tolerance")
+            operator = self.get_attribute(rule, field, "operator")
             sql = f"drop table if exists {tablename}"
             dblib.execute(cn, sql)
             sql = ""
@@ -153,7 +159,7 @@ class ReconLib(BaseLib):
             sql += f" {fields_key}"
             sql += f", ({tmp1} || '/' || {tmp2}) difference"            
             if tolerance == 0:
-                sql += f", ({tmp1} = {tmp2}) equality"
+                sql += f", ({tmp1} {operator} {tmp2}) equality"
             else:    
                 sql += f", (abs({tmp1} - {tmp2}) <= {tolerance}) equality"            
             sql += f" from {self.tmp1}, {self.tmp2}"
