@@ -14,18 +14,26 @@ class CoreLibTest(unittest.TestCase):
 
     def check_synthetic(self, side, data, matched, divergent, orphan):
         SIDE, STATUS, TOTAL = 0, 1, 2
-        line = 1 if side == 1 else 4
-        self.assertEqual(data[line][SIDE], str(side))
-        self.assertEqual(data[line][STATUS] in ["Matched", "Batido"], True)
-        self.assertEqual(data[line][TOTAL], str(matched))
-        line += 1
-        self.assertEqual(data[line][SIDE], str(side))
-        self.assertEqual(data[line][STATUS] in ["Divergent", "Divergente"], True)
-        self.assertEqual(data[line][TOTAL], str(divergent))            
-        line += 1            
-        self.assertEqual(data[line][SIDE], str(side))
-        self.assertEqual(data[line][STATUS] in ["Orphan", "Órfão"], True)
-        self.assertEqual(data[line][TOTAL], str(orphan))
+        
+        if matched > 0 and divergent > 0 and orphan > 0:
+            line = 1 if side == 1 else 4
+        if matched > 0 and divergent == 0 and orphan > 0:
+            line = 1 if side == 1 else 3
+
+        if matched > 0:
+            self.assertEqual(data[line][SIDE], str(side))
+            self.assertEqual(data[line][STATUS] in ["Matched", "Batido"], True)
+            self.assertEqual(data[line][TOTAL], str(matched))
+        if divergent > 0:
+            line += 1
+            self.assertEqual(data[line][SIDE], str(side))
+            self.assertEqual(data[line][STATUS] in ["Divergent", "Divergente"], True)
+            self.assertEqual(data[line][TOTAL], str(divergent))
+        if orphan > 0:
+            line += 1
+            self.assertEqual(data[line][SIDE], str(side))
+            self.assertEqual(data[line][STATUS] in ["Orphan", "Órfão"], True)
+            self.assertEqual(data[line][TOTAL], str(orphan))
 
     def setUp(self):
         pass        
@@ -71,6 +79,17 @@ class CoreLibTest(unittest.TestCase):
             data = fslib.get_csv_as_list(reports[0])
             self.check_synthetic(1, data, 1, 1, 1)
             self.check_synthetic(2, data, 1, 1, 1)
+            
+    """ Test operators on compare [=, !=, >, >=, <, <=] """ 
+    def recon_multiple_rules(self):
+        en = "test multiple rules"
+        status, message, reports = corelib.process(en)
+        self.assertEqual(status, True)
+        self.assertEqual(message, "")
+        self.assertEqual(len(reports), 2)
+        data = fslib.get_csv_as_list(reports[0])
+        self.check_synthetic(1, data, 3, 0, 1)
+        self.check_synthetic(2, data, 3, 0, 1)
 
     """ Trigger all tests """
     def test_run(self):
@@ -78,6 +97,7 @@ class CoreLibTest(unittest.TestCase):
         self.recon_status()
         self.recon_aggregation()
         self.recon_operators()
+        self.recon_multiple_rules()
 
 if __name__ == '__main__':
     unittest.main()
