@@ -32,6 +32,14 @@ class EtlLib(BaseLib):
             lines = len(file.readlines())
         return lines
     
+    def persist(self, cn, sql):
+        try:
+            rows_affected = dblib.execute(cn, sql)
+        except Error as err:
+            pass                        
+            error_count += 1                                                   
+            loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")    
+    
     def get_path(self, ds):
         if setuplib.tag_value(ds, "Path", False) == "":
             path = fslib.get_path_file(cfglib.get(3))
@@ -44,64 +52,66 @@ class EtlLib(BaseLib):
         if fslib.is_file(path) == False:
             raise IOError(msglib.get("V4", [path]))
         return path, filename
+    
+    def empty_value(self, field_def, field_value=""):
+        if field_value.strip() == "":
+            field_type = setuplib.tag_value(field_def, "Type")
+            if field_type.strip().lower() in ["integer", "inteiro", "decimal"]:
+                field_value = 0
+        return field_value
+    
+    def default_value(self, field_def, field_value=""):
+        default_value = setuplib.tag_value(field_def, "Default Value")
+        if default_value.strip() != "":
+            field_value = str(default_value)
+        return field_value
 
     def import_file(self, cn, ds):
         loglib = LogLib("EtlLib", "import_file")
-        sql = ""       
+        sql = ""
+        field_value=""
         side = setuplib.tag_value(ds, "Side")       
         fields = setuplib.tag_value(ds, "Fields")
         separator = setuplib.tag_value(ds, "Separator")
         start = int(setuplib.tag_value(ds, "Start"))
+        
         tb = f"tb{self.id}{side}"
+        fl = sqlib.get_field_list(fields)        
+        
         path, filename = self.get_path(ds)
         first = True
         error_count = 0
         rows_affected = 0
         rows_imported = 0
         row = 0
-        fl = sqlib.get_field_list(fields)
+
         count = self.count(path)
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
         msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
-        loglib.log(loglib.INFO, f"File info: [{path}] [{filename}] [{separator}] [{count}] [{str(fl)}]")
+
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
-
                     values = line.split(separator)
 
                     for field in fields:
-
                         position = int(field["Id"]) -1
-                        value = str(values[position]).strip()
-
-                        if value == "":
-                            field_type = default_value = setuplib.tag_value(field, "Type")
-                            if field_type.lower() in ["integer", "inteiro", "decimal"]:
-                                value = 0
-
-                        default_value = setuplib.tag_value(field, "Default Value")
-                        if default_value != "":
-                            value = default_value
-                        field["Value"] = value
+                        field_value = str(values[position]).strip()
+                        field_value = self.empty_value(field, field_value)
+                        field_value = self.default_value(field, field_value)
+                        field["Value"] = field_value
 
                     vl = sqlib.get_value_list(fields)
                     sql = sqlib.get_sql_insert(tb, fl, vl)
-
-                    try:
-                        rows_affected = dblib.execute(cn, sql)
-                        rows_imported += 1
-                        progress_bar.next()
-                    except Error as err:
-                        pass                        
-                        error_count += 1                                                   
-                        loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")
+                    self.persist(cn, sql)
+                    rows_imported += 1
+                    progress_bar.next()
 
         progress_bar.finish()
         loglib.log(loglib.INFO, f"File sucessfully imported")
-        
+
     def process(self, cn, recon):
         loglib = LogLib("EtlLib", "process")
         try:

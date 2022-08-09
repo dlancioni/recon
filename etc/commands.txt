@@ -9,6 +9,6 @@ pip install -r requirements.txt
 python -m unittest discover -stest -v -b
 
 # recon calls
-python main.py --f "pt-br"
+python main.py --f "test datatype (pt-br)"
 python main.py --f "en-us"
 python main.py --f "volume 10k"
