@@ -77,7 +77,6 @@ class EtlLib(BaseLib):
         separator = setuplib.tag_value(ds, "Separator")
         start = int(setuplib.tag_value(ds, "Start"))
         table_name = f"tb{self.id}{side}"
-        field_list = sqlib.get_field_list(fields)
         path, filename = self.get_path(ds)
         count = self.count(path)       
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
@@ -88,6 +87,7 @@ class EtlLib(BaseLib):
             for line in file.readlines():
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
+                    field_list = sqlib.get_field_list(fields)                    
                     values = line.split(separator)
                     for field in fields:
                         position = int(field["Id"]) -1
