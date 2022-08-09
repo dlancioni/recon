@@ -75,9 +75,9 @@ class EtlLib(BaseLib):
         side = setuplib.tag_value(ds, "Side")
         fields = setuplib.tag_value(ds, "Fields")
         separator = setuplib.tag_value(ds, "Separator")
-        start = int(setuplib.tag_value(ds, "Start"))        
-        tb = f"tb{self.id}{side}"
-        fl = sqlib.get_field_list(fields)        
+        start = int(setuplib.tag_value(ds, "Start"))
+        table_name = f"tb{self.id}{side}"
+        field_list = sqlib.get_field_list(fields)
         path, filename = self.get_path(ds)
         count = self.count(path)       
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
@@ -95,9 +95,9 @@ class EtlLib(BaseLib):
                         field_value = self.empty_value(field, field_value)
                         field_value = self.default_value(field, field_value)
                         field["Value"] = field_value
-                    vl = sqlib.get_value_list(fields)
-                    sql = sqlib.get_sql_insert(tb, fl, vl)                    
-                    self.persist(cn, sql)                    
+                    value_list = sqlib.get_value_list(fields)
+                    sql = sqlib.get_sql_insert(table_name, field_list, value_list)
+                    self.persist(cn, sql)
                     progress_bar.next()
         progress_bar.finish()
 

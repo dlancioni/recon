@@ -1,37 +1,37 @@
-2022-08-09 08:58:18 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:18 INFO AreaLib.merge_datasources: ['Chave 1', 'Chave 2', 'Chave 3']['Chave 1', 'Chave 2', 'Chave 3']
-2022-08-09 08:58:18 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:18 INFO AreaLib.create_recon_area: ['Chave 1', 'Chave 2', 'Chave 3']['Integer', 'Integer', 'Integer']
-2022-08-09 08:58:18 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:18 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:18 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:18 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:18 INFO ReconLib.process: Processing rule: Regra 1
-2022-08-09 08:58:18 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]']
-2022-08-09 08:58:18 INFO ReconLib.prepare: Fiekd Compare: []
-2022-08-09 08:58:19 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:19 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:19 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:19 INFO ReconLib.stamp_tmp: Fields with difference: []
-2022-08-09 08:58:19 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:19 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:19 INFO ReconLib.process: Processing rule: Regra 2
-2022-08-09 08:58:19 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]']
-2022-08-09 08:58:19 INFO ReconLib.prepare: Fiekd Compare: []
-2022-08-09 08:58:19 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:19 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:19 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:19 INFO ReconLib.stamp_tmp: Fields with difference: []
-2022-08-09 08:58:19 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:19 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:19 INFO ReconLib.process: Processing rule: Regra 3
-2022-08-09 08:58:19 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]', '[Chave 1]']
-2022-08-09 08:58:19 INFO ReconLib.prepare: Fiekd Compare: []
-2022-08-09 08:58:19 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:19 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:19 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:19 INFO ReconLib.stamp_tmp: Fields with difference: []
-2022-08-09 08:58:19 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:19 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:19 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:19 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:14:47 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:14:47 INFO AreaLib.merge_datasources: ['Chave 1', 'Chave 2', 'Chave 3']['Chave 1', 'Chave 2', 'Chave 3']
+2022-08-09 09:14:47 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:14:47 INFO AreaLib.create_recon_area: ['Chave 1', 'Chave 2', 'Chave 3']['Integer', 'Integer', 'Integer']
+2022-08-09 09:14:47 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:14:51 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:14:52 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:14:52 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:14:52 INFO ReconLib.process: Processing rule: Regra 1
+2022-08-09 09:14:52 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]']
+2022-08-09 09:14:52 INFO ReconLib.prepare: Fiekd Compare: []
+2022-08-09 09:14:52 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:14:52 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:14:52 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:14:52 INFO ReconLib.stamp_tmp: Fields with difference: []
+2022-08-09 09:14:52 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:14:52 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:14:52 INFO ReconLib.process: Processing rule: Regra 2
+2022-08-09 09:14:52 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]']
+2022-08-09 09:14:52 INFO ReconLib.prepare: Fiekd Compare: []
+2022-08-09 09:14:52 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:14:52 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:14:52 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:14:52 INFO ReconLib.stamp_tmp: Fields with difference: []
+2022-08-09 09:14:52 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:14:52 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:14:52 INFO ReconLib.process: Processing rule: Regra 3
+2022-08-09 09:14:52 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]', '[Chave 1]']
+2022-08-09 09:14:52 INFO ReconLib.prepare: Fiekd Compare: []
+2022-08-09 09:14:52 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:14:52 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:14:52 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:14:52 INFO ReconLib.stamp_tmp: Fields with difference: []
+2022-08-09 09:14:52 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:14:52 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:14:52 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:14:52 INFO CoreLib.process: Reports OK, ready to commit the process
