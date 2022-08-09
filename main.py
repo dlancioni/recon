@@ -31,19 +31,23 @@ utillib.cls()
 @click.option('--s',  help=f"{msglib.get('M17')}", default=0)
 
 def main(f, c, t, rs, ra, s):
+    
     """ Process the conciliation """
     start = timer()
     msglib.print(msglib.get("M1"))
     status, error, reports = corelib.process(f)
     end = timer()
+    
     """ time elapsed """
     if t == True:
         msg = msglib.get("M3")
         msg = msglib.set_time(f"{msg}: {timedelta(seconds=end-start)}")
         msg = colored(msg, "yellow")
         print(msg)
+        
     """ all done """
     msglib.print(msglib.get("M2"))
+    
     """ generate reports """
     if status == True:
         if c == True:
