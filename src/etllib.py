@@ -65,30 +65,30 @@ class EtlLib(BaseLib):
             field_value = str(default_value)
         return field_value
 
-    def import_file(self, cn, ds):
+    def import_data(self, cn, ds):
         loglib = LogLib("EtlLib", "import_file")
         
         row = 0        
         sql = ""
         field_value = ""
-        
         side = setuplib.tag_value(ds, "Side")
+        type = setuplib.tag_value(ds, "Type")
+        delimiter = setuplib.tag_value(ds, "Delimiter")
         fields = setuplib.tag_value(ds, "Fields")
-        separator = setuplib.tag_value(ds, "Separator")
         start = int(setuplib.tag_value(ds, "Start"))
         table_name = f"tb{self.id}{side}"
         path, filename = self.get_path(ds)
-        count = self.count(path)       
+        count = self.count(path)
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
         msg = msglib.set_time(msg)
-        
         progress_bar = ShadyBar(msg, max=count-1)
+
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
-                    field_list = sqlib.get_field_list(fields)                    
-                    values = line.split(separator)
+                    field_list = sqlib.get_field_list(fields)
+                    values = line.split(delimiter)
                     for field in fields:
                         position = int(field["Id"]) -1
                         field_value = str(values[position]).strip()
@@ -108,7 +108,7 @@ class EtlLib(BaseLib):
         try:
             datasources = setuplib.tag_value(recon, "Datasources")
             for datasource in datasources:
-                self.import_file(cn, datasource)
+                self.import_data(cn, datasource)
         except Error as err:
             cat = msglib.get("E1")
             msg = f"{cat} {str(err)}"

@@ -33,7 +33,7 @@ class SetupLib(BaseLib):
             "Side":"Lado",
             "Path":"Caminho",
             "File":"Arquivo",
-            "Separator":"Separador",
+            "Delimiter":"Delimitador",
             "Start":"Inicio",
             "Type":"Tipo",
             "Value":"Valor",
@@ -194,9 +194,10 @@ class SetupLib(BaseLib):
             values = recon[tag_ds][i]
             self.validate_tag(values, "Side")
             self.validate_tag(values, "Name")
+            self.validate_tag(values, "Type")
+            self.validate_tag(values, "Delimiter")
             self.validate_tag(values, "Path", False)
             self.validate_tag(values, "File")
-            self.validate_tag(values, "Separator")
             self.validate_tag(values, "Start")
             datasource_name = self.tag_value(values, "Name")
             """ validate fields """

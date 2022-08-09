@@ -9,6 +9,12 @@ pip install -r requirements.txt
 python -m unittest discover -stest -v -b
 
 # recon calls
-python main.py --f "test datatype (pt-br)"
-python main.py --f "en-us"
-python main.py --f "volume 10k"
+python main.py --f "test (10k)" --rs
+python main.py --f "test aggregation (pt-br)" --rs
+python main.py --f "test aggregation (en-us)" --rs
+
+python main.py --f "test datatype (pt-br)" --rs
+python main.py --f "test datatype (en-us)" --rs
+
+python main.py --f "test operator (pt-br)" --rs
+python main.py --f "test operator (en-us)" --rs

@@ -55,12 +55,12 @@ class SetupLibTest(unittest.TestCase):
             
     def validate_datasource(self, language):        
         if language == "en-us":
-            fields_ds = ["Side", "Name", "File", "Separator", "Start", "Fields"]
+            fields_ds = ["Side", "Name", "Type", "Delimiter", "File", "Start", "Fields"]
             fields_fd = ["Id", "Name", "Type"]
             session_ds = "Datasources"
             session_fd = "Fields"
         else:
-            fields_ds = ["Lado", "Nome", "Arquivo", "Separador", "Inicio", "Campos"]
+            fields_ds = ["Lado", "Nome", "Tipo", "Delimitador", "Arquivo", "Inicio", "Campos"]
             fields_fd = ["Id", "Nome", "Tipo"]
             session_ds = "Dados"
             session_fd = "Campos"
