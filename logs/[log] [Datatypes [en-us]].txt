@@ -1,373 +1,373 @@
-2022-08-09 08:58:53 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:53 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
-2022-08-09 08:58:53 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:53 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Decimal']
-2022-08-09 08:58:53 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:53 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:53 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:53 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:53 INFO ReconLib.process: Processing rule: Rule 1
-2022-08-09 08:58:53 INFO ReconLib.prepare: Fiekd Key: ['[Field 1]', '[Field 2]']
-2022-08-09 08:58:53 INFO ReconLib.prepare: Fiekd Compare: ['[Field 3]', '[Field 4]']
-2022-08-09 08:58:53 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:53 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:53 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
-2022-08-09 08:58:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
-2022-08-09 08:58:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
-2022-08-09 08:58:53 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
-2022-08-09 08:58:53 INFO ReconLib.stamp_tmp: Fields with difference: ['[Field 3 (Diferença)]', '[Field 4 (Diferença)]']
-2022-08-09 08:58:54 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:54 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:54 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:54 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:54 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:54 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:54 INFO AreaLib.merge_datasources: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']
-2022-08-09 08:58:54 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:54 INFO AreaLib.create_recon_area: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Integer', 'Text', 'Text', 'Decimal']
-2022-08-09 08:58:54 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:54 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:54 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:54 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:54 INFO ReconLib.process: Processing rule: Regra 1
-2022-08-09 08:58:54 INFO ReconLib.prepare: Fiekd Key: ['[Campo 1]', '[Campo 2]']
-2022-08-09 08:58:54 INFO ReconLib.prepare: Fiekd Compare: ['[Campo 3]', '[Campo 4]']
-2022-08-09 08:58:54 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:54 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:54 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Fields with difference: ['[Campo 3 (Diferença)]', '[Campo 4 (Diferença)]']
-2022-08-09 08:58:54 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:54 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:54 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:54 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:54 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:54 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:54 INFO AreaLib.merge_datasources: ['Code', 'Sum', 'Max', 'Min', 'Avg']['Code', 'Sum', 'Max', 'Min', 'Avg']
-2022-08-09 08:58:54 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:54 INFO AreaLib.create_recon_area: ['Code', 'Sum', 'Max', 'Min', 'Avg']['Integer', 'Integer', 'Integer', 'Integer', 'Integer']
-2022-08-09 08:58:54 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:54 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:54 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:54 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:54 INFO ReconLib.process: Processing rule: Rule 1
-2022-08-09 08:58:54 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
-2022-08-09 08:58:54 INFO ReconLib.prepare: Fiekd Compare: ['[Sum]', '[Max]', '[Min]', '[Avg]']
-2022-08-09 08:58:54 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:54 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:54 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sum (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sum (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Max (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Max (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Min (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Min (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Avg (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Avg (Diferença)]
-2022-08-09 08:58:54 INFO ReconLib.stamp_tmp: Fields with difference: ['[Sum (Diferença)]', '[Max (Diferença)]', '[Min (Diferença)]', '[Avg (Diferença)]']
-2022-08-09 08:58:54 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:54 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:54 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:54 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:54 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:54 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:54 INFO AreaLib.merge_datasources: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']
-2022-08-09 08:58:55 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:55 INFO AreaLib.create_recon_area: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Integer', 'Decimal', 'Decimal', 'Decimal', 'Decimal']
-2022-08-09 08:58:55 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:55 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:55 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:55 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:55 INFO ReconLib.process: Processing rule: Regra 1
-2022-08-09 08:58:55 INFO ReconLib.prepare: Fiekd Key: ['[Código]']
-2022-08-09 08:58:55 INFO ReconLib.prepare: Fiekd Compare: ['[Somatória]', '[Máximo]', '[Mínimo]', '[Média]']
-2022-08-09 08:58:55 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:55 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:55 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Máximo (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Máximo (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Mínimo (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Mínimo (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Média (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Média (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Fields with difference: ['[Somatória (Diferença)]', '[Máximo (Diferença)]', '[Mínimo (Diferença)]', '[Média (Diferença)]']
-2022-08-09 08:58:55 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:55 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:55 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:55 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:55 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:55 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:55 INFO AreaLib.merge_datasources: ['Code', 'Eq', 'Df', 'Gr', 'GrEq', 'Sm', 'SmEq']['Code', 'Eq', 'Df', 'Gr', 'GrEq', 'Sm', 'SmEq']
-2022-08-09 08:58:55 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:55 INFO AreaLib.create_recon_area: ['Code', 'Eq', 'Df', 'Gr', 'GrEq', 'Sm', 'SmEq']['Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer']
-2022-08-09 08:58:55 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:55 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:55 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:55 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:55 INFO ReconLib.process: Processing rule: Rule 1
-2022-08-09 08:58:55 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
-2022-08-09 08:58:55 INFO ReconLib.prepare: Fiekd Compare: ['[Eq]', '[Df]', '[Gr]', '[GrEq]', '[Sm]', '[SmEq]']
-2022-08-09 08:58:55 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:55 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:55 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Eq (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Eq (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Gr (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Gr (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [GrEq (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [GrEq (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sm (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sm (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [SmEq (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Stamping field (alter table): [SmEq (Diferença)]
-2022-08-09 08:58:55 INFO ReconLib.stamp_tmp: Fields with difference: ['[Eq (Diferença)]', '[Df (Diferença)]', '[Gr (Diferença)]', '[GrEq (Diferença)]', '[Sm (Diferença)]', '[SmEq (Diferença)]']
-2022-08-09 08:58:55 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:56 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:56 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:56 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:56 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:56 INFO AreaLib.merge_datasources: ['Code', 'Ig', 'Df', 'Ma', 'MaI', 'Me', 'MeI']['Code', 'Ig', 'Df', 'Ma', 'MaI', 'Me', 'MeI']
-2022-08-09 08:58:56 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:56 INFO AreaLib.create_recon_area: ['Code', 'Ig', 'Df', 'Ma', 'MaI', 'Me', 'MeI']['Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer']
-2022-08-09 08:58:56 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:56 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:56 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:56 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:56 INFO ReconLib.process: Processing rule: Regra 1
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Compare: ['[Ig]', '[Df]', '[Ma]', '[MaI]', '[Me]', '[MeI]']
-2022-08-09 08:58:56 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:56 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:56 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ig (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ig (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ma (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ma (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MaI (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MaI (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Me (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Me (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MeI (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MeI (Diferença)]
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Fields with difference: ['[Ig (Diferença)]', '[Df (Diferença)]', '[Ma (Diferença)]', '[MaI (Diferença)]', '[Me (Diferença)]', '[MeI (Diferença)]']
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:56 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:56 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:56 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:56 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-09 08:58:56 INFO AreaLib.merge_datasources: ['Chave 1', 'Chave 2', 'Chave 3']['Chave 1', 'Chave 2', 'Chave 3']
-2022-08-09 08:58:56 INFO AreaLib.create_recon_area: Area created:
-2022-08-09 08:58:56 INFO AreaLib.create_recon_area: ['Chave 1', 'Chave 2', 'Chave 3']['Integer', 'Integer', 'Integer']
-2022-08-09 08:58:56 INFO CoreLib.process: Area OK, ready to import files
-2022-08-09 08:58:56 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:56 INFO EtlLib.import_file: File sucessfully imported
-2022-08-09 08:58:56 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-09 08:58:56 INFO ReconLib.process: Processing rule: Regra 1
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]']
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Compare: []
-2022-08-09 08:58:56 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:56 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:56 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Fields with difference: []
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:56 INFO ReconLib.process: Processing rule: Regra 2
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]']
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Compare: []
-2022-08-09 08:58:56 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:56 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:56 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:56 INFO ReconLib.stamp_tmp: Fields with difference: []
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:56 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:56 INFO ReconLib.process: Processing rule: Regra 3
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]', '[Chave 1]']
-2022-08-09 08:58:56 INFO ReconLib.prepare: Fiekd Compare: []
-2022-08-09 08:58:57 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-09 08:58:57 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-09 08:58:57 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-09 08:58:57 INFO ReconLib.stamp_tmp: Fields with difference: []
-2022-08-09 08:58:57 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-09 08:58:57 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-09 08:58:57 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-09 08:58:57 INFO CoreLib.process: Reports OK, ready to commit the process
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Description/Descrição não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Description/Descrição não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Description é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Description é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Side/Lado não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Side/Lado não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Side é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Side é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo File/Arquivo não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo File/Arquivo não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo File é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo File é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Separator/Separador não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Separator/Separador não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Separator é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Separator é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Start/Inicio não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Start/Inicio não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Start é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Start é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Type é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Type é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Rule/Regra não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Rule/Regra não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Rule é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Rule é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Type é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Type é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Description/Descrição não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Description/Descrição não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Descrição é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Descrição é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Side/Lado não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Side/Lado não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Lado é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Lado é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo File/Arquivo não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo File/Arquivo não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Arquivo é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Arquivo é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Separator/Separador não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Separator/Separador não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Separador é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Separador é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Start/Inicio não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Start/Inicio não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Inicio é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Inicio é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Tipo é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Tipo é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Rule/Regra não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Rule/Regra não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Regra é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Regra é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Tipo é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Tipo é obrigatório
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
-2022-08-09 08:58:57 INFO CoreLib.process: Debug mode: True
-2022-08-09 08:58:57 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
-2022-08-09 08:58:57 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:44 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:44 INFO AreaLib.merge_datasources: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Field 1', 'Field 2', 'Field 3', 'Field 4']
+2022-08-09 09:11:44 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:44 INFO AreaLib.create_recon_area: ['Field 1', 'Field 2', 'Field 3', 'Field 4']['Integer', 'Text', 'Text', 'Decimal']
+2022-08-09 09:11:44 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:44 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:44 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:44 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:44 INFO ReconLib.process: Processing rule: Rule 1
+2022-08-09 09:11:44 INFO ReconLib.prepare: Fiekd Key: ['[Field 1]', '[Field 2]']
+2022-08-09 09:11:44 INFO ReconLib.prepare: Fiekd Compare: ['[Field 3]', '[Field 4]']
+2022-08-09 09:11:44 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:44 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:44 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 3 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Field 4 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Fields with difference: ['[Field 3 (Diferença)]', '[Field 4 (Diferença)]']
+2022-08-09 09:11:44 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:44 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:44 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:44 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:44 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:44 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:44 INFO AreaLib.merge_datasources: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']
+2022-08-09 09:11:44 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:44 INFO AreaLib.create_recon_area: ['Campo 1', 'Campo 2', 'Campo 3', 'Campo 4']['Integer', 'Text', 'Text', 'Decimal']
+2022-08-09 09:11:44 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:44 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:44 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:44 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:44 INFO ReconLib.process: Processing rule: Regra 1
+2022-08-09 09:11:44 INFO ReconLib.prepare: Fiekd Key: ['[Campo 1]', '[Campo 2]']
+2022-08-09 09:11:44 INFO ReconLib.prepare: Fiekd Compare: ['[Campo 3]', '[Campo 4]']
+2022-08-09 09:11:44 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:44 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:44 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 3 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Campo 4 (Diferença)]
+2022-08-09 09:11:44 INFO ReconLib.stamp_tmp: Fields with difference: ['[Campo 3 (Diferença)]', '[Campo 4 (Diferença)]']
+2022-08-09 09:11:44 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:45 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:45 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:45 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:45 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:45 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:45 INFO AreaLib.merge_datasources: ['Code', 'Sum', 'Max', 'Min', 'Avg']['Code', 'Sum', 'Max', 'Min', 'Avg']
+2022-08-09 09:11:45 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:45 INFO AreaLib.create_recon_area: ['Code', 'Sum', 'Max', 'Min', 'Avg']['Integer', 'Integer', 'Integer', 'Integer', 'Integer']
+2022-08-09 09:11:45 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:45 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:45 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:45 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:45 INFO ReconLib.process: Processing rule: Rule 1
+2022-08-09 09:11:45 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
+2022-08-09 09:11:45 INFO ReconLib.prepare: Fiekd Compare: ['[Sum]', '[Max]', '[Min]', '[Avg]']
+2022-08-09 09:11:45 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:45 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:45 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sum (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sum (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Max (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Max (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Min (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Min (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Avg (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Avg (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Fields with difference: ['[Sum (Diferença)]', '[Max (Diferença)]', '[Min (Diferença)]', '[Avg (Diferença)]']
+2022-08-09 09:11:45 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:45 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:45 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:45 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:45 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:45 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:45 INFO AreaLib.merge_datasources: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']
+2022-08-09 09:11:45 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:45 INFO AreaLib.create_recon_area: ['Código', 'Somatória', 'Máximo', 'Mínimo', 'Média']['Integer', 'Decimal', 'Decimal', 'Decimal', 'Decimal']
+2022-08-09 09:11:45 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:45 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:45 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:45 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:45 INFO ReconLib.process: Processing rule: Regra 1
+2022-08-09 09:11:45 INFO ReconLib.prepare: Fiekd Key: ['[Código]']
+2022-08-09 09:11:45 INFO ReconLib.prepare: Fiekd Compare: ['[Somatória]', '[Máximo]', '[Mínimo]', '[Média]']
+2022-08-09 09:11:45 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:45 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:45 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Somatória (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Máximo (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Máximo (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Mínimo (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Mínimo (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Média (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Média (Diferença)]
+2022-08-09 09:11:45 INFO ReconLib.stamp_tmp: Fields with difference: ['[Somatória (Diferença)]', '[Máximo (Diferença)]', '[Mínimo (Diferença)]', '[Média (Diferença)]']
+2022-08-09 09:11:45 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:46 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:46 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:46 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:46 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:46 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:46 INFO AreaLib.merge_datasources: ['Code', 'Eq', 'Df', 'Gr', 'GrEq', 'Sm', 'SmEq']['Code', 'Eq', 'Df', 'Gr', 'GrEq', 'Sm', 'SmEq']
+2022-08-09 09:11:46 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:46 INFO AreaLib.create_recon_area: ['Code', 'Eq', 'Df', 'Gr', 'GrEq', 'Sm', 'SmEq']['Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer']
+2022-08-09 09:11:46 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:46 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:46 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:46 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:46 INFO ReconLib.process: Processing rule: Rule 1
+2022-08-09 09:11:46 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
+2022-08-09 09:11:46 INFO ReconLib.prepare: Fiekd Compare: ['[Eq]', '[Df]', '[Gr]', '[GrEq]', '[Sm]', '[SmEq]']
+2022-08-09 09:11:46 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:46 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:46 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Eq (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Eq (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Gr (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Gr (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [GrEq (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [GrEq (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sm (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Sm (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [SmEq (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [SmEq (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Fields with difference: ['[Eq (Diferença)]', '[Df (Diferença)]', '[Gr (Diferença)]', '[GrEq (Diferença)]', '[Sm (Diferença)]', '[SmEq (Diferença)]']
+2022-08-09 09:11:46 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:46 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:46 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:46 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:46 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:46 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:46 INFO AreaLib.merge_datasources: ['Code', 'Ig', 'Df', 'Ma', 'MaI', 'Me', 'MeI']['Code', 'Ig', 'Df', 'Ma', 'MaI', 'Me', 'MeI']
+2022-08-09 09:11:46 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:46 INFO AreaLib.create_recon_area: ['Code', 'Ig', 'Df', 'Ma', 'MaI', 'Me', 'MeI']['Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer', 'Integer']
+2022-08-09 09:11:46 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:46 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:46 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:46 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:46 INFO ReconLib.process: Processing rule: Regra 1
+2022-08-09 09:11:46 INFO ReconLib.prepare: Fiekd Key: ['[Code]']
+2022-08-09 09:11:46 INFO ReconLib.prepare: Fiekd Compare: ['[Ig]', '[Df]', '[Ma]', '[MaI]', '[Me]', '[MeI]']
+2022-08-09 09:11:46 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:46 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:46 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ig (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ig (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
+2022-08-09 09:11:46 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Df (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ma (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Ma (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MaI (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MaI (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Me (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Me (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MeI (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Stamping field (alter table): [MeI (Diferença)]
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Fields with difference: ['[Ig (Diferença)]', '[Df (Diferença)]', '[Ma (Diferença)]', '[MaI (Diferença)]', '[Me (Diferença)]', '[MeI (Diferença)]']
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:47 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:47 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-09 09:11:47 INFO AreaLib.merge_datasources: ['Chave 1', 'Chave 2', 'Chave 3']['Chave 1', 'Chave 2', 'Chave 3']
+2022-08-09 09:11:47 INFO AreaLib.create_recon_area: Area created:
+2022-08-09 09:11:47 INFO AreaLib.create_recon_area: ['Chave 1', 'Chave 2', 'Chave 3']['Integer', 'Integer', 'Integer']
+2022-08-09 09:11:47 INFO CoreLib.process: Area OK, ready to import files
+2022-08-09 09:11:47 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:47 INFO EtlLib.import_file: File sucessfully imported
+2022-08-09 09:11:47 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-09 09:11:47 INFO ReconLib.process: Processing rule: Regra 1
+2022-08-09 09:11:47 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]']
+2022-08-09 09:11:47 INFO ReconLib.prepare: Fiekd Compare: []
+2022-08-09 09:11:47 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:47 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:47 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Fields with difference: []
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:47 INFO ReconLib.process: Processing rule: Regra 2
+2022-08-09 09:11:47 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]']
+2022-08-09 09:11:47 INFO ReconLib.prepare: Fiekd Compare: []
+2022-08-09 09:11:47 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:47 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:47 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Fields with difference: []
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:47 INFO ReconLib.process: Processing rule: Regra 3
+2022-08-09 09:11:47 INFO ReconLib.prepare: Fiekd Key: ['[Chave 1]', '[Chave 2]', '[Chave 3]', '[Chave 1]', '[Chave 2]', '[Chave 1]']
+2022-08-09 09:11:47 INFO ReconLib.prepare: Fiekd Compare: []
+2022-08-09 09:11:47 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-09 09:11:47 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-09 09:11:47 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-09 09:11:47 INFO ReconLib.stamp_tmp: Fields with difference: []
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-09 09:11:47 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-09 09:11:47 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-09 09:11:47 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Description é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Description é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Side é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Side é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo File é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo File é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Separator é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Separator é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Start é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Start é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:47 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:47 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:47 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Type é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Type é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Rule é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Rule é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Type é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Type é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Name é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Description/Descrição não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Descrição é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Descrição é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Side/Lado não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Lado é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Lado é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo File/Arquivo não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Arquivo é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Arquivo é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Separator/Separador não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Separador é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Separador é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Start/Inicio não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Inicio é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Inicio é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Id/Id não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Id é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Tipo é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Tipo é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Rule/Regra não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Regra é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Regra é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Type/Tipo não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Tipo é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Tipo é obrigatório
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Name/Nome não encontrado na configuração
+2022-08-09 09:11:48 INFO CoreLib.process: Debug mode: True
+2022-08-09 09:11:48 ERROR Setuplib.validate: Erro de validação -> Campo Nome é obrigatório
+2022-08-09 09:11:48 ERROR CoreLib.process: Erro de validação -> Campo Nome é obrigatório

@@ -37,7 +37,6 @@ class EtlLib(BaseLib):
             rows_affected = dblib.execute(cn, sql)
         except Error as err:
             pass                        
-            error_count += 1                                                   
             loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")    
     
     def get_path(self, ds):
@@ -68,48 +67,40 @@ class EtlLib(BaseLib):
 
     def import_file(self, cn, ds):
         loglib = LogLib("EtlLib", "import_file")
+        
+        row = 0        
         sql = ""
-        field_value=""
-        side = setuplib.tag_value(ds, "Side")       
+        field_value = ""
+        
+        side = setuplib.tag_value(ds, "Side")
         fields = setuplib.tag_value(ds, "Fields")
         separator = setuplib.tag_value(ds, "Separator")
-        start = int(setuplib.tag_value(ds, "Start"))
-        
+        start = int(setuplib.tag_value(ds, "Start"))        
         tb = f"tb{self.id}{side}"
         fl = sqlib.get_field_list(fields)        
-        
         path, filename = self.get_path(ds)
-        first = True
-        error_count = 0
-        rows_affected = 0
-        rows_imported = 0
-        row = 0
-
-        count = self.count(path)
+        count = self.count(path)       
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
         msg = msglib.set_time(msg)
+        
         progress_bar = ShadyBar(msg, max=count-1)
-
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
                     values = line.split(separator)
-
                     for field in fields:
                         position = int(field["Id"]) -1
                         field_value = str(values[position]).strip()
                         field_value = self.empty_value(field, field_value)
                         field_value = self.default_value(field, field_value)
                         field["Value"] = field_value
-
                     vl = sqlib.get_value_list(fields)
-                    sql = sqlib.get_sql_insert(tb, fl, vl)
-                    self.persist(cn, sql)
-                    rows_imported += 1
+                    sql = sqlib.get_sql_insert(tb, fl, vl)                    
+                    self.persist(cn, sql)                    
                     progress_bar.next()
-
         progress_bar.finish()
+
         loglib.log(loglib.INFO, f"File sucessfully imported")
 
     def process(self, cn, recon):
