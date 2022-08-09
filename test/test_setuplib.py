@@ -20,10 +20,8 @@ utillib = UtilLib()
 
 class SetupLibTest(unittest.TestCase):
        
-    def open_recon(self, language):
-        recon_en = "test datatype (en-us)"
-        recon_pt = "test datatype (pt-br)"        
-        filename = recon_en if language == "en-us" else recon_pt
+    def open_recon(self):
+        filename = "test_basic.cfg"
         path = fslib.get_path_config(filename)
         recon = setuplib.open_recon(path)
         return recon
@@ -36,83 +34,86 @@ class SetupLibTest(unittest.TestCase):
     def assert_validate_msg(self, recon, field=""):
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, False)
-        br = msglib.get("E4", [field], "en-us") + " " + msglib.get("V2", [field], "en-us")
-        us = msglib.get("E4", [field], "pt-br") + " " + msglib.get("V2", [field], "pt-br")
+        us = msglib.get("E4", [field], "en-us") + " " + msglib.get("V2", [field], "en-us")
+        br = msglib.get("E4", [field], "pt-br") + " " + msglib.get("V2", [field], "pt-br")
         self.assertEqual(message in [us, br], True)
 
-    def validate_header(self, language):
-        if language == "en-us":
-            fields = ["Id", "Name", "Description"]
-        else:
-            fields = ["Id", "Nome", "Descrição"]
+    def validate_header(self):
+        fields = ["Id", "Name", "Description"]
         for field in fields:            
-            recon = self.open_recon(language)
-            del recon[field]
-            self.assert_validate_tag(recon)            
-            recon = self.open_recon(language)
-            recon[field] = ""
-            self.assert_validate_msg(recon, field)
-            
-    def validate_datasource(self, language):        
-        if language == "en-us":
-            fields_ds = ["Side", "Name", "Type", "Delimiter", "File", "Start", "Fields"]
-            fields_fd = ["Id", "Name", "Type"]
-            session_ds = "Datasources"
-            session_fd = "Fields"
-        else:
-            fields_ds = ["Lado", "Nome", "Tipo", "Delimitador", "Arquivo", "Inicio", "Campos"]
-            fields_fd = ["Id", "Nome", "Tipo"]
-            session_ds = "Dados"
-            session_fd = "Campos"
+            recon = self.open_recon()
+            tagname = setuplib.tag_name(recon, field)
+            del recon[tagname]
+            self.assert_validate_tag(recon)
+            recon = self.open_recon()
+            tagname = setuplib.tag_name(recon, field)
+            recon[tagname] = ""
+            self.assert_validate_msg(recon, tagname)
+
+    def validate_datasource(self):        
+        fields_ds = ["Side", "Name", "Type", "Delimiter", "File", "Start", "Fields"]
+        fields_fd = ["Id", "Name", "Type"]
         for field in fields_ds:
-            if field != session_fd:
-                recon = self.open_recon(language)
-                del recon[session_ds][0][field]
+            if field != "Fields":
+                recon = self.open_recon()
+                tag_ds = setuplib.tag_name(recon, "Datasources")
+                tag_field = setuplib.tag_name(recon[tag_ds][0], field)
+                del recon[tag_ds][0][tag_field]
                 self.assert_validate_tag(recon)
-                recon = self.open_recon(language)
-                recon[session_ds][0][field] = ""
-                self.assert_validate_msg(recon, field)
+                recon = self.open_recon()
+                tag_ds = setuplib.tag_name(recon, "Datasources")
+                tag_field = setuplib.tag_name(recon[tag_ds][0], field)
+                recon[tag_ds][0][tag_field] = ""
+                self.assert_validate_msg(recon, tag_field)
             else:
                 for field in fields_fd:
-                    recon = self.open_recon(language)
-                    del recon[session_ds][0][session_fd][0][field]
-                    self.assert_validate_tag(recon)
-                    recon = self.open_recon(language)
-                    recon[session_ds][0][session_fd][0][field] = ""
-                    self.assert_validate_msg(recon, field)
+                    recon = self.open_recon()                    
+                    tag_ds = setuplib.tag_name(recon, "Datasources")
+                    tag_fd = setuplib.tag_name(recon[tag_ds][0], "Fields")
+                    tag_field = setuplib.tag_name(recon[tag_ds][0][tag_fd][0], field)                    
+                    del recon[tag_ds][0][tag_fd][0][tag_field]
+                    self.assert_validate_tag(recon)                    
+                    recon = self.open_recon()                    
+                    tag_ds = setuplib.tag_name(recon, "Datasources")
+                    tag_fd = setuplib.tag_name(recon[tag_ds][0], "Fields")
+                    tag_field = setuplib.tag_name(recon[tag_ds][0][tag_fd][0], field)                    
+                    recon[tag_ds][0][tag_fd][0][tag_field] = ""
+                    self.assert_validate_msg(recon, tag_field)
                     
-    def validate_recon(self, language):
-        if language == "en-us":
-            fields_rc = ["Rule", "Fields"]
-            fields_fd = ["Type", "Name"]
-            session_rc = "Recon"
-            session_fd = "Fields"
-        else:
-            fields_rc = ["Regra", "Campos"]
-            fields_fd = ["Tipo", "Nome"]
-            session_rc = "Conciliação"
-            session_fd = "Campos"
+    def validate_recon(self):        
+        fields_rc = ["Rule", "Fields"]
+        fields_fd = ["Type", "Name"]
         for field in fields_rc:
-            if field != session_fd:
-                recon = self.open_recon(language)
-                del recon[session_rc][0][field]
+            if field != "Fields":               
+                recon = self.open_recon()
+                tag_rc = setuplib.tag_name(recon, "Recon")
+                tag_field = setuplib.tag_name(recon[tag_rc][0], field)
+                del recon[tag_rc][0][tag_field]
                 self.assert_validate_tag(recon)
-                recon = self.open_recon(language)
-                recon[session_rc][0][field] = ""
-                self.assert_validate_msg(recon, field)
+                recon = self.open_recon()
+                tag_rc = setuplib.tag_name(recon, "Recon")
+                tag_field = setuplib.tag_name(recon[tag_rc][0], field)
+                recon[tag_rc][0][tag_field] = ""
+                self.assert_validate_msg(recon, tag_field)
             else:
                 for field in fields_fd:
-                    recon = self.open_recon(language)
-                    del recon[session_rc][0][session_fd][0][field]
-                    self.assert_validate_tag(recon)
-                    recon = self.open_recon(language)
-                    recon[session_rc][0][session_fd][0][field] = ""
-                    self.assert_validate_msg(recon, field)    
+                    recon = self.open_recon()
+                    tag_rc = setuplib.tag_name(recon, "Recon")
+                    tag_fd = setuplib.tag_name(recon[tag_rc][0], "Fields")
+                    tag_field = setuplib.tag_name(recon[tag_rc][0][tag_fd][0], field)
+                    del recon[tag_rc][0][tag_fd][0][tag_field]
+                    self.assert_validate_tag(recon)                    
+                    recon = self.open_recon()
+                    tag_rc = setuplib.tag_name(recon, "Recon")
+                    tag_fd = setuplib.tag_name(recon[tag_rc][0], "Fields")
+                    tag_field = setuplib.tag_name(recon[tag_rc][0][tag_fd][0], field)
+                    recon[tag_rc][0][tag_fd][0][tag_field] = ""
+                    self.assert_validate_msg(recon, tag_field)
                     
     def open_bad_recon(self):
         message = ""
         try:
-            filename = "test [bad json].cfg"
+            filename = "test_bad_json"
             path = fslib.get_path_config(filename)
             recon = setuplib.open_recon(path)
         except BaseException as err:
@@ -125,17 +126,15 @@ class SetupLibTest(unittest.TestCase):
     def tearDown(self):
         pass
 
-
     """ Malformed configuration file """
     def bad_configuration(self):       
         self.open_bad_recon()
 
     """ Tag names and mandatory fields """
     def validation(self):       
-        for language in ["en-us", "pt-br"]:
-            self.validate_header(language)
-            self.validate_datasource(language)
-            self.validate_recon(language)
+        self.validate_header()
+        self.validate_datasource()
+        self.validate_recon()
 
     """ Trigger all tests """
     def test_run(self):

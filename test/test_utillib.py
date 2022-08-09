@@ -2,7 +2,6 @@ import os
 import sys
 import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
-
 from src.utillib import UtilLib
 
 class UtilLibTest(unittest.TestCase):

@@ -43,47 +43,41 @@ class CoreLibTest(unittest.TestCase):
     
     """ Test basic recon status [Matched, Divergent and Orphan] """
     def recon_status(self):
-        en = "test datatype (en-us)"
-        pt = "test datatype (pt-br)"
-        for recon in [ en, pt ]:
-            status, message, reports = corelib.process(recon)
-            self.assertEqual(status, True)
-            self.assertEqual(message, "")
-            self.assertEqual(len(reports), 2)
-            data = fslib.get_csv_as_list(reports[0])
-            self.check_synthetic(1, data, 1, 1, 1)
-            self.check_synthetic(2, data, 2, 1, 1)
+        recon = "test_basic.cfg"
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, True)
+        self.assertEqual(message, "")
+        self.assertEqual(len(reports), 2)
+        data = fslib.get_csv_as_list(reports[0])
+        self.check_synthetic(1, data, 1, 1, 1)
+        self.check_synthetic(2, data, 2, 1, 1)
         
     """ Test aggregate function [Sum, Max, Min, Avg] """ 
     def recon_aggregation(self):        
-        en = "test aggregation (en-us)"
-        pt = "test aggregation (pt-br)"
-        for recon in [ en, pt ]:
-            status, message, reports = corelib.process(recon)
-            self.assertEqual(status, True)
-            self.assertEqual(message, "")
-            self.assertEqual(len(reports), 2)
-            data = fslib.get_csv_as_list(reports[0])
-            self.check_synthetic(1, data, 4, 1, 1)
-            self.check_synthetic(2, data, 2, 1, 1)
+        recon = "test_aggreg.cfg"
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, True)
+        self.assertEqual(message, "")
+        self.assertEqual(len(reports), 2)
+        data = fslib.get_csv_as_list(reports[0])
+        self.check_synthetic(1, data, 4, 1, 1)
+        self.check_synthetic(2, data, 2, 1, 1)
             
     """ Test operators on compare [=, !=, >, >=, <, <=] """ 
     def recon_operators(self):        
-        en = "test operator (en-us)"
-        pt = "test operator (pt-br)"
-        for recon in [ en, pt ]:
-            status, message, reports = corelib.process(recon)
-            self.assertEqual(status, True)
-            self.assertEqual(message, "")
-            self.assertEqual(len(reports), 2)
-            data = fslib.get_csv_as_list(reports[0])
-            self.check_synthetic(1, data, 1, 1, 1)
-            self.check_synthetic(2, data, 1, 1, 1)
+        recon = "test_operator.cfg"
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, True)
+        self.assertEqual(message, "")
+        self.assertEqual(len(reports), 2)
+        data = fslib.get_csv_as_list(reports[0])
+        self.check_synthetic(1, data, 1, 1, 1)
+        self.check_synthetic(2, data, 1, 1, 1)
             
     """ Test operators on compare [=, !=, >, >=, <, <=] """ 
     def recon_multiple_rules(self):
-        en = "test multiple rules"
-        status, message, reports = corelib.process(en)
+        recon = "test_rules.cfg"
+        status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
         self.assertEqual(message, "")
         self.assertEqual(len(reports), 2)
@@ -93,7 +87,7 @@ class CoreLibTest(unittest.TestCase):
 
     """ Trigger all tests """
     def test_run(self):
-        utillib.cls()        
+        utillib.cls()
         self.recon_status()
         self.recon_aggregation()
         self.recon_operators()

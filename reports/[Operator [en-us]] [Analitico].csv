@@ -1,7 +1,0 @@
-Id;Lado;Conciliação;Regra;Status;Code;Eq;Df;Gr;GrEq;Sm;SmEq;Eq (Diferença);Df (Diferença);Gr (Diferença);GrEq (Diferença);Sm (Diferença);SmEq (Diferença)
-1;1;Operator [en-us];Rule 1;Batido;1;2;2;5;5;4;5;;;;;;
-2;1;Operator [en-us];Rule 1;Divergente;2;2;2;4;3;4;8;2/3;2/2;4/4;3/4;4/4;8/5
-3;1;;;Órfão;3;0;0;0;0;0;0;;;;;;
-1;2;Operator [en-us];Rule 1;Batido;1;2;3;4;5;5;5;;;;;;
-2;2;Operator [en-us];Rule 1;Divergente;2;3;2;4;4;4;5;2/3;2/2;4/4;3/4;4/4;8/5
-3;2;;;Órfão;4;0;0;0;0;0;0;;;;;;

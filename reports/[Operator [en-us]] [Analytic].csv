@@ -1,3 +1,0 @@
-Id;Side;Recon;Rule;Status;Code;Eq;Df;Gr;GrEq;Sm;SmEq;Eq (Difference);Df (Difference);Gr (Difference);GrEq (Difference);Sm (Difference);SmEq (Difference)
-1;1;Operator [en-us];Rule 1;Divergent;1;2;2;4;3;4;8;2/3;2/2;4/4;3/4;4/4;8/5
-1;2;Operator [en-us];Rule 1;Divergent;1;3;2;4;4;4;5;2/3;2/2;4/4;3/4;4/4;8/5
