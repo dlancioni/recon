@@ -7,5 +7,6 @@ progress
 termcolor
 pconst
 click
+pendulum
 
 ###### Requirements with Version Specifiers ######
