@@ -101,7 +101,8 @@ class ReportLib(BaseLib):
                 line = ""            
                 for i in range(0, total):
                     if i != col_id_status:
-                        line += str(row[i]) + ";"
+                        info = "" if str(row[i]) == "None" else str(row[i])
+                        line += info + ";"
                 line = line[:-1]
                 line += "\n"
                 f.write(line)
