@@ -1,7 +1,8 @@
 Pendente
 
-2) Validar se os campos definidos na sessao recon existem no mapeamento dos arquivos (caso data mov x data)
-
+1) apos etl, tratar se as tabelas estao vazias
+2) tratar decimal com virgula. Se valor tiver , e mascara nao apontar
+3) Validar se os campos definidos na sessao recon existem no mapeamento dos arquivos (caso data mov x data)
 
 Pendente teste automatico
 1) validar se lado 1 e lado 2 estao importando mesmo arquivo

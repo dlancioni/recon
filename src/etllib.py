@@ -33,11 +33,12 @@ class EtlLib(BaseLib):
         return lines
     
     def persist(self, cn, sql):
+        loglib = LogLib("EtlLib", "persist")
         try:
             rows_affected = dblib.execute(cn, sql)
         except Error as err:
             pass                        
-            loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")    
+            loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")
     
     def get_path(self, ds):
         if setuplib.tag_value(ds, "Path", False) == "":
