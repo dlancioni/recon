@@ -97,22 +97,19 @@ class EtlLib(BaseLib):
                     progress_bar.next()
         progress_bar.finish()
 
-    def import_data(self, cn, datasource):
-        loglib = LogLib("EtlLib", "import_file")
-        type = setuplib.tag_value(datasource, "Type")
-        side = setuplib.tag_value(datasource, "Side")
-        self.table_name = f"tb{self.id}{side}"
-        self.fields = setuplib.tag_value(datasource, "Fields")
-        if type in ["Delimited", "Delimitado"]:
-            self.import_text_file(cn, datasource)
-        loglib.log(loglib.INFO, f"File sucessfully imported")
-
     def process(self, cn, recon):
         loglib = LogLib("EtlLib", "process")
         try:
             datasources = setuplib.tag_value(recon, "Datasources")
             for datasource in datasources:
-                self.import_data(cn, datasource)
+                type = setuplib.tag_value(datasource, "Type")
+                side = setuplib.tag_value(datasource, "Side")
+                self.table_name = f"tb{self.id}{side}"
+                self.fields = setuplib.tag_value(datasource, "Fields")
+                if type in ["Delimited", "Delimitado"]:
+                    self.import_text_file(cn, datasource)
+                loglib.log(loglib.INFO, f"File sucessfully imported")
+
         except Error as err:
             cat = msglib.get("E1")
             msg = f"{cat} {str(err)}"
