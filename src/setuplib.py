@@ -33,6 +33,8 @@ class SetupLib(BaseLib):
             "Side":"Lado",
             "Path":"Caminho",
             "File":"Arquivo",
+            "Position":"Posição",
+            "Size":"Tamanho",            
             "Delimiter":"Delimitador",
             "Start":"Inicio",
             "Type":"Tipo",
@@ -44,8 +46,8 @@ class SetupLib(BaseLib):
             "Type":"Tipo",
             "Function":"Função",
             "Default Value":"Valor Padrão",
-            "Operator":"Operador",
-            "Position":"Posição"
+            "Operator":"Operador"
+
         }
         return tags
 
@@ -193,7 +195,8 @@ class SetupLib(BaseLib):
             self.validate_tag(values, "Side")
             self.validate_tag(values, "Name")
             self.validate_tag(values, "Type")
-            self.validate_tag(values, "Delimiter")
+            if self.tag_value(values, "Type") in ["Delimited", "Delimitado"]:
+                self.validate_tag(values, "Delimiter")
             self.validate_tag(values, "Path", False)
             self.validate_tag(values, "File")
             self.validate_tag(values, "Start")

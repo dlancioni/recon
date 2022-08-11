@@ -49,7 +49,7 @@ class EtlLib(BaseLib):
         else:
             path = setuplib.tag_value(datasource, "Path", False)
         if fslib.is_dir(path) == False:
-            raise Exception(msglib.get("V19", [path]))        
+            raise Exception(msglib.get("V19", [path]))
         filename = setuplib.tag_value(datasource, "File")
         path = fslib.join(path, filename)        
         if fslib.is_file(path) == False:
@@ -81,17 +81,23 @@ class EtlLib(BaseLib):
         count = self.count(path)
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
-        delimiter = setuplib.tag_value(datasource, "Delimiter")
+        delimiter = setuplib.tag_value(datasource, "Delimiter", False)
         progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)        
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
+                size = 0
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
-                    values = line.split(delimiter)
+                    values = line.split(delimiter) if delimiter != "" else line
                     for field in fields:
                         position = int(field[setuplib.tag_name(field, "Position")]) -1
-                        field_value = str(values[position]).strip()
-                        field["Value"] = self.format_data(field, field_value)
+                        tag_size = setuplib.tag_name(field, "Size", False)
+                        if tag_size != "":
+                            size = int(field[tag_size])
+                            field_value = values[position:position+size]
+                        else:    
+                            field_value = values[position]
+                        field["Value"] = self.format_data(field, field_value)                        
                     self.persist(cn, fields)
                     progress_bar.next()
         progress_bar.finish()
@@ -107,6 +113,10 @@ class EtlLib(BaseLib):
                 self.fields = setuplib.tag_value(datasource, "Fields")
                 if type in ["Delimited", "Delimitado"]:
                     self.import_text_file(cn, datasource)
+                elif type in ["Positional", "Posicional"]:
+                    self.import_text_file(cn, datasource)
+                else:
+                    raise Exception(msglib.get("V20", [type]))
                 loglib.log(loglib.INFO, f"File sucessfully imported")
 
         except Error as err:
