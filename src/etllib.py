@@ -76,16 +76,13 @@ class EtlLib(BaseLib):
     
     def import_text_file(self, cn, datasource):
         row = 0
-        sql = ""
         field_value = ""
-        start = int(setuplib.tag_value(datasource, "Start"))        
-        delimiter = setuplib.tag_value(datasource, "Delimiter")
-        fields = self.fields
         path, filename = self.get_path(datasource)
         count = self.count(path)
-        msg = msglib.get("M5", [filename])
-        msg = msglib.set_time(msg)
-        progress_bar = ShadyBar(msg, max=count-1)
+        fields = self.fields
+        start = int(setuplib.tag_value(datasource, "Start"))
+        delimiter = setuplib.tag_value(datasource, "Delimiter")
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)        
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 row += 1
@@ -96,21 +93,18 @@ class EtlLib(BaseLib):
                         position = int(field[tag_name]) -1
                         field_value = str(values[position]).strip()
                         field["Value"] = self.format_data(field, field_value)
-                    self.persist(cn, fields)                    
+                    self.persist(cn, fields)
                     progress_bar.next()
         progress_bar.finish()
 
     def import_data(self, cn, datasource):
         loglib = LogLib("EtlLib", "import_file")
-        
         type = setuplib.tag_value(datasource, "Type")
         side = setuplib.tag_value(datasource, "Side")
         self.table_name = f"tb{self.id}{side}"
         self.fields = setuplib.tag_value(datasource, "Fields")
-
         if type in ["Delimited", "Delimitado"]:
             self.import_text_file(cn, datasource)
-
         loglib.log(loglib.INFO, f"File sucessfully imported")
 
     def process(self, cn, recon):
