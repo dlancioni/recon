@@ -65,6 +65,11 @@ class EtlLib(BaseLib):
         if default_value.strip() != "":
             field_value = str(default_value)
         return field_value
+    
+    def format_data(self, field_def, field_value):
+        field_value = self.empty_value(field_def, field_value)
+        field_value = self.default_value(field_def, field_value)
+        return field_value
 
     def import_data(self, cn, ds):
         loglib = LogLib("EtlLib", "import_file")
@@ -79,11 +84,12 @@ class EtlLib(BaseLib):
         start = int(setuplib.tag_value(ds, "Start"))
         table_name = f"tb{self.id}{side}"
         path, filename = self.get_path(ds)
+        
+        
         count = self.count(path)
         msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
-        msg = msglib.set_time(msg)
+        msg = msglib.set_time(msg)        
         progress_bar = ShadyBar(msg, max=count-1)
-
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 row += 1
@@ -94,14 +100,12 @@ class EtlLib(BaseLib):
                         tag_name = setuplib.tag_name(field, "Position")
                         position = int(field[tag_name]) -1
                         field_value = str(values[position]).strip()
-                        field_value = self.empty_value(field, field_value)
-                        field_value = self.default_value(field, field_value)
-                        field["Value"] = field_value
+                        field["Value"] = self.format_data(field, field_value)                       
                     value_list = sqlib.get_value_list(fields)
                     sql = sqlib.get_sql_insert(table_name, field_list, value_list)
                     self.persist(cn, sql)
                     progress_bar.next()
-        progress_bar.finish()
+        progress_bar.finish()        
 
         loglib.log(loglib.INFO, f"File sucessfully imported")
 
