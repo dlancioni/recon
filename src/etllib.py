@@ -70,25 +70,14 @@ class EtlLib(BaseLib):
         field_value = self.empty_value(field_def, field_value)
         field_value = self.default_value(field_def, field_value)
         return field_value
-
-    def import_data(self, cn, ds):
-        loglib = LogLib("EtlLib", "import_file")
-        
+    
+    def import_delimited(self, cn, path, filename, table_name, fields, start, delimiter):
         row = 0        
         sql = ""
         field_value = ""
-        side = setuplib.tag_value(ds, "Side")
-        type = setuplib.tag_value(ds, "Type")
-        delimiter = setuplib.tag_value(ds, "Delimiter")
-        fields = setuplib.tag_value(ds, "Fields")
-        start = int(setuplib.tag_value(ds, "Start"))
-        table_name = f"tb{self.id}{side}"
-        path, filename = self.get_path(ds)
-        
-        
         count = self.count(path)
-        msg = msglib.get("M5", [setuplib.tag_value(ds, "File")])
-        msg = msglib.set_time(msg)        
+        msg = msglib.get("M5", [filename])
+        msg = msglib.set_time(msg)
         progress_bar = ShadyBar(msg, max=count-1)
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
@@ -107,6 +96,17 @@ class EtlLib(BaseLib):
                     progress_bar.next()
         progress_bar.finish()        
 
+    def import_data(self, cn, ds):
+        loglib = LogLib("EtlLib", "import_file")        
+        side = setuplib.tag_value(ds, "Side")
+        type = setuplib.tag_value(ds, "Type")
+        delimiter = setuplib.tag_value(ds, "Delimiter")
+        fields = setuplib.tag_value(ds, "Fields")
+        start = int(setuplib.tag_value(ds, "Start"))
+        table_name = f"tb{self.id}{side}"
+        path, filename = self.get_path(ds)
+        if type in ["Delimited", "Delimitado"]:
+            self.import_delimited(cn, path, filename, table_name, fields, start, delimiter)
         loglib.log(loglib.INFO, f"File sucessfully imported")
 
     def process(self, cn, recon):
