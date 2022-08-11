@@ -32,9 +32,12 @@ class EtlLib(BaseLib):
             lines = len(file.readlines())
         return lines
     
-    def persist(self, cn, sql):
-        loglib = LogLib("EtlLib", "persist")
+    def persist(self, cn, fields):
+        loglib = LogLib("EtlLib", "persist")        
         try:
+            field_list = sqlib.get_field_list(fields)
+            value_list = sqlib.get_value_list(fields)
+            sql = sqlib.get_sql_insert(self.table_name, field_list, value_list)
             rows_affected = dblib.execute(cn, sql)
         except Error as err:
             pass                        
@@ -71,16 +74,14 @@ class EtlLib(BaseLib):
         field_value = self.default_value(field_def, field_value)
         return field_value
     
-    def import_delimited(self, cn, datasource):
+    def import_text_file(self, cn, datasource):
         row = 0
         sql = ""
         field_value = ""
+        start = int(setuplib.tag_value(datasource, "Start"))        
         delimiter = setuplib.tag_value(datasource, "Delimiter")
-        fields = setuplib.tag_value(datasource, "Fields")
-        start = int(setuplib.tag_value(datasource, "Start"))
-        side = setuplib.tag_value(datasource, "Side")
-        table_name = f"tb{self.id}{side}"
-        path, filename = self.get_path(datasource)        
+        fields = self.fields
+        path, filename = self.get_path(datasource)
         count = self.count(path)
         msg = msglib.get("M5", [filename])
         msg = msglib.set_time(msg)
@@ -89,24 +90,27 @@ class EtlLib(BaseLib):
             for line in file.readlines():
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
-                    field_list = sqlib.get_field_list(fields)
                     values = line.split(delimiter)
                     for field in fields:
                         tag_name = setuplib.tag_name(field, "Position")
                         position = int(field[tag_name]) -1
                         field_value = str(values[position]).strip()
-                        field["Value"] = self.format_data(field, field_value)                       
-                    value_list = sqlib.get_value_list(fields)
-                    sql = sqlib.get_sql_insert(table_name, field_list, value_list)
-                    self.persist(cn, sql)
+                        field["Value"] = self.format_data(field, field_value)
+                    self.persist(cn, fields)                    
                     progress_bar.next()
-        progress_bar.finish()        
+        progress_bar.finish()
 
     def import_data(self, cn, datasource):
         loglib = LogLib("EtlLib", "import_file")
+        
         type = setuplib.tag_value(datasource, "Type")
+        side = setuplib.tag_value(datasource, "Side")
+        self.table_name = f"tb{self.id}{side}"
+        self.fields = setuplib.tag_value(datasource, "Fields")
+
         if type in ["Delimited", "Delimitado"]:
-            self.import_delimited(cn, datasource)
+            self.import_text_file(cn, datasource)
+
         loglib.log(loglib.INFO, f"File sucessfully imported")
 
     def process(self, cn, recon):
