@@ -1,0 +1,7 @@
+Id;Lado;Conciliação;Regra;Status;Code;Ig;Df;Ma;MaI;Me;MeI;Ig (Diferença);Df (Diferença);Ma (Diferença);MaI (Diferença);Me (Diferença);MeI (Diferença)
+1;1;Operadores;Regra 1;Batido;1;2;2;5;5;4;5;;;;;;
+2;1;Operadores;Regra 1;Divergente;2;2;2;4;3;4;8;2/3;2/2;4/4;3/4;4/4;8/5
+3;1;;;Órfão;3;0;0;0;0;0;0;;;;;;
+1;2;Operadores;Regra 1;Batido;1;2;3;4;5;5;5;;;;;;
+2;2;Operadores;Regra 1;Divergente;2;3;2;4;4;4;5;2/3;2/2;4/4;3/4;4/4;8/5
+3;2;;;Órfão;4;0;0;0;0;0;0;;;;;;

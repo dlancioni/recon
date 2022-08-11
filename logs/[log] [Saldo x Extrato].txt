@@ -1,21 +1,21 @@
-2022-08-10 11:53:05 INFO CoreLib.process: Validation OK, ready to create area
-2022-08-10 11:53:05 INFO AreaLib.merge_datasources: ['Agencia', 'Conta', 'Saldo']['Data', 'Agencia', 'Conta', 'Saldo']
-2022-08-10 11:53:05 INFO AreaLib.create_recon_area: Area created:
-2022-08-10 11:53:05 INFO AreaLib.create_recon_area: ['Agencia', 'Conta', 'Saldo', 'Data']['Integer', 'Text', 'Decimal', 'Text']
-2022-08-10 11:53:05 INFO CoreLib.process: Area OK, ready to import files
-2022-08-10 11:53:05 INFO EtlLib.import_file: File sucessfully imported
-2022-08-10 11:53:05 INFO EtlLib.import_file: File sucessfully imported
-2022-08-10 11:53:05 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
-2022-08-10 11:53:05 INFO ReconLib.process: Processing rule: Regra 1
-2022-08-10 11:53:05 INFO ReconLib.prepare: Fiekd Key: ['[Agencia]', '[Conta]']
-2022-08-10 11:53:05 INFO ReconLib.prepare: Fiekd Compare: ['[Saldo]']
-2022-08-10 11:53:05 INFO ReconLib.aggregate: Data successfuly aggregated
-2022-08-10 11:53:05 INFO ReconLib.match_key: Match key successfuly completed
-2022-08-10 11:53:05 INFO ReconLib.compare: Field comparison successfuly completed
-2022-08-10 11:53:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Saldo (Diferença)]
-2022-08-10 11:53:05 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Saldo (Diferença)]
-2022-08-10 11:53:05 INFO ReconLib.stamp_tmp: Fields with difference: ['[Saldo (Diferença)]']
-2022-08-10 11:53:05 INFO ReconLib.stamp_tb: Key info stamped in final tables
-2022-08-10 11:53:05 INFO ReconLib.stamp_tb: Compare info stamped in final tables
-2022-08-10 11:53:05 INFO CoreLib.process: Reconciliation OK, ready to generate reports
-2022-08-10 11:53:05 INFO CoreLib.process: Reports OK, ready to commit the process
+2022-08-11 14:46:49 INFO CoreLib.process: Validation OK, ready to create area
+2022-08-11 14:46:49 INFO AreaLib.merge_datasources: ['Agencia', 'Conta', 'Saldo']['Data', 'Agencia', 'Conta', 'Saldo']
+2022-08-11 14:46:49 INFO AreaLib.create_recon_area: Area created:
+2022-08-11 14:46:49 INFO AreaLib.create_recon_area: ['Agencia', 'Conta', 'Saldo', 'Data']['Integer', 'Text', 'Decimal', 'Text']
+2022-08-11 14:46:49 INFO CoreLib.process: Area OK, ready to import files
+2022-08-11 14:46:49 INFO EtlLib.import_file: File sucessfully imported
+2022-08-11 14:46:49 INFO EtlLib.import_file: File sucessfully imported
+2022-08-11 14:46:49 INFO CoreLib.process: Files OK, ready to execute reconciliation rules
+2022-08-11 14:46:49 INFO ReconLib.process: Processing rule: Regra 1
+2022-08-11 14:46:49 INFO ReconLib.prepare: Fiekd Key: ['[Agencia]', '[Conta]']
+2022-08-11 14:46:49 INFO ReconLib.prepare: Fiekd Compare: ['[Saldo]']
+2022-08-11 14:46:49 INFO ReconLib.aggregate: Data successfuly aggregated
+2022-08-11 14:46:49 INFO ReconLib.match_key: Match key successfuly completed
+2022-08-11 14:46:49 INFO ReconLib.compare: Field comparison successfuly completed
+2022-08-11 14:46:49 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Saldo (Diferença)]
+2022-08-11 14:46:49 INFO ReconLib.stamp_tmp: Stamping field (alter table): [Saldo (Diferença)]
+2022-08-11 14:46:49 INFO ReconLib.stamp_tmp: Fields with difference: ['[Saldo (Diferença)]']
+2022-08-11 14:46:49 INFO ReconLib.stamp_tb: Key info stamped in final tables
+2022-08-11 14:46:49 INFO ReconLib.stamp_tb: Compare info stamped in final tables
+2022-08-11 14:46:49 INFO CoreLib.process: Reconciliation OK, ready to generate reports
+2022-08-11 14:46:50 INFO CoreLib.process: Reports OK, ready to commit the process

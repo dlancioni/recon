@@ -44,7 +44,8 @@ class SetupLib(BaseLib):
             "Type":"Tipo",
             "Function":"Função",
             "Default Value":"Valor Padrão",
-            "Operator":"Operador"
+            "Operator":"Operador",
+            "Position":"Posição"
         }
         return tags
 
@@ -119,7 +120,6 @@ class SetupLib(BaseLib):
 
     def validate_info(self, recon):
         loglib = LogLib("Setuplib", "validate_info")
-        session = ""
         self.validate_tag(recon, "Id")
         self.validate_tag(recon, "Name")
         self.validate_tag(recon, "Description")
@@ -136,7 +136,7 @@ class SetupLib(BaseLib):
         name1, name2 = [], []
         datasources = self.tag_value(recon, "Datasources")
         for datasource in datasources:
-            id = self.tag_value(datasource, "Id")
+            id = self.tag_value(datasource, "Position")
             name = self.tag_value(datasource, "Name")
             fields = self.tag_value(datasource, "Fields")
             filename = self.tag_value(datasource, "File")
@@ -186,11 +186,9 @@ class SetupLib(BaseLib):
         
     def validate_datasource(self, recon):
         loglib = LogLib("Setuplib", "validate_datasource")
-        session = ""
         tag_ds = self.tag_name(recon, "Datasources")
         datasources = recon[tag_ds]
         for i in range(0, len(datasources)):
-            session = tag_ds
             values = recon[tag_ds][i]
             self.validate_tag(values, "Side")
             self.validate_tag(values, "Name")
@@ -204,20 +202,19 @@ class SetupLib(BaseLib):
             self.validate_tag(recon[tag_ds][i], "Fields")
             tag_field = self.tag_name(recon[tag_ds][i], "Fields")
             fields = recon[tag_ds][i][tag_field]
-            ids = []
+            positions = []
             for j in range(0, len(fields)):
-                session = f"{tag_ds}/{tag_field}"
                 values = recon[tag_ds][i][tag_field][j]
-                self.validate_tag(values, "Id")
+                self.validate_tag(values, "Position")
                 self.validate_tag(values, "Name")
                 self.validate_tag(values, "Type")
                 self.validate_tag(values, "Value", False)
                 self.validate_tag(values, "Mask", False)
-                self.validate_is_numeric(self.tag_name(values, "Id"), self.tag_value(values, "Id"))
+                self.validate_is_numeric(self.tag_name(values, "Position"), self.tag_value(values, "Position"))
                 self.validate_field_name(self.tag_value(values, "Name"))
                 self.validate_field_type(self.tag_value(values, "Type"))
-                ids.append(self.tag_value(values, "Id"))
-            dup_count = abs(len(ids) - len(set(ids)))
+                positions.append(self.tag_value(values, "Position"))
+            dup_count = abs(len(positions) - len(set(positions)))
             if dup_count > 0:
                 raise Exception(msglib.get("V13", [datasource_name, dup_count]))
             
@@ -249,7 +246,6 @@ class SetupLib(BaseLib):
         recons = recon[tag_recon]
         mapped_types = []
         for i in range(0, len(recons)):
-            session = tag_recon
             tag_rule = self.tag_name(recon[tag_recon][i], "Rule")
             self.validate_tag(recon[tag_recon][i], "Rule")
             rule_name = self.tag_value(recon[tag_recon][i], "Rule")            
@@ -258,7 +254,6 @@ class SetupLib(BaseLib):
             tag_fields = self.tag_name(recon[tag_recon][i], "Fields")
             fields = recon[tag_recon][i][tag_fields]
             for j in range(0, len(fields)):
-                session = f"{tag_recon}/{tag_fields}"
                 values = recon[tag_recon][i][tag_fields][j]
                 self.validate_tag(values, "Type")
                 self.validate_tag(values, "Name")                                

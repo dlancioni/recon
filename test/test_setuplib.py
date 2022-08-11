@@ -52,7 +52,7 @@ class SetupLibTest(unittest.TestCase):
 
     def validate_datasource(self):        
         fields_ds = ["Side", "Name", "Type", "Delimiter", "File", "Start", "Fields"]
-        fields_fd = ["Id", "Name", "Type"]
+        fields_fd = ["Position", "Name", "Type"]
         for field in fields_ds:
             if field != "Fields":
                 recon = self.open_recon()

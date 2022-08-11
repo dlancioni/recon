@@ -37,7 +37,7 @@ def main(f, c, t, rs, ra, s):
     msglib.print(msglib.get("M1"))
     status, error, reports = corelib.process(f)
     end = timer()
-    
+
     """ time elapsed """
     if t == True:
         msg = msglib.get("M3")

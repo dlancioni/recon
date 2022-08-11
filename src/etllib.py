@@ -91,7 +91,8 @@ class EtlLib(BaseLib):
                     field_list = sqlib.get_field_list(fields)
                     values = line.split(delimiter)
                     for field in fields:
-                        position = int(field["Id"]) -1
+                        tag_name = setuplib.tag_name(field, "Position")
+                        position = int(field[tag_name]) -1
                         field_value = str(values[position]).strip()
                         field_value = self.empty_value(field, field_value)
                         field_value = self.default_value(field, field_value)
