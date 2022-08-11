@@ -89,8 +89,7 @@ class EtlLib(BaseLib):
                 if (row >= start) and (str(line.strip()) != ""):
                     values = line.split(delimiter)
                     for field in fields:
-                        tag_name = setuplib.tag_name(field, "Position")
-                        position = int(field[tag_name]) -1
+                        position = int(field[setuplib.tag_name(field, "Position")]) -1
                         field_value = str(values[position]).strip()
                         field["Value"] = self.format_data(field, field_value)
                     self.persist(cn, fields)
