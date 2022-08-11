@@ -40,14 +40,14 @@ class EtlLib(BaseLib):
             pass                        
             loglib.log(loglib.INFO, f"Error to manipulate data [{sql}]: {str(err)}")
     
-    def get_path(self, ds):
-        if setuplib.tag_value(ds, "Path", False) == "":
+    def get_path(self, datasource):
+        if setuplib.tag_value(datasource, "Path", False) == "":
             path = fslib.get_path_file(cfglib.get(3))
         else:
-            path = setuplib.tag_value(ds, "Path", False)
+            path = setuplib.tag_value(datasource, "Path", False)
         if fslib.is_dir(path) == False:
             raise Exception(msglib.get("V19", [path]))        
-        filename = setuplib.tag_value(ds, "File")
+        filename = setuplib.tag_value(datasource, "File")
         path = fslib.join(path, filename)        
         if fslib.is_file(path) == False:
             raise IOError(msglib.get("V4", [path]))
@@ -71,10 +71,16 @@ class EtlLib(BaseLib):
         field_value = self.default_value(field_def, field_value)
         return field_value
     
-    def import_delimited(self, cn, path, filename, table_name, fields, start, delimiter):
-        row = 0        
+    def import_delimited(self, cn, datasource):
+        row = 0
         sql = ""
         field_value = ""
+        delimiter = setuplib.tag_value(datasource, "Delimiter")
+        fields = setuplib.tag_value(datasource, "Fields")
+        start = int(setuplib.tag_value(datasource, "Start"))
+        side = setuplib.tag_value(datasource, "Side")
+        table_name = f"tb{self.id}{side}"
+        path, filename = self.get_path(datasource)        
         count = self.count(path)
         msg = msglib.get("M5", [filename])
         msg = msglib.set_time(msg)
@@ -96,17 +102,11 @@ class EtlLib(BaseLib):
                     progress_bar.next()
         progress_bar.finish()        
 
-    def import_data(self, cn, ds):
-        loglib = LogLib("EtlLib", "import_file")        
-        side = setuplib.tag_value(ds, "Side")
-        type = setuplib.tag_value(ds, "Type")
-        delimiter = setuplib.tag_value(ds, "Delimiter")
-        fields = setuplib.tag_value(ds, "Fields")
-        start = int(setuplib.tag_value(ds, "Start"))
-        table_name = f"tb{self.id}{side}"
-        path, filename = self.get_path(ds)
+    def import_data(self, cn, datasource):
+        loglib = LogLib("EtlLib", "import_file")
+        type = setuplib.tag_value(datasource, "Type")
         if type in ["Delimited", "Delimitado"]:
-            self.import_delimited(cn, path, filename, table_name, fields, start, delimiter)
+            self.import_delimited(cn, datasource)
         loglib.log(loglib.INFO, f"File sucessfully imported")
 
     def process(self, cn, recon):
