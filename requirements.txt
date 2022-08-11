@@ -8,5 +8,6 @@ termcolor
 pconst
 click
 pendulum
+openpyxl
 
 ###### Requirements with Version Specifiers ######
