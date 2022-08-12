@@ -9,5 +9,8 @@ pconst
 click
 pendulum
 openpyxl
+mysql-connector-python
+psycopg2
+pyodbc
 
 ###### Requirements with Version Specifiers ######
