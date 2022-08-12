@@ -46,7 +46,9 @@ class SetupLib(BaseLib):
             "Type":"Tipo",
             "Function":"Função",
             "Default Value":"Valor Padrão",
-            "Operator":"Operador"
+            "Operator":"Operador",
+            "Connector":"Conector",
+            "Query":"Consulta"
 
         }
         return tags
@@ -141,31 +143,34 @@ class SetupLib(BaseLib):
             id = self.tag_value(datasource, "Position")
             name = self.tag_value(datasource, "Name")
             fields = self.tag_value(datasource, "Fields")
-            filename = self.tag_value(datasource, "File")
             side = self.tag_value(datasource, "Side")
-            start = self.tag_value(datasource, "Start")
             self.validate_is_numeric(self.tag_name(datasource, "Side"), side)
-            self.validate_is_numeric(self.tag_name(datasource, "Start"), start)
+            if self.tag_value(datasource, "Type") not in ["Db"]:
+                filename = self.tag_value(datasource, "File")
+                start = self.tag_value(datasource, "Start")
+                self.validate_is_numeric(self.tag_name(datasource, "Start"), start)            
             if len(fields) == 0:
                 raise Exception(msglib.get("V6", [name]))
-            if str(side) == "1":
-                found1 = True
-                file1.append(filename)
-                name1.append(name)
-            if str(side) == "2":
-                found2 = True
-                file2.append(filename)
-                name2.append(name)
-        if found1 == False:
-            raise Exception(msglib.get("V5", [1]))
-        if found2 == False:
-            raise Exception(msglib.get("V5", [2]))        
-        diff = [item for item in file1 if item in file2]
-        if len(diff) > 0:
-            raise Exception(msglib.get("V8", [diff[0]]))
-        diff = [item for item in name1 if item in name2]
-        if len(diff) > 0:
-            raise Exception(msglib.get("V9", [diff[0]]))
+            if self.tag_value(datasource, "Type") not in ["Db"]:
+                if str(side) == "1":
+                    found1 = True
+                    file1.append(filename)
+                    name1.append(name)
+                if str(side) == "2":
+                    found2 = True
+                    file2.append(filename)
+                    name2.append(name)
+        if self.tag_value(datasource, "Type") not in ["Db"]:
+            if found1 == False:
+                raise Exception(msglib.get("V5", [1]))
+            if found2 == False:
+                raise Exception(msglib.get("V5", [2]))        
+            diff = [item for item in file1 if item in file2]
+            if len(diff) > 0:
+                raise Exception(msglib.get("V8", [diff[0]]))
+            diff = [item for item in name1 if item in name2]
+            if len(diff) > 0:
+                raise Exception(msglib.get("V9", [diff[0]]))
         
     def validate_is_numeric(self, fieldname="", value=""):
         if str(value).isnumeric() == False:
@@ -197,9 +202,10 @@ class SetupLib(BaseLib):
             self.validate_tag(values, "Type")
             if self.tag_value(values, "Type") in ["Delimited", "Delimitado"]:
                 self.validate_tag(values, "Delimiter")
-            self.validate_tag(values, "Path", False)
-            self.validate_tag(values, "File")
-            self.validate_tag(values, "Start")
+            if self.tag_value(values, "Type") not in ["Db"]:
+                self.validate_tag(values, "Path", False)
+                self.validate_tag(values, "File")
+                self.validate_tag(values, "Start")
             datasource_name = self.tag_value(values, "Name")
             """ validate fields """
             self.validate_tag(recon[tag_ds][i], "Fields")

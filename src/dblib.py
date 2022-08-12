@@ -50,6 +50,18 @@ class DbLib:
             conn = sqlite3.connect(connection)
         conn.isolation_level = None
         return conn
+    
+    def get_data(self, conector, query):
+        path = fslib.get_path_config(conector)
+        info = fslib.open_json(path)
+        if info["db"] == "mysql":
+            cn = self.get_connection_mysql(conector)
+        if info["db"] == "pgsql":
+            cn = self.get_connection_pgsql(conector)
+        cursor = cn.cursor()
+        cursor.execute(query)
+        rs = cursor.fetchall()
+        return rs
 
     def get_connection_mysql(self, conector):
         path = fslib.get_path_config(conector)

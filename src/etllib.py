@@ -57,7 +57,7 @@ class EtlLib(BaseLib):
         return path, filename
     
     def empty_value(self, field_def, field_value=""):
-        if field_value.strip() == "":
+        if str(field_value).strip() == "":
             field_type = setuplib.tag_value(field_def, "Type")
             if field_type.strip().lower() in ["integer", "inteiro", "decimal"]:
                 field_value = 0
@@ -65,7 +65,7 @@ class EtlLib(BaseLib):
     
     def default_value(self, field_def, field_value=""):
         default_value = setuplib.tag_value(field_def, "Default Value")
-        if default_value.strip() != "":
+        if str(default_value).strip() != "":
             field_value = str(default_value)
         return field_value
     
@@ -101,6 +101,24 @@ class EtlLib(BaseLib):
                     self.persist(cn, fields)
                     progress_bar.next()
         progress_bar.finish()
+        
+    def import_db(self, cn, datasource):
+        row = 0
+        field_value = ""
+        fields = self.fields
+        connector = setuplib.tag_value(datasource, "Connector")
+        query = setuplib.tag_value(datasource, "Query")
+        rows = dblib.get_data(connector, query)
+        count = len(rows)
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [connector])), max=count)
+        for row in rows:
+            for field in fields:
+                position = int(field[setuplib.tag_name(field, "Position")]) -1
+                field_value = row[position]
+                field["Value"] = self.format_data(field, field_value)
+            self.persist(cn, fields)
+            progress_bar.next()
+        progress_bar.finish()
 
     def process(self, cn, recon):
         loglib = LogLib("EtlLib", "process")
@@ -115,6 +133,8 @@ class EtlLib(BaseLib):
                     self.import_text_file(cn, datasource)
                 elif type in ["Positional", "Posicional"]:
                     self.import_text_file(cn, datasource)
+                elif type in ["Db"]:
+                    self.import_db(cn, datasource)
                 else:
                     raise Exception(msglib.get("V20", [type]))
                 loglib.log(loglib.INFO, f"File sucessfully imported")
