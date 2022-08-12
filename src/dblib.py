@@ -1,8 +1,9 @@
 import os
 import logging
+import psycopg2
 import sqlite3
 from sqlite3 import Error
-from prettytable import from_db_cursor
+import mysql.connector
 from src.fslib import FsLib
 
 fslib = FsLib()
@@ -26,16 +27,6 @@ class DbLib:
         rows_affected = cn.rowcount
         return rows_affected
     
-    def get_connection(self, path_temp, debug=0):
-        conn = None
-        if debug == 0:
-            conn = sqlite3.connect(":memory:")
-        else:
-            connection = fslib.join(path_temp, "log.db")
-            conn = sqlite3.connect(connection)
-        conn.isolation_level = None
-        return conn
-
     def begin_tran(self, cn, debug=0):
         cursor = cn.cursor()
         if debug == 0:        
@@ -49,3 +40,33 @@ class DbLib:
     def rollback_tran(self, cn, debug=0):
         if debug == 0:
             cn.execute("rollback")
+
+    def get_connection(self, path_temp, debug=0):
+        conn = None
+        if debug == 0:
+            conn = sqlite3.connect(":memory:")
+        else:
+            connection = fslib.join(path_temp, "log.db")
+            conn = sqlite3.connect(connection)
+        conn.isolation_level = None
+        return conn
+
+    def get_connection_mysql(self, conector):
+        path = fslib.get_path_config(conector)
+        info = fslib.open_json(path)
+        host = info["hostname"]
+        db = info["database"]      
+        user = info["username"]
+        pwd = info["password"]
+        cn = mysql.connector.connect(host=host, database=db, user=user, password=pwd)
+        return cn
+    
+    def get_connection_pgsql(self, conector):
+        path = fslib.get_path_config(conector)
+        info = fslib.open_json(path)
+        host = info["hostname"]
+        db = info["database"]      
+        user = info["username"]
+        pwd = info["password"]
+        cn = psycopg2.connect(host=host, database=db, user=user, password=pwd)
+        return cn
