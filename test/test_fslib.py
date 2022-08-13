@@ -3,11 +3,12 @@ import sys
 import unittest
 sys.path.insert(1, os.path.abspath(".") + "\\recon\\")
 from src.utillib import UtilLib
-
 from src.fslib import FsLib
+
 
 fslib = FsLib()
 utillib = UtilLib()
+
 
 class FsLibTest(unittest.TestCase):
 
