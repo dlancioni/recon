@@ -11,6 +11,10 @@ class UtilLibTest(unittest.TestCase):
 
     def tearDown(self):
         pass
+    
+    def test_abc(self):
+        with self.assertRaises(Exception):
+            100 / 1
 
 if __name__ == '__main__':
     unittest.main()

@@ -8,7 +8,6 @@ from src.msglib import MsgLib
 
 msglib = MsgLib()
 validlib = ValidationLib()
-etllib = EtlLib(1, "test")
 
 class EtlLibTest(unittest.TestCase):
 
@@ -18,16 +17,16 @@ class EtlLibTest(unittest.TestCase):
     def tearDown(self):
         pass
     
+    def assert_mandatory(self, fn, config, field):
+        try:
+            if fn == "validate_info":
+                msg = msglib.get("V2", [field])
+                validlib.validate_info(config)
+        except BaseException as err:
+            self.assertEqual(msg, str(err))
+
     def test_validate_info(self):
-        config = {
-            "Id": "",
-            "Nome": "",
-            "Descrição": ""
-        }
-        #self.assertRaises(ValueError(msglib.get("V2", ["Id"])), validlib.validate_info(config))
-        msg = msglib.get("V2", ["Id"])
-        with self.assertRaises(Exception):
-            validlib.validate_info(config)
+        self.assert_mandatory("validate_info", {"Id":"", "Nome": "abc", "Descrição": "abc"}, "Id")
 
 if __name__ == '__main__':
     unittest.main()
