@@ -44,16 +44,18 @@ class ValidationLib(BaseLib):
         if field_type.strip().lower() not in const.DATATYPE:
             raise Exception(msglib.get("V11", [field_type]))
 
-    def validate_tag(self, config, field, data_type="text", mandatory=True, domain=[]):
-        self.validate_field_type(data_type)
+    def validate_tag(self, config, field_name, field_type="text", mandatory=True, domain=[]):
+        tag_name = setuplib.tag_name(config, field_name)
+        tag_value = config[tag_name]                
+        self.validate_field_type(field_type)        
+        if field_type.lower() in const.DATATYPE_NUMERIC:
+            self.validate_numeric(tag_name, tag_value)
         if mandatory:
-            tag_name = setuplib.tag_name(config, field)
-            tag_value = config[tag_name]
             if str(tag_value) == "":
                 raise Exception(msglib.get("V2", [tag_name]))
-            if domain != []:
-                if tag_value not in domain:
-                    raise Exception(msglib.get("V21", [tag_name, str(domain)]))
+        if domain != []:
+            if tag_value.lower() not in domain:
+                raise Exception(msglib.get("V21", [tag_name, str(domain)]))
 
     """ Validate json header """
     def validate_info(self, config):
@@ -83,7 +85,7 @@ class ValidationLib(BaseLib):
             if type == const.DATASOURCES[4]:
                 self.validate_tag(field, "Size")
             self.validate_tag(field, "Name")
-            self.validate_tag(field, "Type", "Integer", const.DATATYPE)
+            self.validate_tag(field, "Type", "Text", True, const.DATATYPE)
 
     def validate_datasource_file_delimiter(self, datasource):
         loglib = LogLib("ValidationLib", "validate_datasource_file_delimiter")

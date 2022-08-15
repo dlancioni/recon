@@ -19,4 +19,5 @@ const.MATCH_TYPE_COMPARE = ["Compare", "Comparar"]
 const.DATASOURCES = ["Api", "Db", "Delimited", "Excel", "Positional"]
 
 # Data types
-const.DATATYPE = ["integer", "inteiro", "decimal", "text", "texto", "datetime", "datahora"]
+const.DATATYPE = ["integer", "decimal", "text", "datetime"] + ["inteiro", "texto", "datahora"]
+const.DATATYPE_NUMERIC = ["integer", "decimal"] + ["inteiro"]
