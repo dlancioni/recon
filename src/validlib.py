@@ -83,10 +83,12 @@ class ValidationLib(BaseLib):
         self.validate_tag(datasource, "Start", "Integer")
 
     def validate_datasource_field(self, datasource, type=[]):
-        loglib = LogLib("ValidationLib", "validate_datasource_field")                
+        loglib = LogLib("ValidationLib", "validate_datasource_field")
+        names = []
+        positions = []
         fields = datasource[setuplib.tag_name(datasource, "Fields")]
+        name = setuplib.tag_value(datasource, "Name")
         if len(fields) == 0:
-            name = setuplib.tag_value(datasource, "Name")
             raise Exception(msglib.get("V6", [name]))
         for field in fields:
             self.validate_tag(field, "Position")
@@ -94,6 +96,14 @@ class ValidationLib(BaseLib):
                 self.validate_tag(field, "Size")
             self.validate_tag(field, "Name")
             self.validate_tag(field, "Type", "Text", True, const.DATATYPE)
+            names.append(setuplib.tag_value(field, "Name"))
+            positions.append(setuplib.tag_value(field, "Position"))
+        diff = utillib.diff(names)
+        if len(diff) > 0:
+            raise Exception(msglib.get("V13", [diff[0], name]))
+        diff = utillib.diff(positions)
+        if len(diff) > 0:
+            raise Exception(msglib.get("V7", [diff[0], name]))
 
     def validate_datasource_file_delimited(self, datasource):
         loglib = LogLib("ValidationLib", "validate_datasource_file_delimited")
@@ -147,9 +157,8 @@ class ValidationLib(BaseLib):
         if 1 not in sides: raise Exception(msglib.get("V5", [1]))
         if 2 not in sides: raise Exception(msglib.get("V5", [2]))
         for side in range(1,3):
-            name = name1 if side == 1 else name2
-            seen = set()
-            diff = [x for x in name if x in seen or seen.add(x)]
+            name = name1 if side == 1 else name2           
+            diff = utillib.diff(name)
             if len(list(diff)) > 0:
                 raise Exception(msglib.get("V8", [diff[0], side]))
         diff = list(set(name1).intersection(name2))
