@@ -51,7 +51,7 @@ class EtlLib(BaseLib):
         if fslib.is_dir(path) == False:
             raise Exception(msglib.get("V19", [path]))
         filename = setuplib.tag_value(datasource, "File")
-        path = fslib.join(path, filename)        
+        path = fslib.join(path, filename)
         if fslib.is_file(path) == False:
             raise IOError(msglib.get("V4", [path]))
         return path, filename
