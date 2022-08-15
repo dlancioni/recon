@@ -12,11 +12,11 @@ from src.loglib import LogLib
 from src.setuplib import SetupLib
 from src.constlib import const
 
+fslib = FsLib()
 msglib = MsgLib()
 cfglib = ConfigLib()
-fslib = FsLib()
 setuplib = SetupLib()
-
+utillib = UtilLib()
 
 class ValidationLib(BaseLib):
 
@@ -45,7 +45,7 @@ class ValidationLib(BaseLib):
             raise Exception(msglib.get("V11", [field_type]))
 
     def validate_tag(self, config, field_name, field_type="text", mandatory=True, domain=[]):
-        tag_name = setuplib.tag_name(config, field_name)        
+        tag_name = setuplib.tag_name(config, field_name)
         tag_value = config[tag_name]
         self.validate_field_name(tag_name)
         self.validate_field_type(field_type)        
@@ -64,6 +64,8 @@ class ValidationLib(BaseLib):
         self.validate_tag(config, "Id", "Integer")
         self.validate_tag(config, "Name")
         self.validate_tag(config, "Description")
+        if int(setuplib.tag_value(config, "Id")) <= 0:
+            raise Exception(msglib.get("V3", ["Id"]))
 
     """ Validate datasources """
     def validate_datasource_info(self, datasource):
@@ -81,8 +83,12 @@ class ValidationLib(BaseLib):
         self.validate_tag(datasource, "Start", "Integer")
 
     def validate_datasource_field(self, datasource, type=[]):
-        loglib = LogLib("ValidationLib", "validate_datasource_field")
-        for field in datasource[setuplib.tag_name(datasource, "Fields")]:
+        loglib = LogLib("ValidationLib", "validate_datasource_field")                
+        fields = datasource[setuplib.tag_name(datasource, "Fields")]
+        if len(fields) == 0:
+            name = setuplib.tag_value(datasource, "Name")
+            raise Exception(msglib.get("V6", [name]))
+        for field in fields:
             self.validate_tag(field, "Position")
             if type == const.DATASOURCE_POSITIONAL:
                 self.validate_tag(field, "Size")
@@ -130,14 +136,25 @@ class ValidationLib(BaseLib):
     def validate_datasources_sides(self, config):
         loglib = LogLib("ValidationLib", "validate_datasources_sides")
         sides = []
+        name1 = []
+        name2 = []
         datasources = config[setuplib.tag_name(config, "Datasources")]
         for datasource in datasources:
             sides.append(int(setuplib.tag_value(datasource, "Side")))
+            if int(setuplib.tag_value(datasource, "Side")) == 1: name1.append(setuplib.tag_value(datasource, "Name"))
+            if int(setuplib.tag_value(datasource, "Side")) == 2: name2.append(setuplib.tag_value(datasource, "Name"))
         sides = list(set(sides))
-        if 1 not in sides:
-            raise Exception(msglib.get("V5", [1]))
-        if 2 not in sides:
-            raise Exception(msglib.get("V5", [2]))
+        if 1 not in sides: raise Exception(msglib.get("V5", [1]))
+        if 2 not in sides: raise Exception(msglib.get("V5", [2]))
+        for side in range(1,3):
+            name = name1 if side == 1 else name2
+            seen = set()
+            diff = [x for x in name if x in seen or seen.add(x)]
+            if len(list(diff)) > 0:
+                raise Exception(msglib.get("V8", [diff[0], side]))
+        diff = list(set(name1).intersection(name2))
+        if len(diff) > 0:
+            raise Exception(msglib.get("V9", [diff[0]]))
         
     def validate(self, config):
         loglib = LogLib("ValidationLib", "validate")

@@ -20,6 +20,14 @@ class EtlLibTest(unittest.TestCase):
     def tearDown(self):
         pass
     
+    def test_validate_info(self):
+        config = {
+            "Id": "1",
+            "Name": "Nome 1",
+            "Description": "Teste 1"
+        }
+        validlib.validate_info(config)
+    
     def test_validate_datasource_file_delimited(self):
         datasource = {
             "Lado": "1",
@@ -103,7 +111,7 @@ class EtlLibTest(unittest.TestCase):
             [
                 {
                     "Lado": "1",
-                    "Nome": "Lado 1",
+                    "Nome": "Saldo 1",
                     "Tipo": "Delimitado",
                     "Delimitador": ";",
                     "Caminho": "c:\\temp\\",
@@ -116,7 +124,7 @@ class EtlLibTest(unittest.TestCase):
                 },
                 {
                     "Side": "1",
-                    "Name": "Side 2",
+                    "Name": "Saldo 2",
                     "Type": "Posicional",
                     "Path": "c:\\temp\\",
                     "File": "File.txt",
@@ -128,7 +136,7 @@ class EtlLibTest(unittest.TestCase):
                 },
                 {
                     "Lado": "2",
-                    "Nome": "Lado 1",
+                    "Nome": "Extrato 1",
                     "Tipo": "Excel",
                     "Arquivo": "File.xlsx",
                     "Sheet": "Plan1",
@@ -141,7 +149,7 @@ class EtlLibTest(unittest.TestCase):
                 },
                 {
                     "Lado": "2",
-                    "Nome": "Side 2",
+                    "Nome": "Extrato 2",
                     "Tipo": "Db",
                     "Conector": "connector_pgsql.cfg",
                     "Consulta": "select * from public.tb1",
