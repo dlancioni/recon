@@ -153,7 +153,9 @@ class EtlLibTest(unittest.TestCase):
             ]
         }
 
-        validlib.validate_datasources(config)        
+        validlib.validate_datasources(config)
+        validlib.validate_datasources_sides(config)
+        
 
 if __name__ == '__main__':
     unittest.main()

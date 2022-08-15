@@ -124,8 +124,20 @@ class ValidationLib(BaseLib):
             if type in const.DATASOURCE_EXCEL:
                 self.validate_datasource_file_excel(datasource)
             if type in const.DATASOURCE_DB:
-                self.validate_datasource_db(datasource)                                
+                self.validate_datasource_db(datasource)
+                
+    def validate_datasources_sides(self, config):
+        sides = []
+        datasources = config[setuplib.tag_name(config, "Datasources")]
+        for datasource in datasources:
+            sides.append(int(setuplib.tag_value(datasource, "Side")))
+        sides = list(set(sides))
+        if 1 not in sides:
+            raise Exception(msglib.get("V5", [1]))
+        if 2 not in sides:
+            raise Exception(msglib.get("V5", [2]))
 
     def validate(self, config):
         self.validate_info(config)
         self.validate_datasources(config)
+        self.validate_datasources_sides(config)
