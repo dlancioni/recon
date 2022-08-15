@@ -149,7 +149,7 @@ class EtlLibTest(unittest.TestCase):
                 },
                 {
                     "Lado": "2",
-                    "Nome": "Saldo 2",
+                    "Nome": "Extrato 2",
                     "Tipo": "Db",
                     "Conector": "connector_pgsql.cfg",
                     "Consulta": "select * from public.tb1",
