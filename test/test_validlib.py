@@ -20,7 +20,7 @@ class EtlLibTest(unittest.TestCase):
     def tearDown(self):
         pass
     
-    def test_validate_datasource_file_delimiter(self):
+    def test_validate_datasource_file_delimited(self):
         datasource = {
             "Lado": "1",
             "Nome": "Lado 1",
@@ -38,7 +38,7 @@ class EtlLibTest(unittest.TestCase):
             ]
         }
 
-        validlib.validate_datasource_file_delimiter(datasource)
+        validlib.validate_datasource_file_delimited(datasource)
 
     def test_validate_datasource_file_positional(self):
         datasource = {
@@ -96,6 +96,64 @@ class EtlLibTest(unittest.TestCase):
         }
 
         validlib.validate_datasource_db(datasource)
+        
+    def test_validate(self):
+        config = {
+            "Datasources":
+            [
+                {
+                    "Lado": "1",
+                    "Nome": "Lado 1",
+                    "Tipo": "Delimitado",
+                    "Delimitador": ";",
+                    "Caminho": "c:\\temp\\",
+                    "Arquivo": "File.txt",
+                    "Inicio": "2",
+                    "Campos":
+                    [
+                        {"Posição":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
+                    ]
+                },
+                {
+                    "Side": "1",
+                    "Name": "Side 2",
+                    "Type": "Posicional",
+                    "Path": "c:\\temp\\",
+                    "File": "File.txt",
+                    "Start": "2",
+                    "Fields":
+                    [
+                        {"Position":"1", "Size":"1", "Name":"Campo 1", "Type":"Integer"},
+                    ]
+                },
+                {
+                    "Lado": "2",
+                    "Nome": "Lado 1",
+                    "Tipo": "Excel",
+                    "Arquivo": "File.xlsx",
+                    "Sheet": "Plan1",
+                    "Caminho": "c:\\temp\\",
+                    "Inicio": "1",
+                    "Fields":
+                    [
+                        {"Posição":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
+                    ]
+                },
+                {
+                    "Lado": "2",
+                    "Nome": "Side 2",
+                    "Tipo": "Db",
+                    "Conector": "connector_pgsql.cfg",
+                    "Consulta": "select * from public.tb1",
+                    "Campos":
+                    [
+                        {"Posição":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
+                    ]
+                }
+            ]
+        }
+
+        validlib.validate_datasources(config)        
 
 if __name__ == '__main__':
     unittest.main()

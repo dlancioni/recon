@@ -16,7 +16,12 @@ const.MATCH_TYPE_KEY = ["Key", "Chave"]
 const.MATCH_TYPE_COMPARE = ["Compare", "Comparar"]
 
 # Datasource info
-const.DATASOURCES = ["Api", "Db", "Delimited", "Excel", "Positional"]
+const.DATASOURCES = ["Api", "Db", "Delimited", "Delimitado", "Excel", "Positional", "Posicional"]
+const.DATASOURCE_API = ["Api"]
+const.DATASOURCE_DB = ["Db"]
+const.DATASOURCE_DELIMITED = ["Delimited", "Delimitado"]
+const.DATASOURCE_POSITIONAL = ["Positional", "Posicional"]
+const.DATASOURCE_EXCEL = ["Excel"]
 
 # Data types
 const.DATATYPE = ["integer", "decimal", "text", "datetime"] + ["inteiro", "texto", "datahora"]
