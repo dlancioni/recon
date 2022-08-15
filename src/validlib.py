@@ -76,7 +76,7 @@ class ValidationLib(BaseLib):
     def validate_datasource_file(self, datasource):
         loglib = LogLib("ValidationLib", "validate_datasource_file")
         self.validate_datasource_info(datasource)
-        self.validate_tag(datasource, "Path")
+        self.validate_tag(datasource, "Path", "Text", False)
         self.validate_tag(datasource, "File")
         self.validate_tag(datasource, "Start", "Integer")
 
@@ -114,6 +114,7 @@ class ValidationLib(BaseLib):
         self.validate_datasource_field(datasource)
         
     def validate_datasources(self, config):
+        loglib = LogLib("ValidationLib", "validate_datasources")        
         datasources = config[setuplib.tag_name(config, "Datasources")]
         for datasource in datasources:
             type = self.validate_datasource_info(datasource)
@@ -127,6 +128,7 @@ class ValidationLib(BaseLib):
                 self.validate_datasource_db(datasource)
                 
     def validate_datasources_sides(self, config):
+        loglib = LogLib("ValidationLib", "validate_datasources_sides")
         sides = []
         datasources = config[setuplib.tag_name(config, "Datasources")]
         for datasource in datasources:
@@ -136,8 +138,15 @@ class ValidationLib(BaseLib):
             raise Exception(msglib.get("V5", [1]))
         if 2 not in sides:
             raise Exception(msglib.get("V5", [2]))
-
+        
     def validate(self, config):
-        self.validate_info(config)
-        self.validate_datasources(config)
-        self.validate_datasources_sides(config)
+        loglib = LogLib("ValidationLib", "validate")
+        try:
+            self.validate_info(config)
+            self.validate_datasources(config)
+            self.validate_datasources_sides(config)
+        except BaseException as err:
+            cat = msglib.get("E4")
+            msg = f"{cat} {str(err)}"
+            loglib.log(loglib.ERROR, msg)
+            raise Exception(msg)
