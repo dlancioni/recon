@@ -48,8 +48,8 @@ class SetupLib(BaseLib):
             "Default Value":"Valor Padrão",
             "Operator":"Operador",
             "Connector":"Conector",
-            "Query":"Consulta"
-
+            "Query":"Consulta",
+            "Sheet":"Planilha"
         }
         return tags
 

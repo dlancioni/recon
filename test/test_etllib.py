@@ -16,17 +16,6 @@ class EtlLibTest(unittest.TestCase):
 
     def tearDown(self):
         pass
-    
-    def assert_mandatory(self, fn, config, field):
-        try:
-            if fn == "validate_info":
-                msg = msglib.get("V2", [field])
-                validlib.validate_info(config)
-        except BaseException as err:
-            self.assertEqual(msg, str(err))
-
-    def test_validate_info(self):
-        self.assert_mandatory("validate_info", {"Id":"", "Nome": "abc", "Descrição": "abc"}, "Id")
 
 if __name__ == '__main__':
     unittest.main()
