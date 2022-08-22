@@ -59,7 +59,7 @@ class AreaLib(BaseLib):
         loglib.log(loglib.INFO, "Area created:")
         loglib.log(loglib.INFO, str(fields) + str(types))
         return fields, types
-    
+
     def process(self, cn, recon):
         loglib = LogLib("AreaLib", "process")
         try:

@@ -26,7 +26,7 @@ class DbLib:
         cn.execute(sql)
         rows_affected = cn.rowcount
         return rows_affected
-    
+
     def begin_tran(self, cn, debug=0):
         cursor = cn.cursor()
         if debug == 0:        
