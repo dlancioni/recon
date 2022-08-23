@@ -1,4 +1,7 @@
 import logging
+import openpyxl
+from openpyxl import Workbook
+from openpyxl import load_workbook
 from sqlite3 import Error
 from progress.bar import ShadyBar
 from src.baselib import BaseLib
@@ -119,6 +122,33 @@ class EtlLib(BaseLib):
             self.persist(cn, fields)
             progress_bar.next()
         progress_bar.finish()
+        
+    def import_excel(self, cn, datasource):
+        row = 0
+        count = 0
+        field_value = ""
+        fields = self.fields
+        start = int(setuplib.tag_value(datasource, "Start"))
+        sheet = setuplib.tag_value(datasource, "Sheet")
+        path, filename = self.get_path(datasource)
+        workbook = load_workbook(path)
+        sheet = workbook[sheet]        
+        for line in range(65000):
+            count += 1
+            if str(sheet.cell(count, 1).value).strip() == "None":
+                break
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
+        for line in range(count-1):
+            size = 0
+            row += 1
+            if (row >= start):
+                for field in fields:
+                    column = int(field[setuplib.tag_name(field, "Position")])
+                    field_value = sheet.cell(row, column).value
+                    field["Value"] = self.format_data(field, field_value)
+                self.persist(cn, fields)
+                progress_bar.next()
+        progress_bar.finish()
 
     def process(self, cn, recon):
         loglib = LogLib("EtlLib", "process")
@@ -135,6 +165,8 @@ class EtlLib(BaseLib):
                     self.import_text_file(cn, datasource)
                 elif type in ["Db"]:
                     self.import_db(cn, datasource)
+                elif type in ["Excel"]:
+                    self.import_excel(cn, datasource)
                 else:
                     raise Exception(msglib.get("V20", [type]))
                 loglib.log(loglib.INFO, f"File sucessfully imported")

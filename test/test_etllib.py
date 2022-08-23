@@ -97,6 +97,36 @@ class EtlLibTest(unittest.TestCase):
         self.assertEqual(rs[1][10], 2000.02)
         self.assertEqual(rs[2][8], "20220103")
         
+    def test_import_excel(self):
+        config = {
+            "Id": "1",
+            "Dados":
+            [
+                {
+                    "Lado": "1",
+                    "Nome": "Test 1",
+                    "Tipo": "Excel",
+                    "Caminho": "",
+                    "Arquivo": "excel.xlsx",
+                    "Planilha": "Plan1",
+                    "Inicio": "1",
+                    "Campos":
+                    [
+                        {"Posição":"1", "Nome":"Inteiro", "Tipo":"Inteiro"},
+                        {"Posição":"2", "Nome":"DataHora", "Tipo":"DataHora", "Mascara":"dd/MM/yyyy"},
+                        {"Posição":"3", "Nome":"Texto", "Tipo":"Texto"},
+                        {"Posição":"4", "Nome":"Decimal", "Tipo":"Decimal", "Mask":","}
+                    ]
+                }
+            ]
+        }
+        
+        cn = self.get_connection()        
+        AreaLib(1, "").process(cn, config)
+        EtlLib(1, "").process(cn, config)
+        rs = dblib.query(cn, "select * from tb11")
+        self.assertEqual(len(rs), 3)
+        
     def test_import_db_pgsql(self):
         config = {
             "Id": "1",
