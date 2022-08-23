@@ -12,5 +12,6 @@ openpyxl
 mysql-connector-python
 psycopg2
 pyodbc
+openpyxl
 
 ###### Requirements with Version Specifiers ######
