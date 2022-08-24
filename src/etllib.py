@@ -132,15 +132,21 @@ class EtlLib(BaseLib):
         sheet = setuplib.tag_value(datasource, "Sheet")
         path, filename = self.get_path(datasource)
         workbook = load_workbook(path)
-        sheet = workbook[sheet]        
-        for line in range(65000):
-            count += 1
-            if str(sheet.cell(count, 1).value).strip() == "None":
+        sheet = workbook[sheet]
+        
+        rows = 65000
+        columns = 20
+        for row in range(1, rows):
+            empty = 0
+            for column in range(1, columns):
+                if str(sheet.cell(row, column).value).strip() == "None":
+                    empty += 1
+            if empty == (columns -1):
                 break
+        count = row
+
         progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
-        for line in range(count-1):
-            size = 0
-            row += 1
+        for row in range(1, count):
             if (row >= start):
                 for field in fields:
                     column = int(field[setuplib.tag_name(field, "Position")])
