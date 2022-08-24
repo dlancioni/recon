@@ -107,15 +107,14 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test 1",
                     "Tipo": "Excel",
                     "Caminho": "",
-                    "Arquivo": "excel.xlsx",
-                    "Planilha": "Plan1",
-                    "Inicio": "1",
+                    "Arquivo": "cc.xlsx",
+                    "Planilha": "Saldo",
+                    "Inicio": "2",
                     "Campos":
                     [
-                        {"Posição":"1", "Nome":"Inteiro", "Tipo":"Inteiro"},
-                        {"Posição":"2", "Nome":"DataHora", "Tipo":"DataHora", "Mascara":"dd/MM/yyyy"},
-                        {"Posição":"3", "Nome":"Texto", "Tipo":"Texto"},
-                        {"Posição":"4", "Nome":"Decimal", "Tipo":"Decimal", "Mask":","}
+                        {"Posição":"2", "Nome":"Agencia", "Tipo":"Texto"},
+                        {"Posição":"3", "Nome":"Conta", "Tipo":"Texto"},
+                        {"Posição":"4", "Nome":"Saldo", "Tipo":"Decimal", "Mask":","}
                     ]
                 }
             ]

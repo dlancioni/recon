@@ -129,11 +129,10 @@ class EtlLib(BaseLib):
         field_value = ""
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
-        sheet = setuplib.tag_value(datasource, "Sheet")
         path, filename = self.get_path(datasource)
         workbook = load_workbook(path)
-        sheet = workbook[sheet]
-        
+        sheet = workbook[setuplib.tag_value(datasource, "Sheet")]
+
         rows = 65000
         columns = 20
         for row in range(1, rows):
