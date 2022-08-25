@@ -16,6 +16,7 @@ from src.utillib import UtilLib
 from src.msglib import MsgLib
 from src.loglib import LogLib
 from progress.bar import ShadyBar
+from src.constlib import const
 
 dblib = DbLib()
 fslib = FsLib()
@@ -59,7 +60,7 @@ class ReportLib(BaseLib):
         total = len(cn.description)
         for i in range(first, total):
             label = str(cn.description[i][0]).strip()           
-            if label != "status":
+            if label != const.FIELD_STATUS:
                 line += f"{label};"
         line = line[:-1]
         line += f"\n"
@@ -84,8 +85,8 @@ class ReportLib(BaseLib):
         sql += f"select * from {tb1}"
         sql += f" union "
         sql += f"select * from {tb2}"
-        sql += ") tb "
-        sql += "order by tb.side "        
+        sql += f") tb "
+        sql += f"order by tb.{const.FIELD_SIDE} "
         rows = dblib.query(cn, sql)
         with open(filename, "w", encoding="UTF-8") as f:
             msg = msglib.set_time(msglib.get("M8"))
@@ -123,16 +124,16 @@ class ReportLib(BaseLib):
         sql += f" select Side, Status, Total from"
         sql += f" ("
         sql += f" select"
-        sql += f" Side, Id_Status, Status, count(Status) Total"
+        sql += f" {const.FIELD_SIDE}, {const.FIELD_ID_STATUS}, {const.FIELD_STATUS}, count({const.FIELD_STATUS}) Total"
         sql += f" from tb{self.id}1"
-        sql += f" group by Status"
+        sql += f" group by {const.FIELD_STATUS}"
         sql += f" union all"
         sql += f" select"
-        sql += f" Side, Id_Status, Status, count(Status) Total"
+        sql += f" {const.FIELD_SIDE}, {const.FIELD_ID_STATUS}, {const.FIELD_STATUS}, count({const.FIELD_STATUS}) Total"
         sql += f" from tb{self.id}2"
-        sql += f" group by Status"
+        sql += f" group by {const.FIELD_STATUS}"
         sql += f" ) "
-        sql += f" order by Side, Id_Status"
+        sql += f" order by {const.FIELD_SIDE}, {const.FIELD_ID_STATUS}"
         rows = dblib.query(cn, sql)
         with open(filename, "w", encoding="UTF-8") as f:
             msg = msglib.set_time(msglib.get("M9"))
