@@ -98,11 +98,11 @@ class ReconLib(BaseLib):
             sql += f"update {tmp1} set "
             sql += f"{const.FIELD_RECON}='{self.name}', "
             sql += f"{const.FIELD_RULE}='{rule_name}', "
-            sql += f"id_status='{const.STATUS_MATCHED}',"
+            sql += f"{const.FIELD_ID_STATUS}='{const.STATUS_MATCHED}',"
             sql += f"{const.FIELD_STATUS} = '{self.matched}', "
             sql += f"{const.FIELD_ID_PARENT} = {tmp2}.{const.FIELD_ID} "
             sql += f"from {tmp2} "
-            sql += f"where {tmp1}.status = '{self.orphan}' "
+            sql += f"where {tmp1}.{const.FIELD_STATUS} = '{self.orphan}' "
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Match key successfuly completed")
@@ -163,7 +163,7 @@ class ReconLib(BaseLib):
             else:    
                 sql += f", (abs({tmp1} - {tmp2}) <= {tolerance}) equality"            
             sql += f" from {self.tmp1}, {self.tmp2}"
-            sql += f" where {self.tmp1}.status = '{self.matched}'"
+            sql += f" where {self.tmp1}.{const.FIELD_STATUS} = '{self.matched}'"
             sql += f" {matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Field comparison successfuly completed")
@@ -190,8 +190,8 @@ class ReconLib(BaseLib):
                     rows_affected = dblib.execute(cn, sql)
                 sql = ""
                 sql += f"update {temps} set "
-                sql += f"id_status='{const.STATUS_DIVERGENT}',"
-                sql += f"status = '{self.divergent}', "
+                sql += f"{const.FIELD_ID_STATUS}='{const.STATUS_DIVERGENT}',"
+                sql += f"{const.FIELD_STATUS} = '{self.divergent}', "
                 sql += f"{field_name} = {tmp3}.difference "
                 sql += f"from {tmp3} "
                 sql += f"where {tmp3}.equality = 0 "
@@ -209,7 +209,7 @@ class ReconLib(BaseLib):
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
         field = setuplib.tag_name(rule, "Fields")
-        match_result = [const.FIELD_ID_PARENT, const.FIELD_RECON, "Rule", "Id_Status", "Status"]
+        match_result = [const.FIELD_ID_PARENT, const.FIELD_RECON, const.FIELD_RULE, const.FIELD_ID_STATUS, const.FIELD_STATUS]
         compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, rule[field])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, rule[field])
