@@ -96,7 +96,7 @@ class ReconLib(BaseLib):
             tmp2 = self.tmp2 if side == 1 else self.tmp1
             sql = ""
             sql += f"update {tmp1} set "
-            sql += f"recon='{self.name}', "
+            sql += f"{const.FIELD_RECON}='{self.name}', "
             sql += f"rule='{rule_name}', "
             sql += f"id_status='{const.STATUS_MATCHED}',"
             sql += f"{const.FIELD_STATUS} = '{self.matched}', "
@@ -209,7 +209,7 @@ class ReconLib(BaseLib):
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
         field = setuplib.tag_name(rule, "Fields")
-        match_result = [const.FIELD_ID_PARENT, "Recon", "Rule", "Id_Status", "Status"]
+        match_result = [const.FIELD_ID_PARENT, const.FIELD_RECON, "Rule", "Id_Status", "Status"]
         compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, rule[field])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, rule[field])
