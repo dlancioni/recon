@@ -100,7 +100,7 @@ class ReconLib(BaseLib):
             sql += f"rule='{rule_name}', "
             sql += f"id_status='{const.STATUS_MATCHED}',"
             sql += f"{const.FIELD_STATUS} = '{self.matched}', "
-            sql += f"id_parent = {tmp2}.id "
+            sql += f"id_parent = {tmp2}.{const.FIELD_ID} "
             sql += f"from {tmp2} "
             sql += f"where {tmp1}.status = '{self.orphan}' "
             sql += f"{matching_key}"
