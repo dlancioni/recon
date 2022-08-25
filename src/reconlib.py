@@ -48,9 +48,9 @@ class ReconLib(BaseLib):
         for field in setuplib.tag_value(rule, "Fields"):
             field_name = setuplib.tag_value(field, "Name")
             field_name = f"[{field_name}]"
-            if setuplib.tag_value(field, "Type").lower() in ["key", "chave"]:
+            if setuplib.tag_value(field, "Type").lower() in const.MATCH_TYPE_KEY:
                 self.field_key.append(field_name)
-            if setuplib.tag_value(field, "Type").lower() in ["compare", "comparar"]:
+            if setuplib.tag_value(field, "Type").lower() in const.MATCH_TYPE_COMPARE:
                 self.field_compare.append(field_name)
             # stamp the type in recon definition    
             index = self.fields.index(field_name.replace("[", "").replace("]", ""))
@@ -116,7 +116,7 @@ class ReconLib(BaseLib):
         for field in fields:
             field_name = setuplib.tag_value(field, "Name")
             rule_type = setuplib.tag_value(field, "Type")
-            if rule_type.strip().lower() in ["compare", "comparar"]:
+            if rule_type.strip().lower() in const.MATCH_TYPE_COMPARE:
                 if field_name.strip().lower() == fieldname:
                     if attribute == "tolerance":
                         if field["Datatype"].strip().lower() == "decimal":                
