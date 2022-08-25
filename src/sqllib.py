@@ -90,8 +90,24 @@ class SqlLib(BaseLib):
             i += 1
         sql = sql.strip()[:-1]
         return sql
+
+    def get_sql_create_table(self, tablename, fields, types):
+        i = 0
+        sql = ""
+        fieldlist = ""
+        if tablename == "" or fields == [] or types == []: return ""
+        size = len(fields) -1
+        while i <= size:
+            name = str(fields[i]).strip()
+            type = str(types[i]).strip()
+            type = self.get_field_type(type)
+            fieldlist += f"[{name}] {type}, "
+            i += 1
+        fieldlist = fieldlist[:-2]
+        sql = f"create table {tablename} ({fieldlist})"
+        return sql
     
-    def get_create_table_definition(self, tablename, fields, types, status, side):
+    def get_sql_create_table_recon_area(self, tablename, fields, types, status, side):
         i = 0
         sql = ""
         fieldlist = ""

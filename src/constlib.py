@@ -5,6 +5,7 @@ const.SIDES = ["1", "2"]
 const.STATUS_MATCHED = 1
 const.STATUS_DIVERGENT = 2
 const.STATUS_ORPHAN = 3
+
 const.FIELD_ID = "id"
 const.FIELD_SIDE = "side"
 const.FIELD_ID_PARENT = "id_parent"

@@ -42,6 +42,18 @@ class AreaLib(BaseLib):
                     t2.append(sqllib.get_field_type(setuplib.tag_value(field, "Type")))
         loglib.log(loglib.INFO, str(f1) + str(f2))
         return f1, t1, f2, t2
+    
+    def create_area(self, cn, setup):
+        loglib = LogLib("AreaLib", "create_area")
+        table_name = setup["Table"]
+        f1, t1, f2, t2 = self.merge_datasources(setup)
+        fields, types = sqllib.get_table_structure(f1, t1, f2, t2)
+        for side in range(1, 3):
+            dblib.execute(cn, f"drop table if exists {table_name}")
+            dblib.execute(cn, sqllib.get_sql_create_table(table_name, fields, types, status, side))
+        loglib.log(loglib.INFO, "Area created:")
+        loglib.log(loglib.INFO, str(fields) + str(types))
+        return fields, types
 
     def create_recon_area(self, cn, setup):
         loglib = LogLib("AreaLib", "create_recon_area")
@@ -54,9 +66,9 @@ class AreaLib(BaseLib):
             tmp = f"tmp{id}{side}"
             dblib.execute(cn, f"drop table if exists {tb}")
             dblib.execute(cn, f"drop table if exists {tmp}")
-            dblib.execute(cn, sqllib.get_create_table_definition(tb, fields, types, status, side))
-            dblib.execute(cn, sqllib.get_create_table_definition(tmp, fields, types, status, side))
-        loglib.log(loglib.INFO, "Area created:")
+            dblib.execute(cn, sqllib.get_sql_create_table_recon_area(tb, fields, types, status, side))
+            dblib.execute(cn, sqllib.get_sql_create_table_recon_area(tmp, fields, types, status, side))
+        loglib.log(loglib.INFO, "Recon area created:")
         loglib.log(loglib.INFO, str(fields) + str(types))
         return fields, types
 
