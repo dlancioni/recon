@@ -178,6 +178,5 @@ class EtlLibTest(unittest.TestCase):
         rs = dblib.query(cn, "select * from tb11")
         self.assertEqual(len(rs), 2)
 
-
 if __name__ == '__main__':
     unittest.main()

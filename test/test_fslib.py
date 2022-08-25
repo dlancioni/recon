@@ -21,11 +21,6 @@ class FsLibTest(unittest.TestCase):
 
     def tearDown(self):
         pass
-    
-    """ Trigger all tests """
-    def test_run(self):
-        self.is_dir()
-        utillib.cls()
 
 if __name__ == '__main__':
     unittest.main()

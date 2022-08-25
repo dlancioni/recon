@@ -121,7 +121,7 @@ class ReportLib(BaseLib):
         if fslib.is_dir(path) == False:
             raise Exception(msglib.get("V16", [path]))
         filename = fslib.join(path, f"[{self.name}] [{report}].csv")
-        sql += f" select Side, Status, Total from"
+        sql += f" select {const.FIELD_SIDE}, {const.FIELD_STATUS}, Total from"
         sql += f" ("
         sql += f" select"
         sql += f" {const.FIELD_SIDE}, {const.FIELD_ID_STATUS}, {const.FIELD_STATUS}, count({const.FIELD_STATUS}) Total"

@@ -42,7 +42,7 @@ class CoreLibTest(unittest.TestCase):
         pass
     
     """ Test basic recon status [Matched, Divergent and Orphan] """
-    def recon_status(self):
+    def test_recon_status(self):
         recon = "test_basic.cfg"
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
@@ -53,7 +53,7 @@ class CoreLibTest(unittest.TestCase):
         self.check_synthetic(2, data, 2, 1, 1)
         
     """ Test aggregate function [Sum, Max, Min, Avg] """ 
-    def recon_aggregation(self):        
+    def test_recon_aggregation(self):        
         recon = "test_aggreg.cfg"
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
@@ -64,7 +64,7 @@ class CoreLibTest(unittest.TestCase):
         self.check_synthetic(2, data, 2, 1, 1)
             
     """ Test operators on compare [=, !=, >, >=, <, <=] """ 
-    def recon_operators(self):        
+    def test_recon_operators(self):        
         recon = "test_operator.cfg"
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
@@ -75,7 +75,7 @@ class CoreLibTest(unittest.TestCase):
         self.check_synthetic(2, data, 1, 1, 1)
             
     """ Test operators on compare [=, !=, >, >=, <, <=] """ 
-    def recon_multiple_rules(self):
+    def test_recon_multiple_rules(self):
         recon = "test_rules.cfg"
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
@@ -84,14 +84,6 @@ class CoreLibTest(unittest.TestCase):
         data = fslib.get_csv_as_list(reports[0])
         self.check_synthetic(1, data, 3, 0, 1)
         self.check_synthetic(2, data, 3, 0, 1)
-
-    """ Trigger all tests """
-    def test_run(self):
-        utillib.cls()
-        self.recon_status()
-        self.recon_aggregation()
-        self.recon_operators()
-        self.recon_multiple_rules()
 
 if __name__ == '__main__':
     unittest.main()

@@ -144,7 +144,7 @@ class EtlLib(BaseLib):
                 break
         count = row
 
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-start )
         for row in range(1, count):
             if (row >= start):
                 for field in fields:
