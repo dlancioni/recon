@@ -1,7 +1,6 @@
 
 ###### Requirements without Version Specifiers ######
 pysqlite3
-pyinstaller
 prettytable
 progress
 termcolor
@@ -13,5 +12,6 @@ mysql-connector-python
 psycopg2
 pyodbc
 openpyxl
+pyinstaller
 
 ###### Requirements with Version Specifiers ######

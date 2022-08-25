@@ -60,7 +60,7 @@ class SetupLib(BaseLib):
             return recon
         else:
             try:
-                path = fslib.get_path_config()
+                path = fslib.get_path_task()
                 if fslib.is_dir(path) == False:
                     raise Exception(msglib.get("V17", [path]))
                 filename = str(recon.split(".")[0]) +".cfg"

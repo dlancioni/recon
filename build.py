@@ -37,7 +37,7 @@ shutil.copy(filename, target)
 
 # copy folder structure
 print(f"Copying folders to {target}")
-dirs = ["config", "data", "logs", "reports"]
+dirs = ["config", "data", "logs", "reports", "task"]
 for dir in dirs:
     path1 = fslib.join(source, dir)
     path2 = fslib.join(target, dir)
@@ -48,7 +48,7 @@ for dir in dirs:
     
 # delete configs used in dev only
 print(f"Deleting recons used for test")
-path = fslib.join(target, "config")
+path = fslib.join(target, "task")
 files = os.listdir(path)
 for file in files:
     if str(file).find("test") >= 0:
