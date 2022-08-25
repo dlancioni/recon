@@ -97,7 +97,7 @@ class ReconLib(BaseLib):
             sql = ""
             sql += f"update {tmp1} set "
             sql += f"{const.FIELD_RECON}='{self.name}', "
-            sql += f"rule='{rule_name}', "
+            sql += f"{const.FIELD_RULE}='{rule_name}', "
             sql += f"id_status='{const.STATUS_MATCHED}',"
             sql += f"{const.FIELD_STATUS} = '{self.matched}', "
             sql += f"{const.FIELD_ID_PARENT} = {tmp2}.{const.FIELD_ID} "
