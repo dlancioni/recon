@@ -100,7 +100,7 @@ class ReconLib(BaseLib):
             sql += f"rule='{rule_name}', "
             sql += f"id_status='{const.STATUS_MATCHED}',"
             sql += f"{const.FIELD_STATUS} = '{self.matched}', "
-            sql += f"id_parent = {tmp2}.{const.FIELD_ID} "
+            sql += f"{const.FIELD_ID_PARENT} = {tmp2}.{const.FIELD_ID} "
             sql += f"from {tmp2} "
             sql += f"where {tmp1}.status = '{self.orphan}' "
             sql += f"{matching_key}"
@@ -209,7 +209,7 @@ class ReconLib(BaseLib):
         rows_affected = 0
         """ stamp the differences from tmps in tbs """
         field = setuplib.tag_name(rule, "Fields")
-        match_result = ["Id_Parent", "Recon", "Rule", "Id_Status", "Status"]
+        match_result = [const.FIELD_ID_PARENT, "Recon", "Rule", "Id_Status", "Status"]
         compare_result = self.field_with_diff
         matching_key1 = sqllib.get_sql_key(self.tb1, self.tmp1, rule[field])
         matching_key2 = sqllib.get_sql_key(self.tb2, self.tmp2, rule[field])
@@ -244,7 +244,7 @@ class ReconLib(BaseLib):
         for side in range(1, 3):
             sql = f"drop table if exists tmp{self.id}{side}"
             rows_affected = dblib.execute(cn, sql)
-            sql = f"alter table tb{self.id}{side} drop column Id_Parent"
+            sql = f"alter table tb{self.id}{side} drop column {const.FIELD_ID_PARENT}"
             rows_affected = dblib.execute(cn, sql)            
 
     def process(self, cn, recon):
