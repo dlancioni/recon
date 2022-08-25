@@ -78,7 +78,7 @@ class ReconLib(BaseLib):
             sql += f"insert into {tmp} ({field_list}) "
             sql += f"select {value_list}  "
             sql += f"from {tb} "
-            sql += f"where status <> '{self.matched}' "
+            sql += f"where {const.FIELD_STATUS} <> '{self.matched}' "
             sql += f"group by {grouping_key} " if grouping_key != "" else ""
             sql += f"order by {grouping_key} " if grouping_key != "" else ""
             rows_affected = dblib.execute(cn, sql)
@@ -99,7 +99,7 @@ class ReconLib(BaseLib):
             sql += f"recon='{self.name}', "
             sql += f"rule='{rule_name}', "
             sql += f"id_status='{const.STATUS_MATCHED}',"
-            sql += f"status = '{self.matched}', "
+            sql += f"{const.FIELD_STATUS} = '{self.matched}', "
             sql += f"id_parent = {tmp2}.id "
             sql += f"from {tmp2} "
             sql += f"where {tmp1}.status = '{self.orphan}' "
