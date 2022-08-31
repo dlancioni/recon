@@ -13,7 +13,3 @@ class UtilLib:
 
     def cls(self):
         os.system("cls||clear")
-        
-        
-x = UtilLib()
-print(x.diff([1,1,2,2]))        
