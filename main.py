@@ -23,12 +23,12 @@ utillib.cls()
 
 """ control input flow """
 @click.command()
-@click.option('--f',  help=f"{msglib.get('M12')}", default="recon.cfg")
-@click.option('--c',  help=f"{msglib.get('M13')}", is_flag=True)
-@click.option('--t',  help=f"{msglib.get('M14')}", is_flag=True)
-@click.option('--rs', help=f"{msglib.get('M15')}", is_flag=True)
-@click.option('--ra', help=f"{msglib.get('M16')}", is_flag=True)
-@click.option('--s',  help=f"{msglib.get('M17')}", default=0)
+@click.option('-f',  help=f"{msglib.get('M12')}", default="recon.cfg")
+@click.option('-c',  help=f"{msglib.get('M13')}", is_flag=True)
+@click.option('-t',  help=f"{msglib.get('M14')}", is_flag=True)
+@click.option('-rs', help=f"{msglib.get('M15')}", is_flag=True)
+@click.option('-ra', help=f"{msglib.get('M16')}", is_flag=True)
+@click.option('-s',  help=f"{msglib.get('M17')}", default=0)
 
 def main(f, c, t, rs, ra, s):
     
