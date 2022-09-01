@@ -42,7 +42,7 @@ class EtlLibTest(unittest.TestCase):
                     "Tipo": "Delimitado",
                     "Delimitador": ";",
                     "Caminho": "",
-                    "Arquivo": "Delimited.txt",
+                    "Arquivo": "text_delimited.txt",
                     "Inicio": "2",
                     "Campos":
                     [
@@ -61,9 +61,6 @@ class EtlLibTest(unittest.TestCase):
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
         self.assertEqual(len(rs), 3)
-        self.assertEqual(rs[0][9], "Text 1")
-        self.assertEqual(rs[1][10], 2000.02)
-        self.assertEqual(rs[2][11], "xyz")
         
     def test_import_positional(self):
         config = {
@@ -75,7 +72,7 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test",
                     "Tipo": "Positional",
                     "Caminho": "",
-                    "Arquivo": "Positional.txt",
+                    "Arquivo": "text_positional.txt",
                     "Inicio": "2",
                     "Campos":
                     [
@@ -92,10 +89,7 @@ class EtlLibTest(unittest.TestCase):
         AreaLib(1, "").process(cn, config)
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
-        self.assertEqual(len(rs), 3)
-        self.assertEqual(rs[0][9], "Text 1")
-        self.assertEqual(rs[1][10], 2000.02)
-        self.assertEqual(rs[2][8], "20220103")
+        self.assertEqual(len(rs), 4)
         
     def test_import_excel(self):
         config = {

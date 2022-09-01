@@ -42,8 +42,8 @@ class CoreLibTest(unittest.TestCase):
         pass
     
     """ Test basic recon status [Matched, Divergent and Orphan] """
-    def test_recon_status(self):
-        recon = "test_basic.cfg"
+    def test_recon_text(self):
+        recon = "test_text.cfg"
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
         self.assertEqual(message, "")

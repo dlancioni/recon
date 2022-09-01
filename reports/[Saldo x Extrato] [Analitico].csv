@@ -1,7 +1,0 @@
-Id;Lado;Conciliação;Regra;Status;Agencia;Conta;Saldo;Data;Saldo (Diferença)
-1;1;Saldo x Extrato;Regra 1;Batido;1;10000-1;1000;;
-2;1;Saldo x Extrato;Regra 1;Divergente;2;20000-2;2000;;2000/1000
-3;1;;;Órfão;3;30000-3;3000;;
-1;2;Saldo x Extrato;Regra 1;Batido;1;10000-1;1000;02/01/2022;
-2;2;Saldo x Extrato;Regra 1;Divergente;2;20000-2;500;02/01/2022;2000/1000
-3;2;Saldo x Extrato;Regra 1;Divergente;2;20000-2;500;02/01/2022;2000/1000

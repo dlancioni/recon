@@ -1,4 +1,0 @@
-Integer Date Text Decimal
-1 20220101 Text 1 1000.01
-1 20220102 Text 2 2000.02
-2 20220103 Text 3 3000.03

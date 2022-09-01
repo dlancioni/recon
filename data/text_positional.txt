@@ -1,0 +1,5 @@
+Integer Date Text Decimal
+1 20220101 Text 1 500.00
+1 20220101 Text 1 500.00
+2 20220102 Text 2 2000.02
+4 20220104 Text 4 4000.00
