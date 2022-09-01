@@ -74,7 +74,7 @@ class CoreLibTest(unittest.TestCase):
         self.check_synthetic(1, data, 1, 1, 1)
         self.check_synthetic(2, data, 1, 1, 1)
             
-    """ Test operators on compare [=, !=, >, >=, <, <=] """ 
+    """ Test multiple rules """ 
     def test_recon_multiple_rules(self):
         recon = "test_rules.cfg"
         status, message, reports = corelib.process(recon)
