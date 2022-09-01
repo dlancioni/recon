@@ -1,4 +1,0 @@
-Code; Equals; Different; Greater; Greater Equals; Smaller; Smaller Equals
-   1;      2;         2;       5;              5;       4;              5
-   2;      2;         2;       4;              3;       4;              8
-   3;      0;         0;       0;              0;       0;              0
