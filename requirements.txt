@@ -1,17 +1,22 @@
 
 ###### Requirements without Version Specifiers ######
+
+# Database
+pyodbc
+psycopg2
 pysqlite3
+mysql-connector-python
+
+# Formatting
 prettytable
 progress
 termcolor
-pconst
-click
-pendulum
-openpyxl
-mysql-connector-python
-psycopg2
-pyodbc
-openpyxl
-pyinstaller
 
-###### Requirements with Version Specifiers ######
+# Programming
+click
+pconst
+pendulum
+
+# Util
+pyinstaller
+openpyxl
