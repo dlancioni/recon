@@ -1,5 +1,8 @@
 import os
 import pendulum
+from src.msglib import MsgLib
+
+msglib = MsgLib()
 
 class ExpireLib:
 
@@ -7,10 +10,10 @@ class ExpireLib:
         pass
         
     def expired(self):
-        expire_at = "2023"
+        expire_at = "2022"
         year = str(pendulum.now().format("YYYY")).strip()
         expired = (year == expire_at)
         if expired == True:
-            msg = "Essa versao expirou, entre em contato com dlancioni@gmail.com"
+            msg = msglib.get("M18")
             print(msg)
         return expired
