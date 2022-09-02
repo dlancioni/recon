@@ -4,7 +4,15 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
+
+        {
+            "name": "Recon: test_aggreg",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_aggreg", "-ra"],
+            "console": "integratedTerminal"
+        },
         {
             "name": "Recon: test_rules",
             "type": "python",
@@ -12,6 +20,46 @@
             "program": "${file}",
             "args": [ "-ftest_rules", "-ra"],
             "console": "integratedTerminal"
-        }
+        },
+        {
+            "name": "Recon: test_db",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_db", "-ra"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Recon: test_operator",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_operator", "-ra"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Recon: test_rules",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_rules", "-ra"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Recon: test_text",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_text", "-ra"],
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Recon: test_volume",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_volume", "-rs"],
+            "console": "integratedTerminal"
+        }                
     ]
 }

@@ -1,8 +1,13 @@
 Backlog
 
+- Criptografar pyinstaller
+- Import excel exibir nome da planilha
 - Verificar formato de data (mascara) e converter para salvar yyyyMMdd
 - Primeiro passo da recon, verificar se tem tabela vazia
 - Campos usados na sessao recon existem nos datasources
 - Bater numerico na chave com tolerancia em dois passos
+- Parametrizar separador do csv dos reports em app.json
+- Parametrizar tipo arquivo (UTF8, etc)
 - Enviar resultado por email
 - Unit test das validacoes
+- Deixar log bem mais util
