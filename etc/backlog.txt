@@ -1,16 +1,8 @@
-Pendente
+Backlog
 
-1) apos etl, tratar se as tabelas estao vazias
-2) tratar decimal com virgula. Se valor tiver , e mascara nao apontar
-3) Validar se os campos definidos na sessao recon existem no mapeamento dos arquivos (caso data mov x data)
-
-Pendente teste automatico
-1) validar se lado 1 e lado 2 estao importando mesmo arquivo
-2) validar sides 1 e 2 existem
-3) Fonte de dados com mesmo nome em lados diferentes
-4) Validar tipo de dado (texto, inteiro, etc)
-5) Nome de campo nao pode ter . ou []
-6) validar campos numericos (id, side, etc)
-7) Ids duplicados nas fontes de dados
-
-Feito
+- Verificar formato de data (mascara) e converter para salvar yyyyMMdd
+- Primeiro passo da recon, verificar se tem tabela vazia
+- Campos usados na sessao recon existem nos datasources
+- Bater numerico na chave com tolerancia em dois passos
+- Enviar resultado por email
+- Unit test das validacoes
