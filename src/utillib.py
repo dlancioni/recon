@@ -1,4 +1,5 @@
 import os
+import pendulum
 
 class UtilLib:
 
@@ -13,3 +14,8 @@ class UtilLib:
 
     def cls(self):
         os.system("cls||clear")
+        
+    def expire(self):      
+        year = str(pendulum.now().format("YYYY")).strip()
+        valid = (year == "2022")
+        return valid

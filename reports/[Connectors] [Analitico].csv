@@ -1,0 +1,6 @@
+Id;Lado;Conciliação;Regra;Status;Field 1;Field 2
+1;1;Connectors;Regra 1;Batido;1;David
+2;1;Connectors;Regra 1;Batido;2;Renata
+1;2;Connectors;Regra 1;Batido;1;David
+2;2;Connectors;Regra 1;Batido;2;Renata
+3;2;;;Órfão;3;Taza

@@ -12,6 +12,7 @@ from src.msglib import MsgLib
 from src.utillib import UtilLib
 from src.corelib import CoreLib
 from src.reportlib import ReportLib
+from src.expirelib import ExpireLib
 
 """ general declaration """
 fslib = FsLib()
@@ -19,6 +20,7 @@ msglib = MsgLib()
 utillib = UtilLib()
 corelib = CoreLib()
 reportlib = ReportLib()
+expirelib = ExpireLib()
 utillib.cls()
 
 """ control input flow """
@@ -58,4 +60,5 @@ def main(f, c, t, rs, ra, s):
             reportlib.print_report(2, reports[1], s)
 
 if __name__ == '__main__':
-    main()
+    if expirelib.expired() == False:
+        main()
