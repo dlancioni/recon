@@ -130,7 +130,7 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test Db",
                     "Tipo": "Db",
                     "Conector": "connector_pgsql.cfg",
-                    "Consulta": "select * from public.tb1",
+                    "Consulta": "select 1 Id, 'Description 1' Description",
                     "Campos":
                     [
                         {"Posição":"1", "Nome":"Field 1", "Tipo":"Integer"},
@@ -144,7 +144,7 @@ class EtlLibTest(unittest.TestCase):
         AreaLib(1, "").process(cn, config)
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
-        self.assertEqual(len(rs), 3)
+        self.assertEqual(len(rs), 1)
         
     def test_import_db_mysql(self):
         config = {
@@ -156,7 +156,7 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test Db",
                     "Tipo": "Db",
                     "Conector": "connector_mysql.cfg",
-                    "Consulta": "select * from tb1",
+                    "Consulta": "select 1 Id, 'Description 1' Description",
                     "Campos":
                     [
                         {"Posição":"1", "Nome":"Field 1", "Tipo":"Integer"},
@@ -170,7 +170,7 @@ class EtlLibTest(unittest.TestCase):
         AreaLib(1, "").process(cn, config)
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
-        self.assertEqual(len(rs), 2)
+        self.assertEqual(len(rs), 1)
         
     def test_import_db_mssql(self):
         config = {
@@ -182,11 +182,11 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test Db",
                     "Tipo": "Db",
                     "Conector": "connector_mssql.cfg",
-                    "Consulta": "select * from tb1",
+                    "Consulta": "select 1 'Id', 'Name 1' 'Name'",
                     "Campos":
                     [
-                        {"Posição":"1", "Nome":"Field 1", "Tipo":"Integer"},
-                        {"Posição":"2",  "Nome":"Field 2", "Tipo":"Text"}
+                        {"Posição":"1", "Nome":"Field 1", "Tipo":"Inteiro"},
+                        {"Posição":"2",  "Nome":"Field 2", "Tipo":"Texto"}
                     ]
                 }
             ]
@@ -196,7 +196,7 @@ class EtlLibTest(unittest.TestCase):
         AreaLib(1, "").process(cn, config)
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
-        self.assertEqual(len(rs), 2)        
+        self.assertEqual(len(rs), 1)
 
 if __name__ == '__main__':
     unittest.main()
