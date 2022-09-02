@@ -10,7 +10,6 @@ python -m unittest discover -stest -v -b
 
 # recon calls
 python main.py -f "test_aggreg" -rs
-python main.py -f "test_bad_json" -rs
 python main.py -f "test_basic" -rs
 python main.py -f "test_operator" -rs
 python main.py -f "test_rules" -rs
