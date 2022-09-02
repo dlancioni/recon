@@ -222,7 +222,7 @@ class ReconLib(BaseLib):
                 matching_key = matching_key1 if side == 1 else matching_key2
                 field_list += f"{field} = {tmp}.{field}, "
             field_list = field_list.strip()[:-1]
-            sql = f"update {tb} set {field_list} from {tmp} where 1=1 {matching_key}"
+            sql = f"update {tb} set {field_list} from {tmp} where {tb}.{const.FIELD_ID_STATUS} = {const.STATUS_ORPHAN} {matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Key info stamped in final tables")
         """ stamp compare information in final table """
