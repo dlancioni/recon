@@ -171,6 +171,32 @@ class EtlLibTest(unittest.TestCase):
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
         self.assertEqual(len(rs), 2)
+        
+    def test_import_db_mssql(self):
+        config = {
+            "Id": "1",
+            "Dados":
+            [
+                {
+                    "Lado": "1",
+                    "Nome": "Test Db",
+                    "Tipo": "Db",
+                    "Conector": "connector_mssql.cfg",
+                    "Consulta": "select * from tb1",
+                    "Campos":
+                    [
+                        {"Posição":"1", "Nome":"Field 1", "Tipo":"Integer"},
+                        {"Posição":"2",  "Nome":"Field 2", "Tipo":"Text"}
+                    ]
+                }
+            ]
+        }
+
+        cn = self.get_connection()
+        AreaLib(1, "").process(cn, config)
+        EtlLib(1, "").process(cn, config)
+        rs = dblib.query(cn, "select * from tb11")
+        self.assertEqual(len(rs), 2)        
 
 if __name__ == '__main__':
     unittest.main()

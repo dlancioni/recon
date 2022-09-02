@@ -1,9 +1,10 @@
 import os
 import logging
+import pyodbc 
 import psycopg2
 import sqlite3
-from sqlite3 import Error
 import mysql.connector
+from sqlite3 import Error
 from src.fslib import FsLib
 
 fslib = FsLib()
@@ -58,6 +59,8 @@ class DbLib:
             cn = self.get_connection_mysql(conector)
         if info["db"] == "pgsql":
             cn = self.get_connection_pgsql(conector)
+        if info["db"] == "mssql":
+            cn = self.get_connection_mssql(conector)            
         cursor = cn.cursor()
         cursor.execute(query)
         rs = cursor.fetchall()
@@ -82,3 +85,19 @@ class DbLib:
         pwd = info["password"]
         cn = psycopg2.connect(host=host, database=db, user=user, password=pwd)
         return cn
+    
+    def get_connection_mssql(self, conector):
+        path = fslib.get_path_config(conector)
+        info = fslib.open_json(path)
+        driver = "SQL Server Native Client 11.0"        
+        host = info["hostname"]
+        db = info["database"]
+        user = info["username"]
+        pwd = info["password"]
+        connection = f"Driver={driver}; Server={host}; Database={db}; UID={user}; PWD={pwd};"        
+        cn = pyodbc.connect(connection)
+        return cn
+    
+    
+
+
