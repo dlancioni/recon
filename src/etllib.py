@@ -77,6 +77,7 @@ class EtlLib(BaseLib):
     def date_format(self, field_def, field_value=""):
         field_type = setuplib.tag_value(field_def, "Type").lower()
         field_mask = setuplib.tag_value(field_def, "Mask").upper()
+        field_mask = field_mask.replace(":MM", ":mm")
         if field_type in const.DATATYPE_DATETIME:            
             if field_mask != "":
                 field_value = pdl.from_format(field_value, field_mask)
