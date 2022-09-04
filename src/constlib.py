@@ -28,3 +28,4 @@ const.DATASOURCE_EXCEL = ["Excel"]
 # Data types
 const.DATATYPE = ["integer", "decimal", "text", "datetime"] + ["inteiro", "texto", "datahora"]
 const.DATATYPE_NUMERIC = ["integer", "decimal"] + ["inteiro"]
+const.DATATYPE_DATETIME = ["datetime", "datahora"]

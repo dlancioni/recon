@@ -1,8 +1,7 @@
-Backlog
-
+Pendente:
 - Criptografar pyinstaller
-- Import excel exibir nome da planilha
 - Verificar formato de data (mascara) e converter para salvar yyyyMMdd
+- Validar posicionamento de colunas
 - Primeiro passo da recon, verificar se tem tabela vazia
 - Campos usados na sessao recon existem nos datasources
 - Bater numerico na chave com tolerancia em dois passos
@@ -10,4 +9,7 @@ Backlog
 - Parametrizar tipo arquivo (UTF8, etc)
 - Enviar resultado por email
 - Unit test das validacoes
-- Deixar log bem mais util
+- Deixar log mais util
+
+Resolvido:
+- Import excel exibir nome da planilha

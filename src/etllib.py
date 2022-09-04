@@ -13,6 +13,8 @@ from src.msglib import MsgLib
 from src.loglib import LogLib
 from src.setuplib import SetupLib
 from src.cfglib import ConfigLib
+from src.constlib import const
+import pendulum as pdl
 
 dblib = DbLib()
 fslib = FsLib()
@@ -72,9 +74,19 @@ class EtlLib(BaseLib):
             field_value = str(default_value)
         return field_value
     
+    def date_format(self, field_def, field_value=""):
+        field_type = setuplib.tag_value(field_def, "Type").lower()
+        field_mask = setuplib.tag_value(field_def, "Mask").upper()
+        if field_type in const.DATATYPE_DATETIME:            
+            if field_mask != "":
+                field_value = pdl.from_format(field_value, field_mask)
+            field_value = field_value.format("YYYY-MM-DD HH:mm:SS")
+        return field_value
+    
     def format_data(self, field_def, field_value):
         field_value = self.empty_value(field_def, field_value)
         field_value = self.default_value(field_def, field_value)
+        field_value = self.date_format(field_def, field_value)
         return field_value
     
     def import_text_file(self, cn, datasource):
@@ -94,13 +106,13 @@ class EtlLib(BaseLib):
                     values = line.split(delimiter) if delimiter != "" else line
                     for field in fields:
                         position = int(field[setuplib.tag_name(field, "Position")]) -1
-                        tag_size = setuplib.tag_name(field, "Size", False)
+                        tag_size = setuplib.tag_name(field, "Size")
                         if tag_size != "":
                             size = int(field[tag_size])
                             field_value = values[position:position+size]
                         else:    
                             field_value = values[position]
-                        field["Value"] = self.format_data(field, field_value)                        
+                        field["Value"] = self.format_data(field, field_value)
                     self.persist(cn, fields)
                     progress_bar.next()
         progress_bar.finish()
@@ -126,7 +138,6 @@ class EtlLib(BaseLib):
     def import_excel(self, cn, datasource):
         row = 0
         count = 0        
-
         field_value = ""
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
@@ -135,7 +146,6 @@ class EtlLib(BaseLib):
         workbook = load_workbook(path)
         sheet_name = setuplib.tag_value(datasource, "Sheet")
         sheet = workbook[sheet_name]
-
         msglib.print(msglib.get("M19"))
         rows = 65000
         columns = 10
@@ -147,7 +157,6 @@ class EtlLib(BaseLib):
             if empty == (columns -1):
                 break
         count = row
-
         msg = msglib.get("M5", [filename]) + " (" + sheet_name + ")"        
         progress_bar = ShadyBar(msglib.set_time(msg), max=count-start )
         for row in range(1, count):
