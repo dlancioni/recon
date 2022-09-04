@@ -125,16 +125,20 @@ class EtlLib(BaseLib):
         
     def import_excel(self, cn, datasource):
         row = 0
-        count = 0
+        count = 0        
+
         field_value = ""
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
         path, filename = self.get_path(datasource)
+        msglib.print(msglib.get("M20"))        
         workbook = load_workbook(path)
-        sheet = workbook[setuplib.tag_value(datasource, "Sheet")]
+        sheet_name = setuplib.tag_value(datasource, "Sheet")
+        sheet = workbook[sheet_name]
 
+        msglib.print(msglib.get("M19"))
         rows = 65000
-        columns = 20
+        columns = 10
         for row in range(1, rows):
             empty = 0
             for column in range(1, columns):
@@ -144,7 +148,8 @@ class EtlLib(BaseLib):
                 break
         count = row
 
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-start )
+        msg = msglib.get("M5", [filename]) + " (" + sheet_name + ")"        
+        progress_bar = ShadyBar(msglib.set_time(msg), max=count-start )
         for row in range(1, count):
             if (row >= start):
                 for field in fields:
