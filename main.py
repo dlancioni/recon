@@ -46,7 +46,7 @@ def main(f, c, t, rs, ra, s):
         msg = msglib.set_time(f"{msg}: {timedelta(seconds=end-start)}")
         msg = colored(msg, "yellow")
         print(msg)
-        
+
     """ all done """
     msglib.print(msglib.get("M2"))
     
