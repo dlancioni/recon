@@ -8,5 +8,7 @@ dist/
 lib/
 
 # Internal
-./reports/
-./logs/
+reports/*
+logs/*
+!reports/.gitkeep
+!logs/.gitkeep
