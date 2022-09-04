@@ -1,6 +1,5 @@
 Pendente:
 - Criptografar pyinstaller
-- Verificar formato de data (mascara) e converter para salvar yyyyMMdd
 - Validar posicionamento de colunas
 - Primeiro passo da recon, verificar se tem tabela vazia
 - Campos usados na sessao recon existem nos datasources
@@ -13,3 +12,4 @@ Pendente:
 
 Resolvido:
 - Import excel exibir nome da planilha
+- Verificar formato de data (mascara) e converter para salvar yyyyMMdd

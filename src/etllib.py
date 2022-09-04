@@ -75,13 +75,20 @@ class EtlLib(BaseLib):
         return field_value
     
     def date_format(self, field_def, field_value=""):
+        mask_date = "YYYY-MM-DD"
+        mask_time = "HH:mm:SS"
         field_type = setuplib.tag_value(field_def, "Type").lower()
         field_mask = setuplib.tag_value(field_def, "Mask").upper()
         field_mask = field_mask.replace(":MM", ":mm")
-        if field_type in const.DATATYPE_DATETIME:            
+        
+        if field_type in const.DATATYPE_DATETIME:
             if field_mask != "":
                 field_value = pdl.from_format(field_value, field_mask)
-            field_value = field_value.format("YYYY-MM-DD HH:mm:SS")
+                if field_mask.find("D") == -1 and field_mask.find("M") == -1 and field_mask.find("Y") == -1:
+                    mask_date = ""
+                if field_mask.find("H") == -1 and field_mask.find("m") == -1 and field_mask.find("S") == -1:
+                    mask_time = ""
+            field_value = field_value.format(f"{mask_date} {mask_time}")
         return field_value
     
     def format_data(self, field_def, field_value):
