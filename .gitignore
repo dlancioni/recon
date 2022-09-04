@@ -8,5 +8,5 @@ dist/
 lib/
 
 # Internal
-reports/
-logs/
+reports/*
+logs/*
