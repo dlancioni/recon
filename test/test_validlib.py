@@ -40,7 +40,7 @@ class EtlLibTest(unittest.TestCase):
             "Campos":
             [
                 {"Posição":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
-                {"Posição":"2", "Nome":"Campo 2", "Tipo":"Datahora"},
+                {"Posição":"2", "Nome":"Campo 2", "Tipo":"Datahora", "Mascara":"yyyymmdd"},
                 {"Posição":"3", "Nome":"Campo 3", "Tipo":"Texto"},
                 {"Posição":"4", "Nome":"Campo 4", "Tipo":"Decimal", "Mascara":","}
             ]
@@ -59,9 +59,9 @@ class EtlLibTest(unittest.TestCase):
             "Fields":
             [
                 {"Position":"1", "Size":"1", "Name":"Campo 1", "Type":"Integer"},
-                {"Position":"3", "Size":"8", "Name":"Campo 2", "Type":"Datetime"},
+                {"Position":"3", "Size":"8", "Name":"Campo 2", "Type":"Datetime", "Mask":"yyyy-mm-dd"},
                 {"Posição":"12", "Size":"6", "Name":"Campo 3", "Type":"Text"},
-                {"Posição":"19", "Size":"7", "Name":"Campo 4", "Type":"Decimal"}
+                {"Posição":"19", "Size":"7", "Name":"Campo 4", "Type":"Decimal", "Mask":"."}
             ]
         }
         
@@ -79,7 +79,7 @@ class EtlLibTest(unittest.TestCase):
             "Fields":
             [
                 {"Posição":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
-                {"Posição":"2", "Nome":"Campo 2", "Tipo":"Datahora"},
+                {"Posição":"2", "Nome":"Campo 2", "Tipo":"Datahora", "Mascara":"yyyy-mm-dd"},
                 {"Posição":"3", "Nome":"Campo 3", "Tipo":"Texto"},
                 {"Posição":"4", "Nome":"Campo 4", "Tipo":"Decimal", "Mascara":","}
             ]
@@ -97,7 +97,7 @@ class EtlLibTest(unittest.TestCase):
             "Campos":
             [
                 {"Posição":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
-                {"Posição":"2", "Nome":"Campo 2", "Tipo":"Datahora"},
+                {"Posição":"2", "Nome":"Campo 2", "Tipo":"Datahora", "Mascara":"yyyy-mm-dd"},
                 {"Posição":"3", "Nome":"Campo 3", "Tipo":"Texto"},
                 {"Posição":"4", "Nome":"Campo 4", "Tipo":"Decimal", "Mascara":","}
             ]

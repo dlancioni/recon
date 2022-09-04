@@ -1,4 +1,4 @@
-Integer;Date;Text;Decimal;
+Integer;Date;Text;Decimal;Time;
 1;01/01/2022;Text 1;1.000,00;
 2;02/01/2022;Text 2;2.000,00;
 3;03/01/2022;Text 3;3.000,03;

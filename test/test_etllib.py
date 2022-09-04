@@ -77,9 +77,9 @@ class EtlLibTest(unittest.TestCase):
                     "Campos":
                     [
                         {"Posição":"1",  "Tamanho":"1", "Nome":"Campo 1", "Tipo":"Inteiro"},
-                        {"Posição":"3",  "Tamanho":"8", "Nome":"Campo 2", "Tipo":"DataHora"},
+                        {"Posição":"3",  "Tamanho":"8", "Nome":"Campo 2", "Tipo":"DataHora", "Mascara":"yyyymmdd"},
                         {"Posição":"12", "Tamanho":"6", "Nome":"Campo 3", "Tipo":"Texto"},
-                        {"Posição":"19", "Tamanho":"7", "Nome":"Campo 4", "Tipo":"Decimal"}
+                        {"Posição":"19", "Tamanho":"7", "Nome":"Campo 4", "Tipo":"Decimal", "Mascara":"."}
                     ]
                 }
             ]

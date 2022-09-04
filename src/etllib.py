@@ -106,7 +106,7 @@ class EtlLib(BaseLib):
                     values = line.split(delimiter) if delimiter != "" else line
                     for field in fields:
                         position = int(field[setuplib.tag_name(field, "Position")]) -1
-                        tag_size = setuplib.tag_name(field, "Size")
+                        tag_size = setuplib.tag_name(field, "Size", False)
                         if tag_size != "":
                             size = int(field[tag_size])
                             field_value = values[position:position+size]

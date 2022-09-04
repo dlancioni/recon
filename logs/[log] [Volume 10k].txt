@@ -1,5 +1,0 @@
-2022-09-04 11:55:31 INFO CoreLib.process: Validation OK, ready to create area
-2022-09-04 11:55:31 INFO AreaLib.merge_datasources: ['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']
-2022-09-04 11:55:31 INFO AreaLib.create_recon_area: Recon area created:
-2022-09-04 11:55:31 INFO AreaLib.create_recon_area: ['Codigo', 'Nome', 'Email', 'Data', 'Cargo', 'Salario']['Integer', 'Text', 'Text', 'Text', 'Text', 'Decimal']
-2022-09-04 11:55:31 INFO CoreLib.process: Area OK, ready to import files

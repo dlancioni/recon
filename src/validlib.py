@@ -43,20 +43,33 @@ class ValidationLib(BaseLib):
     def validate_field_type(self, field_type=""):
         if field_type.strip().lower() not in const.DATATYPE:
             raise Exception(msglib.get("V11", [field_type]))
+        
+    def validate_field_mask(self, field_name, field_type="", field_mask=""):
+        field_mask = field_mask.strip().upper()
+        if field_type.strip().lower() in const.DATATYPE_DECIMAL:
+            if field_mask not in [".", ","]:
+                raise Exception(msglib.get("V23", [field_name, field_mask]))
+        if field_type.strip().lower() in const.DATATYPE_DATETIME:
+            if field_mask == "":
+                raise Exception(msglib.get("V24", [field_name]))
 
     def validate_tag(self, config, field_name, field_type="text", mandatory=True, domain=[]):
-        tag_name = setuplib.tag_name(config, field_name)
-        tag_value = config[tag_name]
-        self.validate_field_name(tag_name)
-        self.validate_field_type(field_type)        
-        if field_type.lower() in const.DATATYPE_NUMERIC:
-            self.validate_numeric(tag_name, tag_value)
-        if mandatory:
-            if str(tag_value) == "":
-                raise Exception(msglib.get("V2", [tag_name]))
-        if domain != []:
-            if tag_value.lower() not in domain:
-                raise Exception(msglib.get("V21", [tag_name, str(domain)]))
+        tag_name = setuplib.tag_name(config, field_name, False)
+        if tag_name != "":
+            tag_value = config[tag_name]
+            self.validate_field_name(tag_name)
+            self.validate_field_type(field_type)           
+            if tag_name in ["Mask", "Mascara"]:
+                tag_type = config[setuplib.tag_name(config, "Type")]
+                self.validate_field_mask(config[setuplib.tag_name(config, "Name")], tag_type, tag_value)
+            if field_type.lower() in const.DATATYPE_NUMERIC:
+                self.validate_numeric(tag_name, tag_value)
+            if mandatory:
+                if str(tag_value) == "":
+                    raise Exception(msglib.get("V2", [tag_name]))
+            if domain != []:
+                if tag_value.lower() not in domain:
+                    raise Exception(msglib.get("V21", [tag_name, str(domain)]))
 
     """ Validate json header """
     def validate_info(self, config):
@@ -91,11 +104,19 @@ class ValidationLib(BaseLib):
         if len(fields) == 0:
             raise Exception(msglib.get("V6", [name]))
         for field in fields:
-            self.validate_tag(field, "Position")
+            self.validate_tag(field, "Position")            
             if type == const.DATASOURCE_POSITIONAL:
-                self.validate_tag(field, "Size")
+                self.validate_tag(field, "Size")                
             self.validate_tag(field, "Name")
             self.validate_tag(field, "Type", "Text", True, const.DATATYPE)
+            
+            if str(setuplib.tag_value(field, "Type")).lower() in const.DATATYPE_DATETIME + const.DATATYPE_DECIMAL:
+                if setuplib.tag_value(field, "Mask", False) == "":
+                    raise Exception(msglib.get("V22", [name, setuplib.tag_value(field, "Name"), setuplib.tag_value(field, "Type")]))
+                else:    
+                    self.validate_tag(field, "Mask", "Text", True)
+                    
+                    
             names.append(setuplib.tag_value(field, "Name"))
             positions.append(setuplib.tag_value(field, "Position"))
         diff = utillib.diff(names)
