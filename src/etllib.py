@@ -158,6 +158,8 @@ class EtlLib(BaseLib):
         query = setuplib.tag_value(datasource, "Query")
         rows = dblib.get_data(connector, query)
         count = len(rows)
+        if len(fields) > len(rows[0]):
+            raise Exception(msglib.get("V25", [len(fields), len(rows[0])]))
         progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [connector])), max=count)
         for row in rows:
             for field in fields:
