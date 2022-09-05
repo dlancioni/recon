@@ -60,6 +60,14 @@
             "program": "${file}",
             "args": [ "-ftest_volume", "-rs"],
             "console": "integratedTerminal"
-        }                
+        },
+        {
+            "name": "Recon: test_tolerancia",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_tolerancia", "-ra"],
+            "console": "integratedTerminal"
+        }                        
     ]
 }

@@ -1,3 +1,0 @@
-Nome; Idade
-David; 42
-Renata; 50
