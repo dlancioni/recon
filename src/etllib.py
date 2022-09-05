@@ -97,7 +97,32 @@ class EtlLib(BaseLib):
         field_value = self.date_format(field_def, field_value)
         return field_value
     
-    def import_text_file(self, cn, datasource):
+    def import_delimited(self, cn, datasource):
+        row = 0
+        field_value = ""
+        path, filename = self.get_path(datasource)
+        count = self.count(path)
+        fields = self.fields
+        start = int(setuplib.tag_value(datasource, "Start"))
+        delimiter = setuplib.tag_value(datasource, "Delimiter", False)
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)        
+        with open(path, "r", encoding='UTF-8') as file:
+            for line in file.readlines():
+                size = 0
+                row += 1
+                if (row >= start) and (str(line.strip()) != ""):
+                    values = line.split(delimiter) if delimiter != "" else line
+                    if len(fields) > len(values):
+                        raise Exception(msglib.get("V25", [len(fields), len(values)]))
+                    for field in fields:
+                        position = int(field[setuplib.tag_name(field, "Position")]) -1
+                        field_value = values[position]
+                        field["Value"] = self.format_data(field, field_value)
+                    self.persist(cn, fields)
+                    progress_bar.next()
+        progress_bar.finish()
+        
+    def import_positional(self, cn, datasource):
         row = 0
         field_value = ""
         path, filename = self.get_path(datasource)
@@ -123,7 +148,7 @@ class EtlLib(BaseLib):
                         field["Value"] = self.format_data(field, field_value)
                     self.persist(cn, fields)
                     progress_bar.next()
-        progress_bar.finish()
+        progress_bar.finish()        
         
     def import_db(self, cn, datasource):
         row = 0
@@ -187,9 +212,9 @@ class EtlLib(BaseLib):
                 self.table_name = f"tb{self.id}{side}"
                 self.fields = setuplib.tag_value(datasource, "Fields")
                 if type in ["Delimited", "Delimitado"]:
-                    self.import_text_file(cn, datasource)
+                    self.import_delimited(cn, datasource)
                 elif type in ["Positional", "Posicional"]:
-                    self.import_text_file(cn, datasource)
+                    self.import_positional(cn, datasource)
                 elif type in ["Db"]:
                     self.import_db(cn, datasource)
                 elif type in ["Excel"]:

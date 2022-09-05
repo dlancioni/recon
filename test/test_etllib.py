@@ -197,6 +197,36 @@ class EtlLibTest(unittest.TestCase):
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
         self.assertEqual(len(rs), 1)
+        
+    def xtest_tmp(self):
+        config = {
+            "Id": "1",
+            "Dados":
+            [
+                {
+                    "Lado": "1",
+                    "Nome": "Test",
+                    "Tipo": "Delimitado",
+                    "Delimiter": ";",
+                    "Caminho": "",
+                    "Arquivo": "temp1.txt",
+                    "Inicio": "2",
+                    "Campos":
+                    [
+                        {"Posição":"1", "Nome":"Nome", "Tipo":"Text"},
+                        {"Posição":"2", "Nome":"Idade", "Tipo":"Inteiro"},
+                        {"Posição":"3", "Nome":"Nome", "Tipo":"Text"}
+                    ]
+                }
+            ]
+        }
+
+        cn = self.get_connection()        
+        AreaLib(1, "").process(cn, config)
+        EtlLib(1, "").process(cn, config)
+        rs = dblib.query(cn, "select * from tb11")
+        #self.assertEqual(len(rs), 4)
+        print(len(rs))
 
 if __name__ == '__main__':
     unittest.main()
