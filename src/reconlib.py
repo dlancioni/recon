@@ -245,11 +245,20 @@ class ReconLib(BaseLib):
             sql = f"drop table if exists tmp{self.id}{side}"
             rows_affected = dblib.execute(cn, sql)
             sql = f"alter table tb{self.id}{side} drop column {const.FIELD_ID_PARENT}"
-            rows_affected = dblib.execute(cn, sql)            
+            rows_affected = dblib.execute(cn, sql)
+            
+    def has_data(self, cn):
+        rs1 = dblib.query(cn, f"select count(*) from {self.tb1}")
+        rs2 = dblib.query(cn, f"select count(*) from {self.tb2}")
+        if rs1[0][0] == 0:
+            raise Exception(msglib.get("V26", [1]))
+        if rs2[0][0] == 0:
+            raise Exception(msglib.get("V26", [2]))
 
     def process(self, cn, recon):
         loglib = LogLib("ReconLib", "process")
         try:
+            self.has_data(cn)
             recon = setuplib.tag_value(recon, "Recon")
             for rule in recon:
                 rule_name = setuplib.tag_value(rule, "Rule")

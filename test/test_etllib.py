@@ -108,7 +108,8 @@ class EtlLibTest(unittest.TestCase):
                     [
                         {"Posição":"1", "Nome":"Agencia", "Tipo":"Texto"},
                         {"Posição":"2", "Nome":"Conta", "Tipo":"Texto"},
-                        {"Posição":"3", "Nome":"Saldo", "Tipo":"Decimal", "Mask":","}
+                        {"Posição":"3", "Nome":"Saldo", "Tipo":"Decimal", "Mask":","},
+                        {"Posição":"50", "Nome":"Saldo", "Tipo":"Decimal", "Mask":","},
                     ]
                 }
             ]

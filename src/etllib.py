@@ -62,10 +62,12 @@ class EtlLib(BaseLib):
         return path, filename
     
     def empty_value(self, field_def, field_value=""):
-        if str(field_value).strip() == "":
-            field_type = setuplib.tag_value(field_def, "Type")
-            if field_type.strip().lower() in ["integer", "inteiro", "decimal"]:
+        if str(field_value).strip() in ["", "None"]:
+            field_type = setuplib.tag_value(field_def, "Type").strip().lower()
+            if field_type in ["integer", "inteiro", "decimal"]:
                 field_value = 0
+            if field_type in ["text", "texto"]:
+                field_value = ""
         return field_value
     
     def default_value(self, field_def, field_value=""):
@@ -192,7 +194,7 @@ class EtlLib(BaseLib):
             if empty == (columns -1):
                 break
         count = row
-        msg = msglib.get("M5", [filename]) + " (" + sheet_name + ")"        
+        msg = msglib.get("M5", [filename]) + " (" + sheet_name + ")"
         progress_bar = ShadyBar(msglib.set_time(msg), max=count-start )
         for row in range(1, count):
             if (row >= start):

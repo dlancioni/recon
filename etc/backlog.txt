@@ -1,7 +1,5 @@
 Pendente:
 - Criptografar pyinstaller
-- Validar posicionamento de colunas
-- Primeiro passo da recon, verificar se tem tabela vazia
 - Campos usados na sessao recon existem nos datasources
 - Bater numerico na chave com tolerancia em dois passos
 - Parametrizar separador do csv dos reports em app.json
@@ -13,3 +11,5 @@ Pendente:
 Resolvido:
 - Import excel exibir nome da planilha
 - Verificar formato de data (mascara) e converter para salvar yyyyMMdd
+- Validar posicionamento de colunas
+- Primeiro passo da recon, verificar se tem tabela vazia
