@@ -13,3 +13,4 @@ Resolvido:
 - Verificar formato de data (mascara) e converter para salvar yyyyMMdd
 - Validar posicionamento de colunas
 - Primeiro passo da recon, verificar se tem tabela vazia
+- Create MailLib
