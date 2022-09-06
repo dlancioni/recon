@@ -162,7 +162,7 @@ class ReconLib(BaseLib):
             if tolerance == 0:
                 sql += f", ({tmp1} {operator} {tmp2}) equality"
             else:    
-                sql += f", (abs({tmp1} - {tmp2}) <= {tolerance}) equality"            
+                sql += f", (abs(round({tmp1} - {tmp2}, 2)) <= {tolerance}) equality"            
             sql += f" from {self.tmp1}, {self.tmp2}"
             sql += f" where {self.tmp1}.{const.FIELD_STATUS} = '{self.matched}'"
             sql += f" {matching_key}"

@@ -1,7 +1,6 @@
 Pendente:
 - Criptografar pyinstaller
 - Campos usados na sessao recon existem nos datasources
-- Bater numerico na chave com tolerancia em dois passos
 - Parametrizar separador do csv dos reports em app.json
 - Parametrizar tipo arquivo (UTF8, etc)
 - Enviar resultado por email
@@ -14,3 +13,4 @@ Resolvido:
 - Validar posicionamento de colunas
 - Primeiro passo da recon, verificar se tem tabela vazia
 - Create MailLib
+- Bater numerico na chave com tolerancia em dois passos
