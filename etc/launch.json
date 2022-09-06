@@ -68,6 +68,14 @@
             "program": "${file}",
             "args": [ "-ftest_tolerance", "-ra"],
             "console": "integratedTerminal"
-        }                        
+        },
+        {
+            "name": "Recon: test_format",
+            "type": "python",
+            "request": "launch",
+            "program": "${file}",
+            "args": [ "-ftest_format", "-ra"],
+            "console": "integratedTerminal"
+        }        
     ]
 }
