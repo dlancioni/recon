@@ -184,8 +184,13 @@ class SqlLib(BaseLib):
             _type = setuplib.tag_name(field, "Type")
             if str(field[_type]).strip().lower() in ["key", "chave"]:
                 field_name = str(field[_name]).strip()
-                field_name = f"[{field_name}]"                               
-                sql += f"and {tb1}.{field_name} {operator} {tb2}.{field_name} "
+                field_name = f"[{field_name}]"                
+                tolerance = setuplib.tag_value(field, "Tolerance", False)
+                if tolerance == "":
+                    sql += f"and {tb1}.{field_name} {operator} {tb2}.{field_name} "
+                else:
+                    tolerance = tolerance.replace(".", "").replace(",", ".")
+                    sql += f"and abs(round({tb1}.{field_name} - {tb2}.{field_name}, 2)) <= {tolerance}"
         sql = sql.strip()
         return sql
 

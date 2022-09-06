@@ -62,11 +62,11 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Recon: test_tolerancia",
+            "name": "Recon: test_tolerance",
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args": [ "-ftest_tolerancia", "-ra"],
+            "args": [ "-ftest_tolerance", "-ra"],
             "console": "integratedTerminal"
         }                        
     ]

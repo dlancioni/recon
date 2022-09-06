@@ -102,7 +102,7 @@ class ReconLib(BaseLib):
             sql += f"{const.FIELD_STATUS} = '{self.matched}', "
             sql += f"{const.FIELD_ID_PARENT} = {tmp2}.{const.FIELD_ID} "
             sql += f"from {tmp2} "
-            sql += f"where {tmp1}.{const.FIELD_STATUS} = '{self.orphan}' "
+            sql += f"where {tmp1}.{const.FIELD_ID_STATUS} = '{const.STATUS_ORPHAN}'"
             sql += f"{matching_key}"
             rows_affected = dblib.execute(cn, sql)
         loglib.log(loglib.INFO, f"Match key successfuly completed")
@@ -119,8 +119,9 @@ class ReconLib(BaseLib):
             if rule_type.strip().lower() in const.MATCH_TYPE_COMPARE:
                 if field_name.strip().lower() == fieldname:
                     if attribute == "tolerance":
-                        if field["Datatype"].strip().lower() == "decimal":                
+                        if field["Datatype"].strip().lower() == "decimal":
                             tol = setuplib.tag_value(field, "Tolerance")
+                            tol = tol.replace(".", "").replace(",", ".")
                             if tol.strip() != "":
                                 value = float(tol)
                                 break

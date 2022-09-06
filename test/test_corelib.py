@@ -19,6 +19,8 @@ class CoreLibTest(unittest.TestCase):
             line = 1 if side == 1 else 4
         if matched > 0 and divergent == 0 and orphan > 0:
             line = 1 if side == 1 else 3
+        if matched > 0 and divergent == 0 and orphan == 0:
+            line = 1 if side == 1 else 2            
 
         if matched > 0:
             self.assertEqual(data[line][SIDE], str(side))
@@ -84,6 +86,17 @@ class CoreLibTest(unittest.TestCase):
         data = fslib.get_csv_as_list(reports[0])
         self.check_synthetic(1, data, 3, 0, 1)
         self.check_synthetic(2, data, 3, 0, 1)
+        
+    """ Test tolerance key """ 
+    def test_recon_tolerance(self):
+        recon = "test_tolerance.cfg"
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, True)
+        self.assertEqual(message, "")
+        self.assertEqual(len(reports), 2)
+        data = fslib.get_csv_as_list(reports[0])
+        self.check_synthetic(1, data, 3, 0, 0)
+        self.check_synthetic(2, data, 3, 0, 0)        
 
 if __name__ == '__main__':
     unittest.main()
