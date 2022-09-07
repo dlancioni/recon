@@ -98,10 +98,20 @@ class EtlLib(BaseLib):
             field_value = str(field_value.format(f"{mask_date} {mask_time}")).strip()            
         return field_value
     
+    def decimal_format(self, field_def, field_value=""):
+        field_mask = setuplib.tag_value(field_def, "Mask").strip()
+        field_type = setuplib.tag_value(field_def, "Type").lower()
+        if field_type in const.DATATYPE_DECIMAL:
+            field_value = str(field_value)
+            if field_mask == ",":
+                field_value = field_value.replace(".", "").replace(",", ".")
+        return field_value
+    
     def format_data(self, field_def, field_value):
         field_value = self.empty_value(field_def, field_value)
         field_value = self.default_value(field_def, field_value)
         field_value = self.date_format(field_def, field_value)
+        field_value = self.decimal_format(field_def, field_value)
         return field_value
     
     def import_delimited(self, cn, datasource):

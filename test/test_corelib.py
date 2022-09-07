@@ -96,7 +96,18 @@ class CoreLibTest(unittest.TestCase):
         self.assertEqual(len(reports), 2)
         data = fslib.get_csv_as_list(reports[0])
         self.check_synthetic(1, data, 3, 0, 0)
-        self.check_synthetic(2, data, 3, 0, 0)        
+        self.check_synthetic(2, data, 3, 0, 0)
+        
+    """ Test excel datatypes """ 
+    def test_recon_tolerance(self):
+        recon = "test_excel.cfg"
+        status, message, reports = corelib.process(recon)
+        self.assertEqual(status, True)
+        self.assertEqual(message, "")
+        self.assertEqual(len(reports), 2)
+        data = fslib.get_csv_as_list(reports[0])
+        self.check_synthetic(1, data, 1, 0, 0)
+        self.check_synthetic(2, data, 1, 0, 0)        
 
 if __name__ == '__main__':
     unittest.main()

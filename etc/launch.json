@@ -70,11 +70,11 @@
             "console": "integratedTerminal"
         },
         {
-            "name": "Recon: test_format",
+            "name": "Recon: test_excel",
             "type": "python",
             "request": "launch",
             "program": "${file}",
-            "args": [ "-ftest_format", "-ra"],
+            "args": [ "-ftest_excel", "-ra"],
             "console": "integratedTerminal"
         }        
     ]

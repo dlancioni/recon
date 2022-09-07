@@ -84,8 +84,6 @@ class SqlLib(BaseLib):
             value = str(field_def[i][field_value]).strip() if field_value in field_def[i] else ""
             mask = str(field_def[i][field_mask]).strip() if field_mask in field_def[i] else ""
             quote = "'" if type.lower() in ["text", "texto", "datetime", "datahora"] else ""
-            if mask == ",":
-                value = value.replace(".", "").replace(",", ".")
             sql += f"{quote}{value}{quote}, "
             i += 1
         sql = sql.strip()[:-1]
