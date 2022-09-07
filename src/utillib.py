@@ -11,9 +11,12 @@ class UtilLib:
         arr = list(arr)
         diff = [x for x in arr if x in seen or seen.add(x)]
         return list(diff)
+    
+    def remove_dup(self, arr):
+        return list(dict.fromkeys(arr))
 
     def cls(self):
-        os.system("cls||clear")
+        os.system("cls||clear")        
         
     def expire(self):      
         year = str(pendulum.now().format("YYYY")).strip()

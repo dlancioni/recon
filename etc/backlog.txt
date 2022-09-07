@@ -1,6 +1,6 @@
 Pendente:
+- Bater campo em n decimais (criar precisao/precision)
 - Criptografar pyinstaller
-- Campos usados na sessao recon existem nos datasources
 - Parametrizar separador do csv dos reports em app.json
 - Parametrizar tipo arquivo (UTF8, etc)
 - Enviar resultado por email
@@ -14,3 +14,5 @@ Resolvido:
 - Primeiro passo da recon, verificar se tem tabela vazia
 - Create MailLib
 - Bater numerico na chave com tolerancia em dois passos
+- Campos usados na sessao recon existem nos datasources
+- Tolerancia só campo numerico

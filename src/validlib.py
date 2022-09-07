@@ -70,8 +70,20 @@ class ValidationLib(BaseLib):
             if domain != []:
                 if tag_value.lower() not in domain:
                     raise Exception(msglib.get("V21", [tag_name, str(domain)]))
+                
+    def get_fields_datasources(self, config):
+        fields = []
+        datasources = config[setuplib.tag_name(config, "Datasources")]
+        for datasource in datasources:
+            datasource_fields = datasource[setuplib.tag_name(datasource, "Fields")]
+            for field in datasource_fields:
+                field_name = field[setuplib.tag_name(field, "Name")]
+                field_type = field[setuplib.tag_name(field, "Type")]
+                item = [field_name, field_type]
+                if item not in fields:
+                    fields.append(item)
+        return fields                
 
-    """ Validate json header """
     def validate_info(self, config):
         loglib = LogLib("ValidationLib", "validate_info")
         self.validate_tag(config, "Id", "Integer")
@@ -80,7 +92,6 @@ class ValidationLib(BaseLib):
         if int(setuplib.tag_value(config, "Id")) <= 0:
             raise Exception(msglib.get("V3", ["Id"]))
 
-    """ Validate datasources """
     def validate_datasource_info(self, datasource):
         loglib = LogLib("ValidationLib", "validate_datasource_info")
         self.validate_tag(datasource, "Name")
@@ -186,12 +197,34 @@ class ValidationLib(BaseLib):
         if len(diff) > 0:
             raise Exception(msglib.get("V9", [diff[0]]))
         
+    def validate_recon(self, config):
+        loglib = LogLib("ValidationLib", "validate_recon")
+        fields = self.get_fields_datasources(config)
+        recon = config[setuplib.tag_name(config, "Recon")]
+        for rule in recon:
+            rule_name = setuplib.tag_value(rule, "Rule")
+            rule_fields = setuplib.tag_value(rule, "Fields")
+            for field in rule_fields:
+                field_name = setuplib.tag_value(field, "Name", False)
+                field_tolerance = setuplib.tag_value(field, "Tolerance", False)                            
+                found = False
+                for field in fields:
+                    if field[0] == field_name:
+                        found = True
+                        if field_tolerance != "":
+                            if str(field[1]).lower() not in const.DATATYPE_NUMERIC:
+                                raise Exception(msglib.get("V28", [field_name, rule_name]))                        
+                        break
+                if found == False:
+                    raise Exception(msglib.get("V27", [field_name, rule_name]))
+
     def validate(self, config):
         loglib = LogLib("ValidationLib", "validate")
         try:
             self.validate_info(config)
             self.validate_datasources(config)
             self.validate_datasources_sides(config)
+            self.validate_recon(config)
         except BaseException as err:
             cat = msglib.get("E4")
             msg = f"{cat} {str(err)}"
