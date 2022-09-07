@@ -42,7 +42,7 @@ class EtlLibTest(unittest.TestCase):
                     "Tipo": "Delimitado",
                     "Delimitador": ";",
                     "Caminho": "",
-                    "Arquivo": "text_delimited.txt",
+                    "Arquivo": "test_delimited.txt",
                     "Inicio": "2",
                     "Campos":
                     [
@@ -72,7 +72,7 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test",
                     "Tipo": "Positional",
                     "Caminho": "",
-                    "Arquivo": "text_positional.txt",
+                    "Arquivo": "test_positional.txt",
                     "Inicio": "2",
                     "Campos":
                     [
@@ -101,7 +101,7 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test 1",
                     "Tipo": "Excel",
                     "Caminho": "",
-                    "Arquivo": "excel.xlsx",
+                    "Arquivo": "test_excel.xlsx",
                     "Planilha": "Text",
                     "Inicio": "2",
                     "Campos":
