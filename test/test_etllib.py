@@ -101,15 +101,18 @@ class EtlLibTest(unittest.TestCase):
                     "Nome": "Test 1",
                     "Tipo": "Excel",
                     "Caminho": "",
-                    "Arquivo": "cc.xlsx",
-                    "Planilha": "Saldo",
+                    "Arquivo": "excel.xlsx",
+                    "Planilha": "Text",
                     "Inicio": "2",
                     "Campos":
                     [
-                        {"Posição":"1", "Nome":"Agencia", "Tipo":"Texto"},
-                        {"Posição":"2", "Nome":"Conta", "Tipo":"Texto"},
-                        {"Posição":"3", "Nome":"Saldo", "Tipo":"Decimal", "Mask":","},
-                        {"Posição":"50", "Nome":"Saldo", "Tipo":"Decimal", "Mask":","},
+                        {"Posição":"1", "Nome":"Ids", "Tipo":"Inteiro"},
+                        {"Posição":"2", "Nome":"Dt", "Tipo":"DataHora", "Mascara":"dd/mm/yyyy"},
+                        {"Posição":"3", "Nome":"Hr", "Tipo":"DataHora", "Mascara":"hh:mm:ss"},
+                        {"Posição":"4", "Nome":"Dh", "Tipo":"DataHora", "Mascara":"dd/mm/yyyy hh:mm:ss"},
+                        {"Posição":"5", "Nome":"D4", "Tipo":"Decimal", "Mascara":","},
+                        {"Posição":"6", "Nome":"D8", "Tipo":"Decimal", "Mascara":","},
+                        {"Posição":"7", "Nome":"M1", "Tipo":"Decimal", "Mascara":","}
                     ]
                 }
             ]
@@ -119,7 +122,7 @@ class EtlLibTest(unittest.TestCase):
         AreaLib(1, "").process(cn, config)
         EtlLib(1, "").process(cn, config)
         rs = dblib.query(cn, "select * from tb11")
-        self.assertEqual(len(rs), 3)
+        self.assertEqual(len(rs), 1)
         
     def test_import_db_pgsql(self):
         config = {
