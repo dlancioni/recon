@@ -99,7 +99,7 @@ class CoreLibTest(unittest.TestCase):
         self.check_synthetic(2, data, 3, 0, 0)
         
     """ Test excel datatypes """ 
-    def test_recon_tolerance(self):
+    def test_recon_excel(self):
         recon = "test_excel.cfg"
         status, message, reports = corelib.process(recon)
         self.assertEqual(status, True)
