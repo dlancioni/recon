@@ -121,7 +121,8 @@ class ReconLib(BaseLib):
                     if attribute == "tolerance":
                         if field["Datatype"].strip().lower() == "decimal":
                             tol = setuplib.tag_value(field, "Tolerance")
-                            tol = tol.replace(".", "").replace(",", ".")
+                            if tol.find(",") > -1:
+                                tol = tol.replace(".", "").replace(",", ".")
                             if tol.strip() != "":
                                 value = float(tol)
                                 break
