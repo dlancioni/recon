@@ -85,15 +85,17 @@ class EtlLib(BaseLib):
         field_mask = field_mask.replace(":MM", ":mm")
         if field_type in const.DATATYPE_DATETIME:
             if field_mask != "":
-                if (type(field_value) is datetime.datetime) == False:
-                    field_value = pdl.from_format(field_value, field_mask)
-                else:
+                if (type(field_value) is datetime.datetime) == True:
                     field_value = pdl.instance(field_value)
+                elif (type(field_value) is datetime.time) == True:
+                    field_value = str(field_value)
+                else:
+                    field_value = pdl.from_format(field_value, field_mask)                   
                 if field_mask.find("D") == -1 and field_mask.find("M") == -1 and field_mask.find("Y") == -1:
                     mask_date = ""
                 if field_mask.find("H") == -1 and field_mask.find("m") == -1 and field_mask.find("S") == -1:
                     mask_time = ""
-            field_value = str(field_value.format(f"{mask_date} {mask_time}")).strip()
+            field_value = str(field_value.format(f"{mask_date} {mask_time}")).strip()            
         return field_value
     
     def format_data(self, field_def, field_value):
