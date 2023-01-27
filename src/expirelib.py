@@ -10,7 +10,7 @@ class ExpireLib:
         pass
         
     def expired(self):
-        expire_at = "2023"
+        expire_at = "2024"
         year = str(pendulum.now().format("YYYY")).strip()
         expired = (year == expire_at)
         if expired == True:
