@@ -89,12 +89,12 @@ class DbLib:
     def get_connection_mssql(self, conector):
         path = fslib.get_path_config(conector)
         info = fslib.open_json(path)
-        driver = "SQL Server Native Client 11.0"        
+        driver = "{ODBC Driver 18 for SQL Server}"
         host = info["hostname"]
         db = info["database"]
         user = info["username"]
         pwd = info["password"]
-        connection = f"Driver={driver}; Server={host}; Database={db}; UID={user}; PWD={pwd};"        
+        connection = f"Driver={driver}; Server={host}; Database={db}; UID={user}; PWD={pwd}; TrustServerCertificate=Yes"
         cn = pyodbc.connect(connection)
         return cn
     
