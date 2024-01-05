@@ -162,9 +162,15 @@ class ValidationLib(BaseLib):
         self.validate_datasource_field(datasource)
         
     def validate_datasources(self, config):
+        side = 1
+        fields = []
         loglib = LogLib("ValidationLib", "validate_datasources")        
         datasources = config[setuplib.tag_name(config, "Datasources")]
         for datasource in datasources:
+            if side > 1:
+                if len(datasource[setuplib.tag_name(datasource, "Fields")]) == 0:
+                    datasource[setuplib.tag_name(datasource, "Fields")] = fields
+                    loglib.log(loglib.INFO, "Side 2 has no field definition, copying from side 1")
             type = self.validate_datasource_info(datasource)
             if type in const.DATASOURCE_DELIMITED:
                 self.validate_datasource_file_delimited(datasource)
@@ -174,6 +180,8 @@ class ValidationLib(BaseLib):
                 self.validate_datasource_file_excel(datasource)
             if type in const.DATASOURCE_DB:
                 self.validate_datasource_db(datasource)
+            fields = datasource[setuplib.tag_name(datasource, "Fields")]
+            side = side + 1
                 
     def validate_datasources_sides(self, config):
         loglib = LogLib("ValidationLib", "validate_datasources_sides")
