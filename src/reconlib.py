@@ -251,11 +251,12 @@ class ReconLib(BaseLib):
             sql = f"alter table tb{self.id}{side} drop column {const.FIELD_ID_PARENT}"
             rows_affected = dblib.execute(cn, sql)
 
-    def drop_mapped_fields(self, cn, rule):
-        for field in setuplib.tag_value(rule, "Fields"):
-            field_name = setuplib.tag_value(field, "Name")
-            dblib.execute(cn, f"alter table {self.tb1} drop column {field_name}") 
-            dblib.execute(cn, f"alter table {self.tb2} drop column {field_name}")                       
+    def drop_mapped_fields(self, cn, result, rule):
+        if result.strip() == const.RESULTS[1] or result.strip() == const.RESULTS[3]:
+            for field in setuplib.tag_value(rule, "Fields"):
+                field_name = setuplib.tag_value(field, "Name")            
+                dblib.execute(cn, f"alter table {self.tb1} drop column {field_name}") 
+                dblib.execute(cn, f"alter table {self.tb2} drop column {field_name}")                       
             
     def has_data(self, cn):
         rs1 = dblib.query(cn, f"select count(*) from {self.tb1}")
@@ -269,6 +270,7 @@ class ReconLib(BaseLib):
         loglib = LogLib("ReconLib", "process")
         try:
             self.has_data(cn)
+            results = setuplib.tag_value(recon, "Results") 
             recon = setuplib.tag_value(recon, "Recon")
             for rule in recon:
                 rule_name = setuplib.tag_value(rule, "Rule")
@@ -281,7 +283,7 @@ class ReconLib(BaseLib):
                 self.compare(cn, rule)
                 self.stamp_tmp(cn, rule)
                 self.stamp_tb(cn, rule)
-                self.drop_mapped_fields(cn, rule)
+                self.drop_mapped_fields(cn, results, rule)
                 self.progress_bar.finish()
             self.drop_tmp(cn)
         except Error as err:

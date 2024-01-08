@@ -89,6 +89,9 @@ class ValidationLib(BaseLib):
         self.validate_tag(config, "Id", "Integer")
         self.validate_tag(config, "Name")
         self.validate_tag(config, "Description")
+        self.validate_tag(config, "Results")
+        if setuplib.tag_value(config, "Results") not in const.RESULTS:
+            raise Exception(msglib.get("V29", [setuplib.tag_value(config, "Results")]))          
         if int(setuplib.tag_value(config, "Id")) <= 0:
             raise Exception(msglib.get("V3", ["Id"]))
 

@@ -30,3 +30,6 @@ const.DATATYPE = ["integer", "decimal", "text", "datetime"] + ["inteiro", "texto
 const.DATATYPE_NUMERIC = ["integer", "decimal"] + ["inteiro"]
 const.DATATYPE_DATETIME = ["datetime", "datahora"]
 const.DATATYPE_DECIMAL = ["decimal"]
+
+# Results as
+const.RESULTS = ["All", "Difference", "Todos", "Diferença"]

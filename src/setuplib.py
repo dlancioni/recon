@@ -28,6 +28,7 @@ class SetupLib(BaseLib):
             "Id":"Id",
             "Name":"Nome",
             "Description":"Descrição",
+            "Results":"Resultados",
             "Datasources":"Dados",
             "Fields":"Campos",
             "Side":"Lado",
