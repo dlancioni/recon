@@ -173,6 +173,11 @@ class EtlLib(BaseLib):
         fields = self.fields
         connector = setuplib.tag_value(datasource, "Connector")
         query = setuplib.tag_value(datasource, "Query")
+
+        with open(query, 'r') as file:
+            query = file.read().replace('\n', '')
+
+
         rows = dblib.get_data(connector, query)
         count = len(rows)
         if len(fields) > len(rows[0]):
@@ -201,7 +206,7 @@ class EtlLib(BaseLib):
         msglib.print(msglib.get("M19"))
         rows = 65000
         columns = 10
-        for row in range(1, rows):
+        for row in range(start, rows):
             empty = 0
             for column in range(1, columns):
                 if str(sheet.cell(row, column).value).strip() == "None":
