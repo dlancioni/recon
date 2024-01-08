@@ -255,8 +255,8 @@ class ReconLib(BaseLib):
         if result.strip() == const.RESULTS[1] or result.strip() == const.RESULTS[3]:
             for field in setuplib.tag_value(rule, "Fields"):
                 field_name = setuplib.tag_value(field, "Name")            
-                dblib.execute(cn, f"alter table {self.tb1} drop column {field_name}") 
-                dblib.execute(cn, f"alter table {self.tb2} drop column {field_name}")                       
+                dblib.execute(cn, f"alter table {self.tb1} drop column [{field_name}]") 
+                dblib.execute(cn, f"alter table {self.tb2} drop column [{field_name}]")                       
             
     def has_data(self, cn):
         rs1 = dblib.query(cn, f"select count(*) from {self.tb1}")

@@ -122,7 +122,7 @@ class EtlLib(BaseLib):
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
         delimiter = setuplib.tag_value(datasource, "Delimiter", False)
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)        
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 size = 0
@@ -147,7 +147,7 @@ class EtlLib(BaseLib):
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
         delimiter = setuplib.tag_value(datasource, "Delimiter", False)
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)        
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 size = 0
@@ -173,11 +173,11 @@ class EtlLib(BaseLib):
         fields = self.fields
         connector = setuplib.tag_value(datasource, "Connector")
         query = setuplib.tag_value(datasource, "Query")
-
-        with open(query, 'r') as file:
-            query = file.read().replace('\n', '')
-
-
+        path = fslib.get_path_task()
+        query = fslib.join(path, query)
+        if query.find(".sql", 0) >= 0:
+            with open(query, 'r') as file:
+                query = file.read()
         rows = dblib.get_data(connector, query)
         count = len(rows)
         if len(fields) > len(rows[0]):
@@ -215,7 +215,7 @@ class EtlLib(BaseLib):
                 break
         count = row
         msg = msglib.get("M5", [filename]) + " (" + sheet_name + ")"
-        progress_bar = ShadyBar(msglib.set_time(msg), max=count-start )
+        progress_bar = ShadyBar(msglib.set_time(msg), max=count)
         for row in range(1, count):
             if (row >= start):
                 for field in fields:
@@ -223,7 +223,7 @@ class EtlLib(BaseLib):
                     field_value = sheet.cell(row, column).value
                     field["Value"] = self.format_data(field, field_value)
                 self.persist(cn, fields)
-                progress_bar.next()
+                progress_bar.next()                     
         progress_bar.finish()
 
     def process(self, cn, recon):
