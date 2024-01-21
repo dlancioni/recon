@@ -1,0 +1,16 @@
+-- Buyer / Insurer
+select distinct 
+      p.program_code
+	, b.short_name
+	, c.short_name
+	, ir.rating
+	, ir.valid_from
+	, ir.valid_to
+from insured_limit il
+	left join buyer b on b.buyer_id = il.buyer_id
+	left join insurer i on i.insurer_id = il.insurer_id
+	left join company c on c.company_id =  i.company_id
+	left join etb2.insurer_rating ir on ir.insurer_id = i.insurer_id
+	inner join program p on p.program_id = b.program_id
+where p.program_code in ( 'DELAP', 'DELBR', 'DELEM', 'DELKB', 'DELKR', 'DELLA', 'DELNA' )
+order by p.program_code, b.short_name;

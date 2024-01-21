@@ -1,0 +1,19 @@
+-- Buyer / General
+select distinct
+      p.program_code
+    , b.short_name
+	, bt.buyer_type_name
+	, ct.country_name
+	, ct.country_name as vat_country_name
+	, b.local_currency_id
+	, ba.agreement_date
+from buyer b
+	inner join company c on c.company_id = b.company_id
+	inner join buyer_type bt on bt.buyer_type_id = b.buyer_type_id
+	inner join program p on p.program_id = b.program_id
+	inner join country ct on ct.country_code = b.trading_country_code
+	left join country vat_ct on vat_ct.country_code = b.vat_applicable_country_id
+	left join buyer_ext_ident bei on b.buyer_id = bei.buyer_id
+	inner join buyer_agent ba on ba.buyer_id = b.buyer_id
+where p.program_code in ( 'DELAP', 'DELBR', 'DELEM', 'DELKB', 'DELKR', 'DELLA', 'DELNA' )
+order by p.program_code, b.short_name

@@ -1,0 +1,13 @@
+-- Buyer / Agent
+select distinct
+      p.program_code
+	, b.short_name as company_name
+	, c.short_name as agent_name
+	, c.gscf_company_id
+from buyer_agent ba
+	inner join etb2.agent a on a.id = ba.agent_id
+	inner join buyer b on ba.buyer_id = b.buyer_id
+	inner join company c on c.company_id = a.company_id
+	inner join program p on p.program_id = b.program_id
+where p.program_code in ( 'DELAP', 'DELBR', 'DELEM', 'DELKB', 'DELKR', 'DELLA', 'DELNA' )
+order by p.program_code, b.short_name;

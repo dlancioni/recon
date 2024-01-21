@@ -22,8 +22,4 @@ left join etb_24_01_03.dbo.type t on po.status_id = t.type_id
 left join etb_24_01_03.dbo.status_reason_type srt on po.status_reason_type_id = srt.status_reason_type_id
 left join etb_24_01_03.dbo.limit_status ls on po.limit_status_id = ls.limit_status_id
 where
-(DATENAME(WEEKDAY, GETDATE()) = 'Monday' AND 
-(cast(po.entry_date as date) = DATEADD(DAY, -3, CAST(GETDATE() as DATE)) OR 
-cast(po.entry_date as date) = DATEADD(DAY, -2, CAST(GETDATE() as DATE)) OR
-cast(po.entry_date as date) = DATEADD(DAY, -1, CAST(GETDATE() as DATE))))
-OR (DATENAME(WEEKDAY, GETDATE()) NOT IN ('Monday') AND cast(po.entry_date as date) = DATEADD(DAY, -1, CAST(GETDATE() as DATE)))
+po.entry_date between DATEADD(DAY, -9, getdate()) and DATEADD(DAY, -0, getdate())

@@ -1,0 +1,13 @@
+-- Buyer / Funder
+select distinct
+      p.program_code
+    , b.short_name
+	, fei.funder_external_id
+	, fei.valid_from
+	, fei.valid_to
+from etb2.buyer_funder_entity bfe
+	inner join funder_ext_ident fei on fei.funder_ext_ident_id = bfe.funder_ext_ident_id
+	inner join buyer b on b.buyer_id = bfe.buyer_id
+	inner join program p on p.program_id = b.program_id
+where p.program_code in ( 'DELAP', 'DELBR', 'DELEM', 'DELKB', 'DELKR', 'DELLA', 'DELNA' )
+order by p.program_code, b.short_name;
