@@ -1,6 +1,7 @@
 import datetime
 import os
 import pendulum
+from datetime import datetime
 
 class UtilLib:
 
@@ -24,7 +25,7 @@ class UtilLib:
         valid = (year == "2022")
         return valid
     
-    def apply_date_pattern(filename):
+    def apply_date_pattern(self, filename):
         dt = datetime.today()
         yyyy = dt.strftime('%Y')                #YYYY
         yy = dt.strftime('%y')                  #YY

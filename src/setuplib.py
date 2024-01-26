@@ -14,6 +14,7 @@ from src.constlib import const
 msglib = MsgLib()
 cfglib = ConfigLib()
 fslib = FsLib()
+utillib = UtilLib()
 
 class SetupLib(BaseLib):
 
@@ -65,6 +66,7 @@ class SetupLib(BaseLib):
                 if fslib.is_dir(path) == False:
                     raise Exception(msglib.get("V17", [path]))
                 filename = str(recon.split(".")[0]) +".cfg"
+                filename = utillib.apply_date_pattern(filename)
                 filename = fslib.join(path, filename)
                 if fslib.is_file(filename) == False:
                     raise Exception(msglib.get("V4", [filename]))
