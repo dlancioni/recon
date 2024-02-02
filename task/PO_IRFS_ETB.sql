@@ -14,12 +14,12 @@ t.description as [Status],
 srt.description as [Status Reason Type],
 CASE WHEN po.source_edi_message_id IS NOT NULL THEN 'EDI'
 ELSE 'Manual' END as [Upload] 
-from etb_24_01_03.dbo.purchaseorder po 
-left join etb_24_01_03.dbo.buyer b on po.buyer_id = b.buyer_id 
-left join etb_24_01_03.dbo.vendor_ext_ident v on po.vendor_ext_ident_id = v.vendor_ext_ident_id
-left join etb_24_01_03.dbo.program p on b.program_id = p.program_id and v.program_id = p.program_id
-left join etb_24_01_03.dbo.type t on po.status_id = t.type_id
-left join etb_24_01_03.dbo.status_reason_type srt on po.status_reason_type_id = srt.status_reason_type_id
-left join etb_24_01_03.dbo.limit_status ls on po.limit_status_id = ls.limit_status_id
+from purchaseorder po with (nolock)
+left join buyer b with (nolock) on po.buyer_id = b.buyer_id 
+left join vendor_ext_ident v with (nolock) on po.vendor_ext_ident_id = v.vendor_ext_ident_id
+left join program p with (nolock) on b.program_id = p.program_id and v.program_id = p.program_id
+left join type t with (nolock) on po.status_id = t.type_id
+left join status_reason_type srt with (nolock) on po.status_reason_type_id = srt.status_reason_type_id
+left join limit_status ls with (nolock) on po.limit_status_id = ls.limit_status_id
 where
-po.entry_date between DATEADD(DAY, -9, getdate()) and DATEADD(DAY, -0, getdate())
+po.entry_date between DATEADD(DAY, -5, getdate()) and DATEADD(DAY, -0, getdate())
