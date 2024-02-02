@@ -187,20 +187,21 @@ class ReconLib(BaseLib):
                 field_name = sqllib.field_diff(field, label)
                 loglib.log(loglib.INFO, f"Stamping field (alter table): {field_name}")
                 rs = dblib.query(cn, f"select equality from {tmp3}")
-                if rs[0][0] == 0:
-                    self.field_with_diff.append(field_name)
-                    if self.rule_count == 1:
-                        sql = f"alter table {temps} add {field_name} text default ''"
+                if len(rs) > 0:                
+                    if rs[0][0] == 0:
+                        self.field_with_diff.append(field_name)
+                        if self.rule_count == 1:
+                            sql = f"alter table {temps} add {field_name} text default ''"
+                            rows_affected = dblib.execute(cn, sql)
+                        sql = ""
+                        sql += f"update {temps} set "
+                        sql += f"{const.FIELD_ID_STATUS}='{const.STATUS_DIVERGENT}',"
+                        sql += f"{const.FIELD_STATUS} = '{self.divergent}', "
+                        sql += f"{field_name} = {tmp3}.difference "
+                        sql += f"from {tmp3} "
+                        sql += f"where {tmp3}.equality = 0 "
+                        sql += f"{matching_key}"
                         rows_affected = dblib.execute(cn, sql)
-                    sql = ""
-                    sql += f"update {temps} set "
-                    sql += f"{const.FIELD_ID_STATUS}='{const.STATUS_DIVERGENT}',"
-                    sql += f"{const.FIELD_STATUS} = '{self.divergent}', "
-                    sql += f"{field_name} = {tmp3}.difference "
-                    sql += f"from {tmp3} "
-                    sql += f"where {tmp3}.equality = 0 "
-                    sql += f"{matching_key}"
-                    rows_affected = dblib.execute(cn, sql)
             sql = f"drop table if exists {tmp3}"
             rows_affected = dblib.execute(cn, sql)
         self.field_with_diff = list(dict.fromkeys(self.field_with_diff))
