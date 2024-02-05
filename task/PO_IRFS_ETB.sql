@@ -22,4 +22,4 @@ left join type t with (nolock) on po.status_id = t.type_id
 left join status_reason_type srt with (nolock) on po.status_reason_type_id = srt.status_reason_type_id
 left join limit_status ls with (nolock) on po.limit_status_id = ls.limit_status_id
 where
-po.entry_date between DATEADD(DAY, -5, getdate()) and DATEADD(DAY, -0, getdate())
+po.entry_date between DATEADD(DAY, -10, getdate()) and DATEADD(DAY, 10, getdate())
