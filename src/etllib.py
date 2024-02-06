@@ -117,12 +117,13 @@ class EtlLib(BaseLib):
     def import_delimited(self, cn, datasource):
         row = 0
         field_value = ""
+        name = setuplib.tag_value(datasource, "Name")
         path, filename = self.get_path(datasource)
         count = self.count(path)
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
         delimiter = setuplib.tag_value(datasource, "Delimiter", False)
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [name, filename])), max=count-1)
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 size = 0
@@ -142,12 +143,13 @@ class EtlLib(BaseLib):
     def import_positional(self, cn, datasource):
         row = 0
         field_value = ""
+        name = setuplib.tag_value(datasource, "Name")
         path, filename = self.get_path(datasource)
         count = self.count(path)
         fields = self.fields
         start = int(setuplib.tag_value(datasource, "Start"))
         delimiter = setuplib.tag_value(datasource, "Delimiter", False)
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [filename])), max=count-1)
+        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [name, filename])), max=count-1)
         with open(path, "r", encoding='UTF-8') as file:
             for line in file.readlines():
                 size = 0
@@ -184,7 +186,7 @@ class EtlLib(BaseLib):
         if count > 0:
             if len(fields) > len(rows[0]):
                 raise Exception(msglib.get("V25", [len(fields), len(rows[0])]))
-            progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [connector])), max=count)
+            progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [name, connector])), max=count)
             for row in rows:
                 for field in fields:
                     position = int(field[setuplib.tag_name(field, "Position")]) -1
@@ -199,6 +201,7 @@ class EtlLib(BaseLib):
         count = 0        
         field_value = ""
         fields = self.fields
+        name = setuplib.tag_value(datasource, "Name")
         start = int(setuplib.tag_value(datasource, "Start"))
         path, filename = self.get_path(datasource)
         msglib.print(msglib.get("M20"))        
@@ -216,7 +219,7 @@ class EtlLib(BaseLib):
             if empty == (columns -1):
                 break
         count = row
-        msg = msglib.get("M5", [filename]) + " (" + sheet_name + ")"
+        msg = msglib.get("M5", [name, filename]) + " (" + sheet_name + ")"
         progress_bar = ShadyBar(msglib.set_time(msg), max=count)
         for row in range(1, count):
             if (row >= start):
