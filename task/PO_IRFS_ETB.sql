@@ -1,5 +1,5 @@
 select
-po.buyer_purchase_order_nr as [PO Number],
+substring(po.buyer_purchase_order_nr,1,22) as [PO Number],
 isnull(po.currency_id,'') as [Currency],
 po.total_po_amount as [PO Amount],
 cast(po.document_date as date) as [Document Date],
