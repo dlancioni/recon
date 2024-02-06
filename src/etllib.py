@@ -171,6 +171,7 @@ class EtlLib(BaseLib):
         row = 0
         field_value = ""
         fields = self.fields
+        name = setuplib.tag_value(datasource, "Name")
         connector = setuplib.tag_value(datasource, "Connector")
         query = setuplib.tag_value(datasource, "Query")
         path = fslib.get_path_task()
@@ -180,17 +181,18 @@ class EtlLib(BaseLib):
                 query = file.read()
         rows = dblib.get_data(connector, query)
         count = len(rows)
-        if len(fields) > len(rows[0]):
-            raise Exception(msglib.get("V25", [len(fields), len(rows[0])]))
-        progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [connector])), max=count)
-        for row in rows:
-            for field in fields:
-                position = int(field[setuplib.tag_name(field, "Position")]) -1
-                field_value = row[position]
-                field["Value"] = self.format_data(field, field_value)
-            self.persist(cn, fields)
-            progress_bar.next()
-        progress_bar.finish()
+        if count > 0:
+            if len(fields) > len(rows[0]):
+                raise Exception(msglib.get("V25", [len(fields), len(rows[0])]))
+            progress_bar = ShadyBar(msglib.set_time(msglib.get("M5", [connector])), max=count)
+            for row in rows:
+                for field in fields:
+                    position = int(field[setuplib.tag_name(field, "Position")]) -1
+                    field_value = row[position]
+                    field["Value"] = self.format_data(field, field_value)
+                self.persist(cn, fields)
+                progress_bar.next()
+            progress_bar.finish()
         
     def import_excel(self, cn, datasource):
         row = 0

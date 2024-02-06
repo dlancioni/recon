@@ -1,5 +1,5 @@
 select distinct
-bd.external_billing_doc_nr as [Billing Document Number],
+substring(bd.external_billing_doc_nr, 1, 22) as [Billing Document Number],
 bdt.description as [Doc Type],
 cast(bd.external_billing_doc_date as date) as [Issue Date],
 cast(bd.entry_date as date) as [Download Date],
