@@ -41,19 +41,19 @@ class CoreLib(BaseLib):
         message = ""
         path_temp = ""
         loglib = LogLib("CoreLib", "process")
-        try:
-            """ create new transaction for each recon """
-            path_temp = fslib.get_path_log(cfglib.get(1))
-            debug = int(cfglib.get(6))
-            loglib.log(loglib.INFO, f"Debug mode: {True if debug == 1 else False}")
-            cn = dblib.get_connection(path_temp, debug)
-            cn = dblib.begin_tran(cn, debug)
-            
+        try:           
             """ open json recon or file """
             recon = setuplib.open_recon(recon)
             self.id = setuplib.tag_value(recon, "Id")
             self.name = setuplib.tag_value(recon, "Name")
             logger = loglib.create_log_file(self.name)
+
+            """ create new transaction for each recon """
+            path_temp = fslib.get_path_log(cfglib.get(1))
+            debug = int(cfglib.get(6))
+            loglib.log(loglib.INFO, f"Debug mode: {True if debug == 1 else False}")
+            cn = dblib.get_connection(path_temp, debug, self.name)
+            cn = dblib.begin_tran(cn, debug)            
             
             """ validate recon """
             validlib.validate(recon)
