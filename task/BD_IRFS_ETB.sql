@@ -26,4 +26,4 @@ left join status_reason_type srt with (nolock) on bd.status_reason_type_id = srt
 left join limit_status ls with (nolock) on bd.limit_status_id = ls.limit_status_id
 left join billing_document_type bdt with (nolock) on bd.bill_doc_type_id = bdt.bill_doc_type_id
 where 
-bd.entry_date between DATEADD(DAY, -10, getdate()) and DATEADD(DAY, 10, getdate())
+bd.entry_date between DATEADD(DAY, -10, getdate()) and DATEADD(DAY, 2, getdate())
