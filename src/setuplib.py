@@ -39,6 +39,7 @@ class SetupLib(BaseLib):
             "Size":"Tamanho",            
             "Delimiter":"Delimitador",
             "Start":"Inicio",
+            "End":"Fim",
             "Type":"Tipo",
             "Value":"Valor",
             "Mask":"Mascara",
@@ -51,7 +52,8 @@ class SetupLib(BaseLib):
             "Operator":"Operador",
             "Connector":"Conector",
             "Query":"Consulta",
-            "Sheet":"Planilha"
+            "Sheet":"Planilha",
+            "Days":"Dias"
         }
         return tags
 
@@ -66,7 +68,6 @@ class SetupLib(BaseLib):
                 if fslib.is_dir(path) == False:
                     raise Exception(msglib.get("V17", [path]))
                 filename = str(recon.split(".")[0]) +".cfg"
-                filename = utillib.apply_date_pattern(filename)
                 filename = fslib.join(path, filename)
                 if fslib.is_file(filename) == False:
                     raise Exception(msglib.get("V4", [filename]))
@@ -92,7 +93,7 @@ class SetupLib(BaseLib):
         if tag_pt in doc:
             f = tag_pt
             v = doc[tag_pt]
-        return f, v
+        return f.strip(), v.strip()
 
     def tag_name(self, doc, tag_en="", mandatory=True):
         f, v = self.tagfv(doc, tag_en)

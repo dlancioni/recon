@@ -14,8 +14,8 @@ from src.loglib import LogLib
 from src.setuplib import SetupLib
 from src.cfglib import ConfigLib
 from src.constlib import const
+from datetime import datetime, timedelta
 import pendulum as pdl
-import datetime
 
 dblib = DbLib()
 fslib = FsLib()
@@ -31,6 +31,57 @@ class EtlLib(BaseLib):
         self.id = id
         self.name = name
         self.logger = logging.getLogger(__name__)
+
+    def apply_date_pattern(self, file):
+        filename = ""
+        file_name = setuplib.tag_value(file, "Name").strip()
+        dt = datetime.today()
+        yyyy = dt.strftime('%Y')                #YYYY
+        yy = dt.strftime('%y')                  #YY
+        mmm = dt.strftime('%b')                 #MMM
+        mm = dt.strftime('%m')                  #MM
+        dd = dt.strftime('%d')                  #DD
+        file_name = file_name.lower()
+        file_name = file_name.replace("<yyyy>", yyyy)
+        file_name = file_name.replace("<yy>", yy)
+        file_name = file_name.replace("<mmm>", yy)
+        file_name = file_name.replace("<mm>", mm)
+        file_name = file_name.replace("<dd>", dd)
+
+        mask = setuplib.tag_value(file, "Mask")
+        if mask != "":
+
+            if mask.lower() == "dd mmm yy".lower():
+                mask = "%d %b %y"
+            if mask.lower() == "dd mmm yyyy".lower():
+                mask = "%d %b %Y"
+
+            start = int(setuplib.tag_value(file, "Start").strip())
+            end = int(setuplib.tag_value(file, "End").strip())
+            days = int(setuplib.tag_value(file, "Days").strip())
+            file_date = file_name[start:end]
+
+            dt = datetime.strptime(file_date, mask)
+            if days < 0:
+                dt = dt + timedelta(days)
+                if dt.weekday() == 5:
+                    dt = dt - timedelta(1)
+                if dt.weekday() == 6:
+                    dt = dt - timedelta(2)
+            if days > 0:
+                dt = dt + timedelta(days)
+                if dt.weekday() == 5:
+                    dt = dt + timedelta(1)
+                if dt.weekday() == 6:
+                    dt = dt + timedelta(2)                    
+            file_name = file_name.replace(file_date, dt.strftime(mask))
+            filename = file_name
+        else:
+            filename = file_name
+
+        return filename
+
+
         
     def count(self, file):
         lines = 0
@@ -55,8 +106,9 @@ class EtlLib(BaseLib):
         else:
             path = setuplib.tag_value(datasource, "Path", False)
         if fslib.is_dir(path) == False:
-            raise Exception(msglib.get("V19", [path]))
-        filename = setuplib.tag_value(datasource, "File")
+            raise Exception(msglib.get("V19", [path]))        
+        file = setuplib.tag_value(datasource, "File")
+        filename = self.apply_date_pattern(file)
         path = fslib.join(path, filename)
         if fslib.is_file(path) == False:
             raise IOError(msglib.get("V4", [path]))

@@ -1,7 +1,7 @@
-import datetime
 import os
 import pendulum
 from datetime import datetime
+from datetime import datetime, timedelta
 
 class UtilLib:
 
@@ -25,17 +25,3 @@ class UtilLib:
         valid = (year == "2022")
         return valid
     
-    def apply_date_pattern(self, filename):
-        dt = datetime.today()
-        yyyy = dt.strftime('%Y')                #YYYY
-        yy = dt.strftime('%y')                  #YY
-        mmm = dt.strftime('%b')                 #MMM
-        mm = dt.strftime('%m')                  #MM
-        dd = dt.strftime('%d')                  #DD
-        filename = filename.lower()
-        filename = filename.replace("<yyyy>", yyyy)
-        filename = filename.replace("<yy>", yy)
-        filename = filename.replace("<mmm>", yy)
-        filename = filename.replace("<mm>", mm)
-        filename = filename.replace("<dd>", dd)
-        return filename
