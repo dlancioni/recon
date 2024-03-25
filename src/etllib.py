@@ -35,32 +35,13 @@ class EtlLib(BaseLib):
     def apply_date_pattern(self, file):
         filename = ""
         file_name = setuplib.tag_value(file, "Name").strip()
-        dt = datetime.today()
-        yyyy = dt.strftime('%Y')                #YYYY
-        yy = dt.strftime('%y')                  #YY
-        mmm = dt.strftime('%b')                 #MMM
-        mm = dt.strftime('%m')                  #MM
-        dd = dt.strftime('%d')                  #DD
-        file_name = file_name.lower()
-        file_name = file_name.replace("<yyyy>", yyyy)
-        file_name = file_name.replace("<yy>", yy)
-        file_name = file_name.replace("<mmm>", yy)
-        file_name = file_name.replace("<mm>", mm)
-        file_name = file_name.replace("<dd>", dd)
-
         mask = setuplib.tag_value(file, "Mask")
         if mask != "":
-
-            if mask.lower() == "dd mmm yy".lower():
-                mask = "%d %b %y"
-            if mask.lower() == "dd mmm yyyy".lower():
-                mask = "%d %b %Y"
-
+            mask = cfglib.get_mask(mask)
             start = int(setuplib.tag_value(file, "Start").strip())
             end = int(setuplib.tag_value(file, "End").strip())
             days = int(setuplib.tag_value(file, "Days").strip())
             file_date = file_name[start:end]
-
             dt = datetime.strptime(file_date, mask)
             if days < 0:
                 dt = dt + timedelta(days)
@@ -78,7 +59,6 @@ class EtlLib(BaseLib):
             filename = file_name
         else:
             filename = file_name
-
         return filename
 
 

@@ -16,3 +16,10 @@ class ConfigLib:
         for config in app["AppConfig"]:
             if config["Key"] == str(id):
                 return str(config["Value"]).strip()
+            
+    def get_mask(self, mask=""):
+        path = fslib.get_path_config("mask.cfg")
+        app = fslib.open_json(path)
+        for config in app["Masks"]:
+            if config["Key"] == str(mask):
+                return str(config["Value"]).strip()            
