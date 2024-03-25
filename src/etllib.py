@@ -61,8 +61,6 @@ class EtlLib(BaseLib):
             filename = file_name
         return filename
 
-
-        
     def count(self, file):
         lines = 0
         with open(file, "r") as file:
