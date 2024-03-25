@@ -5,13 +5,23 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Recon: test_demo",
+            "name": "Recon: PFS PO",
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-ra"],
+            "args": [ "-fPO_IRFS_ETB", "-rs"],
             "console": "integratedTerminal"
-        },
+        }
+        ,
+        {
+            "name": "Recon: PFS BD",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "args": [ "-fBD_IRFS_ETB", "-rs"],
+            "console": "integratedTerminal"
+        }        
+        ,
         {
             "name": "Recon: test_aggreg",
             "type": "python",

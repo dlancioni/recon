@@ -1,18 +1,11 @@
 Pendente:
+- Separar tasks por grupo
+- Validar pattern de arquivos com data
 - Bater campo em n decimais (criar precisao/precision)
 - Criptografar pyinstaller
 - Parametrizar separador do csv dos reports em app.json
 - Parametrizar tipo arquivo (UTF8, etc)
 - Enviar resultado por email
-- Unit test das validacoes
 - Deixar log mais util
 
 Resolvido:
-- Import excel exibir nome da planilha
-- Verificar formato de data (mascara) e converter para salvar yyyyMMdd
-- Validar posicionamento de colunas
-- Primeiro passo da recon, verificar se tem tabela vazia
-- Create MailLib
-- Bater numerico na chave com tolerancia em dois passos
-- Campos usados na sessao recon existem nos datasources
-- Tolerancia só campo numerico

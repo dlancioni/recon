@@ -12,8 +12,7 @@ fslib = FsLib()
 
 # run pyinstaller
 os.system("cls || clear")
-path = fslib.join(fslib.get_path(), "main.py") 
-command = "pyinstaller.exe --onefile --icon=icon.ico --name recon " + path
+command = "pyinstaller.exe --onefile --icon=icon.ico --name recon main.py"
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 process.wait()
 print(process.returncode) 
@@ -21,19 +20,7 @@ os.system("cls || clear")
 
 # base paths
 source = fslib.get_path()
-target = "c:\\temp\\recon"
-
-# create folder
-print(f"Create application folder {target}")
-if exists(target):
-    shutil.rmtree(target)
-os.makedirs(target, mode=0o777, exist_ok=False)
-
-# copy .exe
-print(f"Copy recon.exe to {target}")
-filename = fslib.join(source, "dist")
-filename = fslib.join(filename, "recon.exe")
-shutil.copy(filename, target)
+target = fslib.join(fslib.get_path(), "dist")
 
 # copy folder structure
 print(f"Copying folders to {target}")
