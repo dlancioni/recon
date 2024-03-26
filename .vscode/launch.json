@@ -9,7 +9,7 @@
             "type": "python",
             "request": "launch",
             "program": "build.py",
-            "args": [],
+            "args": [""],
             "console": "integratedTerminal"
         }
         ,
@@ -18,7 +18,7 @@
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-frecon", "-rs"],
+            "args": [ "-frecon", "-ra"],
             "console": "integratedTerminal"
         }
         ,
