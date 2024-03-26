@@ -6,6 +6,7 @@ __pycache__/
 build/
 dist/
 lib/
+config/mail.cfg
 
 # Internal
 reports/*
