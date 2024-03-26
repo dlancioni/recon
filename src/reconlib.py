@@ -188,7 +188,7 @@ class ReconLib(BaseLib):
                 loglib.log(loglib.INFO, f"Stamping field (alter table): {field_name}")
                 rs = dblib.query(cn, f"select equality from {tmp3}")
                 if len(rs) > 0:                
-                    if rs[0][0] == 0:
+                    if rs[0][0] == 1:
                         self.field_with_diff.append(field_name)
                         if self.rule_count == 1:
                             sql = f"alter table {temps} add {field_name} text default ''"
