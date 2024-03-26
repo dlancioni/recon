@@ -53,7 +53,8 @@ class SetupLib(BaseLib):
             "Connector":"Conector",
             "Query":"Consulta",
             "Sheet":"Planilha",
-            "Days":"Dias"
+            "Days":"Dias",
+            "Email":"Email"
         }
         return tags
 

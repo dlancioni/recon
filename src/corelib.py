@@ -16,6 +16,7 @@ from src.setuplib import SetupLib
 from src.reconlib import ReconLib
 from src.reportlib import ReportLib
 from src.validlib import ValidationLib
+from src.maillib import MailLib
 from termcolor import colored, cprint
 
 """ general declaration """
@@ -24,6 +25,7 @@ fslib = FsLib()
 msglib = MsgLib()
 sqllib = SqlLib()
 utillib = UtilLib()
+maillib = MailLib()
 cfglib = ConfigLib()
 setuplib = SetupLib()
 validlib = ValidationLib()
@@ -84,6 +86,9 @@ class CoreLib(BaseLib):
             dblib.commit_tran(cn, debug)
             status = True
             message = ""
+
+            """ notify succes """
+            maillib.notify_success(recon)
             
         except BaseException as err:
             
@@ -93,6 +98,9 @@ class CoreLib(BaseLib):
             reports = []
             loglib.log(loglib.ERROR, f"{message}")
             dblib.rollback_tran(cn, debug)
+
+            """ notify fail """
+            maillib.notify_fail(recon, message)
             
         finally:
             
@@ -102,6 +110,6 @@ class CoreLib(BaseLib):
             else:
                 print(colored(msglib.set_time(msglib.get("M11", [self.name])), "red"))
                 print(colored(msglib.set_time(message), "red"))
-                
+               
         """ finish current conciliation """
         return status, message, reports

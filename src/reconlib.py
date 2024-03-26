@@ -9,6 +9,7 @@ from src.cfglib import ConfigLib
 from progress.bar import ShadyBar
 from src.loglib import LogLib
 from src.setuplib import SetupLib
+from src.maillib import MailLib
 from src.constlib import const
 
 dblib = DbLib()
@@ -17,6 +18,7 @@ sqllib = SqlLib()
 utillib = UtilLib()
 cfglib = ConfigLib()
 setuplib = SetupLib()
+maillib = MailLib()
 
 class ReconLib(BaseLib):
 
@@ -265,7 +267,7 @@ class ReconLib(BaseLib):
         if rs1[0][0] == 0:
             raise Exception(msglib.get("V26", [1]))
         if rs2[0][0] == 0:
-            raise Exception(msglib.get("V26", [2]))
+            raise Exception(msglib.get("V26", [2]))        
 
     def process(self, cn, recon):
         loglib = LogLib("ReconLib", "process")
