@@ -23,4 +23,9 @@ open file setup.json
     define the log path
     
 
-    
+## Reconciliation file
+Id: Unique reconciliation id
+Nome: Unique name
+Descrição: Brief description about the reconciliation
+Results: [All] Display all fields imported in the output results (better to see divergences)
+         [Difference] Display fields with differences only 
