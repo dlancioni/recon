@@ -93,7 +93,7 @@ class SetupLib(BaseLib):
         if tag_pt in doc:
             f = tag_pt
             v = doc[tag_pt]
-        return f.strip(), v.strip()
+        return f, v
 
     def tag_name(self, doc, tag_en="", mandatory=True):
         f, v = self.tagfv(doc, tag_en)

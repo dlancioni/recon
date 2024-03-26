@@ -12,24 +12,15 @@
             "args": [],
             "console": "integratedTerminal"
         }
-        ,        
-        {
-            "name": "Recon: PFS PO",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-fPO_IRFS_ETB", "-rs"],
-            "console": "integratedTerminal"
-        }
         ,
         {
-            "name": "Recon: PFS BD",
+            "name": "Recon: Demo",
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-fBD_IRFS_ETB", "-rs"],
+            "args": [ "-frecon", "-rs"],
             "console": "integratedTerminal"
-        }        
+        }
         ,
         {
             "name": "Recon: test_aggreg",
