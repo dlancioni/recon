@@ -32,10 +32,10 @@ class ReportLib(BaseLib):
         self.name = name
         self.logger = logging.getLogger(__name__)
 
-    def print_report(self, type=0, filename="", side=0):
-        print(filename)
+    def print_report(self, type=0, reports="", side=0):
+        path = reports[const.REPORT_PATH]
         col_side = 0 if type == 1 else 1
-        with open(filename, encoding="UTF-8") as file:
+        with open(path, encoding="UTF-8") as file:
             rows = csv.reader(file, delimiter = ';')
             table = PrettyTable(next(rows))            
             for row in rows:
@@ -72,11 +72,11 @@ class ReportLib(BaseLib):
         line = ""
         report = msglib.get("L2")
         label = msglib.get("L3")
+        filename = f"[{self.name}] [{report}].csv"        
         path = fslib.get_path_report(cfglib.get(4))
         if fslib.is_dir(path) == False:
             raise Exception(msglib.get("V16", [path]))
-        report = f"[{self.name}] [{report}].csv"
-        filename = fslib.join(path, report)
+        path = fslib.join(path, filename)
         tb1 = f"tb{self.id}{1}"
         tb2 = f"tb{self.id}{2}"
         sql = ""
@@ -88,7 +88,7 @@ class ReportLib(BaseLib):
         sql += f") tb "
         sql += f"order by tb.{const.FIELD_SIDE} "
         rows = dblib.query(cn, sql)
-        with open(filename, "w", encoding="UTF-8") as f:
+        with open(path, "w", encoding="UTF-8") as f:
             msg = msglib.set_time(msglib.get("M8"))
             progress_bar = ShadyBar(msg, max=len(rows))
             total = len(cn.description)
@@ -109,7 +109,7 @@ class ReportLib(BaseLib):
                 f.write(line)
                 progress_bar.next()
             progress_bar.finish()
-        return filename
+        return [filename, path]
     
 
     def create_report_synthetic(self, cn):
@@ -117,10 +117,11 @@ class ReportLib(BaseLib):
         sql = ""
         line = ""
         report = msglib.get("L1")
+        filename = f"[{self.name}] [{report}].csv"
         path = fslib.get_path_report(cfglib.get(4))
         if fslib.is_dir(path) == False:
             raise Exception(msglib.get("V16", [path]))
-        filename = fslib.join(path, f"[{self.name}] [{report}].csv")
+        path = fslib.join(path, filename)
         sql += f" select {const.FIELD_SIDE}, {const.FIELD_STATUS}, Total from"
         sql += f" ("
         sql += f" select"
@@ -135,7 +136,7 @@ class ReportLib(BaseLib):
         sql += f" ) "
         sql += f" order by {const.FIELD_SIDE}, {const.FIELD_ID_STATUS}"
         rows = dblib.query(cn, sql)
-        with open(filename, "w", encoding="UTF-8") as f:
+        with open(path, "w", encoding="UTF-8") as f:
             msg = msglib.set_time(msglib.get("M9"))
             progress_bar = ShadyBar(msg, max=len(rows))        
             # header
@@ -157,7 +158,7 @@ class ReportLib(BaseLib):
                 f.write(line)
                 progress_bar.next()
             progress_bar.finish()
-        return filename    
+        return [filename, path]
 
     def process(self, cn, recon):
         loglib = LogLib("Reportlib", "process")

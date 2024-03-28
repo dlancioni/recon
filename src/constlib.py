@@ -33,3 +33,9 @@ const.DATATYPE_DECIMAL = ["decimal"]
 
 # Results as
 const.RESULTS = ["All", "Difference", "Todos", "Diferença"]
+
+# Reports
+const.REPORT_FILENAME = 0
+const.REPORT_PATH = 1
+const.REPORT_SYNTHETIC = 0
+const.REPORT_ANALYTIC = 1

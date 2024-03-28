@@ -13,6 +13,7 @@ from src.utillib import UtilLib
 from src.corelib import CoreLib
 from src.reportlib import ReportLib
 from src.expirelib import ExpireLib
+from src.constlib import const
 
 """ general declaration """
 fslib = FsLib()
@@ -50,14 +51,14 @@ def main(f, c, t, rs, ra, s):
     """ all done """
     msglib.print(msglib.get("M2"))
     
-    """ generate reports """
+    """ print reports """
     if status == True:
         if c == True:
             utillib.cls()
         if rs in [1, 2, 12]:
-            reportlib.print_report(1, reports[0], s)
+            reportlib.print_report(1, reports[const.REPORT_SYNTHETIC], s)
         if ra in [1, 2, 12]:
-            reportlib.print_report(2, reports[1], s)
+            reportlib.print_report(2, reports[const.REPORT_ANALYTIC], s)
 
 if __name__ == '__main__':
     if expirelib.expired() == False:

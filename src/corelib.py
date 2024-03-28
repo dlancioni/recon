@@ -88,7 +88,7 @@ class CoreLib(BaseLib):
             message = ""
 
             """ notify succes """
-            maillib.notify_success(recon)
+            maillib.notify_success(recon, reports)
             
         except BaseException as err:
             
