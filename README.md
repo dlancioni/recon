@@ -26,7 +26,7 @@ open file setup.json
 ## Reconciliation file   
 Id: Unique reconciliation id   
 Nome: Unique name
-Email: Email to send notifications about the reconciliation result (success or fail)    
-Descrição: Brief description about the reconciliation   
+Email: Email to send notifications about the reconciliation result (success or fail). Either value or tag are not mandatory and once not informed emails are not send out.  
+Description: Brief description about the reconciliation   
 Results: [All] Display all fields imported in the output results (better to see divergences)   
          [Difference] Display fields with differences only    
