@@ -18,7 +18,7 @@
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-fdemo", "-ra"],
+            "args": [ "-fdemo", "-rs"],
             "console": "integratedTerminal"
         }
         ,

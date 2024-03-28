@@ -88,7 +88,7 @@ class ValidationLib(BaseLib):
         loglib = LogLib("ValidationLib", "validate_info")
         self.validate_tag(config, "Id", "Integer")
         self.validate_tag(config, "Name")
-        self.validate_tag(config, "Email")
+        self.validate_tag(config, "Email", "Text", False)
         self.validate_tag(config, "Description")
         self.validate_tag(config, "Results")
         if setuplib.tag_value(config, "Results") not in const.RESULTS:
