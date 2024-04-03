@@ -54,7 +54,8 @@ class SetupLib(BaseLib):
             "Query":"Consulta",
             "Sheet":"Planilha",
             "Days":"Dias",
-            "Email":"Email"
+            "Email":"Email",
+            "Holiday":"Feriado"
         }
         return tags
 

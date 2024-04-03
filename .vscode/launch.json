@@ -23,76 +23,12 @@
         }
         ,
         {
-            "name": "Recon: test_aggreg",
+            "name": "Recon: TEXT_FILE",
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-ftest_aggreg", "-ra"],
+            "args": [ "-ftext_file", "-rs"],
             "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_rules",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_rules", "-ra"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_db",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_db", "-ra"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_operator",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_operator", "-ra"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_rules",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_rules", "-ra"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_text",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_text", "-ra"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_volume",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_volume", "-rs"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_tolerance",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_tolerance", "-ra"],
-            "console": "integratedTerminal"
-        },
-        {
-            "name": "Recon: test_excel",
-            "type": "python",
-            "request": "launch",
-            "program": "main.py",
-            "args": [ "-ftest_excel", "-ra"],
-            "console": "integratedTerminal"
-        }        
+        }
     ]
 }

@@ -35,6 +35,7 @@ class EtlLib(BaseLib):
     def apply_date_pattern(self, file):
         filename = ""
         file_name = setuplib.tag_value(file, "Name").strip()
+        use_holiday = setuplib.tag_value(file, "Holiday").strip()
         mask = setuplib.tag_value(file, "Mask")
         if mask != "":
             mask = cfglib.get_mask(mask)
@@ -54,7 +55,14 @@ class EtlLib(BaseLib):
                 if dt.weekday() == 5:
                     dt = dt + timedelta(1)
                 if dt.weekday() == 6:
-                    dt = dt + timedelta(2)                    
+                    dt = dt + timedelta(2)
+
+            while cfglib.get_holiday(dt) == True:
+                if days < 0:
+                    dt = dt - timedelta(1)
+                if days > 0:
+                    dt = dt + timedelta(1)
+
             file_name = file_name.replace(file_date, dt.strftime(mask))
             filename = file_name
         else:

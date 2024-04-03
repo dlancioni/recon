@@ -16,7 +16,7 @@ class MailLib:
     def __init__(self):
         self.logger = logging.getLogger(__name__)
     
-    def send_mail(self, to, subject, message, attachments):
+    def send_mail(self, to, subject, message, attachments=""):
         sent = False
         path = fslib.get_path_config("mail.cfg")
         info = fslib.open_json(path)
@@ -32,10 +32,11 @@ class MailLib:
             msg["From"] = from_mail
             msg["To"] = to
             msg.set_content(message)
-            for i in range(0, 2):
-                with open(attachments[i][const.REPORT_PATH], "rb") as content_file:
-                    content = content_file.read()
-                    msg.add_attachment(content, maintype="application", subtype="csv", filename=attachments[i][const.REPORT_FILENAME])
+            if attachments != "":
+                for i in range(0, 2):
+                    with open(attachments[i][const.REPORT_PATH], "rb") as content_file:
+                        content = content_file.read()
+                        msg.add_attachment(content, maintype="application", subtype="csv", filename=attachments[i][const.REPORT_FILENAME])
             server = smtplib.SMTP(server)
             server.set_debuglevel(0)
             server.starttls()
