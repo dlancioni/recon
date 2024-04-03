@@ -1,5 +1,6 @@
 import logging
 import openpyxl
+import pendulum as pdl
 from openpyxl import Workbook
 from openpyxl import load_workbook
 from sqlite3 import Error
@@ -14,8 +15,8 @@ from src.loglib import LogLib
 from src.setuplib import SetupLib
 from src.cfglib import ConfigLib
 from src.constlib import const
+from src.datelib import DateLib
 from datetime import datetime, timedelta
-import pendulum as pdl
 
 dblib = DbLib()
 fslib = FsLib()
@@ -24,6 +25,7 @@ msglib = MsgLib()
 utillib = UtilLib()
 setuplib = SetupLib()
 cfglib = ConfigLib()
+datelib = DateLib()
 
 class EtlLib(BaseLib):
 
@@ -35,34 +37,25 @@ class EtlLib(BaseLib):
     def apply_date_pattern(self, file):
         filename = ""
         file_name = setuplib.tag_value(file, "Name").strip()
-        use_holiday = setuplib.tag_value(file, "Holiday").strip()
+        business_day = setuplib.tag_value(file, "BusinessDay")
         mask = setuplib.tag_value(file, "Mask")
         if mask != "":
-            mask = cfglib.get_mask(mask)
-            start = int(setuplib.tag_value(file, "Start").strip())
-            end = int(setuplib.tag_value(file, "End").strip())
+            start = int(file_name.find(mask))
+            end = int(start + len(mask))            
+            mask = datelib.get_mask(mask)
             days = int(setuplib.tag_value(file, "Days").strip())
             file_date = file_name[start:end]
-            dt = datetime.strptime(file_date, mask)
-            if days < 0:
-                dt = dt + timedelta(days)
-                if dt.weekday() == 5:
-                    dt = dt - timedelta(1)
-                if dt.weekday() == 6:
-                    dt = dt - timedelta(2)
-            if days > 0:
-                dt = dt + timedelta(days)
-                if dt.weekday() == 5:
-                    dt = dt + timedelta(1)
-                if dt.weekday() == 6:
-                    dt = dt + timedelta(2)
-
-            while cfglib.get_holiday(dt) == True:
-                if days < 0:
-                    dt = dt - timedelta(1)
-                if days > 0:
-                    dt = dt + timedelta(1)
-
+            dt = datetime.now()
+            if abs(days) != 0:
+                for i in range(0, 2):
+                    dt = dt + timedelta(days)
+                    if business_day == "1":
+                        if dt.weekday() == 5:
+                            dt = dt - timedelta(1)
+                        if dt.weekday() == 6:
+                            dt = dt - timedelta(2)
+                        while datelib.get_holiday(dt) == True:
+                            dt = dt - timedelta(1)
             file_name = file_name.replace(file_date, dt.strftime(mask))
             filename = file_name
         else:

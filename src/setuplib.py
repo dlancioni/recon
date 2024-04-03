@@ -55,7 +55,8 @@ class SetupLib(BaseLib):
             "Sheet":"Planilha",
             "Days":"Dias",
             "Email":"Email",
-            "Holiday":"Feriado"
+            "Holiday":"Feriado",
+            "BusinessDay":"DiasUteis"
         }
         return tags
 
@@ -114,7 +115,7 @@ class SetupLib(BaseLib):
 
     def translate(self, tag_en=""):
         tag_pt = ""
-        tag_en = tag_en.title()
+        #tag_en = tag_en.title()
         tags = self.tag_def()
         tag_pt = tags[tag_en]
         if tag_pt.strip() == "":

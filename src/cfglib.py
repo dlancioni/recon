@@ -22,8 +22,9 @@ class ConfigLib:
         app = fslib.open_json(path)
         for config in app["Masks"]:
             if config["Key"] == str(mask):
-                return str(config["Value"]).strip()
-            
+                return str(config["Value"]).strip()        
+        return ""
+
     def get_holiday(self, date=""):
         mask = self.get_mask("yyyy-mm-dd")
         date = date.strftime(mask)
@@ -32,4 +33,4 @@ class ConfigLib:
         for config in app["Holidays"]:
             if config["Key"] == str(date):
                 return True
-        return False    
+        return False
