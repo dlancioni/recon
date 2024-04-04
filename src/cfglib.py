@@ -21,7 +21,7 @@ class ConfigLib:
         path = fslib.get_path_config("mask.cfg")
         app = fslib.open_json(path)
         for config in app["Masks"]:
-            if config["Key"] == str(mask):
+            if str(config["Key"]).lower() == str(mask).lower():
                 return str(config["Value"]).strip()        
         return ""
 

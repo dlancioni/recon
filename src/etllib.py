@@ -68,7 +68,7 @@ class EtlLib(BaseLib):
         return lines
     
     def persist(self, cn, fields):
-        loglib = LogLib("EtlLib", "persist")        
+        loglib = LogLib("EtlLib", "persist")
         try:
             field_list = sqlib.get_field_list(fields)
             value_list = sqlib.get_value_list(fields)
@@ -107,25 +107,15 @@ class EtlLib(BaseLib):
             field_value = str(default_value)
         return field_value
     
-    def date_format(self, field_def, field_value=""):
+    def datetime_format(self, field_def, field_value=""):
         mask_date = "YYYY-MM-DD"
         mask_time = "HH:mm:SS"
         field_type = setuplib.tag_value(field_def, "Type").lower()
-        field_mask = setuplib.tag_value(field_def, "Mask").upper()
-        field_mask = field_mask.replace(":MM", ":mm")
+        field_mask = setuplib.tag_value(field_def, "Mask").lower()
         if field_type in const.DATATYPE_DATETIME:
             if field_mask != "":
-                if (type(field_value) is datetime.datetime) == True:
-                    field_value = pdl.instance(field_value)
-                elif (type(field_value) is datetime.time) == True:
-                    field_value = str(field_value)
-                else:
-                    field_value = pdl.from_format(field_value, field_mask)                   
-                if field_mask.find("D") == -1 and field_mask.find("M") == -1 and field_mask.find("Y") == -1:
-                    mask_date = ""
-                if field_mask.find("H") == -1 and field_mask.find("m") == -1 and field_mask.find("S") == -1:
-                    mask_time = ""
-            field_value = str(field_value.format(f"{mask_date} {mask_time}")).strip()            
+                valid_date = datelib.to_date(field_value, field_mask)
+                field_value = datelib.to_string(valid_date, field_mask)
         return field_value
     
     def decimal_format(self, field_def, field_value=""):
@@ -140,7 +130,7 @@ class EtlLib(BaseLib):
     def format_data(self, field_def, field_value):
         field_value = self.empty_value(field_def, field_value)
         field_value = self.default_value(field_def, field_value)
-        field_value = self.date_format(field_def, field_value)
+        field_value = self.datetime_format(field_def, field_value)
         field_value = self.decimal_format(field_def, field_value)
         return field_value
     
