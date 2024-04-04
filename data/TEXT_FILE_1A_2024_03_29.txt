@@ -1,2 +1,2 @@
-Código;Descrição;Valor;Data;Hora
-1;Descrição 1;100,01;01-01-2014;10:00:30
+Data
+01-01-2014

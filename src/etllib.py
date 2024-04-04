@@ -42,7 +42,6 @@ class EtlLib(BaseLib):
         if mask != "":
             start = int(file_name.find(mask))
             end = int(start + len(mask))            
-            mask = datelib.get_mask(mask)
             days = int(setuplib.tag_value(file, "Days").strip())
             file_date = file_name[start:end]
             dt = datetime.now()
@@ -56,7 +55,7 @@ class EtlLib(BaseLib):
                             dt = dt - timedelta(2)
                         while datelib.get_holiday(dt) == True:
                             dt = dt - timedelta(1)
-            file_name = file_name.replace(file_date, dt.strftime(mask))
+            file_name = file_name.replace(file_date, dt.strftime(datelib.get_mask(mask)))
             filename = file_name
         else:
             filename = file_name

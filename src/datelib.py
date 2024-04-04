@@ -18,4 +18,4 @@ class DateLib:
             
     def get_holiday(self, date=""):
         is_holiday = cfglib.get_holiday(date)
-        return is_holiday()
+        return is_holiday
