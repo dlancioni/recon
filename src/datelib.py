@@ -14,8 +14,8 @@ class DateLib:
 
     def to_date(self, string, mask):
         try:
-            mask_python = self.get_mask(mask)            
-            dt = datetime.strptime(string, mask_python).date()
+            mask_python = self.get_mask(mask)
+            dt = datetime.strptime(string, mask_python)
             return dt            
         except ValueError as err:            
             cat = msglib.get("E2")
