@@ -27,7 +27,7 @@
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-frecon 01", "-ra"],
+            "args": [ "-frecon01", "-rs"],
             "console": "integratedTerminal"
         }
     ]
