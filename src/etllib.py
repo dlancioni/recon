@@ -108,8 +108,6 @@ class EtlLib(BaseLib):
         return field_value
     
     def datetime_format(self, field_def, field_value=""):
-        mask_date = "YYYY-MM-DD"
-        mask_time = "HH:mm:SS"
         field_type = setuplib.tag_value(field_def, "Type").lower()
         field_mask = setuplib.tag_value(field_def, "Mask").lower()
         if field_type in const.DATATYPE_DATETIME:

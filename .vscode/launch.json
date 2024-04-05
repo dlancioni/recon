@@ -27,7 +27,7 @@
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-ftext_file", "-ra"],
+            "args": [ "-frecon 01", "-ra"],
             "console": "integratedTerminal"
         }
     ]
