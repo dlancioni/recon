@@ -173,7 +173,7 @@ class EtlLib(BaseLib):
                 size = 0
                 row += 1
                 if (row >= start) and (str(line.strip()) != ""):
-                    values = line.split(delimiter) if delimiter != "" else line
+                    values = line
                     for field in fields:
                         position = int(field[setuplib.tag_name(field, "Position")]) -1
                         tag_size = setuplib.tag_name(field, "Size", False)
