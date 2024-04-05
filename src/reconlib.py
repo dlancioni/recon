@@ -44,6 +44,8 @@ class ReconLib(BaseLib):
     def prepare(self, cn, rule):
         loglib = LogLib("ReconLib", "prepare")
         field_name = ""
+        self.field_compare = []
+        self.field_with_diff = []        
         self.matched = msglib.get("L11")
         self.divergent = msglib.get("L12")
         self.orphan = msglib.get("L13")
