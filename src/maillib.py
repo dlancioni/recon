@@ -7,7 +7,7 @@ from email.mime.base import MIMEBase
 from email.mime.text import MIMEText
 from email.utils import COMMASPACE
 from email import encoders
-
+from src.loglib import LogLib
 from src.fslib import FsLib
 from src.msglib import MsgLib
 from src.setuplib import SetupLib
@@ -24,7 +24,7 @@ class MailLib:
         self.logger = logging.getLogger(__name__)
     
     def send_mail(self, to, subject, message, attachments=""):
-        sent = False
+        loglib = LogLib("MailLib", "send_mail")
         path = fslib.get_path_config("mail.cfg")
         info = fslib.open_json(path)
         server = info["smtp"]
@@ -51,14 +51,11 @@ class MailLib:
         except BaseException as err:
             cat = msglib.get("E6")
             msg = f"{cat} {str(err)}"
-            sent = False
-        finally:
-            if sent == False:
-                print("Fail to send email")
-        return sent    
+            loglib.log(loglib.ERROR, msg)
+            raise Exception(msg)
 
     def send_result(self, to, subject, message, attachments=""):
-        sent = False
+        loglib = LogLib("MailLib", "send_result")
         body = ""
         try:
             # Mail connection info            
@@ -72,13 +69,10 @@ class MailLib:
             msg["Subject"] = subject
             msg["From"] = from_mail
             msg["To"] = to
+            body = self.csv_to_str(attachments[0][const.REPORT_PATH])            
             # General message
-            part1 = MIMEText(f"{message}", 'plain')            
-            msg.attach(part1)
-            # HTML table with result statistics
-            body = self.csv_to_str(attachments[0][const.REPORT_PATH])
-            part2 = MIMEText(body, 'html')
-            msg.attach(part2)
+            msg.attach(MIMEText(message, 'plain'))
+            msg.attach(MIMEText(body, 'html'))
             # Attach attachments
             for i in range(0, 2):
                 part = MIMEBase('application', "octet-stream")
@@ -93,15 +87,11 @@ class MailLib:
             server.login(from_mail, password)
             server.send_message(msg)
             server.quit()
-            sent = True
         except BaseException as err:
             cat = msglib.get("E6")
             msg = f"{cat} {str(err)}"
-            sent = False
-        finally:
-            if sent == False:
-                print("Fail to send email")
-        return sent
+            loglib.log(loglib.ERROR, msg)
+            raise Exception(msg)
     
     def csv_to_str(self, path):
         html_table = ""
