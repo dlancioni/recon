@@ -23,12 +23,30 @@
         }
         ,
         {
-            "name": "Recon: TEXT_FILE",
+            "name": "Test: TEXT_FILE",
             "type": "python",
             "request": "launch",
             "program": "main.py",
             "args": [ "-frecon01", "-rs"],
             "console": "integratedTerminal"
         }
+        ,
+        {
+            "name": "Test: AGGREGATION",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "args": [ "-frecon02", "-rs"],
+            "console": "integratedTerminal"
+        }
+        ,
+        {
+            "name": "Test: OPERATOR",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "args": [ "-frecon03", "-rs"],
+            "console": "integratedTerminal"
+        }        
     ]
 }

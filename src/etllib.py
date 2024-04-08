@@ -222,7 +222,7 @@ class EtlLib(BaseLib):
         name = setuplib.tag_value(datasource, "Name")
         start = int(setuplib.tag_value(datasource, "Start"))
         path, filename = self.get_path(datasource)
-        msglib.print(msglib.get("M20"))        
+        msglib.print(msglib.get("M20"))
         workbook = load_workbook(path)
         sheet_name = setuplib.tag_value(datasource, "Sheet")
         sheet = workbook[sheet_name]
