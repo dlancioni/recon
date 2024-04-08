@@ -119,10 +119,10 @@ class MailLib:
                 for cell in row:
                     line = cell.split(";")
                     for item in line:
-                        html_table += f'<td>{cell}</td>'
+                        html_table += f'<td>{item}</td>'
                 html_table += '</tr>'
             html_table += '</table>'
-        return html_table    
+        return html_table
     
     def attach_file(self, msg, attachments):
         for i in range(0, 2):

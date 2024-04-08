@@ -8,3 +8,4 @@ Pendente:
 Resolvido:
 - Validar pattern de arquivos com data
 - Criptografar pyinstaller (usar obfuscator online ao gerar versao)
+      https://pyob.oxyry.com/
