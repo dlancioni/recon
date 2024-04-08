@@ -1,4 +1,5 @@
 import os
+import csv
 import logging
 import smtplib
 from src.fslib import FsLib
@@ -33,10 +34,7 @@ class MailLib:
             msg["To"] = to
             msg.set_content(message)
             if attachments != "":
-                for i in range(0, 2):
-                    with open(attachments[i][const.REPORT_PATH], "rb") as content_file:
-                        content = content_file.read()
-                        msg.add_attachment(content, maintype="application", subtype="csv", filename=attachments[i][const.REPORT_FILENAME])
+                msg = self.attach_file(msg, attachments)
             server = smtplib.SMTP(server)
             server.set_debuglevel(0)
             server.starttls()
@@ -53,6 +51,13 @@ class MailLib:
                 print("Fail to send email")
         return sent
     
+    def attach_file(self, msg, attachments):
+        for i in range(0, 2):
+            with open(attachments[i][const.REPORT_PATH], "rb") as content_file:
+                content = content_file.read()
+                msg.add_attachment(content, maintype="application", subtype="csv", filename=attachments[i][const.REPORT_FILENAME])
+        return msg                    
+
     def notify_success(self, recon, reports):
         to = setuplib.tag_value(recon, "Email")        
         if to.strip() != "":
@@ -68,3 +73,22 @@ class MailLib:
             subject = msglib.get("M22", [name])
             body = message
             self.send_mail(to, subject, body)
+
+    def csv_to_str(self, path):
+        output = ""
+        with open(path, "r", encoding='UTF-8') as my_input_file:
+            csv_data = csv.reader(my_input_file)
+            headers = next(csv_data)
+            # Start with the table header
+            html_table = '<table>\n<tr>'
+            for header in headers:
+                html_table += f'<th>{header}</th>'
+            html_table += '</tr>\n'
+            # Add the table rows
+            for row in csv_data:
+                html_table += '<tr>'
+                for cell in row:
+                    html_table += f'<td>{cell}</td>'
+                html_table += '</tr>\n'
+            html_table += '</table>'
+        return html_table                        
