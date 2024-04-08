@@ -45,13 +45,13 @@ for file in files:
 
 # delete logs and reports
 print(f"Deleting logs and reports")
-for directory in ["logs", "reports", "data"]:
+for directory in ["logs", "reports", "data", "task"]:
     path = fslib.join(target, directory)
     files = os.listdir(path)
     for file in files:
         path1 = fslib.join(path, file)
         if fslib.is_file(path1):
-            if str(file) != "Saldo.txt" and str(file) != "Extrato.txt":
+            if str(file) != "Saldo.txt" and str(file) != "Extrato.txt" and str(file) != "demo.cfg":
                 os.remove(path1)
 
 print(f"[SUCCESS] To run the app visit: {target}")
