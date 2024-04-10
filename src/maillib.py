@@ -63,13 +63,14 @@ class MailLib:
             info = fslib.open_json(path)
             server = info["smtp"]
             from_mail = info["from"]
-            password = info["password"]         
+            password = info["password"]
+            # Prepare mail message
+            subject, body = self.csv_to_str(subject, message, attachments[0][const.REPORT_PATH])
             # Basic message
             msg = MIMEMultipart('alternative')
             msg["Subject"] = subject
             msg["From"] = from_mail
             msg["To"] = to
-            body = self.csv_to_str(message, attachments[0][const.REPORT_PATH])
             # General message
             msg.attach(MIMEText(message, 'plain'))
             msg.attach(MIMEText(body, 'html'))
@@ -93,33 +94,38 @@ class MailLib:
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
     
-    def csv_to_str(self, message, path):
+    def csv_to_str(self, subject, message, path):
         html = ""
+        divergence = False
         with open(path, "r", encoding='UTF-8') as my_input_file:
             csv_data = csv.reader(my_input_file)
             headers = next(csv_data)
-            html = "<table>"
-            html += f"<tr>"
-            html += f"<td>{message}</td>"
-            html += f"</tr>"
-            html += "</table>"
-            html += "<br>"
-            html += "<table>"
-            html += "<tr>"
+            body = "<table>"
+            body += f"<tr>"
+            body += f"<td>{message}</td>"
+            body += f"</tr>"
+            body += "</table>"
+            body += "<br>"
+            body += "<table>"
+            body += "<tr>"
             for header in headers:
                 header = header.split(";")
                 for item in header:
-                    html += f"<th>{item}</th>"
-            html += "</tr>"
+                    body += f"<th>{item}</th>"
+            body += "</tr>"
             for row in csv_data:
-                html += "<tr>"
+                body += "<tr>"
                 for cell in row:
                     line = cell.split(";")
+                    if line[1] in const.STATUS_DESCRIPTION:
+                        if int(line[2]) > 0:
+                            divergence = True
                     for item in line:
-                        html += f"<td>{item}</td>"
-                html += "</tr>"
-            html += "</table>"
-        return html
+                        body += f"<td>{item}</td>"
+                body += "</tr>"
+            body += "</table>"
+            subject = subject.replace("[STATUS]", msglib.get("M26") if divergence == False else msglib.get("M27"))
+        return subject, body
     
     def attach_file(self, msg, attachments):
         for i in range(0, 2):

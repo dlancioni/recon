@@ -5,6 +5,7 @@ const.SIDES = ["1", "2"]
 const.STATUS_MATCHED = 1
 const.STATUS_DIVERGENT = 2
 const.STATUS_ORPHAN = 3
+const.STATUS_DESCRIPTION = ["Divergente", "Divergente", "Órfão", "Orphan"]
 
 const.FIELD_ID = "_id"
 const.FIELD_SIDE = "_side"
