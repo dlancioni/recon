@@ -69,7 +69,7 @@ class MailLib:
             msg["Subject"] = subject
             msg["From"] = from_mail
             msg["To"] = to
-            body = self.csv_to_str(attachments[0][const.REPORT_PATH])            
+            body = self.csv_to_str(message, attachments[0][const.REPORT_PATH])
             # General message
             msg.attach(MIMEText(message, 'plain'))
             msg.attach(MIMEText(body, 'html'))
@@ -93,26 +93,33 @@ class MailLib:
             loglib.log(loglib.ERROR, msg)
             raise Exception(msg)
     
-    def csv_to_str(self, path):
-        html_table = ""
+    def csv_to_str(self, message, path):
+        html = ""
         with open(path, "r", encoding='UTF-8') as my_input_file:
             csv_data = csv.reader(my_input_file)
             headers = next(csv_data)
-            html_table = '<table>\n<tr>'
+            html = "<table>"
+            html += f"<tr>"
+            html += f"<td>{message}</td>"
+            html += f"</tr>"
+            html += "</table>"
+            html += "<br>"
+            html += "<table>"
+            html += "<tr>"
             for header in headers:
                 header = header.split(";")
                 for item in header:
-                    html_table += f'<th>{item}</th>'
-            html_table += '</tr>\n'
+                    html += f"<th>{item}</th>"
+            html += "</tr>"
             for row in csv_data:
-                html_table += '<tr>'
+                html += "<tr>"
                 for cell in row:
                     line = cell.split(";")
                     for item in line:
-                        html_table += f'<td>{item}</td>'
-                html_table += '</tr>'
-            html_table += '</table>'
-        return html_table
+                        html += f"<td>{item}</td>"
+                html += "</tr>"
+            html += "</table>"
+        return html
     
     def attach_file(self, msg, attachments):
         for i in range(0, 2):
@@ -122,7 +129,7 @@ class MailLib:
         return msg                    
 
     def notify_success(self, recon, reports):
-        to = setuplib.tag_value(recon, "Email")        
+        to = setuplib.tag_value(recon, "Email")
         if to.strip() != "":
             name = setuplib.tag_value(recon, "Name")
             subject = msglib.get("M21", [name])
