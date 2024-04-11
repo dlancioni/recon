@@ -36,3 +36,10 @@ class DateLib:
     def get_holiday(self, date=""):
         is_holiday = cfglib.get_holiday(date)
         return is_holiday
+    
+    def is_business_day(self, date=""):
+        is_business_day = cfglib.get_holiday(date)
+        if date.weekday() == 5 or date.weekday() == 6:
+            is_business_day = True
+        return is_business_day
+    

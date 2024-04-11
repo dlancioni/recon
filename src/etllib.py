@@ -35,31 +35,22 @@ class EtlLib(BaseLib):
         self.logger = logging.getLogger(__name__)
 
     def apply_date_pattern(self, file):
-        filename = ""
         file_name = setuplib.tag_value(file, "Name").strip()
         business_day = setuplib.tag_value(file, "BusinessDay")
         mask = setuplib.tag_value(file, "Mask")
         if mask != "":
             start = int(file_name.find(mask))
             end = int(start + len(mask))            
-            days = int(setuplib.tag_value(file, "Days").strip())
+            days = abs(int(setuplib.tag_value(file, "Days").strip()))
             file_date = file_name[start:end]
             dt = datetime.now()
-            if abs(days) != 0:
-                for i in range(0, 2):
-                    dt = dt + timedelta(days)
-                    if business_day == "1":
-                        if dt.weekday() == 5:
-                            dt = dt - timedelta(1)
-                        if dt.weekday() == 6:
-                            dt = dt - timedelta(2)
-                        while datelib.get_holiday(dt) == True:
-                            dt = dt - timedelta(1)
+            if days != 0:
+                dt = dt - timedelta(abs(days))
+                if business_day == "1":
+                    while datelib.is_business_day(dt) == True:
+                        dt = dt - timedelta(1)
             file_name = file_name.replace(file_date, dt.strftime(datelib.get_mask(mask)))
-            filename = file_name
-        else:
-            filename = file_name
-        return filename
+        return file_name
 
     def count(self, file):
         lines = 0
