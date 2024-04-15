@@ -32,9 +32,15 @@ utillib.cls()
 @click.option('-rs', help=f"{msglib.get('M15')}", is_flag=True)
 @click.option('-ra', help=f"{msglib.get('M16')}", is_flag=True)
 @click.option('-s',  help=f"{msglib.get('M17')}", default=0)
+@click.option('-v',  help=f"{msglib.get('M19')}", is_flag=True)
 
-def main(f, c, t, rs, ra, s):
-    
+def main(f, c, t, rs, ra, s, v):
+
+    """ Process the conciliation """
+    if v == True:
+        print(msglib.get("M29") + expirelib.get_version())
+        return
+
     """ Process the conciliation """
     start = timer()
     msglib.print(msglib.get("M1"))

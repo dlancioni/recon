@@ -12,8 +12,11 @@ class ExpireLib:
     def expired(self):
         expire_at = "2025"
         year = str(pendulum.now().format("YYYY")).strip()
-        expired = (year == expire_at)
+        expired = (year > expire_at)
         if expired == True:
             msg = msglib.get("M18")
             print(msg)
         return expired
+    
+    def get_version(self):
+        return "20240415"
