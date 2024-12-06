@@ -4,7 +4,6 @@
 # Database
 pyodbc
 psycopg2
-pysqlite3
 mysql-connector-python
 
 # Formatting
