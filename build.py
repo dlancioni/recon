@@ -12,7 +12,7 @@ fslib = FsLib()
 
 # run pyinstaller
 os.system("cls || clear")
-command = "pyinstaller.exe --onefile --icon=icon.ico --name recon main.py"
+command = "C:\\Users\\DavidCoutinhoLancion\\git\\recon\\.venv\\Scripts\\pyinstaller.exe --onefile --icon=icon.ico --name recon main.py"
 process = subprocess.Popen(command, shell=True, stdout=subprocess.PIPE)
 process.wait()
 print(process.returncode) 
