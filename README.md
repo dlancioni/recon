@@ -6,22 +6,19 @@ Microsoft SQL Server driver
 https://learn.microsoft.com/en-us/sql/connect/odbc/download-odbc-driver-for-sql-server?view=sql-server-ver16#download-for-windows
 
 PYInstaller   
-Library used to compile (or build) the application. Go to the command prompt and run a search like dir /s    *pyinstaller* to find where the .exe file is located, keep the path and append it to the "Path" section of   your envorment variables.    
-
-Build Tools    
-CPP related library for windows used to compile sqlite on the fly (unfortuntelly).    
+Library used to compile (or build) the application, after creating the venv copy the path for pyinstaller.exe and paste in the build.py file (see line 15).
 
 ## Build   
 Clone repository      
-run pip install -r requirements.txt      
-run build.py to create the binaries - output in build an dist folders inside the project   
-The configuration files and folders will be copied there as well with default options.   
+Open the project using vs code and create the virtual environment. 
+Make sure build.py is pointing the to right pyinstaller.exe as per above note.
+Run build.py to create the binaries - output in build an dist folders inside the project.
+The configuration files and folders will be copied there as well with default options.
 See launch.json to execute the recons.   
 
 ## Setup   
 open file setup.json   
-    define the log path   
-    
+    define the log path       
 
 ## Reconciliation file   
 Id: Unique reconciliation id   
