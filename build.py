@@ -51,7 +51,7 @@ for directory in ["logs", "reports", "data", "task"]:
     for file in files:
         path1 = fslib.join(path, file)
         if fslib.is_file(path1):
-            if str(file) != "Saldo.txt" and str(file) != "Extrato.txt" and str(file) != "demo.cfg":
+            if str(file) != "Saldo.txt" and str(file) != "Extrato.txt" and str(file) != "recon.cfg":
                 os.remove(path1)
 
 print(f"[SUCCESS] To run the app visit: {target}")
