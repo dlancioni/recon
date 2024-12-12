@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Recon: Invoice",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "args": [ "-finvoice", "-rs"],
+            "console": "integratedTerminal"
+        }
+        ,        
+        {
             "name": "Recon: Cash",
             "type": "python",
             "request": "launch",
