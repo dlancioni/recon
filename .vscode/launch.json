@@ -5,6 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
+            "name": "Recon: Cash",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "args": [ "-fcash", "-rs"],
+            "console": "integratedTerminal"
+        }
+        ,
+        {
             "name": "Build",
             "type": "python",
             "request": "launch",
