@@ -18,10 +18,19 @@
             "type": "python",
             "request": "launch",
             "program": "main.py",
-            "args": [ "-fdemo", "-rs"],
+            "args": [ "-frecon", "-rs"],
             "console": "integratedTerminal"
         }
         ,
+        {
+            "name": "Recon: DB",
+            "type": "python",
+            "request": "launch",
+            "program": "main.py",
+            "args": [ "-frecon04", "-rs"],
+            "console": "integratedTerminal"
+        }
+        ,        
         {
             "name": "Test: TEXT_FILE",
             "type": "python",

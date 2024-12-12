@@ -64,6 +64,8 @@ class MailLib:
             server = info["smtp"]
             from_mail = info["from"]
             password = info["password"]
+            if server == "":
+                return
             # Prepare mail message
             subject, body = self.csv_to_str(subject, message, attachments[0][const.REPORT_PATH])
             # Basic message
@@ -84,6 +86,7 @@ class MailLib:
             # Connection and send
             server = smtplib.SMTP(server)
             server.set_debuglevel(0)
+            server.ehlo()
             server.starttls()
             server.login(from_mail, password)
             server.send_message(msg)
