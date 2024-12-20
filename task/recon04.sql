@@ -1,1 +1,0 @@
-select 1 Id, 'Description 1' Description

@@ -1,6 +1,0 @@
-Data       Hora     Código Descrição Valor     Comentário
-01-01-2025 09:00:00 01     Item 1    100,01    Batido   
-01-01-2025 10:00:00 02     Item 2    200,22    Batido com tolerâcia (0.50)  
-01-01-2025 11:00:00 03     Item 3    300,33    Divergênte in cents (03 vs 33)
-01-01-2026 12:00:00 04     Item 4    400,04    Orfão
-01-01-2025 00:00:00 05     Item 5    500,05    Batido na segunda regra
