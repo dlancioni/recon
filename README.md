@@ -1,5 +1,5 @@
 # Recon
-Reconciliation application    
+Production ready command line reconciliation application written in python. While usefull, I am migrating this solution for C# (windows forms) that is more performatic and user friendly.
 
 # Dependences   
 Microsoft SQL Server driver      
